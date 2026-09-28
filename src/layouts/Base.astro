@@ -18,7 +18,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} · {site.businessName}</title>
+    <title>{title} · {site.legalName}</title>
     <meta name="description" content={description ?? site.tagline} />
     <link rel="canonical" href={new URL(path, Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -49,6 +49,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <p class="footer-brand"><Logo class="logo-footer" size={32} /><br />{site.legalName}<br /><em>{site.tagline}</em></p>
         <p>{site.ownerName} · {site.location}<br />
           <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.linkedin} rel="me">LinkedIn</a> · <a href={site.github} rel="me">GitHub</a></p>
+        <p class="muted">© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
       </div>
     </footer>
   </body>
