@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
+---
+<Base title="Contact" description="Email JT Embry at Embry Development, LLC in Louisville to start a software, AI, website, or 3D printing project.">
+  <section class="section band-dark">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h1>One email starts it.</h1>
+      <p class="lede">Tell me the problem in a few sentences. I read everything and reply within two business days, usually sooner.</p>
+      <p><a class="btn btn-primary" href={mailto}>Email {site.email}</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Useful to include</h2>
+      <ul>
+        <li><strong>Software or AI:</strong> what your team or practice is trying to do, what's in the way, and any deadline attached to it.</li>
+        <li><strong>A website:</strong> what you do, who it's for, any site you have now, and whether you own a domain.</li>
+        <li><strong>3D printing:</strong> a photo with something for scale, rough dimensions, how many, and where the part will live. Or just the STL.</li>
+      </ul>
+      <h2>Elsewhere</h2>
+      <p><a href={site.linkedin} rel="me">LinkedIn</a> · <a href={site.github} rel="me">GitHub</a><br />{site.legalName} · {site.location}</p>
+    </div>
+  </section>
+</Base>

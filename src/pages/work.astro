@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+---
+<Base title="Work" description="Selected work: a cloud migration, an AI tooling rollout, a greenfield SaaS build, a small-business site, and an AI-run personal knowledge system.">
+  <section class="section band-dark">
+    <div class="wrap">
+      <p class="eyebrow">Work</p>
+      <h1>Proof, not promises.</h1>
+      <p class="lede">A few things I've built or led. Employers and clients are named on <a href={site.linkedin}>LinkedIn</a>; here I stick to what was done and what changed.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid">
+        <div class="card">
+          <p class="eyebrow">Platform migration</p>
+          <h3>Every microservice on a fintech platform moved to a new cloud</h3>
+          <p>Led the end-to-end migration of a production platform's services to a new cloud environment. Compute costs went down; scalability and reliability went up. Nobody outside engineering noticed, which was the point.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">AI adoption</p>
+          <h3>65% more tickets through the board</h3>
+          <p>Set the technical direction for AI tooling across an engineering team: which tools, where in the workflow, what conventions. Measured in the team's own tracker before and after.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Greenfield SaaS</p>
+          <h3>A full-stack product from an empty repo</h3>
+          <p>MongoDB, Nest, Angular, and Node, with the Docker, Kubernetes, and Jenkins pipeline to ship it. Worked directly with product on the design, not from a handoff.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Small business</p>
+          <h3><a href="https://flourishfinancialgroup.org">Flourish Financial Group</a></h3>
+          <p>A financial counselor's site, from first conversation to live in about a month. Static, fast, $0 a month to host, and transferred to her own GitHub account with a written guide so she runs it herself.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">AI systems</p>
+          <h3>A second brain that runs itself</h3>
+          <p>A personal knowledge system where agents triage email, texts, scans, and notes into an Obsidian vault on a schedule, with a dashboard that's the front door. The working prototype for the knowledge-assistant offer. Case study in progress.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Healthtech</p>
+          <h3>Video interpreting for hospitals</h3>
+          <p>Maintained a WebRTC video portal healthcare providers use to reach interpreters, and built the permissions and queue-assignment app behind it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

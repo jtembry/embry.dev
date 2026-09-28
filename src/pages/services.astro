@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+const ask = (s) => `mailto:${site.email}?subject=${encodeURIComponent(s)}`;
+---
+<Base title="Services" description="AI adoption pilots for engineering teams, knowledge assistants for small practices, and websites with the automation behind them for small businesses.">
+  <section class="section band-dark">
+    <div class="wrap">
+      <p class="eyebrow">Services</p>
+      <h1>Software and AI, scoped and priced up front.</h1>
+      <p class="lede">Every engagement starts with a one-page scope and a fixed price. No hourly meter running while you wonder what you're getting. Physical work has its own page: <a href="/printing">design and 3D printing</a>.</p>
+    </div>
+  </section>
+
+  <section class="section" id="teams">
+    <div class="wrap">
+      <h2>AI adoption for engineering teams</h2>
+      <p class="problem"><em>"We bought the AI seats and nothing changed."</em></p>
+      <p>Most teams get Copilot or Claude licenses and a Slack thread of tips. Throughput stays flat because nobody changed the workflow. I did this for a team of engineers on a production fintech platform and ticket throughput rose 65%.</p>
+      <h3>What you get: a four-week pilot</h3>
+      <ul>
+        <li><strong>Week 1.</strong> I sit in your workflow: repo, tickets, review process, CI. I write down where the time actually goes.</li>
+        <li><strong>Weeks 2–3.</strong> Agents and tooling set up on one real repo, with your engineers, on real tickets. Conventions written down so it survives me leaving.</li>
+        <li><strong>Week 4.</strong> Before-and-after numbers from your own tracker, and a short list of what to do next.</li>
+      </ul>
+      <p><span class="tag">Fixed scope</span> <span class="tag">Quote on scope</span></p>
+      <p><a class="btn btn-secondary" href={ask('AI pilot for our engineering team')}>Ask about a pilot</a></p>
+    </div>
+  </section>
+
+  <section class="section band" id="practices">
+    <div class="wrap">
+      <h2>Knowledge assistants for small practices</h2>
+      <p class="problem"><em>"Our knowledge is in documents nobody can search."</em></p>
+      <p>Law offices, clinics, and small firms sit on years of filings, notes, and precedent. The people who know where things are retire. I build a private assistant over your own documents that answers questions with citations back to the source, on infrastructure you control.</p>
+      <h3>What you get</h3>
+      <ul>
+        <li>Your documents indexed where they live, with access rules that match your practice.</li>
+        <li>An assistant your staff can ask in plain language, that shows its sources every time.</li>
+        <li>A fixed-scope build, then optional monthly care for updates and new document sets.</li>
+      </ul>
+      <p><span class="tag">Fixed scope</span> <span class="tag">Optional monthly care</span> <span class="tag">Quote on scope</span></p>
+      <p><a class="btn btn-secondary" href={ask('Knowledge assistant for our practice')}>Ask about an assistant</a></p>
+    </div>
+  </section>
+
+  <section class="section" id="small-business">
+    <div class="wrap">
+      <h2>Websites and automation for small businesses</h2>
+      <p class="problem"><em>"We need a site and the plumbing behind it without an agency bill."</em></p>
+      <p>A fast, plain site on your own domain that costs nothing a month to host, and that you can update yourself. Then the plumbing: booking, contact forms that reach you, email on your domain, and the small automations that stop you re-typing things.</p>
+      <h3>What you get</h3>
+      <ul>
+        <li>A static site you own, in your own GitHub account, deployed automatically when you change it.</li>
+        <li>Copy worked out with you, not lorem ipsum with your logo on it.</li>
+        <li>A written guide so you, or the next person, can run it without me.</li>
+      </ul>
+      <p>Most recent: <a href="https://flourishfinancialgroup.org">Flourish Financial Group</a>, live a month after the first conversation, run by its owner.</p>
+      <p><span class="tag">Fixed price</span> <span class="tag">$0/month hosting</span></p>
+      <p><a class="btn btn-secondary" href={ask('Website for my business')}>Ask about a site</a></p>
+    </div>
+  </section>
+</Base>
