@@ -7,9 +7,9 @@ import { graph } from '../lib/patterns.js';
 const ask = `mailto:${site.email}?subject=${encodeURIComponent('Knowledge assistant for our practice')}`;
 const bodyBg = graph({ parity: 0, seed: 13, cx: 1200, cy: 450, satellites: 90 });
 ---
-<Base title="Knowledge assistants for small practices" description="A private assistant over your own documents, on infrastructure you control, that answers with citations. For law offices, clinics, and small firms.">
+<Base title="Knowledge assistants for small practices" description="A private assistant that searches your own documents, runs on servers you control, and answers with citations. For law offices, clinics, and small firms.">
   <Hero variant="graph" animated={true} seed={5} eyebrow="Service · Small practices" title="Knowledge assistants for small practices">
-    <p class="lede"><em>"Our knowledge is in documents nobody can search."</em> Law offices, clinics, and small firms sit on years of filings, notes, and precedent. The people who know where things are retire. I build a private assistant over your own documents that answers with citations back to the source.</p>
+    <p class="lede"><em>"Our knowledge is in documents nobody can search."</em> Law offices, clinics, and small firms hold years of filings, notes, and precedent, and the people who know where things are retire. I build a private assistant that searches your own documents and answers with a citation to the source.</p>
     <p><a class="btn btn-primary" href={ask}>Ask about an assistant</a></p>
   </Hero>
 
@@ -18,13 +18,13 @@ const bodyBg = graph({ parity: 0, seed: 13, cx: 1200, cy: 450, satellites: 90 })
     <div class="wrap">
       <h2>What you get</h2>
       <ul>
-        <li>Your documents indexed where they live, with access rules that match your practice.</li>
-        <li>An assistant your staff can ask in plain language, that shows its sources every time.</li>
-        <li>Infrastructure you control. Nothing leaves your systems unless you choose a hosted model.</li>
+        <li>Your documents indexed in place, with access rules that match your practice.</li>
+        <li>An assistant that takes plain-English questions from your staff and shows its sources every time.</li>
+        <li>Servers you control. Your data stays on your systems unless you choose a hosted model.</li>
         <li>A fixed-scope build, then optional monthly care for updates and new document sets.</li>
       </ul>
       <h2>Where it comes from</h2>
-      <p>I run one of these for myself: a personal knowledge system where agents file email, texts, scans, and notes into a searchable vault every day. It's the working prototype, and the case study is on the <a href="/work">Work</a> page.</p>
+      <p>I run one of these for myself: a personal knowledge system where agents file email, texts, scans, and notes into a searchable vault every day. It is the working prototype, and the case study is on the <a href="/work">Work</a> page.</p>
       <p><span class="tag">Fixed scope</span> <span class="tag">Optional monthly care</span> <span class="tag">Quote on scope</span></p>
       <p><a class="btn btn-primary" href={ask}>Ask about an assistant</a></p>
     </div>

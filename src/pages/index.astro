@@ -8,17 +8,17 @@ import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="Software, AI systems, and physical parts" description={site.tagline}>
-  <Hero variant="graph" eyebrow={`${site.legalName} · ${site.location}`} title="I build the thing you can't buy off the shelf.">
-    <p class="lede">Software, AI systems, and 3D-printed parts from a one-person studio in Louisville. I'm JT Embry, owner of Embry Development, LLC, with a decade of fintech and healthtech engineering behind every job.</p>
-    <p><a class="btn btn-primary" href={mailto}>Start a conversation</a> <a class="btn btn-secondary" href="/services">See what I build</a></p>
+  <Hero variant="graph" eyebrow={`${site.legalName} · ${site.location}`} title="I build the thing nobody sells.">
+    <p class="lede">I'm JT Embry, owner of Embry Development, LLC, a one-person studio in Louisville. I build software, AI systems, and 3D-printed parts, with ten years of finance and healthcare engineering behind each job.</p>
+    <p><a class="btn btn-primary" href={mailto}>Email me</a> <a class="btn btn-secondary" href="/services">See what I build</a></p>
   </Hero>
 
   <section class="section">
     <div class="wrap grid">
-      <div><span class="stat">10+ yrs</span>building fintech and healthtech products</div>
-      <div><span class="stat">65%</span>more tickets shipped per sprint after I set a team's AI tooling direction</div>
-      <div><span class="stat">Every service</span>on a production platform moved to a new cloud, end to end</div>
-      <div><span class="stat">1 month</span>from first ask to a live site a small-business owner runs herself</div>
+      <div><span class="stat">10 years</span>building finance and healthcare software</div>
+      <div><span class="stat">65%</span>more tickets closed per sprint after I set one team's AI tooling direction</div>
+      <div><span class="stat">Every service</span>on a live platform moved to a new cloud</div>
+      <div><span class="stat">1 month</span>from first email to a live site its owner runs herself</div>
     </div>
   </section>
 
@@ -30,12 +30,12 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <div class="card">
           <h3>AI adoption for engineering teams</h3>
           <p class="problem">"We bought the AI seats and nothing changed."</p>
-          <p>A four-week pilot on one real repo: audit the workflow, set up agents where they pay off, measure before and after. <a href="/ai-adoption">How it works</a></p>
+          <p>A four-week pilot on one real repo: I audit the workflow, set up agents where they save time, and measure before and after. <a href="/ai-adoption">How it works</a></p>
         </div>
         <div class="card">
           <h3>Knowledge assistants for small practices</h3>
           <p class="problem">"Our knowledge is in documents nobody can search."</p>
-          <p>A private assistant over your own files, on infrastructure you control, that answers with citations. <a href="/knowledge-assistants">How it works</a></p>
+          <p>A private assistant that searches your own files, runs on servers you control, and answers with citations. <a href="/knowledge-assistants">How it works</a></p>
         </div>
         <div class="card">
           <h3>Websites and automation for small businesses</h3>
@@ -45,7 +45,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <div class="card">
           <h3>Design and 3D printing</h3>
           <p class="problem">"We need a part, a prototype, or a small run that no catalog sells."</p>
-          <p>CAD from your sketch or measurements, functional prints, small batches. You get the part and the files. <a href="/printing">How it works</a></p>
+          <p>CAD from your sketch or measurements, working prints, and small batches. You get the part and the files. <a href="/printing">How it works</a></p>
         </div>
       </div>
     </div>
@@ -54,14 +54,14 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   <section class="section band-parallax">
     <div class="band-bg" data-parallax="0.55" set:html={stepsBg} aria-hidden="true" />
     <div class="wrap">
-      <h2>How working with me goes</h2>
+      <h2>How a job goes</h2>
       <ol class="steps">
-        <li><strong>Tell me the problem.</strong> One email is enough. I'll say honestly whether it's something I should build.</li>
-        <li><strong>One-page scope.</strong> What you get, what it costs, and when. Fixed price wherever the work can be scoped.</li>
-        <li><strong>Build in the open.</strong> Something working you can see every week, not a reveal at the end.</li>
-        <li><strong>Hand over.</strong> You own the code, the files, and the parts. No lock-in.</li>
+        <li><strong>Tell me the problem.</strong> One email is enough. I'll tell you whether I should build it.</li>
+        <li><strong>Get a one-page scope.</strong> It says what you get, what it costs, and when, at a fixed price wherever I can scope the work.</li>
+        <li><strong>See it every week.</strong> You see working software each week, not a reveal at the end.</li>
+        <li><strong>Own it.</strong> You own the code, the files, and the parts, and you can take them anywhere.</li>
       </ol>
-      <p><a class="btn btn-primary" href={mailto}>Start a conversation</a></p>
+      <p><a class="btn btn-primary" href={mailto}>Email me</a></p>
     </div>
   </section>
 </Base>

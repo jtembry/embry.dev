@@ -7,9 +7,9 @@ import site from '../data/site.json';
 import ServiceLinks from '../components/ServiceLinks.astro';
 const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing quote')}&body=${encodeURIComponent('What I need:\n\nDimensions or a photo/sketch:\n\nHow many:\n\nWhere it will be used (indoors, outdoors, heat, load):\n')}`;
 ---
-<Base title="Design and 3D printing" description="CAD design and functional 3D printing in Louisville: replacement parts, brackets, jigs, enclosures, prototypes, and small runs.">
+<Base title="Design and 3D printing" description="CAD design and 3D printing in Louisville: replacement parts, brackets, jigs, enclosures, prototypes, and small runs.">
   <Hero variant="layers" eyebrow={`Service · Design and 3D printing · ${site.location}`} title="The part no catalog sells.">
-    <p class="lede">A broken clip on a thing you like. A bracket that needs to be exactly this shape. A prototype before you commit to tooling. Twenty of something for a booth. Send me a photo, a sketch, or a file, and I'll quote it.</p>
+    <p class="lede">The broken clip on a thing you like, the bracket that must be exactly this shape, the prototype before you pay for tooling, twenty of something for a booth: send me a photo, a sketch, or a file, and I'll quote it.</p>
     <p><a class="btn btn-primary" href={quote}>Request a quote</a></p>
   </Hero>
 
@@ -17,10 +17,10 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
     <div class="wrap">
       <h2>What I print</h2>
       <div class="grid">
-        <div class="card"><h3>Replacement parts</h3><p>Knobs, clips, hinges, feet, the plastic piece that broke and isn't sold separately. Measured from the original or its mate.</p></div>
-        <div class="card"><h3>Brackets, jigs, and fixtures</h3><p>Mounts, holders, guides, and shop fixtures made to your dimensions instead of the closest thing on the shelf.</p></div>
-        <div class="card"><h3>Enclosures</h3><p>Cases for boards, sensors, and small electronics, with the cutouts where your connectors actually are.</p></div>
-        <div class="card"><h3>Prototypes and small runs</h3><p>One to check the fit, then a few dozen. Multi-color available.</p></div>
+        <div class="card"><h3>Replacement parts</h3><p>Knobs, clips, hinges, feet, and the plastic piece nobody sells on its own. I measure from the original or its mate.</p></div>
+        <div class="card"><h3>Brackets, jigs, and fixtures</h3><p>Mounts, holders, guides, and shop fixtures made to your dimensions instead of the nearest stock size.</p></div>
+        <div class="card"><h3>Enclosures</h3><p>Cases for boards, sensors, and small electronics, with the cutouts where your connectors are.</p></div>
+        <div class="card"><h3>Prototypes and small runs</h3><p>I print one to check the fit, then a few dozen, in one color or several.</p></div>
       </div>
     </div>
   </section>
@@ -30,14 +30,14 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
     <div class="wrap">
       <h2>How it works</h2>
       <ol class="steps">
-        <li><strong>Send what you have.</strong> A photo with a ruler in it, a sketch with dimensions, or an STL/STEP file. Say how many and where it will live.</li>
-        <li><strong>Quote.</strong> Design time (if any) and a per-part price, usually within a day.</li>
-        <li><strong>Test fit.</strong> For anything that has to mate with something, you get one to check before the run.</li>
-        <li><strong>Pickup or ship.</strong> Local pickup in Louisville, or shipped. You get the files too, so you can reprint anywhere.</li>
+        <li><strong>Send what you have.</strong> A photo with a ruler in it, a sketch with dimensions, or an STL or STEP file. Say how many you need and where the part will be used.</li>
+        <li><strong>Get a quote.</strong> I quote design time, if any, and a per-part price, usually within a day.</li>
+        <li><strong>Check the fit.</strong> If the part must mate with something, you get one to test before the run.</li>
+        <li><strong>Pick up or ship.</strong> Pick up in Louisville or have it shipped. You get the files too, so you can reprint anywhere.</li>
       </ol>
       <h3>Materials and equipment</h3>
       <dl class="spec">
-        <dt>Printer</dt><dd>Bambu Lab P2S, enclosed, multi-color capable</dd>
+        <dt>Printer</dt><dd>Bambu Lab P2S, enclosed, prints in several colors</dd>
         <dt>Everyday</dt><dd>PLA for indoor parts and prototypes</dd>
         <dt>Tough</dt><dd>PETG for outdoor use, moisture, and moderate heat</dd>
         <dt>Flexible</dt><dd>TPU for gaskets, feet, bumpers, and grips</dd>

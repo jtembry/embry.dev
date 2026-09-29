@@ -5,7 +5,7 @@ import { graph } from '../lib/patterns.js';
 const bodyBg = graph({ parity: 0, seed: 24, cx: 1250, cy: 400, satellites: 70 });
 import site from '../data/site.json';
 ---
-<Base title="About" description="JT Embry, owner of Embry Development, LLC in Louisville: a decade of fintech and healthtech engineering, now a one-person studio.">
+<Base title="About" description="JT Embry, owner of Embry Development, LLC in Louisville: ten years of finance and healthcare engineering, now a one-person studio.">
   <Hero variant="graph" seed={23} eyebrow="About" title="One engineer. No account managers.">
     <p class="lede">When you email {site.legalName}, the person who answers is the person who does the work.</p>
   </Hero>
@@ -13,11 +13,11 @@ import site from '../data/site.json';
   <section class="section band-parallax">
     <div class="band-bg" data-parallax="0.55" set:html={bodyBg} aria-hidden="true" />
     <div class="wrap">
-      <p>I'm JT Embry. I've spent the last decade building fintech and healthtech products as an engineer and then as a lead: a greenfield SaaS product, a WebRTC portal for hospitals, a full platform migration to a new cloud, and most recently an AI tooling rollout that changed how a whole team ships.</p>
-      <p>Before that I was the help-desk guy at a bank, cleaned LiDAR sensor data for a self-driving program, and studied English literature. The through-line is the same: find where the friction is, remove it, and leave people better equipped than I found them. I measure my work by how much of it keeps running after I've stepped away.</p>
-      <p>{site.legalName} is the company I formed in 2026 to do that on my own terms: software and AI systems for teams and small practices, sites and automation for small businesses, and, since I put a 3D printer in the shop, the physical parts too.</p>
-      <p>I live in Louisville. When I'm not building I'm restoring a Ducati Scrambler, training a dog, and reading theology.</p>
-      <p><a class="btn btn-primary" href="/contact">Get in touch</a> <a class="btn btn-secondary" href={site.linkedin}>LinkedIn</a></p>
+      <p>I'm JT Embry. For ten years I have built finance and healthcare software, first as an engineer and then as a lead: a SaaS product from an empty repo, a video portal for hospitals, a whole platform moved to a new cloud, and most recently the AI tooling that raised one team's output by 65%.</p>
+      <p>Before that I ran a bank's help desk, cleaned LiDAR data for a self-driving program, and studied English literature. The pattern holds: find what slows people down, remove it, and leave them able to do the work without me. I measure a job by how much of it still runs after I have left.</p>
+      <p>I formed {site.legalName} in 2026 to do that work for clients: software and AI systems for teams and small practices, sites and automation for small businesses, and, since I put a 3D printer in the shop, physical parts.</p>
+      <p>I live in Louisville. Away from the desk, I restore a Ducati Scrambler, train a dog, and read theology.</p>
+      <p><a class="btn btn-primary" href="/contact">Contact me</a> <a class="btn btn-secondary" href={site.linkedin}>LinkedIn</a></p>
     </div>
   </section>
 </Base>
