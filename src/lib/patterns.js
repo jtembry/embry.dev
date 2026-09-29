@@ -55,3 +55,39 @@ export function grid({ parity = 0, spacing = 56 } = {}) {
 }
 
 export const patterns = { contours, layers, grid };
+
+// Graph view: hubs on a loose ring, satellites clustered around them, links between.
+// Looks like a knowledge graph. parity 0 = links + satellites (back layer), 1 = hubs (front layer).
+export function graph({ parity = 0, seed = 3, hubs = 7, satellites = 90, cx = 1080, cy = 450 } = {}) {
+  let s = seed * 7919 + 17;
+  const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const nodes = [];
+  for (let h = 0; h < hubs; h++) {
+    const a = (h / hubs) * Math.PI * 2 + rnd() * 0.6;
+    const d = 150 + rnd() * 130;
+    nodes.push({ x: cx + Math.cos(a) * d * 1.25, y: cy + Math.sin(a) * d * 0.8, r: 9 + rnd() * 5, hub: true, group: h });
+  }
+  for (let i = 0; i < satellites; i++) {
+    const g = Math.floor(rnd() * hubs), hub = nodes[g];
+    const a = rnd() * Math.PI * 2, d = 35 + rnd() * 120;
+    nodes.push({ x: hub.x + Math.cos(a) * d, y: hub.y + Math.sin(a) * d * 0.85, r: 2.2 + rnd() * 2.6, hub: false, group: g });
+  }
+  const edges = [];
+  nodes.forEach((n, i) => {
+    if (n.hub) { edges.push([i, (i + 1) % hubs]); if (rnd() < 0.5) edges.push([i, (i + 3) % hubs]); return; }
+    if (rnd() < 0.93) edges.push([i, n.group]);
+    if (rnd() < 0.4) edges.push([i, hubs + Math.floor(rnd() * satellites)]);
+  });
+  let out = '';
+  if (parity === 0) {
+    for (const [a, b] of edges) {
+      const A = nodes[a], B = nodes[b];
+      out += `<line x1="${A.x.toFixed(1)}" y1="${A.y.toFixed(1)}" x2="${B.x.toFixed(1)}" y2="${B.y.toFixed(1)}" stroke="var(--pattern-stroke)" stroke-width="${A.hub && B.hub ? 1.4 : 0.9}" opacity="${A.hub && B.hub ? 0.4 : 0.22}"/>`;
+    }
+    for (const n of nodes) if (!n.hub) out += `<circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${n.r.toFixed(1)}" fill="var(--pattern-node)" opacity="0.7"/>`;
+  } else {
+    for (const n of nodes) if (n.hub) out += `<circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${n.r.toFixed(1)}" fill="var(--pattern-fill)" opacity="0.95"/><circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${(n.r + 7).toFixed(1)}" fill="none" stroke="var(--pattern-stroke)" stroke-width="1.2" opacity="0.45"/>`;
+  }
+  return svg(out);
+}
+patterns.graph = graph;

@@ -5,7 +5,7 @@ import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="Contact" description="Email JT Embry at Embry Development, LLC in Louisville to start a software, AI, website, or 3D printing project.">
-  <Hero variant="layers" eyebrow="Contact" title="One email starts it.">
+  <Hero variant="graph" seed={41} eyebrow="Contact" title="One email starts it.">
     <p class="lede">Tell me the problem in a few sentences. I read everything and reply within two business days, usually sooner.</p>
     <p><a class="btn btn-primary" href={mailto}>Email {site.email}</a></p>
   </Hero>

@@ -1,13 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import { layers } from '../lib/patterns.js';
-const stepsBg = layers({ parity: 0, cx: 1250, gap: 18, width: 8, scale: 1.3 });
+import { graph } from '../lib/patterns.js';
+const stepsBg = graph({ parity: 0, seed: 8, cx: 1250, cy: 420 });
 import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="Software, AI systems, and physical parts" description={site.tagline}>
-  <Hero variant="contours" eyebrow={`${site.legalName} · ${site.location}`} title="I build the thing you can't buy off the shelf.">
+  <Hero variant="graph" animated={true} eyebrow={`${site.legalName} · ${site.location}`} title="I build the thing you can't buy off the shelf.">
     <p class="lede">Software, AI systems, and 3D-printed parts from a one-person studio in Louisville. I'm JT Embry, owner of Embry Development, LLC, with a decade of fintech and healthtech engineering behind every job.</p>
     <p><a class="btn btn-primary" href={mailto}>Start a conversation</a> <a class="btn btn-secondary" href="/services">See what I build</a></p>
   </Hero>

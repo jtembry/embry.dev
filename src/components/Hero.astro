@@ -1,17 +1,22 @@
 ---
-// Page hero with parallax background layers. variant: contours | layers | grid.
+// Page hero with parallax background layers.
+// variant: graph | layers | contours | grid. animated=true swaps the graph for a live canvas animation.
 // Pass `image` (path under /public) to add a photo layer behind the pattern.
 import { patterns } from '../lib/patterns.js';
-const { eyebrow, title, variant = 'contours', image } = Astro.props;
-const gen = patterns[variant] ?? patterns.contours;
-const back = gen({ parity: 0 });
-const front = gen({ parity: 1 });
+const { eyebrow, title, variant = 'graph', animated = false, seed = 3, image } = Astro.props;
+const gen = patterns[variant] ?? patterns.graph;
+const back = animated ? '' : gen({ parity: 0, seed });
+const front = animated ? '' : gen({ parity: 1, seed });
 ---
-<section class:list={['hero', 'band-dark', `hero-${variant}`]}>
+<section class:list={['hero', 'band-dark', `hero-${variant}`, { 'hero-animated': animated }]}>
   <div class="hero-bg" aria-hidden="true">
     {image && <img class="hero-img" src={image} alt="" data-parallax="0.12" loading="eager" decoding="async" />}
-    <div class="hero-layer hero-layer-back" data-parallax="0.18" set:html={back} />
-    <div class="hero-layer hero-layer-front" data-parallax="0.34" set:html={front} />
+    {animated
+      ? <canvas class="hero-canvas" data-parallax="0.16"></canvas>
+      : <>
+          <div class="hero-layer hero-layer-back" data-parallax="0.18" set:html={back} />
+          <div class="hero-layer hero-layer-front" data-parallax="0.34" set:html={front} />
+        </>}
     <div class="hero-glow"></div>
   </div>
   <div class="wrap hero-content">
@@ -20,3 +25,9 @@ const front = gen({ parity: 1 });
     <slot />
   </div>
 </section>
+{animated && (
+  <script>
+    import { startGraph } from '../scripts/graph-animation.js';
+    document.querySelectorAll('canvas.hero-canvas').forEach((c) => startGraph(c));
+  </script>
+)}
