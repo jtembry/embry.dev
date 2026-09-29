@@ -1,17 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
 import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="Contact" description="Email JT Embry at Embry Development, LLC in Louisville to start a software, AI, website, or 3D printing project.">
-  <section class="section band-dark">
-    <div class="wrap">
-      <p class="eyebrow">Contact</p>
-      <h1>One email starts it.</h1>
-      <p class="lede">Tell me the problem in a few sentences. I read everything and reply within two business days, usually sooner.</p>
-      <p><a class="btn btn-primary" href={mailto}>Email {site.email}</a></p>
-    </div>
-  </section>
+  <Hero variant="layers" eyebrow="Contact" title="One email starts it.">
+    <p class="lede">Tell me the problem in a few sentences. I read everything and reply within two business days, usually sooner.</p>
+    <p><a class="btn btn-primary" href={mailto}>Email {site.email}</a></p>
+  </Hero>
 
   <section class="section">
     <div class="wrap">

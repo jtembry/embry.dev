@@ -1,15 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
 import site from '../data/site.json';
 ---
 <Base title="Work" description="Selected work: a cloud migration, an AI tooling rollout, a greenfield SaaS build, a small-business site, and an AI-run personal knowledge system.">
-  <section class="section band-dark">
-    <div class="wrap">
-      <p class="eyebrow">Work</p>
-      <h1>Proof, not promises.</h1>
-      <p class="lede">A few things I've built or led. Employers and clients are named on <a href={site.linkedin}>LinkedIn</a>; here I stick to what was done and what changed.</p>
-    </div>
-  </section>
+  <Hero variant="grid" eyebrow="Work" title="Proof, not promises.">
+    <p class="lede">A few things I've built or led. Employers and clients are named on <a href={site.linkedin}>LinkedIn</a>; here I stick to what was done and what changed.</p>
+  </Hero>
 
   <section class="section">
     <div class="wrap">

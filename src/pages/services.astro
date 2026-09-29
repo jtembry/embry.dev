@@ -1,16 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
 import site from '../data/site.json';
 const ask = (s) => `mailto:${site.email}?subject=${encodeURIComponent(s)}`;
 ---
 <Base title="Services" description="AI adoption pilots for engineering teams, knowledge assistants for small practices, and websites with the automation behind them for small businesses.">
-  <section class="section band-dark">
-    <div class="wrap">
-      <p class="eyebrow">Services</p>
-      <h1>Software and AI, scoped and priced up front.</h1>
-      <p class="lede">Every engagement starts with a one-page scope and a fixed price. No hourly meter running while you wonder what you're getting. Physical work has its own page: <a href="/printing">design and 3D printing</a>.</p>
-    </div>
-  </section>
+  <Hero variant="grid" eyebrow="Services" title="Software and AI, scoped and priced up front.">
+    <p class="lede">Every engagement starts with a one-page scope and a fixed price. No hourly meter running while you wonder what you're getting. Physical work has its own page: <a href="/printing">design and 3D printing</a>.</p>
+  </Hero>
 
   <section class="section" id="teams">
     <div class="wrap">

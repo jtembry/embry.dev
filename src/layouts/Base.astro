@@ -68,6 +68,26 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
       backdrop.addEventListener('click', () => setOpen(false));
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
       window.matchMedia('(min-width: 52rem)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+
+      // Parallax: layers with data-parallax move at a fraction of scroll speed, relative to their section.
+      const layers = Array.from(document.querySelectorAll('[data-parallax]'));
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (layers.length && !reduceMotion.matches) {
+        let ticking = false;
+        const update = () => {
+          const mid = window.innerHeight / 2;
+          for (const el of layers) {
+            const host = el.closest('.hero, .band-parallax') ?? el;
+            const r = host.getBoundingClientRect();
+            const offset = (r.top + r.height / 2 - mid) * -parseFloat(el.dataset.parallax);
+            el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+          }
+          ticking = false;
+        };
+        window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+        window.addEventListener('resize', update);
+        update();
+      }
     </script>
   </body>
 </html>

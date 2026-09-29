@@ -1,0 +1,22 @@
+---
+// Page hero with parallax background layers. variant: contours | layers | grid.
+// Pass `image` (path under /public) to add a photo layer behind the pattern.
+import { patterns } from '../lib/patterns.js';
+const { eyebrow, title, variant = 'contours', image } = Astro.props;
+const gen = patterns[variant] ?? patterns.contours;
+const back = gen({ parity: 0 });
+const front = gen({ parity: 1 });
+---
+<section class:list={['hero', 'band-dark', `hero-${variant}`]}>
+  <div class="hero-bg" aria-hidden="true">
+    {image && <img class="hero-img" src={image} alt="" data-parallax="0.12" loading="eager" decoding="async" />}
+    <div class="hero-layer hero-layer-back" data-parallax="0.18" set:html={back} />
+    <div class="hero-layer hero-layer-front" data-parallax="0.34" set:html={front} />
+    <div class="hero-glow"></div>
+  </div>
+  <div class="wrap hero-content">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    <slot />
+  </div>
+</section>
