@@ -5,7 +5,9 @@ import Logo from '../components/Logo.astro';
 const { title, description } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const nav = [
-  ['/services', 'Services'],
+  ['/ai-adoption', 'AI adoption'],
+  ['/knowledge-assistants', 'Knowledge assistants'],
+  ['/websites', 'Websites'],
   ['/printing', '3D printing'],
   ['/work', 'Work'],
   ['/about', 'About'],
@@ -67,7 +69,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
       toggle.addEventListener('click', () => setOpen(!root.hasAttribute('data-nav-open')));
       backdrop.addEventListener('click', () => setOpen(false));
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
-      window.matchMedia('(min-width: 52rem)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+      window.matchMedia('(min-width: 66rem)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
 
       // Parallax: layers with data-parallax move at a fraction of scroll speed, relative to their section.
       const layers = Array.from(document.querySelectorAll('[data-parallax]'));

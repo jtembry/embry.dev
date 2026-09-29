@@ -4,10 +4,11 @@ import Hero from '../components/Hero.astro';
 import { layers } from '../lib/patterns.js';
 const howBg = layers({ parity: 0, cx: 1250, gap: 18, width: 8, scale: 1.3 });
 import site from '../data/site.json';
+import ServiceLinks from '../components/ServiceLinks.astro';
 const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing quote')}&body=${encodeURIComponent('What I need:\n\nDimensions or a photo/sketch:\n\nHow many:\n\nWhere it will be used (indoors, outdoors, heat, load):\n')}`;
 ---
 <Base title="Design and 3D printing" description="CAD design and functional 3D printing in Louisville: replacement parts, brackets, jigs, enclosures, prototypes, and small runs.">
-  <Hero variant="layers" eyebrow={`Design and 3D printing · ${site.location}`} title="The part no catalog sells.">
+  <Hero variant="layers" eyebrow={`Service · Design and 3D printing · ${site.location}`} title="The part no catalog sells.">
     <p class="lede">A broken clip on a thing you like. A bracket that needs to be exactly this shape. A prototype before you commit to tooling. Twenty of something for a booth. Send me a photo, a sketch, or a file, and I'll quote it.</p>
     <p><a class="btn btn-primary" href={quote}>Request a quote</a></p>
   </Hero>
@@ -47,4 +48,5 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
       <p><a class="btn btn-primary" href={quote}>Request a quote</a></p>
     </div>
   </section>
+  <ServiceLinks current="/printing" />
 </Base>

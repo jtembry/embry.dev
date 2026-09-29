@@ -55,6 +55,8 @@ p, li { max-width: 65ch; }
 .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
 .card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem 1.4rem; }
 .card h3 { margin-top: 0; }
+.card h3 a { color: var(--ink); text-decoration: none; }
+.card h3 a:hover { color: var(--accent); }
 .card .problem { font-style: italic; color: var(--muted); }
 .stat { font-family: var(--mono); font-size: 2rem; font-weight: 600; color: var(--ink); display: block; }
 .band-dark .stat { color: var(--white); }
@@ -71,16 +73,16 @@ header.site .wrap { display: flex; align-items: center; justify-content: space-b
 .brand { display: inline-flex; align-items: center; gap: .55rem; font-family: var(--mono); font-weight: 600; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
 .brand .dot { color: var(--accent); }
 nav.primary ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .25rem; }
-nav.primary ul a { display: inline-block; padding: .45rem .8rem; border-radius: 999px; color: var(--ink-2); text-decoration: none; font-weight: 500; font-size: .95rem; transition: background .15s, color .15s; }
+nav.primary ul a { display: inline-block; padding: .45rem .7rem; border-radius: 999px; color: var(--ink-2); text-decoration: none; font-weight: 500; font-size: .92rem; white-space: nowrap; transition: background .15s, color .15s; }
 nav.primary ul a:hover { background: var(--accent-tint); color: var(--accent); }
 nav.primary ul a[aria-current="page"] { background: var(--ink); color: var(--white); }
 .nav-cta { padding: .5rem 1rem; margin-left: .75rem; font-size: .95rem; border-radius: 999px; }
 .nav-toggle { display: none; }
 .nav-backdrop { display: none; }
-@media (min-width: 52rem) {
+@media (min-width: 66rem) {
   nav.primary { display: flex; align-items: center; }
 }
-@media (max-width: 51.99rem) {
+@media (max-width: 65.99rem) {
   .nav-toggle { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 2.75rem; height: 2.75rem; padding: 0; border: 0; border-radius: 10px; background: transparent; cursor: pointer; z-index: 40; position: relative; }
   .nav-toggle .bar { display: block; width: 22px; height: 2px; margin-inline: auto; background: var(--ink); border-radius: 2px; transition: transform .25s, opacity .2s; }
   [data-nav-open] .nav-toggle .bar { background: var(--white); }
