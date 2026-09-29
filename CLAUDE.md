@@ -6,4 +6,4 @@ Astro 5 static site for Embry Development, LLC, deployed to GitHub Pages (same p
 - The site names no employer, current or past, until JT has read his employment agreement (vault note, *Open questions*). Keep proof descriptive: industry and outcome, no company names.
 - Prices are "quote on scope" until the vault note records price bands.
 - Contact is `src/data/site.json` → `email`; swap to a domain address when one exists.
-- Plain HTML/CSS, no component framework, no client JS unless a page truly needs it.
+- Plain HTML/CSS, no component framework. The only client JS is the mobile nav drawer toggle in `Base.astro`.
