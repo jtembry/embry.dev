@@ -120,15 +120,16 @@ footer.site .footer-brand { font-family: var(--mono); color: var(--white); }
 /* Hero + parallax bands */
 .hero { position: relative; overflow: hidden; isolation: isolate; padding-block: clamp(3.5rem, 10vw, 7rem); }
 .hero-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
-.hero-layer { position: absolute; left: 0; right: 0; top: -60%; height: 220%; will-change: transform; }
+.hero-layer { position: absolute; left: 0; right: 0; top: -80%; height: 260%; will-change: transform; }
+.hero-animated .hero-layer-back { opacity: .45; }
 .hero-layer svg { width: 100%; height: 100%; display: block; }
-.hero-canvas { position: absolute; left: 0; right: 0; top: -50%; width: 100%; height: 200%; display: block; will-change: transform; }
+.hero-canvas { position: absolute; left: 0; right: 0; top: -70%; width: 100%; height: 240%; display: block; will-change: transform; }
 .hero-img { position: absolute; left: 0; right: 0; top: -30%; width: 100%; height: 160%; object-fit: cover; opacity: .28; will-change: transform; }
 .hero-glow { position: absolute; inset: 0; background: radial-gradient(55% 70% at 78% 50%, rgba(232,112,42,.22), transparent 70%), linear-gradient(90deg, rgba(28,31,38,.92) 0%, rgba(28,31,38,.55) 55%, rgba(28,31,38,.15) 100%); }
 .hero-content { position: relative; }
 .hero .lede { max-width: 38rem; }
 .band-parallax { position: relative; overflow: hidden; isolation: isolate; }
-.band-parallax .band-bg { position: absolute; left: 0; right: 0; top: -60%; height: 220%; z-index: -1; will-change: transform; --pattern-stroke: #16181d; --pattern-fill: #16181d; --pattern-node: #16181d; opacity: .08; }
+.band-parallax .band-bg { position: absolute; left: 0; right: 0; top: -90%; height: 280%; z-index: -1; will-change: transform; --pattern-stroke: #16181d; --pattern-fill: #16181d; --pattern-node: #16181d; opacity: .1; }
 .band-dark.band-parallax .band-bg { --pattern-stroke: #e8702a; --pattern-fill: #ffb187; --pattern-node: #e6e8ec; opacity: .35; }
 .band-parallax .band-bg svg { width: 100%; height: 100%; display: block; }
 @media (max-width: 40rem) {

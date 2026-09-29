@@ -8,7 +8,7 @@ import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="Software, AI systems, and physical parts" description={site.tagline}>
-  <Hero variant="graph" animated={true} eyebrow={`${site.legalName} · ${site.location}`} title="I build the thing you can't buy off the shelf.">
+  <Hero variant="graph" eyebrow={`${site.legalName} · ${site.location}`} title="I build the thing you can't buy off the shelf.">
     <p class="lede">Software, AI systems, and 3D-printed parts from a one-person studio in Louisville. I'm JT Embry, owner of Embry Development, LLC, with a decade of fintech and healthtech engineering behind every job.</p>
     <p><a class="btn btn-primary" href={mailto}>Start a conversation</a> <a class="btn btn-secondary" href="/services">See what I build</a></p>
   </Hero>
@@ -23,7 +23,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   </section>
 
   <section class="section band band-parallax">
-    <div class="band-bg" data-parallax="0.3" set:html={linesBg} aria-hidden="true" />
+    <div class="band-bg" data-parallax="0.55" set:html={linesBg} aria-hidden="true" />
     <div class="wrap">
       <h2>Four things I build</h2>
       <div class="grid">
@@ -52,7 +52,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   </section>
 
   <section class="section band-parallax">
-    <div class="band-bg" data-parallax="0.35" set:html={stepsBg} aria-hidden="true" />
+    <div class="band-bg" data-parallax="0.55" set:html={stepsBg} aria-hidden="true" />
     <div class="wrap">
       <h2>How working with me goes</h2>
       <ol class="steps">

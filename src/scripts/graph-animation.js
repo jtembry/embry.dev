@@ -1,74 +1,77 @@
-// Animated knowledge graph for a hero background: nodes are born over a few seconds,
-// link up, and settle under a small force simulation, then drift gently.
-// Pauses when off-screen or the tab is hidden. Reduced motion: renders the settled graph once.
+// Animated knowledge graph for a hero background. Nodes are born slowly, link up, settle under a
+// small force simulation, hold, fade, and start over with a new layout. Scales to the canvas size
+// (fewer, closer nodes on phones). Pauses off-screen or when the tab is hidden.
+// Reduced motion: renders one settled graph and stops.
 export function startGraph(canvas) {
   const ctx = canvas.getContext('2d');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let W = 0, H = 0;
-  const resize = () => {
+  let W = 0, H = 0, k = 1;
+  const measure = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const r = canvas.getBoundingClientRect();
     W = r.width; H = r.height;
     canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    k = Math.max(0.45, Math.min(1.1, W / 1280)); // spacing scale
   };
-  resize();
-  window.addEventListener('resize', resize);
+  measure();
+  const phone = W < 640;
+  const HUBS = phone ? 5 : 7, N = phone ? 60 : 105;
+  const cx = () => W * (W < 640 ? 0.5 : W < 1000 ? 0.62 : 0.68);
+  const cy = () => H * 0.5;
 
   let s = 20260928;
   const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
-  const HUBS = 7, N = 105;
-  const cx = () => W * (W < 640 ? 0.55 : 0.68), cy = () => H * 0.5;
   const nodes = [], edges = [];
   for (let i = 0; i < N; i++) {
     const hub = i < HUBS;
-    const a = rnd() * Math.PI * 2, d = hub ? 90 + rnd() * 140 : 60 + rnd() * 240;
-    nodes.push({ x: cx() + Math.cos(a) * d, y: cy() + Math.sin(a) * d * 0.7, vx: 0, vy: 0, fx: 0, fy: 0,
-      r: hub ? 6.5 + rnd() * 4 : 2 + rnd() * 2.4, hub, group: hub ? i : Math.floor(rnd() * HUBS), born: 0 });
+    nodes.push({ x: 0, y: 0, vx: 0, vy: 0, fx: 0, fy: 0, r: hub ? 6.5 + rnd() * 4 : 2 + rnd() * 2.4, hub, group: hub ? i : Math.floor(rnd() * HUBS), born: 0 });
   }
   for (let i = HUBS; i < N; i++) {
     if (rnd() < 0.93) edges.push([i, nodes[i].group]);
     if (rnd() < 0.42) edges.push([i, HUBS + Math.floor(rnd() * (N - HUBS))]);
   }
   for (let h = 0; h < HUBS; h++) { edges.push([h, (h + 1) % HUBS]); if (rnd() < 0.5) edges.push([h, (h + 3) % HUBS]); }
+  const relayout = () => {
+    for (const n of nodes) {
+      const a = rnd() * Math.PI * 2, d = (n.hub ? 90 + rnd() * 140 : 60 + rnd() * 240) * k;
+      n.x = cx() + Math.cos(a) * d; n.y = cy() + Math.sin(a) * d * 0.7; n.vx = n.vy = 0;
+    }
+  };
+  relayout();
+  window.addEventListener('resize', () => { const w = W; measure(); if (Math.abs(w - W) > 40) relayout(); });
 
-  // Birth schedule: hubs first, then satellites in a shuffled order. Slow: ~45 s to build,
-  // then hold, fade out, and start again with a fresh layout. Whole cycle is about a minute.
-  const HUB_GAP = 1500, SAT_GAP = 330, HOLD = 14000, FADE = 3000, POP = 1200, LINK = 1500;
+  // Timing. Slow on purpose: ~75 s to build, 25 s hold, 5 s fade. Cycle ≈ 1 m 45 s.
+  const HUB_GAP = 2500, SAT_GAP = phone ? 1000 : 600, HOLD = 25000, FADE = 5000, POP = 2000, LINK = 2500;
   const order = nodes.map((_, i) => i);
   for (let i = N - 1; i > HUBS; i--) { const j = HUBS + Math.floor(rnd() * (i - HUBS + 1)); [order[i], order[j]] = [order[j], order[i]]; }
   let cycleStart = 0;
   const schedule = (t) => {
     cycleStart = t;
-    order.forEach((idx, k) => { nodes[idx].born = t + (k < HUBS ? k * HUB_GAP : HUBS * HUB_GAP + (k - HUBS) * SAT_GAP); });
+    order.forEach((idx, j) => { nodes[idx].born = t + (j < HUBS ? j * HUB_GAP : HUBS * HUB_GAP + (j - HUBS) * SAT_GAP); });
   };
   const buildEnd = () => cycleStart + HUBS * HUB_GAP + (N - HUBS) * SAT_GAP;
-  const relayout = () => {
-    for (const n of nodes) {
-      const a = rnd() * Math.PI * 2, d = n.hub ? 90 + rnd() * 140 : 60 + rnd() * 240;
-      n.x = cx() + Math.cos(a) * d; n.y = cy() + Math.sin(a) * d * 0.7; n.vx = n.vy = 0;
-    }
-  };
   schedule(performance.now());
   if (reduce) nodes.forEach((n) => { n.born = -Infinity; });
 
   const physics = (now, strength) => {
     const alive = nodes.filter((n) => now >= n.born);
+    const range = 150 * k, rep = 700 * k * k;
     for (const n of alive) { n.fx = (cx() - n.x) * 0.0025; n.fy = (cy() - n.y) * 0.0035; }
     for (let i = 0; i < alive.length; i++) for (let j = i + 1; j < alive.length; j++) {
       const a = alive[i], b = alive[j];
       let dx = b.x - a.x, dy = b.y - a.y; const d2 = dx * dx + dy * dy + 1;
-      if (d2 < 150 * 150) { const d = Math.sqrt(d2), f = 700 / d2; dx /= d; dy /= d; a.fx -= dx * f; a.fy -= dy * f; b.fx += dx * f; b.fy += dy * f; }
+      if (d2 < range * range) { const d = Math.sqrt(d2), f = rep / d2; dx /= d; dy /= d; a.fx -= dx * f; a.fy -= dy * f; b.fx += dx * f; b.fy += dy * f; }
     }
     for (const [i, j] of edges) {
       const a = nodes[i], b = nodes[j]; if (now < a.born || now < b.born) continue;
       const dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 1;
-      const want = a.hub && b.hub ? 190 : 52; const f = (d - want) * 0.012;
+      const want = (a.hub && b.hub ? 190 : 52) * k; const f = (d - want) * 0.012;
       a.fx += (dx / d) * f; a.fy += (dy / d) * f; b.fx -= (dx / d) * f; b.fy -= (dy / d) * f;
     }
     for (const n of alive) {
-      n.fx += (rnd() - 0.5) * 0.05; n.fy += (rnd() - 0.5) * 0.05; // idle drift
-      n.vx = (n.vx + n.fx * strength) * 0.86; n.vy = (n.vy + n.fy * strength) * 0.86;
+      n.fx += (rnd() - 0.5) * 0.035; n.fy += (rnd() - 0.5) * 0.035; // idle drift
+      n.vx = (n.vx + n.fx * strength) * 0.9; n.vy = (n.vy + n.fy * strength) * 0.9;
       n.x += n.vx; n.y += n.vy;
     }
   };
@@ -93,7 +96,7 @@ export function startGraph(canvas) {
     }
   };
 
-  if (reduce) { for (let k = 0; k < 240; k++) physics(0, 1); draw(0); return; }
+  if (reduce) { for (let i = 0; i < 240; i++) physics(0, 1); draw(0); return; }
 
   let visible = true, raf = 0;
   const frame = (now) => {
@@ -104,7 +107,7 @@ export function startGraph(canvas) {
       alpha = 1 - (now - fadeAt) / FADE;
       if (alpha <= 0) { relayout(); schedule(now); alpha = 1; }
     }
-    physics(now, 1);
+    physics(now, 0.7);
     draw(now, Math.max(0, alpha));
     if (visible && !document.hidden) raf = requestAnimationFrame(frame);
   };
