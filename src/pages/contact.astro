@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
+import { graph } from '../lib/patterns.js';
+const bodyBg = graph({ parity: 0, seed: 42, cx: 1250, cy: 350, satellites: 60 });
 import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
@@ -10,7 +12,8 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     <p><a class="btn btn-primary" href={mailto}>Email {site.email}</a></p>
   </Hero>
 
-  <section class="section">
+  <section class="section band-parallax">
+    <div class="band-bg" data-parallax="0.35" set:html={bodyBg} aria-hidden="true" />
     <div class="wrap">
       <h2>Useful to include</h2>
       <ul>

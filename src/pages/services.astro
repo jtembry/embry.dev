@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
+import { graph } from '../lib/patterns.js';
+const midBg = graph({ parity: 0, seed: 12, cx: 1200, cy: 450, satellites: 80 });
 import site from '../data/site.json';
 const ask = (s) => `mailto:${site.email}?subject=${encodeURIComponent(s)}`;
 ---
@@ -25,7 +27,8 @@ const ask = (s) => `mailto:${site.email}?subject=${encodeURIComponent(s)}`;
     </div>
   </section>
 
-  <section class="section band" id="practices">
+  <section class="section band band-parallax" id="practices">
+    <div class="band-bg" data-parallax="0.35" set:html={midBg} aria-hidden="true" />
     <div class="wrap">
       <h2>Knowledge assistants for small practices</h2>
       <p class="problem"><em>"Our knowledge is in documents nobody can search."</em></p>

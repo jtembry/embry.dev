@@ -32,11 +32,24 @@ export function startGraph(canvas) {
   }
   for (let h = 0; h < HUBS; h++) { edges.push([h, (h + 1) % HUBS]); if (rnd() < 0.5) edges.push([h, (h + 3) % HUBS]); }
 
-  // Birth schedule: hubs first, then satellites in a shuffled order, ~8 s total.
+  // Birth schedule: hubs first, then satellites in a shuffled order. Slow: ~45 s to build,
+  // then hold, fade out, and start again with a fresh layout. Whole cycle is about a minute.
+  const HUB_GAP = 1500, SAT_GAP = 330, HOLD = 14000, FADE = 3000, POP = 1200, LINK = 1500;
   const order = nodes.map((_, i) => i);
   for (let i = N - 1; i > HUBS; i--) { const j = HUBS + Math.floor(rnd() * (i - HUBS + 1)); [order[i], order[j]] = [order[j], order[i]]; }
-  const start = performance.now();
-  order.forEach((idx, k) => { nodes[idx].born = start + (k < HUBS ? k * 220 : 1400 + (k - HUBS) * 70); });
+  let cycleStart = 0;
+  const schedule = (t) => {
+    cycleStart = t;
+    order.forEach((idx, k) => { nodes[idx].born = t + (k < HUBS ? k * HUB_GAP : HUBS * HUB_GAP + (k - HUBS) * SAT_GAP); });
+  };
+  const buildEnd = () => cycleStart + HUBS * HUB_GAP + (N - HUBS) * SAT_GAP;
+  const relayout = () => {
+    for (const n of nodes) {
+      const a = rnd() * Math.PI * 2, d = n.hub ? 90 + rnd() * 140 : 60 + rnd() * 240;
+      n.x = cx() + Math.cos(a) * d; n.y = cy() + Math.sin(a) * d * 0.7; n.vx = n.vy = 0;
+    }
+  };
+  schedule(performance.now());
   if (reduce) nodes.forEach((n) => { n.born = -Infinity; });
 
   const physics = (now, strength) => {
@@ -54,23 +67,24 @@ export function startGraph(canvas) {
       a.fx += (dx / d) * f; a.fy += (dy / d) * f; b.fx -= (dx / d) * f; b.fy -= (dy / d) * f;
     }
     for (const n of alive) {
-      n.fx += (rnd() - 0.5) * 0.08; n.fy += (rnd() - 0.5) * 0.08; // idle drift
+      n.fx += (rnd() - 0.5) * 0.05; n.fy += (rnd() - 0.5) * 0.05; // idle drift
       n.vx = (n.vx + n.fx * strength) * 0.86; n.vy = (n.vy + n.fy * strength) * 0.86;
       n.x += n.vx; n.y += n.vy;
     }
   };
-  const draw = (now) => {
+  const draw = (now, alpha = 1) => {
     ctx.clearRect(0, 0, W, H);
+    ctx.globalAlpha = alpha;
     ctx.lineWidth = 1;
     for (const [i, j] of edges) {
       const a = nodes[i], b = nodes[j]; if (now < a.born || now < b.born) continue;
-      const age = Math.min(1, (now - Math.max(a.born, b.born)) / 700);
+      const age = Math.min(1, (now - Math.max(a.born, b.born)) / LINK);
       ctx.strokeStyle = a.hub && b.hub ? `rgba(232,112,42,${0.45 * age})` : `rgba(232,112,42,${0.22 * age})`;
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
     }
     for (const n of nodes) {
       if (now < n.born) continue;
-      const age = Math.min(1, (now - n.born) / 500);
+      const age = Math.min(1, (now - n.born) / POP);
       const r = n.r * age * (1 + (1 - age) * 1.8);
       ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
       ctx.fillStyle = n.hub ? `rgba(255,177,135,${0.95 * age})` : `rgba(230,232,236,${0.78 * age})`;
@@ -84,8 +98,14 @@ export function startGraph(canvas) {
   let visible = true, raf = 0;
   const frame = (now) => {
     raf = 0;
+    let alpha = 1;
+    const fadeAt = buildEnd() + HOLD;
+    if (now > fadeAt) {
+      alpha = 1 - (now - fadeAt) / FADE;
+      if (alpha <= 0) { relayout(); schedule(now); alpha = 1; }
+    }
     physics(now, 1);
-    draw(now);
+    draw(now, Math.max(0, alpha));
     if (visible && !document.hidden) raf = requestAnimationFrame(frame);
   };
   const kick = () => { if (!raf && visible && !document.hidden) raf = requestAnimationFrame(frame); };

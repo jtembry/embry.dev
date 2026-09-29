@@ -10,12 +10,12 @@ const front = animated ? '' : gen({ parity: 1, seed });
 ---
 <section class:list={['hero', 'band-dark', `hero-${variant}`, { 'hero-animated': animated }]}>
   <div class="hero-bg" aria-hidden="true">
-    {image && <img class="hero-img" src={image} alt="" data-parallax="0.12" loading="eager" decoding="async" />}
+    {image && <img class="hero-img" src={image} alt="" data-parallax="0.3" loading="eager" decoding="async" />}
     {animated
-      ? <canvas class="hero-canvas" data-parallax="0.16"></canvas>
+      ? <canvas class="hero-canvas" data-parallax="0.45"></canvas>
       : <>
-          <div class="hero-layer hero-layer-back" data-parallax="0.18" set:html={back} />
-          <div class="hero-layer hero-layer-front" data-parallax="0.34" set:html={front} />
+          <div class="hero-layer hero-layer-back" data-parallax="0.35" set:html={back} />
+          <div class="hero-layer hero-layer-front" data-parallax="0.65" set:html={front} />
         </>}
     <div class="hero-glow"></div>
   </div>

@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { graph } from '../lib/patterns.js';
 const stepsBg = graph({ parity: 0, seed: 8, cx: 1250, cy: 420 });
+const linesBg = graph({ parity: 0, seed: 2, cx: 300, cy: 500, satellites: 70 });
 import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
@@ -21,7 +22,8 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     </div>
   </section>
 
-  <section class="section band">
+  <section class="section band band-parallax">
+    <div class="band-bg" data-parallax="0.3" set:html={linesBg} aria-hidden="true" />
     <div class="wrap">
       <h2>Four things I build</h2>
       <div class="grid">
@@ -50,7 +52,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   </section>
 
   <section class="section band-parallax">
-    <div class="band-bg" data-parallax="0.12" set:html={stepsBg} aria-hidden="true" />
+    <div class="band-bg" data-parallax="0.35" set:html={stepsBg} aria-hidden="true" />
     <div class="wrap">
       <h2>How working with me goes</h2>
       <ol class="steps">
