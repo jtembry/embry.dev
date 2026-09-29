@@ -3,9 +3,9 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import ServiceLinks from '../components/ServiceLinks.astro';
 import site from '../data/site.json';
-import { graph } from '../lib/patterns.js';
+import { dots } from '../lib/patterns.js';
 const ask = `mailto:${site.email}?subject=${encodeURIComponent('Knowledge assistant for our practice')}`;
-const bodyBg = graph({ parity: 0, seed: 13, cx: 1200, cy: 450, satellites: 90 });
+const bodyBg = dots();
 ---
 <Base title="Knowledge assistants for small practices" description="A private assistant that searches your own documents, runs on servers you control, and answers with citations. For law offices, clinics, and small firms.">
   <Hero variant="graph" animated={true} seed={5} eyebrow="Service · Small practices" title="Knowledge assistants for small practices">
@@ -14,7 +14,7 @@ const bodyBg = graph({ parity: 0, seed: 13, cx: 1200, cy: 450, satellites: 90 })
   </Hero>
 
   <section class="section band-parallax">
-    <div class="band-bg" data-parallax="0.55" set:html={bodyBg} aria-hidden="true" />
+    <div class="band-bg" data-parallax="0.3" set:html={bodyBg} aria-hidden="true" />
     <div class="wrap">
       <h2>What you get</h2>
       <ul>

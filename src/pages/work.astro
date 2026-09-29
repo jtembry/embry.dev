@@ -1,8 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import { graph } from '../lib/patterns.js';
-const cardsBg = graph({ parity: 0, seed: 6, cx: 800, cy: 450, satellites: 110, hubs: 9 });
+import { dots } from '../lib/patterns.js';
+const cardsBg = dots();
 import site from '../data/site.json';
 ---
 <Base title="Work" description="Selected work: a cloud migration, an AI tooling change, a SaaS product built from nothing, a small-business site, and a personal knowledge system run by agents.">
@@ -11,7 +11,7 @@ import site from '../data/site.json';
   </Hero>
 
   <section class="section band-parallax">
-    <div class="band-bg" data-parallax="0.55" set:html={cardsBg} aria-hidden="true" />
+    <div class="band-bg" data-parallax="0.3" set:html={cardsBg} aria-hidden="true" />
     <div class="wrap">
       <div class="grid">
         <div class="card">

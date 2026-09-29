@@ -3,9 +3,9 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import ServiceLinks from '../components/ServiceLinks.astro';
 import site from '../data/site.json';
-import { graph } from '../lib/patterns.js';
+import { dots } from '../lib/patterns.js';
 const ask = `mailto:${site.email}?subject=${encodeURIComponent('Website for my business')}`;
-const bodyBg = graph({ parity: 0, seed: 14, cx: 1200, cy: 450, satellites: 70 });
+const bodyBg = dots();
 ---
 <Base title="Websites and automation for small businesses" description="A fast site you own on your own domain, hosted for free, plus the booking, forms, and email behind it. Fixed price.">
   <Hero variant="graph" seed={23} eyebrow="Service · Small businesses" title="Websites and automation for small businesses">
@@ -14,7 +14,7 @@ const bodyBg = graph({ parity: 0, seed: 14, cx: 1200, cy: 450, satellites: 70 })
   </Hero>
 
   <section class="section band-parallax">
-    <div class="band-bg" data-parallax="0.55" set:html={bodyBg} aria-hidden="true" />
+    <div class="band-bg" data-parallax="0.3" set:html={bodyBg} aria-hidden="true" />
     <div class="wrap">
       <h2>What you get</h2>
       <ul>

@@ -82,12 +82,25 @@ export function graph({ parity = 0, seed = 3, hubs = 7, satellites = 90, cx = 10
   if (parity === 0) {
     for (const [a, b] of edges) {
       const A = nodes[a], B = nodes[b];
-      out += `<line x1="${A.x.toFixed(1)}" y1="${A.y.toFixed(1)}" x2="${B.x.toFixed(1)}" y2="${B.y.toFixed(1)}" stroke="var(--pattern-stroke)" stroke-width="${A.hub && B.hub ? 1.4 : 0.9}" opacity="${A.hub && B.hub ? 0.4 : 0.22}"/>`;
+      out += `<line x1="${A.x.toFixed(1)}" y1="${A.y.toFixed(1)}" x2="${B.x.toFixed(1)}" y2="${B.y.toFixed(1)}" stroke="${A.hub && B.hub ? 'var(--pattern-stroke)' : 'var(--pattern-node)'}" stroke-width="${A.hub && B.hub ? 1.2 : 0.7}" opacity="${A.hub && B.hub ? 0.5 : 0.16}"/>`;
     }
-    for (const n of nodes) if (!n.hub) out += `<circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${n.r.toFixed(1)}" fill="var(--pattern-node)" opacity="0.7"/>`;
+    for (const n of nodes) if (!n.hub) out += `<circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${(n.r * 0.85).toFixed(1)}" fill="var(--pattern-node)" opacity="0.6"/>`;
   } else {
-    for (const n of nodes) if (n.hub) out += `<circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${n.r.toFixed(1)}" fill="var(--pattern-fill)" opacity="0.95"/><circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${(n.r + 7).toFixed(1)}" fill="none" stroke="var(--pattern-stroke)" stroke-width="1.2" opacity="0.45"/>`;
+    for (const n of nodes) if (n.hub) out += `<circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${(n.r * 0.7).toFixed(1)}" fill="var(--pattern-fill)" opacity="0.9"/><circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${(n.r + 6).toFixed(1)}" fill="none" stroke="var(--pattern-stroke)" stroke-width="0.8" opacity="0.5"/>`;
   }
   return svg(out);
 }
 patterns.graph = graph;
+
+// Blueprint dot grid with crosshair ticks every 8th cell. The industrial base layer.
+export function dots({ spacing = 28, tick = 8 } = {}) {
+  let out = '';
+  for (let y = spacing; y < H; y += spacing) for (let x = spacing; x < W; x += spacing) {
+    const major = (x / spacing) % tick === 0 && (y / spacing) % tick === 0;
+    out += major
+      ? `<path d="M${x - 5} ${y}h10M${x} ${y - 5}v10" stroke="var(--pattern-node)" stroke-width="1" opacity="0.45"/>`
+      : `<circle cx="${x}" cy="${y}" r="1" fill="var(--pattern-node)" opacity="0.32"/>`;
+  }
+  return svg(out);
+}
+patterns.dots = dots;

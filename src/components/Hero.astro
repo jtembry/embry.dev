@@ -1,23 +1,23 @@
 ---
-// Page hero with parallax background layers: a static back layer and either a static front layer
-// or, with animated=true, the live knowledge-graph canvas. variant: graph | layers | contours | grid.
-// Pass `image` (path under /public) to add a photo layer behind everything.
+// Page hero. Two depth layers everywhere: a blueprint dot grid (back) and a knowledge graph (front),
+// static SVG or, with animated=true, the live canvas. `image` adds a photo behind both.
 import { patterns } from '../lib/patterns.js';
 const { eyebrow, title, variant = 'graph', animated = false, seed = 3, image } = Astro.props;
 const gen = patterns[variant] ?? patterns.graph;
-const back = gen({ parity: 0, seed });
-const front = animated ? '' : gen({ parity: 1, seed });
+const back = patterns.dots();
+const front = animated ? '' : gen({ parity: 0, seed }) ;
+const frontHubs = animated ? '' : gen({ parity: 1, seed });
 ---
 <section class:list={['hero', 'band-dark', `hero-${variant}`, { 'hero-animated': animated }]}>
   <div class="hero-bg" aria-hidden="true">
-    {image && <img class="hero-img" src={image} alt="" data-parallax="0.3" loading="eager" decoding="async" />}
-    <div class="hero-layer hero-layer-back" data-parallax="0.3" set:html={back} />
+    {image && <img class="hero-img" src={image} alt="" data-parallax="0.2" loading="eager" decoding="async" />}
+    <div class="hero-layer hero-layer-back" data-parallax="0.18" set:html={back} />
     {animated
-      ? <canvas class="hero-canvas" data-parallax="0.75"></canvas>
-      : <div class="hero-layer hero-layer-front" data-parallax="0.75" set:html={front} />}
+      ? <canvas class="hero-canvas" data-parallax="0.42"></canvas>
+      : <div class="hero-layer hero-layer-front" data-parallax="0.42" set:html={front + frontHubs} />}
     <div class="hero-glow"></div>
   </div>
-  <div class="wrap hero-content">
+  <div class="wrap hero-content" data-hero-content>
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h1>{title}</h1>
     <slot />

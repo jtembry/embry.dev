@@ -1,8 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import { layers } from '../lib/patterns.js';
-const howBg = layers({ parity: 0, cx: 1250, gap: 18, width: 8, scale: 1.3 });
+import { dots } from '../lib/patterns.js';
+const howBg = dots();
 import site from '../data/site.json';
 import ServiceLinks from '../components/ServiceLinks.astro';
 const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing quote')}&body=${encodeURIComponent('What I need:\n\nDimensions or a photo/sketch:\n\nHow many:\n\nWhere it will be used (indoors, outdoors, heat, load):\n')}`;
@@ -26,7 +26,7 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
   </section>
 
   <section class="section band band-parallax">
-    <div class="band-bg" data-parallax="0.55" set:html={howBg} aria-hidden="true" />
+    <div class="band-bg" data-parallax="0.3" set:html={howBg} aria-hidden="true" />
     <div class="wrap">
       <h2>How it works</h2>
       <ol class="steps">
