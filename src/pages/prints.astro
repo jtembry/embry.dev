@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import site from '../data/site.json';
+import { getCollection } from 'astro:content';
+const prints = (await getCollection('prints')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<Base title="Print gallery" description="Everything that has come off the Bambu Lab P2S at Embry Development: parts, prototypes, and small runs.">
+  <Hero variant="layers" seed={8} eyebrow={`Gallery · ${site.location}`} title="Off the bed.">
+    <p class="lede">Every print that has come off the P2S, newest first. Replacement parts, brackets, enclosures, prototypes, and the occasional thing made just because.</p>
+    <p><a class="btn btn-secondary" href="/live">Watch the current print</a></p>
+  </Hero>
+  <section class="section">
+    <div class="wrap">
+      {prints.length === 0 ? (
+        <div class="card"><p class="eyebrow">Filling in</p><p>The gallery fills in as prints finish. Meanwhile, the <a href="/printing">printing service</a> page says what I make.</p></div>
+      ) : (
+        <div class="gallery">
+          {prints.map((p) => (
+            <article class="print card" class:list={{ featured: p.data.featured }}>
+              <a class="print-media" href={p.data.video ?? p.data.image} aria-label={`Open ${p.data.title}`}>
+                <img src={p.data.image} alt={p.data.title} loading="lazy" decoding="async" />
+                {p.data.video && <span class="print-play" aria-hidden="true">▶ timelapse</span>}
+              </a>
+              <div class="print-body">
+                <h3>{p.data.title}</h3>
+                <p class="muted">{fmt(p.data.date)}{p.data.material && ` · ${p.data.material}`}{p.data.color && ` · ${p.data.color}`}{p.data.printTime && ` · ${p.data.printTime}`}</p>
+                {p.body && <p class="print-notes" set:html={p.rendered?.html ?? ''} />}
+                <p class="print-meta">
+                  {p.data.designedByMe ? <span class="tag">My design</span> : p.data.model && <a class="tag" href={p.data.model}>Model</a>}
+                  {p.data.tags.map((t) => <span class="tag">{t}</span>)}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

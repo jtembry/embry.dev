@@ -161,3 +161,28 @@ footer.site .footer-brand { font-family: var(--mono); color: var(--white); }
   .hero-layer, .hero-img, .hero-canvas, .hero-content, .band-parallax .band-bg { transform: none !important; opacity: initial; }
   .card { transition: none; }
 }
+
+/* Live feed */
+.live-frame { position: relative; aspect-ratio: 16 / 9; background: var(--band); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: 0 20px 60px rgba(20,22,28,.18); }
+.live-player { position: absolute; inset: 0; }
+.live-frame iframe, .live-frame img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: contain; transition: opacity .6s; }
+.live-offline { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; padding: 2rem; color: #cfd3da; }
+.live-offline .eyebrow { color: var(--accent-bright); }
+.live-offline a { color: #ffb187; }
+.live-badge { position: absolute; top: .9rem; left: .9rem; margin: 0; font-family: var(--mono); font-size: .75rem; letter-spacing: .1em; color: var(--white); background: rgba(22,24,29,.6); padding: .3rem .6rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); display: inline-flex; align-items: center; gap: .45rem; }
+.live-dot { width: .5rem; height: .5rem; border-radius: 999px; background: #ff5a3c; box-shadow: 0 0 0 0 rgba(255,90,60,.6); animation: live-pulse 1.8s ease-out infinite; }
+@keyframes live-pulse { 0% { box-shadow: 0 0 0 0 rgba(255,90,60,.6); } 100% { box-shadow: 0 0 0 10px rgba(255,90,60,0); } }
+/* Print gallery */
+.gallery { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); }
+.print { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.print.featured { grid-column: span 2; }
+.print-media { position: relative; display: block; aspect-ratio: 4 / 3; background: var(--band); }
+.print-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.print:hover .print-media img { transform: scale(1.03); }
+.print-play { position: absolute; right: .7rem; bottom: .7rem; font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; color: var(--white); background: rgba(22,24,29,.65); padding: .25rem .55rem; border-radius: 999px; }
+.print-body { padding: 1rem 1.2rem 1.2rem; }
+.print-body h3 { margin: 0 0 .25rem; font-size: 1.05rem; }
+.print-notes { font-size: .95rem; }
+.print-meta { display: flex; flex-wrap: wrap; gap: .35rem; margin: .5rem 0 0; }
+.print-meta a.tag { text-decoration: none; }
+@media (max-width: 40rem) { .print.featured { grid-column: auto; } }

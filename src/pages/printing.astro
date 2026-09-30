@@ -48,5 +48,16 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
       <p><a class="btn btn-primary" href={quote}>Request a quote</a></p>
     </div>
   </section>
+  <section class="section band-parallax">
+    <div class="band-bg" data-parallax="0.3" set:html={howBg} aria-hidden="true" />
+    <div class="wrap">
+      <h2>From the shop</h2>
+      <div class="grid">
+        <div class="card"><p class="index">LIVE</p><h3><a href="/live">Watch it print</a></h3><p>The camera inside the P2S, streamed while a job is running.</p></div>
+        <div class="card"><p class="index">GALLERY</p><h3><a href="/prints">Everything off the bed</a></h3><p>Finished prints, newest first, with material and timelapse where there is one.</p></div>
+      </div>
+    </div>
+  </section>
+
   <ServiceLinks current="/printing" />
 </Base>

@@ -6,5 +6,10 @@
   "location": "Louisville, KY",
   "email": "jtembryjr@gmail.com",
   "linkedin": "https://www.linkedin.com/in/embry-dev",
-  "github": "https://github.com/jtembry"
+  "github": "https://github.com/jtembry",
+  "live": {
+    "kind": "youtube",
+    "channelId": "",
+    "apiKey": ""
+  }
 }

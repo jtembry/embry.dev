@@ -1,0 +1,53 @@
+---
+// Live printer camera via YouTube Live. site.json → live: { kind: 'youtube', channelId, apiKey }.
+// With an apiKey (YouTube Data API v3, restricted to this site's referrer) the page asks whether the
+// channel is live right now and embeds that broadcast; otherwise it shows the idle panel. Without a
+// key it falls back to YouTube's channel live embed, which is blank when nothing is on air.
+import site from '../data/site.json';
+const live = site.live ?? { kind: 'off' };
+const ready = live.kind === 'youtube' && live.channelId;
+---
+<div class="live" data-live-kind={ready ? 'youtube' : 'off'} data-cfg={ready ? JSON.stringify({ channelId: live.channelId, apiKey: live.apiKey ?? '' }) : ''}>
+  <div class="live-frame">
+    {ready && <div class="live-player"></div>}
+    <div class="live-offline">
+      <p class="eyebrow">{ready ? 'Printer idle' : 'Camera not connected yet'}</p>
+      <p>{ready ? 'The stream comes on when a print is running. Check back, or ' : 'The live feed is being wired up. Meanwhile, '}<a href="/prints">browse finished prints</a>.</p>
+    </div>
+    <p class="live-badge" hidden><span class="live-dot"></span> LIVE</p>
+  </div>
+</div>
+<script>
+  const root = document.querySelector('.live[data-live-kind="youtube"]');
+  if (root) {
+    const { channelId, apiKey } = JSON.parse(root.dataset.cfg);
+    const player = root.querySelector('.live-player');
+    const panel = root.querySelector('.live-offline');
+    const badge = root.querySelector('.live-badge');
+    let shownId = null;
+    const show = (videoId) => {
+      if (videoId === shownId) return;
+      shownId = videoId;
+      player.innerHTML = videoId
+        ? `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0" title="Live from the printer" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
+        : '';
+      panel.hidden = !!videoId; badge.hidden = !videoId;
+    };
+    const check = async () => {
+      if (!apiKey) { show(`live_stream?channel=${channelId}&`); return; }
+      try {
+        const key = `yt-live-${channelId}`;
+        const cached = JSON.parse(sessionStorage.getItem(key) || 'null');
+        if (cached && Date.now() - cached.t < 120000) { show(cached.id); return; }
+        const r = await fetch(`https://www.googleapis.com/youtube/v3/search?part=id&channelId=${channelId}&eventType=live&type=video&maxResults=1&key=${apiKey}`);
+        const j = r.ok ? await r.json() : { items: [] };
+        const id = j.items?.[0]?.id?.videoId ?? null;
+        sessionStorage.setItem(key, JSON.stringify({ id, t: Date.now() }));
+        show(id);
+      } catch { show(null); }
+    };
+    check();
+    setInterval(() => { if (!document.hidden) check(); }, 150000);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) check(); });
+  }
+</script>
