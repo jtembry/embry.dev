@@ -2,11 +2,11 @@
 
 ## Live feed (self-hosted: go2rtc on brainpi + Cloudflare Tunnel)
 
-Printer camera (RTSPS, port 322, Developer Mode) → **go2rtc** on brainpi (user service, `~/.config/go2rtc/go2rtc.yaml`, API bound to 127.0.0.1:1984) → **cloudflared** tunnel on brainpi publishing only the player assets and stream endpoints as `live.embry.dev` → `/live` embeds go2rtc's `<video-stream>` element (MSE over WebSocket, MP4 fallback).
+Printer camera (RTSPS, port 322, Developer Mode) → **go2rtc** on brainpi (user service, `~/.config/go2rtc/go2rtc.yaml`, API bound to 127.0.0.1:1984) → **cloudflared** tunnel on brainpi publishing only the player assets and stream endpoints as `live.embry.dev` → `/live` runs a small MSE client of our own against go2rtc's WebSocket protocol (go2rtc's bundled player threw on this browser), with native HLS on browsers without MSE (iPhone).
 
 - Comes on and off with the printer; no YouTube, no manual start.
 - Secrets: the LAN access code lives only in the Pi's go2rtc.yaml (mode 600) and the Mac Keychain `brain-bambu-p2s`.
-- Exposed paths: `/video-stream.js`, `/video-rtc.js`, `/api/ws`, `/api/stream.mp4`. Everything else (including `/api/streams`, which would reveal the camera URL) returns 404 at the tunnel.
+- Exposed paths: `/api/ws`, `/api/stream.mp4`, `/api/stream.m3u8`, `/api/hls/*`. Everything else (including `/api/streams`, which would reveal the camera URL) returns 404 at the tunnel.
 - Pi service checks: `systemctl --user status go2rtc cloudflared`; local probe `curl -s -m 5 http://127.0.0.1:1984/api/stream.mp4?src=p2s -o /tmp/x.mp4`.
 - The YouTube route was abandoned 2026-10-02: YouTube blocks live embeds on channels without AdSense, and a dropped encoder ends the broadcast with no automatic restart. `brain-print-stream` still exists if a YouTube broadcast is ever wanted by hand.
 

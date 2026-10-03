@@ -1,15 +1,15 @@
 ---
 // Live printer camera, self-hosted: go2rtc on brainpi behind a Cloudflare Tunnel.
 // site.json → live: { kind: 'go2rtc', url: 'https://live.embry.dev', src: 'p2s' }.
-// Uses go2rtc's <video-stream> element (MSE over WebSocket, MP4 fallback), which works through the tunnel.
-// The idle panel shows until the video actually plays; if nothing plays within 15 s it retries every 30 s.
+// Player: our own MSE client speaking go2rtc's WebSocket protocol (MSE over wss), with native
+// HLS on browsers without MSE (iPhone). The idle panel shows until video actually plays; on any
+// drop it retries every 30 s while the tab is visible.
 import site from '../data/site.json';
 const live = site.live ?? { kind: 'off' };
 const ready = live.kind === 'go2rtc' && live.url;
 const base = ready ? live.url.replace(/\/$/, '') : '';
-const wsBase = base.replace(/^http/, 'ws');
 ---
-<div class="live" data-live-kind={ready ? 'go2rtc' : 'off'} data-src={ready ? `${wsBase}/api/ws?src=${live.src}` : ''}>
+<div class="live" data-live-kind={ready ? 'go2rtc' : 'off'} data-ws={ready ? `${base.replace(/^http/, 'ws')}/api/ws?src=${live.src}` : ''} data-hls={ready ? `${base}/api/stream.m3u8?src=${live.src}` : ''}>
   <div class="live-frame">
     {ready && <div class="live-player"></div>}
     <div class="live-offline">
@@ -19,34 +19,63 @@ const wsBase = base.replace(/^http/, 'ws');
     <p class="live-badge" hidden><span class="live-dot"></span> LIVE</p>
   </div>
 </div>
-{ready && <script type="module" src="/vendor/video-stream.js" is:inline></script>}
 <script>
   const root = document.querySelector('.live[data-live-kind="go2rtc"]');
   if (root) {
-    const src = root.dataset.src;
+    const wsUrl = root.dataset.ws, hlsUrl = root.dataset.hls;
     const player = root.querySelector('.live-player');
     const panel = root.querySelector('.live-offline');
     const badge = root.querySelector('.live-badge');
-    let el = null, watchdog = 0, retry = 0;
+    const CODECS = 'avc1.640029,avc1.64002A,avc1.640033,hvc1.1.6.L153.B0,mp4a.40.2,mp4a.40.5,flac,opus';
+    const canMSE = typeof MediaSource !== 'undefined' && MediaSource.isTypeSupported('video/mp4; codecs="avc1.640029"');
+    let video = null, ws = null, ms = null, sb = null, queue = [], retry = 0, trim = 0;
     const setLive = (on) => { panel.hidden = on; badge.hidden = !on; player.style.opacity = on ? '1' : '0'; };
-    const teardown = () => { clearTimeout(watchdog); if (el) { el.remove(); el = null; } };
+    const teardown = () => {
+      clearTimeout(retry); clearInterval(trim);
+      if (ws) { ws.onclose = null; ws.close(); ws = null; }
+      if (video) { video.pause(); video.removeAttribute('src'); video.load(); video.remove(); video = null; }
+      ms = null; sb = null; queue = [];
+    };
+    const fail = () => { setLive(false); teardown(); retry = setTimeout(connect, 30000); };
+    const pump = () => {
+      if (!sb || sb.updating || !queue.length) return;
+      try { sb.appendBuffer(queue.shift()); } catch { fail(); }
+    };
     const connect = () => {
       teardown();
-      if (!customElements.get('video-stream')) { retry = setTimeout(connect, 1500); return; }
-      el = document.createElement('video-stream');
-      el.setAttribute('mode', 'mse,mp4');
-      el.setAttribute('src', src);
-      player.appendChild(el);
-      const video = () => el.querySelector('video') ?? el.video;
-      const check = () => {
-        const v = video();
-        if (v) { v.muted = true; v.setAttribute('playsinline', ''); v.addEventListener('playing', () => { clearTimeout(watchdog); setLive(true); }, { once: true }); }
-      };
-      setTimeout(check, 500); setTimeout(check, 2000);
-      watchdog = setTimeout(() => { const v = video(); if (!v || v.readyState < 3) { setLive(false); teardown(); retry = setTimeout(connect, 30000); } }, 15000);
+      video = document.createElement('video');
+      video.muted = true; video.autoplay = true; video.playsInline = true; video.setAttribute('playsinline', '');
+      video.addEventListener('playing', () => setLive(true));
+      video.addEventListener('error', fail);
+      video.addEventListener('stalled', () => { if (video && video.readyState < 3) setTimeout(() => { if (video && video.readyState < 3) fail(); }, 8000); });
+      player.appendChild(video);
+      if (!canMSE) { video.src = hlsUrl; video.play().catch(() => {}); return; }
+      ms = new MediaSource();
+      ms.addEventListener('sourceopen', () => {
+        ws = new WebSocket(wsUrl); ws.binaryType = 'arraybuffer';
+        ws.onopen = () => ws.send(JSON.stringify({ type: 'mse', value: CODECS }));
+        ws.onclose = fail; ws.onerror = fail;
+        ws.onmessage = (m) => {
+          if (typeof m.data === 'string') {
+            const msg = JSON.parse(m.data);
+            if (msg.type === 'mse') { try { sb = ms.addSourceBuffer(msg.value); sb.mode = 'segments'; sb.addEventListener('updateend', pump); } catch { fail(); } }
+            else if (msg.type === 'error') fail();
+          } else { queue.push(m.data); pump(); }
+        };
+      });
+      video.src = URL.createObjectURL(ms);
+      video.play().catch(() => {});
+      // Stay near the live edge and keep the buffer small.
+      trim = setInterval(() => {
+        if (!video || !sb || !video.buffered.length) return;
+        const end = video.buffered.end(video.buffered.length - 1);
+        if (end - video.currentTime > 3) video.currentTime = end - 0.5;
+        const start = video.buffered.start(0);
+        if (!sb.updating && video.currentTime - start > 30) { try { sb.remove(start, video.currentTime - 15); } catch {} }
+      }, 2000);
     };
     setLive(false);
-    document.addEventListener('visibilitychange', () => { if (document.hidden) { clearTimeout(retry); teardown(); setLive(false); } else connect(); });
-    connect();
+    document.addEventListener('visibilitychange', () => { if (document.hidden) { teardown(); setLive(false); } else connect(); });
+    if (!document.hidden) connect();
   }
 </script>
