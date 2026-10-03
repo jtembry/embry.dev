@@ -29,4 +29,4 @@ tags: [replacement part]
 Measured from the broken original. Third revision fit first time.
 ```
 
-`brain-prints-sync` pulls new timelapses off the printer's SD card over FTPS (LAN only), downscales them to 720p, grabs a poster frame, and writes a draft entry you then title and describe. Your own photos beat the poster frame: drop the photo in `public/prints/` and point `image:` at it.
+`brain-prints-sync` pulls new timelapses off the printer's USB stick over FTPS (LAN only; the P2S has no SD slot), downscales them to 720p, grabs a poster frame, and writes a draft entry you then title and describe. Your own photos beat the poster frame: drop the photo in `public/prints/` and point `image:` at it.
