@@ -19,7 +19,7 @@ const wsBase = base.replace(/^http/, 'ws');
     <p class="live-badge" hidden><span class="live-dot"></span> LIVE</p>
   </div>
 </div>
-{ready && <script type="module" src={`${base}/video-stream.js`} is:inline></script>}
+{ready && <script type="module" src="/vendor/video-stream.js" is:inline></script>}
 <script>
   const root = document.querySelector('.live[data-live-kind="go2rtc"]');
   if (root) {
