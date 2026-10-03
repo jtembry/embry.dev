@@ -8,9 +8,9 @@
   "linkedin": "https://www.linkedin.com/in/embry-dev",
   "github": "https://github.com/jtembry",
   "live": {
-    "kind": "youtube",
-    "channelId": "UC8VoNcA5zuFaRdrkB9eHBcw",
-    "apiKey": ""
+    "kind": "go2rtc",
+    "url": "https://live.embry.dev",
+    "src": "p2s"
   },
   "youtube": "https://www.youtube.com/@EmbryDevelopment"
 }

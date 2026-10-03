@@ -1,22 +1,14 @@
 # Live feed and print gallery
 
-## Live feed (YouTube Live)
+## Live feed (self-hosted: go2rtc on brainpi + Cloudflare Tunnel)
 
-The P2S camera goes printer → Mac (ffmpeg) → YouTube Live → `/live` on the site. Nothing runs on the Pi and nothing is exposed from the LAN.
+Printer camera (RTSPS, port 322, Developer Mode) → **go2rtc** on brainpi (user service, `~/.config/go2rtc/go2rtc.yaml`, API bound to 127.0.0.1:1984) → **cloudflared** tunnel on brainpi publishing only the player assets and stream endpoints as `live.embry.dev` → `/live` embeds go2rtc's `<video-stream>` element (MSE over WebSocket, MP4 fallback).
 
-One-time setup, in this order:
-
-1. **Printer.** Settings → General → enable **Developer Mode** (LAN camera access). Note the printer's IP and the **LAN access code** (Settings → WLAN).
-2. **YouTube.** On the channel: enable live streaming (first time needs phone verification and a 24 h wait). In YouTube Studio → Go live → Stream: create a **persistent stream key**, set *Enable Auto-start* and *Enable Auto-stop*, unlisted or public as you like. Copy the channel ID (Settings → Advanced settings).
-3. **Optional, for on-air detection:** in Google Cloud, create a YouTube Data API v3 key restricted to HTTP referrer `https://embry.dev/*`. Without it the page embeds the channel's live slot, which is blank when idle.
-4. **Secrets in Keychain** (never in the repo). Run in your own terminal:
-   ```
-   security add-generic-password -a "<PRINTER_IP>" -s brain-bambu-p2s -w "<LAN_ACCESS_CODE>" -U
-   security add-generic-password -a youtube -s brain-youtube-stream -w "<STREAM_KEY>" -U
-   ```
-5. **Site config:** `src/data/site.json` → `live.channelId` (and `live.apiKey`). Commit and push.
-
-Per print: `brain-print-stream start` on the Mac while it's on the Asus LAN. `brain-print-stream stop` when done (or leave it; it exits when the printer drops the camera). `brain-print-stream status` shows the ffmpeg process and last log lines. With Auto-start set on YouTube, the broadcast goes live as soon as ffmpeg connects.
+- Comes on and off with the printer; no YouTube, no manual start.
+- Secrets: the LAN access code lives only in the Pi's go2rtc.yaml (mode 600) and the Mac Keychain `brain-bambu-p2s`.
+- Exposed paths: `/video-stream.js`, `/video-rtc.js`, `/api/ws`, `/api/stream.mp4`. Everything else (including `/api/streams`, which would reveal the camera URL) returns 404 at the tunnel.
+- Pi service checks: `systemctl --user status go2rtc cloudflared`; local probe `curl -s -m 5 http://127.0.0.1:1984/api/stream.mp4?src=p2s -o /tmp/x.mp4`.
+- The YouTube route was abandoned 2026-10-02: YouTube blocks live embeds on channels without AdSense, and a dropped encoder ends the broadcast with no automatic restart. `brain-print-stream` still exists if a YouTube broadcast is ever wanted by hand.
 
 ## Print gallery
 
