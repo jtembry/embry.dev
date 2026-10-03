@@ -12,6 +12,8 @@ const prints = defineCollection({
     material: z.string().optional(),   // PLA, PETG, TPU, ASA…
     color: z.string().optional(),
     printTime: z.string().optional(),  // "3 h 12 m"
+    layers: z.coerce.number().optional(),
+    nozzle: z.string().optional(),      // "0.4"
     model: z.string().url().optional(),// MakerWorld / Printables / own design
     designedByMe: z.boolean().default(false),
     tags: z.array(z.string()).default([]),

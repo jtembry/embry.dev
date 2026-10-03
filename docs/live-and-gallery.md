@@ -12,21 +12,10 @@ Printer camera (RTSPS, port 322, Developer Mode) → **go2rtc** on brainpi (user
 
 ## Print gallery
 
-Entries are Markdown files in `src/content/prints/`, one per print, with the photo (and optional timelapse) in `public/prints/`:
+Entries are Markdown files in `src/content/prints/`, one per print, with the photo (and optional timelapse) in `public/prints/`. Fields: `title`, `date`, `image`, optional `video`, `material`, `color`, `printTime`, `layers`, `nozzle`, `model` (URL), `designedByMe`, `tags`, `featured`. The body is the one-sentence story.
 
-```markdown
----
-title: Dishwasher rack clip
-date: 2026-09-30
-image: /prints/2026-09-30-dishwasher-clip.jpg
-video: /prints/2026-09-30-dishwasher-clip.mp4   # optional timelapse
-material: PETG
-color: Black
-printTime: 42 m
-designedByMe: true
-tags: [replacement part]
----
-Measured from the broken original. Third revision fit first time.
-```
+**Automatic drafts.** `brain-print-watch` runs on brainpi (user service) and listens to the printer over MQTT. When a job finishes it waits 20 s, grabs a bed photo from go2rtc, and writes `~/prints-drafts/<date>-<slug>/{entry.md,photo.jpg,job.json}` with the job name, filament type and color (from the AMS tray that fed), duration, layers, and nozzle filled in. Failed jobs are logged, not drafted.
 
-`brain-prints-sync` pulls new timelapses off the printer's USB stick over FTPS (LAN only; the P2S has no SD slot), downscales them to 720p, grabs a poster frame, and writes a draft entry you then title and describe. Your own photos beat the poster frame: drop the photo in `public/prints/` and point `image:` at it.
+**Pulling drafts to the site.** On the Mac: `brain-prints-sync` (rsync from the Pi; `--dry-run` to list). It adds any draft that isn't already in `src/content/prints/`. Then add a sentence to the new entry, replace the bed photo with a better one if you have it (same filename), commit, push.
+
+Pi checks: `ssh joel@192.168.50.36 'systemctl --user status brain-print-watch; tail ~/prints-drafts/watch.log'`. The P2S's internal storage is not reachable over FTP, so timelapses only reach the gallery via a USB stick (External target) or a Handy/Studio download dropped into `public/prints/` with `video:` set.

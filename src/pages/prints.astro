@@ -25,7 +25,7 @@ const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'shor
               </a>
               <div class="print-body">
                 <h3>{p.data.title}</h3>
-                <p class="muted">{fmt(p.data.date)}{p.data.material && ` · ${p.data.material}`}{p.data.color && ` · ${p.data.color}`}{p.data.printTime && ` · ${p.data.printTime}`}</p>
+                <p class="muted">{fmt(p.data.date)}{p.data.material && ` · ${p.data.material}`}{p.data.color && ` · ${p.data.color}`}{p.data.printTime && ` · ${p.data.printTime}`}{p.data.layers && ` · ${p.data.layers} layers`}{p.data.nozzle && ` · ${p.data.nozzle} mm nozzle`}</p>
                 {p.body && <p class="print-notes" set:html={p.rendered?.html ?? ''} />}
                 <p class="print-meta">
                   {p.data.designedByMe ? <span class="tag">My design</span> : p.data.model && <a class="tag" href={p.data.model}>Model</a>}
