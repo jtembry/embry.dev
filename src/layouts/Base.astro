@@ -143,5 +143,6 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         targets.forEach((el) => io.observe(el));
       }
     </script>
+    {import.meta.env.PROD && site.cfAnalyticsToken && <script is:inline type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: site.cfAnalyticsToken })}></script>}
   </body>
 </html>

@@ -12,5 +12,6 @@
     "url": "https://live.embry.dev",
     "src": "p2s"
   },
-  "youtube": "https://www.youtube.com/@EmbryDevelopment"
+  "youtube": "https://www.youtube.com/@EmbryDevelopment",
+  "cfAnalyticsToken": "73e6cb749fbb4af4a3b43b3da6ed4504"
 }
