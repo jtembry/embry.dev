@@ -25,16 +25,20 @@ const ready = live.kind === 'youtube' && live.channelId;
     const panel = root.querySelector('.live-offline');
     const badge = root.querySelector('.live-badge');
     let shownId = null;
+    const params = 'autoplay=1&mute=1&playsinline=1&rel=0';
     const show = (videoId) => {
       if (videoId === shownId) return;
       shownId = videoId;
+      const src = videoId === 'channel'
+        ? `https://www.youtube.com/embed/live_stream?channel=${channelId}&${params}`
+        : `https://www.youtube-nocookie.com/embed/${videoId}?${params}`;
       player.innerHTML = videoId
-        ? `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0" title="Live from the printer" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
+        ? `<iframe src="${src}" title="Live from the printer" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
         : '';
       panel.hidden = !!videoId; badge.hidden = !videoId;
     };
     const check = async () => {
-      if (!apiKey) { show(`live_stream?channel=${channelId}&`); return; }
+      if (!apiKey) { show('channel'); return; }
       try {
         const key = `yt-live-${channelId}`;
         const cached = JSON.parse(sessionStorage.getItem(key) || 'null');
