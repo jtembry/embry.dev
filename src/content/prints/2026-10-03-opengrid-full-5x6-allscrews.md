@@ -6,7 +6,7 @@ material: PLA
 color: Black, Silver
 printTime: 1 h 38 m
 layers: 34
-nozzle: 0.4
+nozzle: "0.4"
 tags: []
 model: https://github.com/AndyLevesque/QuackWorks
 ---
