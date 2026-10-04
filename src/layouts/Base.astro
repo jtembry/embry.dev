@@ -5,7 +5,6 @@ import Logo from '../components/Logo.astro';
 const { title, description } = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 const services = [
-  ['/ai-adoption', 'AI adoption'],
   ['/knowledge-assistants', 'Knowledge assistants'],
   ['/websites', 'Websites'],
   ['/printing', '3D printing'],
@@ -36,7 +35,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
       <div class="bar">
         <a class="brand" href="/" aria-label="Embry Development home"><Logo size={24} /><span class="brand-text">embry<span class="dot">.dev</span></span></a>
         <nav class="primary" aria-label="Primary">
-          <ul>{nav.map(([href, label]) => <li><a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a></li>)}</ul>
+          <ul>{nav.map(([href, label]) => <li><a href={href} aria-current={path === href || path.startsWith(href + '/') ? 'page' : undefined}>{label}</a></li>)}</ul>
           <a class="btn btn-primary nav-cta" href={mailto}>Email me</a>
         </nav>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open menu">
@@ -51,9 +50,9 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <button class="drawer-close" type="button" aria-label="Close menu">×</button>
       </div>
       <p class="drawer-label" style="--i:0">What I build</p>
-      <ul class="drawer-list">{services.map(([href, label], i) => <li style={`--i:${i + 1}`}><a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a></li>)}</ul>
+      <ul class="drawer-list">{services.map(([href, label], i) => <li style={`--i:${i + 1}`}><a href={href} aria-current={path === href || path.startsWith(href + '/') ? 'page' : undefined}>{label}</a></li>)}</ul>
       <p class="drawer-label" style="--i:5">More</p>
-      <ul class="drawer-list">{more.map(([href, label], i) => <li style={`--i:${i + 6}`}><a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a></li>)}</ul>
+      <ul class="drawer-list">{more.map(([href, label], i) => <li style={`--i:${i + 6}`}><a href={href} aria-current={path === href || path.startsWith(href + '/') ? 'page' : undefined}>{label}</a></li>)}</ul>
       <a class="btn btn-primary drawer-cta" href={mailto} style="--i:9">Email me</a>
       <p class="drawer-foot" style="--i:10">{site.legalName} · {site.location}</p>
     </aside>

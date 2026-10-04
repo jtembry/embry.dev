@@ -1,17 +1,23 @@
 ---
-import Base from '../layouts/Base.astro';
-import Hero from '../components/Hero.astro';
-import ServiceLinks from '../components/ServiceLinks.astro';
-import site from '../data/site.json';
-import { dots } from '../lib/patterns.js';
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import ServiceLinks from '../../components/ServiceLinks.astro';
+import site from '../../data/site.json';
+import { dots } from '../../lib/patterns.js';
 const ask = `mailto:${site.email}?subject=${encodeURIComponent('AI pilot for our engineering team')}`;
 const bodyBg = dots();
 ---
 <Base title="AI adoption for engineering teams" description="A four-week pilot that turns an engineering team's AI tools into closed tickets: a workflow audit, agents on one real repo, and numbers from the team's own tracker.">
-  <Hero variant="graph" seed={11} eyebrow="Service · Engineering teams" title="AI adoption for engineering teams">
+  <Hero variant="graph" seed={11} eyebrow="Knowledge assistants · Engineering teams" title="AI adoption for engineering teams">
     <p class="lede"><em>"We bought the AI seats and nothing changed."</em> Most teams get Copilot or Claude licenses and a Slack thread of tips. Throughput stays flat because nobody changed the workflow. I changed the workflow for a team on a live finance platform, and ticket throughput rose 65%.</p>
     <p><a class="btn btn-primary" href={ask}>Ask about a pilot</a></p>
   </Hero>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="muted">Part of <a href="/knowledge-assistants">Knowledge assistants</a>: the same work, aimed at an engineering team's own code and tickets.</p>
+    </div>
+  </section>
 
   <section class="section band-parallax">
     <div class="band-bg" data-parallax="0.3" set:html={bodyBg} aria-hidden="true" />
@@ -33,5 +39,5 @@ const bodyBg = dots();
     </div>
   </section>
 
-  <ServiceLinks current="/ai-adoption" />
+  <ServiceLinks current="/knowledge-assistants" />
 </Base>
