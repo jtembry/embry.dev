@@ -1,0 +1,46 @@
+---
+// Finished prints, newest first. Entries come from brain-prints-publish (docs/live-and-gallery.md).
+import { getCollection } from 'astro:content';
+const prints = (await getCollection('prints')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// Newest SHOWN print cards stay visible; the rest open with "Show all". Without JS every card shows.
+const SHOWN = 6;
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+  {prints.length === 0 ? (
+    <div class="card"><p class="eyebrow">Filling in</p><p>The gallery fills in as prints finish. Meanwhile, the list below says what I make.</p></div>
+  ) : (
+    <div class="gallery" id="print-gallery">
+      {prints.map((p, i) => (
+        <article class="print card" class:list={{ featured: p.data.featured, 'print-extra': i >= SHOWN }}>
+          <a class="print-media" href={p.data.video ?? p.data.image} aria-label={`Open ${p.data.title}`}>
+            <img src={p.data.image} alt={p.data.title} loading="lazy" decoding="async" />
+            {p.data.video && <span class="print-play" aria-hidden="true">▶ timelapse</span>}
+          </a>
+          <div class="print-body">
+            <h3>{p.data.title}</h3>
+            <p class="muted">{fmt(p.data.date)}{p.data.material && ` · ${p.data.material}`}{p.data.color && ` · ${p.data.color}`}{p.data.printTime && ` · ${p.data.printTime}`}{p.data.layers && ` · ${p.data.layers} layers`}{p.data.nozzle && ` · ${p.data.nozzle} mm nozzle`}</p>
+            {p.body && <p class="print-notes" set:html={p.rendered?.html ?? ''} />}
+            <p class="print-meta">
+              {p.data.designedByMe ? <span class="tag">My design</span> : p.data.model && <a class="tag" href={p.data.model}>Model</a>}
+              {p.data.tags.map((t) => <span class="tag">{t}</span>)}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  )}
+  {prints.length > SHOWN && (
+    <p class="gallery-more"><button class="btn btn-secondary" type="button" aria-controls="print-gallery" aria-expanded="false" hidden>Show all {prints.length} prints</button></p>
+  )}
+<script>
+  const gallery = document.getElementById('print-gallery');
+  const more = document.querySelector('.gallery-more button');
+  if (gallery && more) {
+    gallery.classList.add('collapsed');
+    more.hidden = false;
+    more.addEventListener('click', () => {
+      gallery.classList.remove('collapsed');
+      more.parentElement.remove();
+    });
+  }
+</script>

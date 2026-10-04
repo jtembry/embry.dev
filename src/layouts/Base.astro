@@ -11,13 +11,8 @@ const services = [
   ['/printing', '3D printing'],
 ];
 const more = [
-  ['/work', 'Work'],
   ['/about', 'About'],
   ['/contact', 'Contact'],
-];
-const extra = [
-  ['/live', 'Live from the printer'],
-  ['/prints', 'Print gallery'],
 ];
 const nav = [...services, ...more];
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
@@ -59,10 +54,8 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
       <ul class="drawer-list">{services.map(([href, label], i) => <li style={`--i:${i + 1}`}><a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a></li>)}</ul>
       <p class="drawer-label" style="--i:5">More</p>
       <ul class="drawer-list">{more.map(([href, label], i) => <li style={`--i:${i + 6}`}><a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a></li>)}</ul>
-      <p class="drawer-label" style="--i:9">From the shop</p>
-      <ul class="drawer-list">{extra.map(([href, label], i) => <li style={`--i:${i + 10}`}><a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a></li>)}</ul>
-      <a class="btn btn-primary drawer-cta" href={mailto} style="--i:12">Email me</a>
-      <p class="drawer-foot" style="--i:13">{site.legalName} · {site.location}</p>
+      <a class="btn btn-primary drawer-cta" href={mailto} style="--i:9">Email me</a>
+      <p class="drawer-foot" style="--i:10">{site.legalName} · {site.location}</p>
     </aside>
     <main id="main">
       <slot />
@@ -72,7 +65,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <p class="footer-brand"><Logo class="logo-footer" size={32} /><br />{site.legalName}<br /><em>{site.tagline}</em></p>
         <p>{site.ownerName} · {site.location}<br />
           <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.linkedin} rel="me">LinkedIn</a> · <a href={site.github} rel="me">GitHub</a> · <a href={site.youtube} rel="me">YouTube</a><br />
-          <a href="/live">Live from the printer</a> · <a href="/prints">Print gallery</a> · <a href="/services">Services</a></p>
+          <a href="/printing#live">Live from the printer</a> · <a href="/printing#prints">Print gallery</a> · <a href="/services">Services</a></p>
         <p class="muted">© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
       </div>
     </footer>

@@ -176,6 +176,8 @@ footer.site .footer-brand { font-family: var(--mono); color: var(--white); }
 @keyframes live-pulse { 0% { box-shadow: 0 0 0 0 rgba(255,90,60,.6); } 100% { box-shadow: 0 0 0 10px rgba(255,90,60,0); } }
 /* Print gallery */
 .gallery { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); }
+.gallery.collapsed .print-extra { display: none; }
+.gallery-more { margin-top: 1.5rem; text-align: center; }
 .print { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
 .print.featured { grid-column: span 2; }
 .print-media { position: relative; display: block; aspect-ratio: 4 / 3; background: var(--band); }

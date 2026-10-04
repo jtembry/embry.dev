@@ -5,6 +5,8 @@ import { dots } from '../lib/patterns.js';
 const howBg = dots();
 import site from '../data/site.json';
 import ServiceLinks from '../components/ServiceLinks.astro';
+import LiveFeed from '../components/LiveFeed.astro';
+import PrintGallery from '../components/PrintGallery.astro';
 const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing quote')}&body=${encodeURIComponent('What I need:\n\nDimensions or a photo/sketch:\n\nHow many:\n\nWhere it will be used (indoors, outdoors, heat, load):\n')}`;
 ---
 <Base title="Design and 3D printing" description="CAD design and 3D printing in Louisville: replacement parts, brackets, jigs, enclosures, prototypes, and small runs.">
@@ -12,6 +14,17 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
     <p class="lede">The broken clip on a thing you like, the bracket that must be exactly this shape, the prototype before you pay for tooling, twenty of something for a booth: send me a photo, a sketch, or a file, and I'll quote it.</p>
     <p><a class="btn btn-primary" href={quote}>Request a quote</a></p>
   </Hero>
+
+  <section class="section" id="shop">
+    <div class="wrap">
+      <h2 id="live">Watch it print</h2>
+      <p class="muted">The camera inside the P2S, streamed while a job is running. It shows the print chamber and nothing else.</p>
+      <LiveFeed />
+      <h2 id="prints">Off the bed</h2>
+      <p class="muted">Every print that has come off the P2S, newest first.</p>
+      <PrintGallery />
+    </div>
+  </section>
 
   <section class="section">
     <div class="wrap">
@@ -48,16 +61,5 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
       <p><a class="btn btn-primary" href={quote}>Request a quote</a></p>
     </div>
   </section>
-  <section class="section band-parallax">
-    <div class="band-bg" data-parallax="0.3" set:html={howBg} aria-hidden="true" />
-    <div class="wrap">
-      <h2>From the shop</h2>
-      <div class="grid">
-        <div class="card"><p class="index">LIVE</p><h3><a href="/live">Watch it print</a></h3><p>The camera inside the P2S, streamed while a job is running.</p></div>
-        <div class="card"><p class="index">GALLERY</p><h3><a href="/prints">Everything off the bed</a></h3><p>Finished prints, newest first, with material and timelapse where there is one.</p></div>
-      </div>
-    </div>
-  </section>
-
   <ServiceLinks current="/printing" />
 </Base>

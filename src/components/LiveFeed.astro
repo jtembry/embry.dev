@@ -14,7 +14,7 @@ const base = ready ? live.url.replace(/\/$/, '') : '';
     {ready && <div class="live-player"></div>}
     <div class="live-offline">
       <p class="eyebrow">{ready ? 'Printer idle' : 'Camera not connected yet'}</p>
-      <p>{ready ? 'The camera comes on when the printer is awake. Check back, or ' : 'The live feed is being wired up. Meanwhile, '}<a href="/prints">browse finished prints</a>.</p>
+      <p>{ready ? 'The camera comes on when the printer is awake. Check back, or ' : 'The live feed is being wired up. Meanwhile, '}<a href="#prints">see finished prints below</a>.</p>
     </div>
     <p class="live-badge" hidden><span class="live-dot"></span> LIVE</p>
   </div>
