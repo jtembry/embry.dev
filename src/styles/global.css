@@ -191,7 +191,7 @@ footer.site .social a { display: inline-flex; color: #cfd3da; transition: color 
 footer.site .social a:hover, footer.site .social a:focus-visible { color: #ffb187; }
 
 /* Hero diagram: the page's view of the system map fills the hero behind the text, dimmed;
-   click anywhere outside the text opens the live map. */
+   the "Explore the map" button opens the live map. */
 .hero-with-diagram { min-height: min(100svh, 60rem); display: flex; align-items: center; }
 .hero-with-diagram .hero-content { pointer-events: none; width: 100%; }
 .hero-with-diagram .hero-text { pointer-events: auto; max-width: 40rem; }
@@ -202,12 +202,12 @@ footer.site .social a:hover, footer.site .social a:focus-visible { color: #ffb18
   background:
     linear-gradient(90deg, rgba(28,31,38,.95) 0%, rgba(28,31,38,.88) 42%, rgba(28,31,38,.2) 72%, rgba(28,31,38,.3) 100%),
     linear-gradient(180deg, rgba(28,31,38,.6) 0%, transparent 22%, transparent 78%, rgba(28,31,38,.8) 100%); }
-.sysmap-open { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; font: inherit; color: inherit; }
-.sysmap svg { display: block; width: 100%; height: 100%; opacity: .6; filter: saturate(.8); transition: opacity .4s, filter .4s; }
-.sysmap-open:hover svg, .sysmap-open:focus-visible svg { opacity: .9; filter: none; }
-.sysmap figcaption { position: absolute; right: 1.25rem; bottom: 1.25rem; z-index: 1; margin: 0; padding: .35rem .75rem; border-radius: 999px;
+.sysmap svg { display: block; width: 100%; height: 100%; opacity: .6; filter: saturate(.8); }
+.sysmap figcaption { position: absolute; right: 1.25rem; bottom: 1.25rem; z-index: 1; margin: 0; }
+.sysmap-open { padding: .35rem .75rem; border-radius: 999px; cursor: pointer;
   font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; color: #ffb187;
-  background: rgba(22,24,29,.6); border: 1px solid rgba(255,177,135,.3); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+  background: rgba(22,24,29,.6); border: 1px solid rgba(255,177,135,.3); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: border-color .2s, background .2s; }
+.sysmap-open:hover, .sysmap-open:focus-visible { border-color: rgba(232,112,42,.8); background: rgba(22,24,29,.85); }
 .sysmap-group rect { fill: rgba(232,112,42,.04); stroke: rgba(255,177,135,.35); stroke-width: 3; stroke-dasharray: 14 10; }
 .sysmap-group text { fill: #ffb187; font-family: var(--mono); font-size: 30px; letter-spacing: .12em; }
 .sysmap-edge { fill: none; stroke: rgba(255,177,135,.4); stroke-width: 3; }
