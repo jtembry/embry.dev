@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import site from '../data/site.json';
 import Logo from '../components/Logo.astro';
+import SocialIcons from '../components/SocialIcons.astro';
 const { title, description } = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 const services = [
@@ -61,7 +62,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     <footer class="site">
       <div class="wrap">
         <p class="footer-brand"><Logo class="logo-footer" size={32} /><br />{site.legalName}<br /><em>{site.tagline}</em></p>
-        <p>{site.ownerName} · <a href={site.linkedin} rel="me">LinkedIn</a> · <a href={site.github} rel="me">GitHub</a> · <a href={site.youtube} rel="me">YouTube</a><br />
+        <p>{site.ownerName} <SocialIcons /><br />
           {site.location} · <a href={`mailto:${site.email}`}>{site.email}</a><br />
           <a href="/printing#live">Live from the printer</a> · <a href="/printing#prints">Print gallery</a> · <a href="/services">Services</a></p>
         <p class="muted">© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>

@@ -190,3 +190,6 @@ footer.site .footer-brand { font-family: var(--mono); color: var(--white); }
 .print-meta { display: flex; flex-wrap: wrap; gap: .35rem; margin: .5rem 0 0; }
 .print-meta a.tag { text-decoration: none; }
 @media (max-width: 40rem) { .print.featured { grid-column: auto; } }
+footer.site .social { display: inline-flex; gap: .7rem; vertical-align: -0.3em; margin-left: .5rem; }
+footer.site .social a { display: inline-flex; color: #cfd3da; transition: color .15s; }
+footer.site .social a:hover, footer.site .social a:focus-visible { color: #ffb187; }
