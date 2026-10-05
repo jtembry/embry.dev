@@ -31,7 +31,7 @@ const boxes = v.nodes.filter((n) => !n.group);
 const href = `/systems/#/view/${v.id}/`;
 const markerId = `arrow-${v.id}`;
 ---
-<figure class="sysmap">
+<figure class="sysmap" data-parallax="0.3">
   <button type="button" class="sysmap-open" data-map-src={href} aria-label={`Open the interactive map: ${v.title}`}>
     <svg viewBox={viewBox} preserveAspectRatio="xMidYMid slice" role="img" aria-label={`Diagram: ${v.title}`} xmlns="http://www.w3.org/2000/svg">
       <defs>
