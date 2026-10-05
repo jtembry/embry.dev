@@ -8,9 +8,9 @@ const ask = `mailto:${site.email}?subject=${encodeURIComponent('Assistant adopti
 const bodyBg = dots();
 ---
 <Base title="Assistant adoption: training your team" description="A four-week program that teaches your staff to work with their knowledge assistant: how to ask, how to check the sources, and where it fits in the day, measured in your own numbers.">
-  <Hero variant="graph" seed={11} diagram="assistantsView" eyebrow="Knowledge assistants · Adoption" title="Teach your team to use the assistant">
+  <Hero variant="graph" seed={11} diagram="assistantsView" mapLabel="See how my AI assistants work" eyebrow="Knowledge assistants · Adoption" title="Teach your team to use the assistant">
     <p class="lede"><em>"We bought the AI and nothing changed."</em> An assistant only pays off when people use it in their daily work. Most teams get a login and a page of tips, and they go back to the old way within a month. I train your staff to work with the assistant until it becomes part of the job. When I changed how one team worked with AI, their output rose 65%.</p>
-    <p><a class="btn btn-primary" href={ask}>Ask about adoption</a></p>
+    <a slot="actions" class="btn btn-secondary btn-lg" href={ask}>Ask about adoption</a>
   </Hero>
 
   <section class="section">

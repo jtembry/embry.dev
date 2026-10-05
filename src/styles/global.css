@@ -50,6 +50,8 @@ p, li { max-width: 65ch; }
 .btn-primary { background: var(--accent-bright); color: var(--ink); }
 .btn-primary:hover { background: #f0834a; }
 .btn-lg { font-size: 1.2rem; padding: 1.1rem 2rem; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,177,135,.4), 0 10px 40px rgba(232,112,42,.45); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .9rem; align-items: center; }
+.hero-actions .btn-secondary.btn-lg { box-shadow: none; }
 .btn-lg:hover { box-shadow: 0 0 0 1px rgba(255,177,135,.7), 0 12px 50px rgba(232,112,42,.6); }
 .btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
 .band-dark .btn-secondary { color: var(--white); border-color: var(--white); }

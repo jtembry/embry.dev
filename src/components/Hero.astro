@@ -3,7 +3,10 @@
 // system map fills the hero as a dimmed backdrop (click to explore). Without one, the static pattern fills the back.
 import { patterns } from '../lib/patterns.js';
 import SystemDiagram from './SystemDiagram.astro';
-const { eyebrow, title, variant = 'graph', seed = 3, image, diagram } = Astro.props;
+import map from '../data/system-map.json';
+const { eyebrow, title, variant = 'graph', seed = 3, image, diagram, mapLabel } = Astro.props;
+// The big button: opens the full interactive map at this page's view. Page buttons (slot="actions") sit beside it.
+const mapHref = diagram && `/systems/#/view/${(map[diagram] ?? map.index).id}/`;
 const gen = patterns[variant] ?? patterns.graph;
 const back = patterns.dots();
 const front = diagram ? '' : gen({ parity: 0, seed }) + gen({ parity: 1, seed });
@@ -21,6 +24,12 @@ const front = diagram ? '' : gen({ parity: 0, seed }) + gen({ parity: 1, seed })
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <h1>{title}</h1>
       <slot />
+      {(mapLabel || Astro.slots.has('actions')) && (
+        <p class="hero-actions">
+          {mapLabel && mapHref && <a class="btn btn-primary btn-lg" href={mapHref}>{mapLabel} <span aria-hidden="true">→</span></a>}
+          <slot name="actions" />
+        </p>
+      )}
     </div>
   </div>
 </section>

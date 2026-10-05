@@ -8,9 +8,9 @@ const ask = `mailto:${site.email}?subject=${encodeURIComponent('Custom software 
 const bodyBg = dots();
 ---
 <Base title="Custom software for any business" description="Software built around how your business already works: one login for your staff and customers, your records in a place you own, and the tools you already use connected.">
-  <Hero variant="graph" seed={23} diagram="siteView" eyebrow="Custom software · Any business" title="Stop bending your business to fit someone else's software.">
+  <Hero variant="graph" seed={23} diagram="email" mapLabel="See software I built for my own inbox" eyebrow="Custom software · Any business" title="Stop bending your business to fit someone else's software.">
     <p class="lede"><em>"We pay for five tools and still run the business on a spreadsheet."</em> Off-the-shelf software makes you work its way. I build software around the way you already work: the customer portal, the scheduling, the billing, and the reports, in one place behind one login. You own the code and the data.</p>
-    <p><a class="btn btn-primary" href={ask}>Ask about your software</a></p>
+    <a slot="actions" class="btn btn-secondary btn-lg" href={ask}>Ask about your software</a>
   </Hero>
 
   <section class="section band-parallax">
