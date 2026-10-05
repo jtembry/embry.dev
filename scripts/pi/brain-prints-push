@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""brain-prints-push — publish gallery drafts straight from brainpi (2026-10-03, JT: "can the pi just push directly").
+
+Runs on the Pi. brain-print-watch calls it right after it writes a draft; a systemd timer
+(every 10 min) drains anything a network blip left behind. For each ~/prints-drafts/<slug>/
+whose card is not in the repo yet: copy entry.md (with a templated one-sentence body) to
+src/content/prints/<slug>.md and photo.jpg to public/prints/<slug>.jpg, commit, push. GitHub
+Actions builds and deploys. The clone at ~/embry.dev is disposable: every run starts with
+`git fetch` + `git reset --hard origin/main`, so the Pi never carries unpushed state and JT's
+own commits from the Mac always win. Auth: deploy key ~/.ssh/embry_dev_deploy (write, this
+repo only) via the `github-embry` host alias. Log: ~/prints-drafts/publish.log."""
+import datetime, fcntl, pathlib, re, shutil, subprocess, sys
+
+HOME = pathlib.Path.home()
+REPO = HOME / "embry.dev"
+DRAFTS = HOME / "prints-drafts"
+LOG = DRAFTS / "publish.log"
+REMOTE = "git@github-embry:jtembry/embry.dev.git"
+JUNK = re.compile(r"auto-cali|cali-for|calib|-gcode$", re.I)
+
+
+def log(msg):
+    with open(LOG, "a") as f:
+        f.write(f"{datetime.datetime.now():%F %T} {msg}\n")
+
+
+def git(*args, check=True):
+    return subprocess.run(["git", "-C", str(REPO), *args], capture_output=True, text=True, timeout=180, check=check)
+
+
+def fm_get(fm, key):
+    m = re.search(rf"^{key}:\s*(.*)$", fm, re.M)
+    if not m:
+        return None
+    v = m.group(1).strip()
+    return v[1:-1] if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'" else v
+
+
+def with_sentence(text):
+    m = re.match(r"---\n(.*?)\n---\n?(.*)", text, re.S)
+    if not m:
+        return text
+    fm, body = m.group(1), m.group(2)
+    if re.sub(r"<!--.*?-->", "", body, flags=re.S).strip():
+        return text
+    title = fm_get(fm, "title") or "Print"
+    what = " ".join(x for x in ((fm_get(fm, "color") or "").lower() or None, fm_get(fm, "material")) if x)
+    t = fm_get(fm, "printTime")
+    s = title[0].upper() + title[1:] + (f", printed in {what}" if what else "") + (f" in {t}" if t else "")
+    s += ". Photographed on the bed by the printer's own camera the minute it finished."
+    return f"---\n{fm.strip()}\n---\n\n{s}\n"
+
+
+def sync_clone():
+    if not (REPO / ".git").exists():
+        subprocess.run(["git", "clone", "-q", "--depth", "20", REMOTE, str(REPO)], check=True, timeout=300)
+        git("config", "user.name", "JT Embry")
+        git("config", "user.email", "jtembryjr@icloud.com")
+    git("fetch", "-q", "origin", "main")
+    git("reset", "-q", "--hard", "origin/main")
+
+
+def stage_new():
+    titles = []
+    for d in sorted(p for p in DRAFTS.iterdir() if p.is_dir()):
+        slug = d.name
+        if JUNK.search(slug) or not (d / "entry.md").exists():
+            continue
+        dest = REPO / "src/content/prints" / f"{slug}.md"
+        if dest.exists():
+            continue
+        text = with_sentence((d / "entry.md").read_text())
+        dest.write_text(text)
+        if (d / "photo.jpg").exists():
+            (REPO / "public/prints").mkdir(parents=True, exist_ok=True)
+            shutil.copy2(d / "photo.jpg", REPO / "public/prints" / f"{slug}.jpg")
+        titles.append(fm_get(text.split("---")[1], "title") or slug)
+    return titles
+
+
+def main():
+    DRAFTS.mkdir(exist_ok=True)
+    lock = open(DRAFTS / ".publish.lock", "w")
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        return 0
+    for attempt in (1, 2):   # second pass only if someone pushed between our fetch and our push
+        try:
+            sync_clone()
+            titles = stage_new()
+            if not titles:
+                return 0
+            git("add", "-A", "src/content/prints", "public/prints")
+            git("commit", "-q", "-m", "Gallery: " + "; ".join(titles) + "\n\nAutomatic card(s), published from brainpi by brain-prints-push.")
+            p = git("push", "-q", "origin", "HEAD:main", check=False)
+            if p.returncode == 0:
+                log("published: " + "; ".join(titles))
+                return 0
+            log(f"push attempt {attempt} failed: {p.stderr.strip()[:160]}")
+        except Exception as e:
+            log(f"attempt {attempt} error: {str(e)[:200]}")
+    return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

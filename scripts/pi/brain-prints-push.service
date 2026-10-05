@@ -1,0 +1,7 @@
+[Unit]
+Description=Publish finished-print gallery drafts to embry.dev
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/brain-prints-push

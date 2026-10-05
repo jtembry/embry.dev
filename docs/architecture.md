@@ -1,6 +1,6 @@
 # embry.dev print pipeline: architecture
 
-Four moving parts: the printer, the Pi beside it, Cloudflare in front of the Pi, and the static site on GitHub Pages. The Mac only touches the gallery when a draft is published.
+Four moving parts: the printer, the Pi beside it, Cloudflare in front of the Pi, and the static site on GitHub Pages. The Pi publishes finished prints itself (`brain-prints-push`, deploy key, write access to this repo only); the Mac is no longer involved.
 
 ## 1. System overview
 
@@ -11,9 +11,10 @@ flowchart LR
     subgraph PI["brainpi · .36 (Debian, user services as joel)"]
       G["go2rtc<br/>holds the one camera connection<br/>API 127.0.0.1:1984"]
       W["brain-print-watch<br/>MQTT listener → gallery drafts<br/>~/prints-drafts/"]
+      U["brain-prints-push<br/>sentence · commit · push<br/>after each draft + every 10 min"]
       C["cloudflared<br/>tunnel 'printer'<br/>path-restricted ingress"]
     end
-    M["Mac<br/>brain-prints-sync (rsync)<br/>site repo + git"]
+    M["Mac<br/>JT's own edits only"]
   end
   subgraph CF["Cloudflare"]
     E["live.embry.dev<br/>CNAME → tunnel"]
@@ -31,8 +32,9 @@ flowchart LR
   G -- "snapshot via ffmpeg" --> W
   C -- "http 127.0.0.1:1984" --> G
   C == "outbound tunnel" ==> E
-  W -. "drafts" .-> M
-  M -- "git push" --> R --> A --> PG
+  W -- "draft" --> U
+  U -- "git push (deploy key)" --> R --> A --> PG
+  M -. "manual edits" .-> R
   B -- "page + player" --> PG
   B -- "wss /api/ws · HLS" --> E
 ```
