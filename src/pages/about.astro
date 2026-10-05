@@ -4,8 +4,9 @@ import Hero from '../components/Hero.astro';
 import { dots } from '../lib/patterns.js';
 const bodyBg = dots();
 import site from '../data/site.json';
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
-<Base title="About" description="JT Embry, owner of Embry Development, LLC in Louisville: ten years of finance and healthcare engineering, now a one-person studio.">
+<Base title="About" description="JT Embry, owner of Embry Development, LLC in Louisville: ten years of finance and healthcare engineering, now a one-person studio. One email starts a project.">
   <Hero variant="graph" seed={23} eyebrow="About" title="One engineer. No account managers.">
     <p class="lede">When you email {site.legalName}, the person who answers is the person who does the work.</p>
   </Hero>
@@ -17,7 +18,15 @@ import site from '../data/site.json';
       <p>Before that I ran a bank's help desk, cleaned LiDAR data for a self-driving program, and studied English literature. The pattern holds: find what slows people down, remove it, and leave them able to do the work without me. I measure a job by how much of it still runs after I have left.</p>
       <p>I formed {site.legalName} in 2026 to do that work for clients: software and AI systems for teams and small practices, sites and automation for small businesses, and, since I put a 3D printer in the shop, physical parts.</p>
       <p>I live in Louisville. Away from the desk, I restore a Ducati Scrambler, train a dog, and read theology.</p>
-      <p><a class="btn btn-primary" href="/contact">Contact me</a> <a class="btn btn-secondary" href={site.linkedin}>LinkedIn</a></p>
+
+      <h2 id="contact">One email starts it</h2>
+      <p>Tell me the problem in a few sentences. I read everything and reply within two business days, usually sooner.</p>
+      <ul>
+        <li><strong>Software or AI:</strong> what your team or practice wants to do, what blocks it, and any deadline.</li>
+        <li><strong>A website:</strong> what you do, who it's for, any site you have now, and whether you own a domain.</li>
+        <li><strong>3D printing:</strong> a photo with something for scale, rough dimensions, how many, and where the part will be used, or the STL file alone.</li>
+      </ul>
+      <p><a class="btn btn-primary" href={mailto}>Email {site.email}</a></p>
     </div>
   </section>
 </Base>
