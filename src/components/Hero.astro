@@ -1,6 +1,6 @@
 ---
 // Page hero. A blueprint dot grid behind the text; with `diagram`, the matching view of the
-// system map sits beside it (click to explore). Without one, the static pattern fills the back.
+// system map fills the hero as a dimmed backdrop (click to explore). Without one, the static pattern fills the back.
 import { patterns } from '../lib/patterns.js';
 import SystemDiagram from './SystemDiagram.astro';
 const { eyebrow, title, variant = 'graph', seed = 3, image, diagram } = Astro.props;
@@ -15,12 +15,12 @@ const front = diagram ? '' : gen({ parity: 0, seed }) + gen({ parity: 1, seed })
     {front && <div class="hero-layer hero-layer-front" set:html={front} />}
     <div class="hero-glow"></div>
   </div>
+  {diagram && <SystemDiagram view={diagram} />}
   <div class="wrap hero-content">
     <div class="hero-text">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <h1>{title}</h1>
       <slot />
     </div>
-    {diagram && <SystemDiagram view={diagram} />}
   </div>
 </section>
