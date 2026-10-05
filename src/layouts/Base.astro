@@ -59,6 +59,23 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     <main id="main">
       <slot />
     </main>
+    <dialog class="contact-dialog" aria-labelledby="contact-title">
+      <form class="contact-form" method="post" action={site.contactEndpoint} data-fallback={site.email}>
+        <div class="contact-head">
+          <h2 id="contact-title">Send me a message</h2>
+          <button type="button" class="contact-close" aria-label="Close">×</button>
+        </div>
+        <p class="muted">I read everything and reply within two business days.</p>
+        <label>Your name<input name="name" autocomplete="name" required maxlength="120" /></label>
+        <label>Your email<input name="email" type="email" autocomplete="email" required maxlength="200" /></label>
+        <label>Message<textarea name="message" rows="7" required maxlength="10000"></textarea></label>
+        <label class="contact-hp" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off" /></label>
+        <input type="hidden" name="subject" />
+        <input type="hidden" name="page" />
+        <p class="contact-status" role="status" aria-live="polite"></p>
+        <p class="contact-actions"><button class="btn btn-primary" type="submit">Send message</button></p>
+      </form>
+    </dialog>
     <footer class="site">
       <div class="wrap">
         <p class="footer-brand"><Logo class="logo-footer" size={32} /><br />{site.legalName}<br /><em>{site.tagline}</em></p>
@@ -85,6 +102,49 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
       document.querySelectorAll('.drawer a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
       window.matchMedia('(min-width: 66rem)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+
+      // Contact: every mailto link on the site opens the on-screen form instead (the link
+      // stays as the no-JS fallback). Subject and body from the link prefill the form.
+      const contact = document.querySelector<HTMLDialogElement>('dialog.contact-dialog');
+      const contactForm = contact?.querySelector('form');
+      if (contact && contactForm) {
+        const status = contactForm.querySelector<HTMLElement>('.contact-status')!;
+        const submit = contactForm.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+        const field = (n: string) => contactForm.elements.namedItem(n) as HTMLInputElement | HTMLTextAreaElement;
+        document.querySelectorAll<HTMLAnchorElement>('a[href^="mailto:"]').forEach((a) => {
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            setOpen(false);
+            const params = new URL(a.href).searchParams;
+            field('subject').value = params.get('subject') ?? 'Project inquiry';
+            field('page').value = location.pathname;
+            if (!field('message').value && params.get('body')) field('message').value = params.get('body')!;
+            status.textContent = '';
+            contactForm.hidden = false;
+            contact.showModal();
+            field('name').focus();
+          });
+        });
+        contact.querySelector('.contact-close')!.addEventListener('click', () => contact.close());
+        contact.addEventListener('click', (e) => { if (e.target === contact) contact.close(); });
+        contactForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (!contactForm.reportValidity()) return;
+          submit.disabled = true;
+          status.textContent = 'Sending…';
+          try {
+            const res = await fetch(contactForm.action, { method: 'POST', body: new FormData(contactForm) });
+            const out = await res.json().catch(() => ({}));
+            if (!res.ok || !out.ok) throw new Error(out.error || 'Could not send right now.');
+            contactForm.reset();
+            status.textContent = "Sent. Thank you, I'll reply within two business days.";
+          } catch (err) {
+            status.textContent = `${(err as Error).message} You can also write to ${contactForm.dataset.fallback}.`;
+          } finally {
+            submit.disabled = false;
+          }
+        });
+      }
 
       // Parallax: only the hero's system map moves, on an eased scroll value,
       // relative to its section's center. Text and page bands stay put.

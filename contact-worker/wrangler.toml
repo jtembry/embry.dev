@@ -1,0 +1,11 @@
+# Contact form backend for embry.dev. The site posts the form here; the Worker
+# emails it through Cloudflare Email Routing to the one verified destination.
+# Deploy: npx wrangler deploy (from this folder).
+name = "embry-contact"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+send_email = [{ name = "MAIL", destination_address = "jtembryjr@icloud.com" }]
+
+routes = [{ pattern = "contact.embry.dev", custom_domain = true }]

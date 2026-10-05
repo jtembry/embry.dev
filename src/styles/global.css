@@ -228,3 +228,21 @@ footer.site .social a:hover, footer.site .social a:focus-visible { color: #ffb18
 @media (max-width: 40rem) {
   .sysmap::after { background: linear-gradient(180deg, rgba(28,31,38,.75) 0%, rgba(28,31,38,.85) 60%, rgba(28,31,38,.6) 100%); }
   .sysmap-dialog { width: 100vw; height: 100dvh; border-radius: 0; } }
+
+/* Contact form dialog: opened by any mailto link (Base.astro). */
+.contact-dialog { width: min(94vw, 34rem); max-height: 92dvh; padding: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--white, #fff); color: var(--ink); box-shadow: 0 30px 80px rgba(8,9,12,.45); }
+.contact-dialog::backdrop { background: rgba(8,9,12,.6); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.contact-form { display: grid; gap: .9rem; padding: 1.5rem; }
+.contact-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.contact-head h2 { margin: 0; font-size: 1.4rem; }
+.contact-close { border: 0; background: none; font-size: 1.8rem; line-height: 1; cursor: pointer; color: var(--ink-2); padding: .2rem .4rem; }
+.contact-form .muted { margin: -.4rem 0 0; }
+.contact-form label { display: grid; gap: .35rem; font-weight: 600; font-size: .95rem; }
+.contact-form input, .contact-form textarea { font: inherit; font-weight: 400; padding: .7rem .8rem; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); width: 100%; box-sizing: border-box; }
+.contact-form textarea { resize: vertical; min-height: 8rem; }
+.contact-form input:focus, .contact-form textarea:focus { outline: 2px solid var(--accent-bright); outline-offset: 1px; border-color: transparent; }
+.contact-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.contact-status { margin: 0; min-height: 1.4em; font-size: .95rem; color: var(--ink-2); }
+.contact-actions { margin: 0; }
+.contact-actions .btn { width: 100%; font-size: 1.05rem; }
+.contact-actions .btn:disabled { opacity: .6; cursor: progress; }
