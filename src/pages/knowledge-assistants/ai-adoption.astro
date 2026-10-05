@@ -4,38 +4,38 @@ import Hero from '../../components/Hero.astro';
 import ServiceLinks from '../../components/ServiceLinks.astro';
 import site from '../../data/site.json';
 import { dots } from '../../lib/patterns.js';
-const ask = `mailto:${site.email}?subject=${encodeURIComponent('AI pilot for our engineering team')}`;
+const ask = `mailto:${site.email}?subject=${encodeURIComponent('Assistant adoption for our team')}`;
 const bodyBg = dots();
 ---
-<Base title="AI adoption for engineering teams" description="A four-week pilot that turns an engineering team's AI tools into closed tickets: a workflow audit, agents on one real repo, and numbers from the team's own tracker.">
-  <Hero variant="graph" seed={11} diagram="assistantsView" eyebrow="Knowledge assistants · Engineering teams" title="AI adoption for engineering teams">
-    <p class="lede"><em>"We bought the AI seats and nothing changed."</em> Most teams get Copilot or Claude licenses and a Slack thread of tips. Throughput stays flat because nobody changed the workflow. I changed the workflow for a team on a live finance platform, and ticket throughput rose 65%.</p>
-    <p><a class="btn btn-primary" href={ask}>Ask about a pilot</a></p>
+<Base title="Assistant adoption: training your team" description="A four-week program that teaches your staff to work with their knowledge assistant: how to ask, how to check the sources, and where it fits in the day, measured in your own numbers.">
+  <Hero variant="graph" seed={11} diagram="assistantsView" eyebrow="Knowledge assistants · Adoption" title="Teach your team to use the assistant">
+    <p class="lede"><em>"We bought the AI and nothing changed."</em> An assistant only pays off when people use it in their daily work. Most teams get a login and a page of tips, and they go back to the old way within a month. I train your staff to work with the assistant until it becomes part of the job. When I changed how one team worked with AI, their output rose 65%.</p>
+    <p><a class="btn btn-primary" href={ask}>Ask about adoption</a></p>
   </Hero>
 
   <section class="section">
     <div class="wrap">
-      <p class="muted">Part of <a href="/knowledge-assistants">Knowledge assistants</a>: the same work, aimed at an engineering team's own code and tickets.</p>
+      <p class="muted">Part of <a href="/knowledge-assistants">Knowledge assistants</a>: I build the assistant, then teach your team to use it.</p>
     </div>
   </section>
 
   <section class="section band-parallax">
     <div class="band-bg" set:html={bodyBg} aria-hidden="true" />
     <div class="wrap">
-      <h2>What you get: a four-week pilot</h2>
+      <h2>What you get: four weeks of training</h2>
       <ol class="steps">
-        <li><strong>Week 1.</strong> I sit in your workflow: repo, tickets, review process, CI. I write down where the time goes.</li>
-        <li><strong>Weeks 2–3.</strong> I set up agents and tooling on one real repo, with your engineers, on real tickets, and I write down the conventions so the gains survive my leaving.</li>
-        <li><strong>Week 4.</strong> You get before-and-after numbers from your own tracker and a short list of what to do next.</li>
+        <li><strong>Week 1.</strong> I sit in your workflow and write down where the time goes and which questions people ask each other every day.</li>
+        <li><strong>Weeks 2–3.</strong> I work beside your staff on real tasks. They learn how to ask the assistant, how to check its sources, and when not to trust an answer. I write the house rules down so the habits outlast my visit.</li>
+        <li><strong>Week 4.</strong> You get before-and-after numbers from your own records and a short list of what to do next.</li>
       </ol>
       <h2>Good fit if</h2>
       <ul>
-        <li>You have a team of three to thirty engineers and a backlog that keeps growing.</li>
+        <li>You have, or are getting, a knowledge assistant, from me or anyone else.</li>
         <li>You've already paid for AI tools and cannot say what changed.</li>
-        <li>You want the numbers from your own tracker, not a vendor's slide.</li>
+        <li>You want the numbers from your own records, not a vendor's slide.</li>
       </ul>
-      <p><span class="tag">Fixed scope</span> <span class="tag">Four weeks</span> <span class="tag">Quote on scope</span></p>
-      <p><a class="btn btn-primary" href={ask}>Ask about a pilot</a></p>
+      <p><span class="tag">Fixed scope</span> <span class="tag">Four weeks</span> <span class="tag">Any industry</span> <span class="tag">Quote on scope</span></p>
+      <p><a class="btn btn-primary" href={ask}>Ask about adoption</a></p>
     </div>
   </section>
 
