@@ -79,7 +79,7 @@ sequenceDiagram
   participant P as P2S
   participant W as brain-print-watch (Pi)
   participant G as go2rtc (Pi)
-  participant M as Mac (brain-prints-sync)
+  participant U as brain-prints-push (Pi)
   participant GH as GitHub → Pages
 
   S->>P: send job (LAN)
@@ -95,10 +95,10 @@ sequenceDiagram
   G-->>W: bed photo (cropped 4:3)
   W->>W: write ~/prints-drafts/<date>-<slug>/{entry.md, photo.jpg, job.json}
   Note over W: FAILED → logged only, no draft
-  M->>W: brain-prints-sync (rsync over ssh)
-  M->>M: copy new drafts into src/content/prints + public/prints
-  M->>M: add one sentence, git commit
-  M->>GH: git push → Actions build → Pages deploy
+  W->>U: run publisher (also every 10 min via timer)
+  U->>GH: fetch + reset clone to origin/main
+  U->>U: copy new drafts, templated sentence, skip calibration jobs
+  U->>GH: git push (deploy key) → Actions build → Pages deploy
 ```
 
 ## 4. Trust boundaries and secrets
@@ -117,7 +117,7 @@ flowchart TB
     T4["everything else → 404<br/>(incl. /api/streams, which would reveal the camera URL)"]
   end
   subgraph LAN["Home LAN"]
-    PI["brainpi<br/>go2rtc.yaml (mode 600): LAN access code<br/>~/.cloudflared/*.json: tunnel credentials<br/>brain-print-watch reads the code from go2rtc.yaml"]
+    PI["brainpi<br/>go2rtc.yaml (mode 600): LAN access code<br/>~/.ssh/embry_dev_deploy: write key, this repo only<br/>~/.cloudflared/*.json: tunnel credentials<br/>brain-print-watch reads the code from go2rtc.yaml"]
     MAC["Mac Keychain<br/>brain-bambu-p2s (IP + access code)<br/>brain-youtube-stream (legacy)"]
     P["P2S: Developer Mode on, LAN-only<br/>(no Bambu cloud, Handy app offline)"]
   end
@@ -136,7 +136,7 @@ flowchart TB
 | brainpi | `go2rtc.service` (user) | camera relay | `curl http://127.0.0.1:1984/api/streams?src=p2s` |
 | brainpi | `cloudflared.service` (user) | tunnel to live.embry.dev | `systemctl --user status cloudflared` |
 | brainpi | `brain-print-watch.service` (user) | job watcher → drafts | `tail ~/prints-drafts/watch.log` |
-| Mac | `brain-prints-sync` | pull drafts into the site | `brain-prints-sync --dry-run` |
+| brainpi | `brain-prints-push.timer` (user) | publish drafts to the repo | `tail ~/prints-drafts/publish.log` |
 | GitHub | Actions `Deploy to GitHub Pages` | build + publish on push to main | `gh run list -R jtembry/embry.dev` |
 
-Design decisions: the Pi is the relay because the printer only speaks on the LAN and allows one camera connection; YouTube Live was tried and dropped (no live embeds without AdSense, no automatic restart); the site's player is hand-written because go2rtc's bundled one threw in Edge; the Pi never gets GitHub credentials, so publishing stays a human step on the Mac.
+Design decisions: the Pi is the relay because the printer only speaks on the LAN and allows one camera connection; YouTube Live was tried and dropped (no live embeds without AdSense, no automatic restart); the site's player is hand-written because go2rtc's bundled one threw in Edge; publishing moved to the Pi on 2026-10-05 with a deploy key scoped to this one repo, so the print pipeline needs no Mac.
