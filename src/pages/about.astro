@@ -7,12 +7,12 @@ import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="About" description="JT Embry, owner of Embry Development, LLC in Louisville: ten years of finance and healthcare engineering, now a one-person studio. One email starts a project.">
-  <Hero variant="graph" seed={23} eyebrow="About" title="One engineer. No account managers.">
+  <Hero variant="graph" seed={23} diagram="index" eyebrow="About" title="One engineer. No account managers.">
     <p class="lede">When you email {site.legalName}, the person who answers is the person who does the work.</p>
   </Hero>
 
   <section class="section band-parallax">
-    <div class="band-bg" data-parallax="0.3" set:html={bodyBg} aria-hidden="true" />
+    <div class="band-bg" set:html={bodyBg} aria-hidden="true" />
     <div class="wrap">
       <p>I'm JT Embry. For ten years I have built finance and healthcare software, first as an engineer and then as a lead: a SaaS product from an empty repo, a video portal for hospitals, a whole platform moved to a new cloud, and most recently the AI tooling that raised one team's output by 65%.</p>
       <p>Before that I ran a bank's help desk, cleaned LiDAR data for a self-driving program, and studied English literature. The pattern holds: find what slows people down, remove it, and leave them able to do the work without me. I measure a job by how much of it still runs after I have left.</p>

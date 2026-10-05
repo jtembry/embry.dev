@@ -8,13 +8,13 @@ const ask = `mailto:${site.email}?subject=${encodeURIComponent('Knowledge assist
 const bodyBg = dots();
 ---
 <Base title="Knowledge assistants for small practices" description="A private assistant that searches your own documents, runs on servers you control, and answers with citations. For law offices, clinics, and small firms.">
-  <Hero variant="graph" animated={true} seed={5} eyebrow="Service · Small practices" title="Knowledge assistants for small practices">
+  <Hero variant="graph" seed={5} diagram="secondBrain" eyebrow="Service · Small practices" title="Knowledge assistants for small practices">
     <p class="lede"><em>"Our knowledge is in documents nobody can search."</em> Law offices, clinics, and small firms hold years of filings, notes, and precedent, and the people who know where things are retire. I build a private assistant that searches your own documents and answers with a citation to the source.</p>
     <p><a class="btn btn-primary" href={ask}>Ask about an assistant</a></p>
   </Hero>
 
   <section class="section band-parallax">
-    <div class="band-bg" data-parallax="0.3" set:html={bodyBg} aria-hidden="true" />
+    <div class="band-bg" set:html={bodyBg} aria-hidden="true" />
     <div class="wrap">
       <h2>What you get</h2>
       <ul>

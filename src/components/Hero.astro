@@ -1,31 +1,26 @@
 ---
-// Page hero. Two depth layers everywhere: a blueprint dot grid (back) and a knowledge graph (front),
-// static SVG or, with animated=true, the live canvas. `image` adds a photo behind both.
+// Page hero. A blueprint dot grid behind the text; with `diagram`, the matching view of the
+// system map sits beside it (click to explore). Without one, the static pattern fills the back.
 import { patterns } from '../lib/patterns.js';
-const { eyebrow, title, variant = 'graph', animated = false, seed = 3, image } = Astro.props;
+import SystemDiagram from './SystemDiagram.astro';
+const { eyebrow, title, variant = 'graph', seed = 3, image, diagram } = Astro.props;
 const gen = patterns[variant] ?? patterns.graph;
 const back = patterns.dots();
-const front = animated ? '' : gen({ parity: 0, seed }) ;
-const frontHubs = animated ? '' : gen({ parity: 1, seed });
+const front = diagram ? '' : gen({ parity: 0, seed }) + gen({ parity: 1, seed });
 ---
-<section class:list={['hero', 'band-dark', `hero-${variant}`, { 'hero-animated': animated }]}>
+<section class:list={['hero', 'band-dark', `hero-${variant}`, { 'hero-with-diagram': diagram }]}>
   <div class="hero-bg" aria-hidden="true">
-    {image && <img class="hero-img" src={image} alt="" data-parallax="0.2" loading="eager" decoding="async" />}
-    <div class="hero-layer hero-layer-back" data-parallax="0.18" set:html={back} />
-    {animated
-      ? <canvas class="hero-canvas" data-parallax="0.42"></canvas>
-      : <div class="hero-layer hero-layer-front" data-parallax="0.42" set:html={front + frontHubs} />}
+    {image && <img class="hero-img" src={image} alt="" loading="eager" decoding="async" />}
+    <div class="hero-layer hero-layer-back" set:html={back} />
+    {front && <div class="hero-layer hero-layer-front" set:html={front} />}
     <div class="hero-glow"></div>
   </div>
-  <div class="wrap hero-content" data-hero-content>
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <h1>{title}</h1>
-    <slot />
+  <div class="wrap hero-content">
+    <div class="hero-text">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      <slot />
+    </div>
+    {diagram && <SystemDiagram view={diagram} />}
   </div>
 </section>
-{animated && (
-  <script>
-    import { startGraph } from '../scripts/graph-animation.js';
-    document.querySelectorAll('canvas.hero-canvas').forEach((c) => startGraph(c));
-  </script>
-)}

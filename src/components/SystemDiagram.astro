@@ -1,0 +1,65 @@
+---
+// One view of the system map, drawn as a quiet blueprint for a hero. Layout comes from
+// LikeC4 (src/data/system-map.json, written by ~/Projects/system-map's build:public).
+// Click opens the full interactive map for that view in a dialog; the map app only loads then.
+import map from '../data/system-map.json';
+const { view = 'index' } = Astro.props;
+const v = map[view] ?? map.index;
+const pad = 40;
+const { x, y, width, height } = v.bounds;
+const viewBox = `${x - pad} ${y - pad} ${width + pad * 2} ${height + pad * 2}`;
+const path = (pts) => {
+  const [p0, ...rest] = pts;
+  let d = `M${p0[0]},${p0[1]}`;
+  for (let i = 0; i + 2 < rest.length; i += 3) d += ` C${rest[i]} ${rest[i + 1]} ${rest[i + 2]}`;
+  return d;
+};
+const groups = v.nodes.filter((n) => n.group);
+const boxes = v.nodes.filter((n) => !n.group);
+const href = `/systems/#/view/${v.id}/`;
+const markerId = `arrow-${v.id}`;
+---
+<figure class="sysmap">
+  <button type="button" class="sysmap-open" data-map-src={href} aria-label={`Open the interactive map: ${v.title}`}>
+    <svg viewBox={viewBox} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Diagram: ${v.title}`} xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id={markerId} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" class="sysmap-arrow" />
+        </marker>
+      </defs>
+      {groups.map((n) => (
+        <g class="sysmap-group">
+          <rect x={n.x} y={n.y} width={n.width} height={n.height} rx="18" />
+          <text x={n.x + 26} y={n.y + 46}>{n.title.toUpperCase()}</text>
+        </g>
+      ))}
+      {v.edges.map((e) => <path class="sysmap-edge" d={path(e.points)} marker-end={`url(#${markerId})`} />)}
+      {boxes.map((n) => (
+        <g class:list={['sysmap-node', `k-${n.kind}`]}>
+          <rect x={n.x} y={n.y} width={n.width} height={n.height} rx={n.kind === 'person' ? 90 : 14} />
+          <text x={n.x + n.width / 2} y={n.y + n.height / 2}>{n.title}</text>
+        </g>
+      ))}
+    </svg>
+    <figcaption>Explore the map <span aria-hidden="true">⤢</span></figcaption>
+  </button>
+</figure>
+
+<dialog class="sysmap-dialog" aria-label="Interactive system map">
+  <form method="dialog" class="sysmap-close-row"><button class="btn btn-secondary" value="close">Close</button></form>
+  <iframe title="Interactive system map" loading="lazy"></iframe>
+</dialog>
+
+<script>
+  // One dialog serves every diagram on the page; the iframe loads the map app on first open.
+  const dialog = document.querySelector<HTMLDialogElement>('dialog.sysmap-dialog');
+  const frame = dialog?.querySelector('iframe');
+  document.querySelectorAll<HTMLButtonElement>('.sysmap-open').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!dialog || !frame) { location.href = btn.dataset.mapSrc!; return; }
+      if (frame.getAttribute('src') !== btn.dataset.mapSrc) frame.setAttribute('src', btn.dataset.mapSrc!);
+      dialog.showModal();
+    });
+  });
+  dialog?.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+</script>

@@ -1,0 +1,1 @@
+import{t as e}from"./main-C5-ZkyOD.js";var t={default:async()=>await e(()=>import(`./drawio-attq0L0L.js`),[])};async function n(e){let n=t[e];if(!n){let n=Object.keys(t);throw console.error(`Unknown projectId: `+e+` (available: `+n+`)`),Error(`Project does not enable drawio export: `+e)}return await n()}export{n as loadDrawioSources};
