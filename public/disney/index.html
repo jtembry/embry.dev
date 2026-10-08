@@ -63,6 +63,19 @@ li input{position:absolute;opacity:0;pointer-events:none}
 .note{display:block;font-weight:400;font-size:13px;color:var(--muted)}
 .ht{font-size:13px;font-weight:700;padding:3px 8px;border-radius:999px;border:1px solid var(--line);white-space:nowrap;font-variant-numeric:tabular-nums}
 .ht.warn{border-color:var(--pm);color:var(--pm)}
+.chips{display:flex;gap:6px;align-items:center}
+.wait{font-size:13px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap;font-variant-numeric:tabular-nums;background:var(--line);color:var(--ink)}
+.wait.long{background:var(--pm);color:#fff}
+.wait.mid{background:var(--am);color:#1d2a26}
+.wait.short{background:var(--mid);color:#fff}
+.wait.closed{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.live{background:var(--paper);border:1px solid var(--das);box-shadow:inset 4px 0 0 var(--das);border-radius:14px;padding:14px 16px;display:grid;gap:8px}
+.live h2{font-family:var(--display);font-weight:800;font-size:20px;margin:0}
+.live p{margin:0;font-size:14px;color:var(--muted)}
+.live ol{gap:6px}
+.live li{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700}
+.live small{font-size:12px;color:var(--muted)}
+.live small a{color:inherit}
 li.done .name{text-decoration:line-through;color:var(--muted)}
 li.done .num{background:var(--done)}
 li input:focus-visible + label{outline:3px solid var(--c);outline-offset:2px}
@@ -112,14 +125,12 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
   </header>
 
   <figure class="guidemap">
-    <img class="poster" src="MK-guide-map.webp" width="4446" height="2124" alt="Magic Kingdom guide map with Saturday's route, the attraction list, and the legend" fetchpriority="high">
-    <figcaption class="poster-note">Guide map with the route and the number key. Pinch to zoom.</figcaption>
+    <a href="MK-guide-map.webp" target="_blank"><img class="poster" src="MK-guide-map.webp" width="4446" height="2124" alt="Magic Kingdom guide map with Saturday's route, the attraction list, and the legend" fetchpriority="high"></a>
+    <figcaption class="poster-note">Guide map with the route and the number key. Tap to open full size, then pinch to zoom.</figcaption>
   </figure>
 
   <div class="layout">
     <div class="mapcard">
-      <img class="poster" src="MK-Saturday-route-map.jpg" width="2000" height="1722" alt="Saturday route on the Magic Kingdom guide map: 18 numbered stops, DAS at City Hall, and the game plan">
-      <p class="poster-note">Pinch the map to zoom.</p>
       <svg class="map" viewBox="30 60 650 580" role="img" aria-label="Park map with numbered ride stops, laid out to match the official guide map">
         <rect x="30" y="590" width="650" height="50" fill="var(--water)"/>
         <!-- Rivers of America -->
@@ -162,6 +173,12 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
     </div>
 
     <div class="list" id="list">
+      <section class="live" aria-labelledby="live-h" aria-live="polite">
+        <h2 id="live-h">Longest waits now</h2>
+        <p>Book the top open one as your next DAS return, then ride short ones while you wait. Disney's posted times, refreshed every 2 minutes.</p>
+        <ol id="live-top"><li>Loading live waits…</li></ol>
+        <small id="live-stamp">Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a></small>
+      </section>
       <section class="plan" aria-labelledby="plan-h">
         <h2 id="plan-h">Game plan</h2>
         <ul>
@@ -278,23 +295,23 @@ const blocks = [
   {key:"eve", name:"Evening",                                time:"6–10",       color:"var(--eve)"}
 ];
 const rides = [
-  {id:"r1",  n:1,  b:"am",  m:15, name:"Jungle Cruise", note:"Bear left at the hub at opening", pins:[[197,410]]},
-  {id:"r2",  n:2,  b:"am",  m:17, name:"Pirates of the Caribbean", pins:[[133,414]]},
-  {id:"r3",  n:3,  b:"am",  m:25, name:"Tiana's Bayou Adventure", note:"You will get wet", pins:[[84,269]]},
-  {id:"r4",  n:4,  b:"am",  m:26, name:"Big Thunder Mountain", pins:[[112,247]]},
-  {id:"r5",  n:5,  b:"mid", m:34, name:"Haunted Mansion", pins:[[244,207]]},
-  {id:"r6",  n:6,  b:"mid", m:43, name:"Peter Pan's Flight", pins:[[328,202]]},
-  {id:"r7",  n:7,  b:"mid", m:45, name:"Mickey's PhilharMagic", note:"Air-conditioned show", pins:[[365,223]]},
-  {id:"r8",  n:8,  b:"mid", m:48, name:"Seven Dwarfs Mine Train", note:"Book a Lightning Lane for this window", pins:[[444,183]]},
-  {id:"r9",  n:9,  b:"mid", m:56, name:"Mad Tea Party", pins:[[504,217]]},
-  {id:"r10", n:10, b:"mid", m:50, name:"Little Mermaid", pins:[[491,125]]},
-  {id:"r11", n:11, b:"mid", m:54, name:"The Barnstormer", pins:[[624,148]]},
-  {id:"r12", n:12, b:"pm",  m:68, name:"TRON Lightcycle Run", note:"Lightning Lane or virtual queue", pins:[[640,215]]},
-  {id:"r13", n:13, b:"pm",  m:69, name:"Tomorrowland Speedway", pins:[[550,287]]},
-  {id:"r14", n:14, b:"pm",  m:70, name:"Space Mountain", note:"Lightning Lane helps here too", pins:[[642,330]]},
-  {id:"r15", n:15, b:"pm",  m:72, name:"PeopleMover", pins:[[578,382]]},
-  {id:"r16", n:16, b:"pm",  m:74, name:"Buzz Lightyear", note:"New version", pins:[[546,385]]},
-  {id:"r17", n:17, b:"pm",  m:75, name:"Monsters Inc Laugh Floor", note:"Air-conditioned show · closest to the hub", pins:[[500,364]]},
+  {id:"r1", q:134,  n:1,  b:"am",  m:15, name:"Jungle Cruise", note:"Bear left at the hub at opening", pins:[[197,410]]},
+  {id:"r2", q:137,  n:2,  b:"am",  m:17, name:"Pirates of the Caribbean", pins:[[133,414]]},
+  {id:"r3", q:13630,  n:3,  b:"am",  m:25, name:"Tiana's Bayou Adventure", note:"You will get wet", pins:[[84,269]]},
+  {id:"r4", q:130,  n:4,  b:"am",  m:26, name:"Big Thunder Mountain", pins:[[112,247]]},
+  {id:"r5", q:140,  n:5,  b:"mid", m:34, name:"Haunted Mansion", pins:[[244,207]]},
+  {id:"r6", q:136,  n:6,  b:"mid", m:43, name:"Peter Pan's Flight", pins:[[328,202]]},
+  {id:"r7", q:171,  n:7,  b:"mid", m:45, name:"Mickey's PhilharMagic", note:"Air-conditioned show", pins:[[365,223]]},
+  {id:"r8", q:129,  n:8,  b:"mid", m:48, name:"Seven Dwarfs Mine Train", note:"Book a Lightning Lane for this window", pins:[[444,183]]},
+  {id:"r9", q:135,  n:9,  b:"mid", m:56, name:"Mad Tea Party", pins:[[504,217]]},
+  {id:"r10", q:127, n:10, b:"mid", m:50, name:"Little Mermaid", pins:[[491,125]]},
+  {id:"r11", q:126, n:11, b:"mid", m:54, name:"The Barnstormer", pins:[[624,148]]},
+  {id:"r12", q:11527, n:12, b:"pm",  m:68, name:"TRON Lightcycle Run", note:"Lightning Lane or virtual queue", pins:[[640,215]]},
+  {id:"r13", q:143, n:13, b:"pm",  m:69, name:"Tomorrowland Speedway", pins:[[550,287]]},
+  {id:"r14", q:138, n:14, b:"pm",  m:70, name:"Space Mountain", note:"Lightning Lane helps here too", pins:[[642,330]]},
+  {id:"r15", q:1190, n:15, b:"pm",  m:72, name:"PeopleMover", pins:[[578,382]]},
+  {id:"r16", q:131, n:16, b:"pm",  m:74, name:"Buzz Lightyear", note:"New version", pins:[[546,385]]},
+  {id:"r17", q:125, n:17, b:"pm",  m:75, name:"Monsters Inc Laugh Floor", note:"Air-conditioned show · closest to the hub", pins:[[500,364]]},
   {id:"r18", n:18, b:"eve", name:"Re-ride favorites", note:"Then fireworks from Main Street", pins:[[385,470]]}
 ];
 const KEY="mk-sat-done-v4";
@@ -355,7 +372,7 @@ blocks.forEach(bl=>{
   const ol=sec.querySelector("ol");
   rides.filter(r=>r.b===bl.key).forEach(r=>{
     const li=document.createElement("li"); li.id="li-"+r.id; li.style.setProperty("--c",bl.color);
-    li.innerHTML=`<input type="checkbox" id="cb-${r.id}"><label for="cb-${r.id}"><span class="num">${r.n}</span><span class="name">${r.name}${r.note?`<span class="note">${r.note}</span>`:""}</span>${r.m?`<span class="ht" title="Number on the official park map">#${r.m}</span>`:"<span></span>"}</label>`;
+    li.innerHTML=`<input type="checkbox" id="cb-${r.id}"><label for="cb-${r.id}"><span class="num">${r.n}</span><span class="name">${r.name}${r.note?`<span class="note">${r.note}</span>`:""}</span><span class="chips"><span class="wait" id="w-${r.id}" hidden></span>${r.m?`<span class="ht" title="Number on the official park map">#${r.m}</span>`:""}</span></label>`;
     ol.appendChild(li);
     li.querySelector("input").addEventListener("change",e=>{e.target.checked?done.add(r.id):done.delete(r.id);save();render();setActive(r.id)});
   });
@@ -383,6 +400,36 @@ function render(){
 }
 document.getElementById("reset").addEventListener("click",()=>{done.clear();save();render()});
 render();
+
+// live waits: Queue-Times.com via the waits.embry.dev relay (Disney's posted times)
+const WAITS=["https://waits.embry.dev","https://embry-waits.system-map.workers.dev"];
+const waitClass=w=>w>=45?"long":w>=20?"mid":"short";
+async function loadWaits(){
+  let data;
+  for(const url of WAITS){try{const res=await fetch(url,{cache:"no-store"}); if(res.ok){data=await res.json();break;}}catch(e){}}
+  if(!data){document.getElementById("live-stamp").innerHTML=`Live waits unavailable right now. Use the Disney app. · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`; return;}
+  const byId=new Map(data.rides.map(x=>[x.id,x]));
+  let newest=0;
+  rides.forEach(r=>{
+    const el=document.getElementById("w-"+r.id); if(!el) return;
+    const x=r.q&&byId.get(r.q); if(!x){el.hidden=true;return;}
+    newest=Math.max(newest,Date.parse(x.updated)||0);
+    el.hidden=false;
+    el.className="wait "+(x.open?waitClass(x.wait):"closed");
+    el.textContent=x.open?`${x.wait} min`:"Closed";
+    el.title=x.open?"Posted wait right now":"Not running right now";
+  });
+  const top=rides.filter(r=>r.q&&!done.has(r.id)&&byId.get(r.q)?.open)
+    .map(r=>({r,w:byId.get(r.q).wait})).sort((a,b)=>b.w-a.w).slice(0,3);
+  document.getElementById("live-top").innerHTML=top.length
+    ? top.map(({r,w})=>`<li><span>${r.n}. ${r.name}</span><span class="wait ${waitClass(w)}">${w} min</span></li>`).join("")
+    : "<li>No rides on our list are running right now.</li>";
+  const mins=newest?Math.max(0,Math.round((Date.now()-newest)/60000)):null;
+  document.getElementById("live-stamp").innerHTML=`${mins===null?"":`Updated ${mins<1?"just now":mins+" min ago"} · `}Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`;
+}
+loadWaits();
+setInterval(()=>{if(document.visibilityState==="visible") loadWaits()},120000);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible") loadWaits()});
 </script>
 
 </body>
