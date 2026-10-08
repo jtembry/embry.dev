@@ -36,6 +36,7 @@ h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,6vw,44px);lin
 .mapcard{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:10px;min-width:0}
 .poster{display:block;width:100%;height:auto;border-radius:12px}
 .poster-note{margin:8px 6px 2px;font-size:13px;color:var(--muted)}
+.guidemap{margin:0}
 svg.map{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:8px 14px;padding:8px 6px 4px;font-size:13px;color:var(--muted)}
 .legend span{display:inline-flex;align-items:center;gap:6px}
@@ -110,9 +111,14 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
     <p class="sub">One clockwise loop, no doubling back. Pins sit where each ride is on the official guide map, and the #numbers match it. Tap a pin or ride to find it, tap again to check it off.</p>
   </header>
 
+  <figure class="guidemap">
+    <img class="poster" src="MK-guide-map.webp" width="4446" height="2124" alt="Magic Kingdom guide map with Saturday's route, the attraction list, and the legend" fetchpriority="high">
+    <figcaption class="poster-note">Guide map with the route and the number key. Pinch to zoom.</figcaption>
+  </figure>
+
   <div class="layout">
     <div class="mapcard">
-      <img class="poster" src="MK-Saturday-route-map.jpg" width="2000" height="1722" alt="Saturday route on the Magic Kingdom guide map: 18 numbered stops, DAS at City Hall, and the game plan" fetchpriority="high">
+      <img class="poster" src="MK-Saturday-route-map.jpg" width="2000" height="1722" alt="Saturday route on the Magic Kingdom guide map: 18 numbered stops, DAS at City Hall, and the game plan">
       <p class="poster-note">Pinch the map to zoom.</p>
       <svg class="map" viewBox="30 60 650 580" role="img" aria-label="Park map with numbered ride stops, laid out to match the official guide map">
         <rect x="30" y="590" width="650" height="50" fill="var(--water)"/>
