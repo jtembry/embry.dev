@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import ServiceLinks from '../../components/ServiceLinks.astro';
+import site from '../../data/site.json';
+import { dots } from '../../lib/patterns.js';
+const ask = `mailto:${site.email}?subject=${encodeURIComponent('Transcription of our records')}`;
+const bodyBg = dots();
+---
+<Base title="Transcription: handwritten records your assistant can search" description="Scanned ledgers, letters, case files, and diaries turned into searchable text, spelling kept as written and every uncertain word marked.">
+  <Hero variant="graph" seed={17} diagram="secondBrain" mapLabel="See the knowledge system I run on" eyebrow="Knowledge assistants · Transcription" title="Handwriting your assistant can search">
+    <p class="lede"><em>"The old records are all in longhand."</em> An assistant can't answer from a page nobody has read. I turn scanned pages into searchable text: ledgers, letters, case files, minutes, diaries. I keep the writer's spelling and mark every word I'm unsure of.</p>
+    <a slot="actions" class="btn btn-secondary btn-lg" href={ask}>Ask about transcription</a>
+  </Hero>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="muted">Part of <a href="/knowledge-assistants">Knowledge assistants</a>: I transcribe the records, then build the assistant that searches them.</p>
+    </div>
+  </section>
+
+  <section class="section band-parallax">
+    <div class="band-bg" set:html={bodyBg} aria-hidden="true" />
+    <div class="wrap">
+      <h2>An example: a 1938 diary</h2>
+      <p>My grandmother kept a pocket diary in Louisville the year she turned twenty. I transcribed all 194 pages, about 58,000 words, and 94 words are still marked uncertain. Each page of text carries the name of its scan, so any line leads back to the original. My notes, which identify a film, a song, or an event, sit at the foot of the page and are marked as mine, not hers.</p>
+      <p>Monday, October 31, 1938, the morning after Orson Welles's <em>War of the Worlds</em> broadcast:</p>
+      <blockquote>
+        <p>Whole office and country - opposite silly panic caused by Orson Welles' play last nite - we missed it!</p>
+      </blockquote>
+      <p>A search for "Welles" finds that line in seconds. A search for "Hitler" finds the March night she and her sister set an alarm for 3:55 a.m. to hear him speak from Vienna: "Quite weird to hear a foreign voice in middle of nite."</p>
+
+      <h2>What you get</h2>
+      <ul>
+        <li>Every page transcribed, with spelling and punctuation kept as written.</li>
+        <li>Uncertain readings marked <code>[word?]</code>, so nobody mistakes a guess for a fact.</li>
+        <li>One text file per scan, named to match, so every line traces to its page.</li>
+        <li>The text loaded into your knowledge assistant, or handed over as plain files you own.</li>
+      </ul>
+      <h2>Good fit if</h2>
+      <ul>
+        <li>Your records predate the computer: ledgers, case files, minutes, letters.</li>
+        <li>You hold a family or local collection in handwriting and want it read.</li>
+        <li>You need to cite the page, not just find the fact.</li>
+      </ul>
+      <p><span class="tag">Fixed scope</span> <span class="tag">Priced per collection</span> <span class="tag">Quote on scope</span></p>
+      <p><a class="btn btn-primary" href={ask}>Ask about transcription</a></p>
+    </div>
+  </section>
+
+  <ServiceLinks current="/knowledge-assistants" />
+</Base>
