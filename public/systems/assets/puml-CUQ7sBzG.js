@@ -33,7 +33,7 @@ skinparam person<<Jt>>{
   FontColor #f8fafc
   BorderColor #2d5d39
 }
-skinparam rectangle<<Assistants>>{
+skinparam rectangle<<FieldAgent>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
   BorderColor #2563eb
@@ -43,7 +43,7 @@ skinparam rectangle<<Mail>>{
   FontColor #eff6ff
   BorderColor #2563eb
 }
-skinparam rectangle<<Vault>>{
+skinparam rectangle<<Assistants>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
   BorderColor #2563eb
@@ -52,6 +52,11 @@ skinparam rectangle<<Gmail>>{
   BackgroundColor #64748b
   FontColor #f8fafc
   BorderColor #475569
+}
+skinparam rectangle<<Vault>>{
+  BackgroundColor #3b82f6
+  FontColor #eff6ff
+  BorderColor #2563eb
 }
 skinparam rectangle<<Capture>>{
   BackgroundColor #3b82f6
@@ -93,14 +98,15 @@ skinparam rectangle<<Github>>{
   FontColor #f8fafc
   BorderColor #475569
 }
-rectangle "==iPhone\\n\\nObsidian, Reminders." <<Iphone>> as Iphone
+rectangle "==iPhone\\n\\nObsidian, Reminders, the Field Agent app." <<Iphone>> as Iphone
 rectangle "==Backups\\n<size:10>[GitHub · Time Machine]</size>\\n\\nHourly copy of the vault and machine setup to GitHub; Time Machine for everything else." <<Backups>> as Backups
 rectangle "==iCloud Mail\\n\\nSecond mailbox." <<IcloudMail>> as IcloudMail
 person "==JT\\n\\nCaptures things, makes the calls, presses the buttons." <<Jt>> as Jt
-rectangle "==AI assistants\\n<size:10>[Claude Code · Grok]</size>\\n\\nTwo assistants share one vault, one set of skills, and one memory." <<Assistants>> as Assistants
+rectangle "==Field Agent\\n<size:10>[iPhone app · Swift · Node]</size>\\n\\nA custom iPhone app for talking to Claude and Grok on the Mac from anywhere." <<FieldAgent>> as FieldAgent
 rectangle "==Email & Texts\\n\\nTurns two inboxes and iMessage into one short list of what needs action." <<Mail>> as Mail
-rectangle "==Second Brain\\n<size:10>[Obsidian vault]</size>\\n\\nWhere everything ends up: notes, projects, ideas, and the dashboard." <<Vault>> as Vault
+rectangle "==AI assistants\\n<size:10>[Claude Code · Grok]</size>\\n\\nTwo assistants share one vault, one set of skills, and one memory." <<Assistants>> as Assistants
 rectangle "==Gmail\\n\\nMain mailbox." <<Gmail>> as Gmail
+rectangle "==Second Brain\\n<size:10>[Obsidian vault]</size>\\n\\nWhere everything ends up: notes, projects, ideas, and the dashboard." <<Vault>> as Vault
 rectangle "==Capture\\n\\nEvery way a thought gets into the in-tray." <<Capture>> as Capture
 rectangle "==Scanner\\n\\nPaper in the scanner becomes a searchable PDF and a note to file." <<Scan>> as Scan
 rectangle "==Find Anything\\n<size:10>[Mac · hourly · free]</size>\\n\\nCopies the text of every document in Documents into the vault so one search finds it." <<Docs>> as Docs
@@ -118,6 +124,9 @@ Capture .[#8D8D8D,thickness=2].> Vault : <color:#8D8D8D>[...]
 Jt .[#8D8D8D,thickness=2].> Assistants : <color:#8D8D8D>asks
 Assistants .[#8D8D8D,thickness=2].> Vault : <color:#8D8D8D>[...]
 Assistants .[#8D8D8D,thickness=2].> Capture : <color:#8D8D8D>runs
+Jt .[#8D8D8D,thickness=2].> FieldAgent : <color:#8D8D8D>taps
+Iphone .[#8D8D8D,thickness=2].> FieldAgent : <color:#8D8D8D>runs
+FieldAgent .[#8D8D8D,thickness=2].> Assistants : <color:#8D8D8D>one turn per message
 Jt .[#8D8D8D,thickness=2].> Mail : <color:#8D8D8D>presses buttons
 Mail .[#8D8D8D,thickness=2].> Jt : <color:#8D8D8D>what needs action
 Mail .[#8D8D8D,thickness=2].> Vault : <color:#8D8D8D>triage button: note with full text
@@ -392,7 +401,7 @@ rectangle "Second Brain" <<Vault>> as Vault {
   rectangle "==Vault triage\\n<size:10>[Claude or Grok skill]</size>\\n\\nReads the in-tray and files each item where it belongs." <<VaultTriage>> as VaultTriage
   database "==Projects & Areas\\n\\nLife admin: things with a finish line and ongoing duties." <<VaultPara>> as VaultPara
 }
-rectangle "==iPhone\\n\\nObsidian, Reminders." <<Iphone>> as Iphone
+rectangle "==iPhone\\n\\nObsidian, Reminders, the Field Agent app." <<Iphone>> as Iphone
 person "==JT\\n\\nCaptures things, makes the calls, presses the buttons." <<Jt>> as Jt
 
 CaptureReminders .[#8D8D8D,thickness=2].> AppleApps : <color:#8D8D8D>open to-dos
@@ -437,6 +446,11 @@ skinparam person<<Jt>>{
   FontColor #f8fafc
   BorderColor #2d5d39
 }
+skinparam rectangle<<FieldAgentRelay>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
 skinparam rectangle<<AssistantsClaude>>{
   BackgroundColor #0284c7
   FontColor #f0f9ff
@@ -467,7 +481,14 @@ skinparam database<<VaultMemory>>{
   FontColor #eef2ff
   BorderColor #4f46e5
 }
-rectangle "==iPhone\\n\\nObsidian, Reminders." <<Iphone>> as Iphone
+rectangle "==iPhone\\n\\nObsidian, Reminders, the Field Agent app." <<Iphone>> as Iphone
+rectangle "Field Agent" <<FieldAgent>> as FieldAgent {
+  skinparam RectangleBorderColor<<FieldAgent>> #3b82f6
+  skinparam RectangleFontColor<<FieldAgent>> #3b82f6
+  skinparam RectangleBorderStyle<<FieldAgent>> dashed
+
+  rectangle "==Home base\\n<size:10>[Node service on the Mac]</size>\\n\\nPasses each phone message to Claude or Grok and streams the answer back." <<FieldAgentRelay>> as FieldAgentRelay
+}
 person "==JT\\n\\nCaptures things, makes the calls, presses the buttons." <<Jt>> as Jt
 rectangle "AI assistants" <<Assistants>> as Assistants {
   skinparam RectangleBorderColor<<Assistants>> #3b82f6
@@ -501,9 +522,98 @@ AssistantsClaude .[#8D8D8D,thickness=2].> VaultTriage : <color:#8D8D8D>runs
 AssistantsGrok .[#8D8D8D,thickness=2].> VaultTriage : <color:#8D8D8D>runs
 VaultTriage .[#8D8D8D,thickness=2].> VaultMemory : <color:#8D8D8D>logs the run
 AssistantsClaude .[#8D8D8D,thickness=2].> CaptureDistill : <color:#8D8D8D>runs
+FieldAgentRelay .[#8D8D8D,thickness=2].> AssistantsClaude : <color:#8D8D8D>one turn per message
+FieldAgentRelay .[#8D8D8D,thickness=2].> AssistantsGrok : <color:#8D8D8D>one turn per message
 Jt .[#8D8D8D,thickness=2].> Assistants : <color:#8D8D8D>asks
 Jt .[#8D8D8D,thickness=2].> Capture : <color:#8D8D8D>jots things down
 Assistants .[#8D8D8D,thickness=2].> VaultMemory : <color:#8D8D8D>remembers in
+@enduml
+`;case`fieldAgentView`:return`@startuml
+title "Field Agent"
+left to right direction
+
+hide stereotype
+skinparam ranksep 60
+skinparam nodesep 30
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  shadowing false
+}
+
+skinparam rectangle<<Iphone>>{
+  BackgroundColor #A35829
+  FontColor #FFE0C2
+  BorderColor #7E451D
+}
+skinparam person<<Jt>>{
+  BackgroundColor #428a4f
+  FontColor #f8fafc
+  BorderColor #2d5d39
+}
+skinparam rectangle<<FieldAgentApp>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
+skinparam rectangle<<FieldAgentTailnet>>{
+  BackgroundColor #64748b
+  FontColor #f8fafc
+  BorderColor #475569
+}
+skinparam rectangle<<FieldAgentRelay>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
+skinparam rectangle<<FieldAgentApproval>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
+skinparam rectangle<<AssistantsClaude>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
+skinparam rectangle<<AssistantsGrok>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
+rectangle "==iPhone\\n\\nObsidian, Reminders, the Field Agent app." <<Iphone>> as Iphone
+person "==JT\\n\\nCaptures things, makes the calls, presses the buttons." <<Jt>> as Jt
+rectangle "Field Agent" <<FieldAgent>> as FieldAgent {
+  skinparam RectangleBorderColor<<FieldAgent>> #3b82f6
+  skinparam RectangleFontColor<<FieldAgent>> #3b82f6
+  skinparam RectangleBorderStyle<<FieldAgent>> dashed
+
+  rectangle "==Field Agent app\\n<size:10>[SwiftUI · iPhone]</size>\\n\\nTwo chats, Claude and Grok. Replies fill in as they are written." <<FieldAgentApp>> as FieldAgentApp
+  rectangle "==Private network\\n<size:10>[Tailscale]</size>\\n\\nLinks the phone to the Mac without opening the home network to the internet." <<FieldAgentTailnet>> as FieldAgentTailnet
+  rectangle "==Home base\\n<size:10>[Node service on the Mac]</size>\\n\\nPasses each phone message to Claude or Grok and streams the answer back." <<FieldAgentRelay>> as FieldAgentRelay
+  rectangle "==Allow / Deny card\\n<size:10>[in the app]</size>\\n\\nBefore Claude edits a file or runs a command, the phone buzzes and asks." <<FieldAgentApproval>> as FieldAgentApproval
+}
+rectangle "AI assistants" <<Assistants>> as Assistants {
+  skinparam RectangleBorderColor<<Assistants>> #3b82f6
+  skinparam RectangleFontColor<<Assistants>> #3b82f6
+  skinparam RectangleBorderStyle<<Assistants>> dashed
+
+  rectangle "==Claude Code\\n<size:10>[terminal tabs inside Obsidian]</size>\\n\\nMain assistant. Builds and fixes the machinery, runs the skills." <<AssistantsClaude>> as AssistantsClaude
+  rectangle "==Grok\\n<size:10>[terminal tabs inside Obsidian]</size>\\n\\nSecond assistant. Same vault, same skills, same rules." <<AssistantsGrok>> as AssistantsGrok
+}
+
+Jt .[#8D8D8D,thickness=2].> FieldAgentApproval : <color:#8D8D8D>taps
+Iphone .[#8D8D8D,thickness=2].> FieldAgentApp : <color:#8D8D8D>runs
+FieldAgentApp .[#8D8D8D,thickness=2].> FieldAgentTailnet : <color:#8D8D8D>messages
+FieldAgentRelay .[#8D8D8D,thickness=2].> FieldAgentApproval : <color:#8D8D8D>asks first
+FieldAgentApproval .[#8D8D8D,thickness=2].> FieldAgentRelay : <color:#8D8D8D>Allow or Deny
+FieldAgentTailnet .[#8D8D8D,thickness=2].> FieldAgentRelay : <color:#8D8D8D>carries
+Iphone .[#8D8D8D,thickness=2].> Jt : <color:#8D8D8D>in his pocket
+FieldAgentRelay .[#8D8D8D,thickness=2].> AssistantsClaude : <color:#8D8D8D>one turn per message
+FieldAgentRelay .[#8D8D8D,thickness=2].> AssistantsGrok : <color:#8D8D8D>one turn per message
+Jt .[#8D8D8D,thickness=2].> Assistants : <color:#8D8D8D>asks
 @enduml
 `;case`schedulersView`:return`@startuml
 title "Schedulers"
@@ -613,7 +723,7 @@ rectangle "brainpi" <<Pi>> as Pi {
 
   rectangle "==Heartbeat\\n<size:10>[every 6 hours]</size>\\n\\nReports disk space and drive health so the Health Report notices trouble." <<PiHeartbeat>> as PiHeartbeat
 }
-rectangle "==iPhone\\n\\nObsidian, Reminders." <<Iphone>> as Iphone
+rectangle "==iPhone\\n\\nObsidian, Reminders, the Field Agent app." <<Iphone>> as Iphone
 rectangle "Schedulers" <<Schedulers>> as Schedulers {
   skinparam RectangleBorderColor<<Schedulers>> #3b82f6
   skinparam RectangleFontColor<<Schedulers>> #3b82f6

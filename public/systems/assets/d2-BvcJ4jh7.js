@@ -13,17 +13,20 @@ Jt: {
   label: "JT"
   shape: c4-person
 }
-Assistants: {
-  label: "AI assistants"
+FieldAgent: {
+  label: "Field Agent"
 }
 Mail: {
   label: "Email & Texts"
 }
-Vault: {
-  label: "Second Brain"
+Assistants: {
+  label: "AI assistants"
 }
 Gmail: {
   label: "Gmail"
+}
+Vault: {
+  label: "Second Brain"
 }
 Capture: {
   label: "Capture"
@@ -58,6 +61,9 @@ Capture -> Vault: "[...]"
 Jt -> Assistants: "asks"
 Assistants -> Vault: "[...]"
 Assistants -> Capture: "runs"
+Jt -> FieldAgent: "taps"
+Iphone -> FieldAgent: "runs"
+FieldAgent -> Assistants: "one turn per message"
 Jt -> Mail: "presses buttons"
 Mail -> Jt: "what needs action"
 Mail -> Vault: "triage button: note with full text"
@@ -245,6 +251,13 @@ Jt -> Assistants: "asks"
 Iphone: {
   label: "iPhone"
 }
+FieldAgent: {
+  label: "Field Agent"
+
+  Relay: {
+    label: "Home base"
+  }
+}
 Jt: {
   label: "JT"
   shape: c4-person
@@ -289,9 +302,57 @@ Assistants.Claude -> Vault.Triage: "runs"
 Assistants.Grok -> Vault.Triage: "runs"
 Vault.Triage -> Vault.Memory: "logs the run"
 Assistants.Claude -> Capture.Distill: "runs"
+FieldAgent.Relay -> Assistants.Claude: "one turn per message"
+FieldAgent.Relay -> Assistants.Grok: "one turn per message"
 Jt -> Assistants: "asks"
 Jt -> Capture: "jots things down"
 Assistants -> Vault.Memory: "remembers in"
+`;case`fieldAgentView`:return`direction: right
+
+Iphone: {
+  label: "iPhone"
+}
+Jt: {
+  label: "JT"
+  shape: c4-person
+}
+FieldAgent: {
+  label: "Field Agent"
+
+  App: {
+    label: "Field Agent app"
+  }
+  Tailnet: {
+    label: "Private network"
+  }
+  Relay: {
+    label: "Home base"
+  }
+  Approval: {
+    label: "Allow / Deny card"
+  }
+}
+Assistants: {
+  label: "AI assistants"
+
+  Claude: {
+    label: "Claude Code"
+  }
+  Grok: {
+    label: "Grok"
+  }
+}
+
+Jt -> FieldAgent.Approval: "taps"
+Iphone -> FieldAgent.App: "runs"
+FieldAgent.App -> FieldAgent.Tailnet: "messages"
+FieldAgent.Relay -> FieldAgent.Approval: "asks first"
+FieldAgent.Approval -> FieldAgent.Relay: "Allow or Deny"
+FieldAgent.Tailnet -> FieldAgent.Relay: "carries"
+Iphone -> Jt: "in his pocket"
+FieldAgent.Relay -> Assistants.Claude: "one turn per message"
+FieldAgent.Relay -> Assistants.Grok: "one turn per message"
+Jt -> Assistants: "asks"
 `;case`schedulersView`:return`direction: right
 
 AppleApps: {
