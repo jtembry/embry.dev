@@ -34,6 +34,8 @@ h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,6vw,44px);lin
 .layout{display:grid;gap:20px}
 @media (min-width:820px){.layout{grid-template-columns:1.15fr 1fr;align-items:start}.mapcard{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}}
 .mapcard{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:10px;min-width:0}
+.poster{display:block;width:100%;height:auto;border-radius:12px}
+.poster-note{margin:8px 6px 2px;font-size:13px;color:var(--muted)}
 svg.map{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:8px 14px;padding:8px 6px 4px;font-size:13px;color:var(--muted)}
 .legend span{display:inline-flex;align-items:center;gap:6px}
@@ -110,6 +112,8 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 
   <div class="layout">
     <div class="mapcard">
+      <img class="poster" src="MK-Saturday-route-map.jpg" width="2000" height="1722" alt="Saturday route on the Magic Kingdom guide map: 18 numbered stops, DAS at City Hall, and the game plan" fetchpriority="high">
+      <p class="poster-note">Pinch the map to zoom.</p>
       <svg class="map" viewBox="30 60 650 580" role="img" aria-label="Park map with numbered ride stops, laid out to match the official guide map">
         <rect x="30" y="590" width="650" height="50" fill="var(--water)"/>
         <!-- Rivers of America -->
@@ -331,7 +335,7 @@ const list=document.getElementById("list");
 // DAS station: Guest Relations at City Hall
 (function(){
   const g=document.createElementNS(NS,"g"); g.setAttribute("class","das");
-  const x=330,y=531;
+  const x=356,y=531;
   g.innerHTML=`<line x1="${x+22}" y1="${y}" x2="${x+42}" y2="${y}" stroke="var(--das)" stroke-width="3"/>
     <rect x="${x-24}" y="${y-15}" width="48" height="30" rx="8" fill="var(--das)" stroke="var(--paper)" stroke-width="3"/>
     <text x="${x}" y="${y+6}" text-anchor="middle">DAS</text>`;
