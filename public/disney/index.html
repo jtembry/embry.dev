@@ -118,7 +118,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 
 <div class="wrap">
   <header>
-    <div class="eyebrow">Magic Kingdom · Sat Oct 10 · 8am–11pm</div>
+    <div class="eyebrow">Magic Kingdom · Sat Oct 10 · 8am–11pm · leave 6:50am</div>
     <h1>Our Saturday ride map</h1>
     <p class="sub"><a class="jump" href="#access">Accessibility &amp; DAS notes ↓</a></p>
     <p class="sub">One clockwise loop, no doubling back. Pins sit where each ride is on the official guide map, and the #numbers match it. Tap a pin or ride to find it, tap again to check it off.</p>
@@ -175,19 +175,30 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
     <div class="list" id="list">
       <section class="live" aria-labelledby="live-h" aria-live="polite">
         <h2 id="live-h">Longest waits now</h2>
-        <p>Book the top open one as your next DAS return, then ride short ones while you wait. Disney's posted times, refreshed every 2 minutes.</p>
+        <p>From about 10am, book the top open one as your next DAS return, then ride short ones while you wait. Disney's posted times, refreshed every 2 minutes.</p>
         <ol id="live-top"><li>Loading live waits…</li></ol>
         <small id="live-stamp">Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a></small>
+      </section>
+      <section class="plan" aria-labelledby="go-h">
+        <h2 id="go-h">Getting there: leave by 6:50</h2>
+        <ul>
+          <li><b>Drive to Magic Kingdom parking:</b> 15–20 min from the rental (8 miles).</li>
+          <li><b>Parking to the gate:</b> 30–45 min, up to an hour at opening. Tram to the Ticket Center, security, then monorail (10 min) or ferry (12–15 min).</li>
+          <li><b>Latest safe start:</b> 7:05. Early is fine: the lot and monorail open well before 8.</li>
+        </ul>
+        <div class="links">
+          <a href="https://maps.apple.com/?daddr=Magic+Kingdom+Parking,+Lake+Buena+Vista,+FL&amp;dirflg=d" target="_blank" rel="noopener">Directions to Magic Kingdom parking ↗</a>
+        </div>
       </section>
       <section class="plan" aria-labelledby="plan-h">
         <h2 id="plan-h">Game plan</h2>
         <ul>
-          <li><b>Be at the gate by 8, when the park opens.</b> Jungle Cruise and Pirates have their shortest lines in the first hour.</li>
+          <li><b>8–10am, shortest lines of the day:</b> use the regular lines. Jungle Cruise, Pirates, Tiana's and Big Thunder are often 5–20 min. A DAS return saves little this early.</li>
+          <li><b>From about 10am, lines peak until 3:</b> start DAS. Book the top ride in "Longest waits now," ride the short ones nearby while you wait. One return at a time; request the next 10 min after you use it.</li>
           <li><b>Lightning Lane Multi Pass:</b> book Seven Dwarfs, Peter Pan, Tiana's and Jungle Cruise first.</li>
-          <li><b>TRON:</b> buy the Single Pass or join the virtual queue in the app.</li>
+          <li><b>TRON:</b> has a regular line, so DAS works there too. The Single Pass skips it.</li>
           <li><b>Long line?</b> Skip ahead to the next stop and loop back. Nothing in each area is far apart.</li>
-          <li><b>DAS:</b> hold the next long ride as a DAS return time while you do the short ones nearby. You can hold one at a time, and request the next 10 minutes after you use it.</li>
-          <li><b>Running behind?</b> Drop Tea Cups, Barnstormer, Speedway or PeopleMover first, or save them for after dinner when lines shrink.</li>
+          <li><b>Running behind?</b> Drop Tea Cups, Barnstormer, Speedway or PeopleMover first. Lines shrink again in the last two hours and during fireworks.</li>
         </ul>
         <div class="links">
           <a href="https://disneyworld.disney.go.com/plan/my-disney-experience/mobile-apps/" target="_blank" rel="noopener">Get the Disney app (live waits) ↗</a>
@@ -219,8 +230,8 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
         <h3>Getting DAS return times in the park</h3>
         <p><b>In the app:</b> follow the steps below from anywhere in the park.</p>
         <p><b>In person:</b> a Cast Member can book return times at <b>Guest Relations in City Hall</b> (the DAS marker on the map, on your left as you enter Main Street) or at any <b>Guest Experience Team</b> location around the park. This helps if a phone dies.</p>
-        <p><b>Rules to know:</b> your party can hold one DAS return time at a time. After you use it, you can request the next one 10 minutes later. You can hold a virtual queue spot, like TRON's, at the same time.</p>
-        <p><b>On our route:</b> while you ride the shorter-wait stops, hold a DAS return for the next long one. Good DAS picks are Jungle Cruise, Tiana's, Big Thunder, Peter Pan, Seven Dwarfs and Space Mountain.</p>
+        <p><b>Rules to know:</b> your party can hold one DAS return time at a time. After you use it, you can request the next one 10 minutes later. You can hold a virtual queue spot at the same time.</p>
+        <p><b>On our route:</b> while you ride the shorter-wait stops, hold a DAS return for the next long one. Good DAS picks are TRON, Jungle Cruise, Tiana's, Big Thunder, Peter Pan, Seven Dwarfs and Space Mountain.</p>
         <p class="from">Source: Walt Disney World's Disability Access Service page, checked Oct 8, 2026.</p>
       </article>
       <article class="acard wide">
@@ -306,7 +317,7 @@ const rides = [
   {id:"r9", q:135,  n:9,  b:"mid", m:56, name:"Mad Tea Party", pins:[[504,217]]},
   {id:"r10", q:127, n:10, b:"mid", m:50, name:"Little Mermaid", pins:[[491,125]]},
   {id:"r11", q:126, n:11, b:"mid", m:54, name:"The Barnstormer", pins:[[624,148]]},
-  {id:"r12", q:11527, n:12, b:"pm",  m:68, name:"TRON Lightcycle Run", note:"Lightning Lane or virtual queue", pins:[[640,215]]},
+  {id:"r12", q:11527, n:12, b:"pm",  m:68, name:"TRON Lightcycle Run", note:"DAS or the Lightning Lane Single Pass", pins:[[640,215]]},
   {id:"r13", q:143, n:13, b:"pm",  m:69, name:"Tomorrowland Speedway", pins:[[550,287]]},
   {id:"r14", q:138, n:14, b:"pm",  m:70, name:"Space Mountain", note:"Lightning Lane helps here too", pins:[[642,330]]},
   {id:"r15", q:1190, n:15, b:"pm",  m:72, name:"PeopleMover", pins:[[578,382]]},
