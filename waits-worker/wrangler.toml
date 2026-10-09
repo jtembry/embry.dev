@@ -1,0 +1,9 @@
+# Live Magic Kingdom wait times for embry.dev/disney. Queue-Times.com sends no
+# CORS header, so the page reads this relay instead. Cached 60 s at the edge.
+# Deploy: npx wrangler deploy (from this folder).
+name = "embry-waits"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+routes = [{ pattern = "waits.embry.dev", custom_domain = true }]
