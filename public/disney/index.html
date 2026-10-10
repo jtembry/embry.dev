@@ -114,16 +114,16 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .checks input:checked+span{text-decoration:line-through;color:var(--muted)}
 .checks small{display:block;color:var(--muted);font-size:13px}
 .tl{list-style:none;margin:0;padding:0;display:grid;gap:0}
-.tl li{display:grid;grid-template-columns:64px 14px 1fr;gap:10px;align-items:start}
+.tl>li{display:grid;grid-template-columns:64px 14px 1fr;gap:10px;align-items:start}
 .tl time{font-family:var(--display);font-weight:800;font-size:15px;text-align:right;font-variant-numeric:tabular-nums;padding-top:9px}
 .tl .rail{position:relative;align-self:stretch}
 .tl .rail::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--line)}
 .tl .rail::after{content:"";position:absolute;left:1px;top:12px;width:12px;height:12px;border-radius:50%;background:var(--c,var(--mid))}
-.tl li.maybe .rail::after{background:var(--paper);border:2px dashed var(--c,var(--mid));box-sizing:border-box}
+.tl>li.maybe .rail::after{background:var(--paper);border:2px dashed var(--c,var(--mid));box-sizing:border-box}
 .tl .what{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-bottom:8px}
 .tl .what b{display:block}
 .tl .what span{font-size:14px;color:var(--muted)}
-.tl li.maybe .what{border-style:dashed}
+.tl>li.maybe .what{border-style:dashed}
 .breaks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .breaks li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 .breaks b{display:block}
@@ -180,33 +180,19 @@ a.ht{text-decoration:none;color:inherit}
 .lm-place{position:absolute;transform:translate(-50%,-100%);font-size:30px;line-height:1;z-index:4;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
 .view>*,.wrap>*{min-width:0}
 .lm-scroll{width:100%}
-.rm-inner{position:relative;width:calc(var(--z,1) * 100%)}
-.rm-inner img{display:block;width:100%;height:auto}
-#rm-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.rp{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:3px;height:28px;padding:0 7px;border-radius:999px;border:2px solid #fff;font:700 13px/1 var(--body);font-variant-numeric:tabular-nums;color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:pointer;min-height:0}
-.rp small{font-size:11px;font-weight:700;opacity:.9}
-.rp.outdoor{background:#c2610f}.rp.indoor{background:#16897a}.rp.covered{background:#1f6fb8}
-.rp.off{background:rgba(70,80,77,.82);height:24px;padding:0 6px;border-style:dashed}
-.rp.gr{background:#4b4aa8}
-.rp.done{opacity:.45}
-.rp.sel{z-index:3;transform:translate(-50%,-50%) scale(1.25);outline:3px solid #1d2a26}
-.rp:focus-visible{outline:3px solid #1d2a26;outline-offset:2px}
-.kind{font-size:13px;font-weight:700;padding:3px 8px;border-radius:999px;color:#fff}
-.kind.outdoor{background:#c2610f}.kind.indoor{background:#16897a}.kind.covered{background:#1f6fb8}.kind.off{background:#6b7a75}
-.rm-add{display:flex;gap:8px;flex-wrap:wrap}
-.rm-add select{flex:1 1 200px;min-width:0;max-width:100%;min-height:44px;font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:0 10px}
-.rm-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.rm-list li{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 10px}
-.rm-list li.sel{box-shadow:0 0 0 2px var(--mid) inset}
-.rm-list li.done .rm-name{text-decoration:line-through;color:var(--muted)}
-.rm-num{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font:800 15px var(--display);border:0;padding:0;min-height:0}
-.rm-num.outdoor{background:#c2610f}.rm-num.indoor{background:#16897a}.rm-num.covered{background:#1f6fb8}
-li.done .rm-num{background:var(--done)}
-.rm-name{font-weight:700;min-width:0}
-.rm-name small{display:block;font-weight:400;font-size:13px;color:var(--muted)}
-.rm-side{display:grid;justify-items:end;gap:4px}
-.rm-ctl{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}
-.rm-ctl button{min-height:40px;padding:0 12px;font-size:14px}
+.ridechk{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+.ridechk li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:6px 8px;border-radius:10px;background:var(--bg)}
+.ridechk label{display:contents;cursor:pointer}
+.ridechk input{position:static;opacity:1;pointer-events:auto;width:22px;height:22px;margin:0;accent-color:var(--mid)}
+.ridechk .rn{font-weight:700;color:var(--ink);font-size:15px}
+.ridechk .rn small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.ridechk .rs{display:flex;gap:6px;align-items:center}
+.ridechk li.done .rn{text-decoration:line-through;color:var(--muted)}
+.daspick{display:block;margin-top:8px;font-size:14px;color:var(--ink)}
+.tl .what .daspick b{display:inline;color:var(--das)}
+.tl .what span.wait{color:#fff}
+.tl .what span.wait.mid{color:#1d2a26}
+.tl .what span.wait.closed{color:var(--muted)}
 .lm-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .lm-legend{display:flex;gap:6px;flex-wrap:wrap}
 .lg-row{gap:6px 14px;align-items:center}
@@ -238,7 +224,7 @@ button{min-height:44px}
 @media (max-width:420px){
   .facts{grid-template-columns:1fr}
   .facts div{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-  .tl li{grid-template-columns:52px 12px 1fr;gap:8px}
+  .tl>li{grid-template-columns:52px 12px 1fr;gap:8px}
   .tl time{font-size:14px}
   h1{font-size:30px}
 }
@@ -261,7 +247,6 @@ button{min-height:44px}
   <a class="side-title" href="#day">Magic Kingdom · Sat Oct 10</a>
   <a href="#day">The day</a>
   <a href="#live">Live wait map</a>
-  <a href="#map">Our route</a>
   <a href="#access">Lines &amp; DAS</a>
   <a href="#breaks">Need a break</a>
   <a href="#prep">Before we go</a>
@@ -335,52 +320,25 @@ button{min-height:44px}
       <li data-h="7"><time>7:20</time><span class="rail"></span><div class="what"><b>Security, then monorail or ferry</b><span>Bags open, pockets empty. Monorail 10 min, ferry 12–15. Lines can be long at opening.</span></div></li>
       <li style="--c:var(--am)" data-h="7"><time>7:50</time><span class="rail"></span><div class="what"><b><a class="ref" href="#live" data-ref="entrance">Gate<span class="refn">map</span></a></b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
       <li style="--c:var(--am)" data-h="8"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at <a class="ref" href="#live" data-ref="cityhall">City Hall<span class="refn">#1</span></a> (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
-      <li style="--c:var(--am)" data-h="8"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our first DAS return</b><span>Must-do. Do it right after Guest Relations. It stays good until close.</span></div></li>
-      <li style="--c:var(--am)" data-h="8"><time>8:15</time><span class="rail"></span><div class="what"><b>Tomorrowland</b><span><a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> first in the regular line, then <a class="ref" href="#live" data-ref="1190">PeopleMover<span class="refn">#72</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a> and <a class="ref" href="#live" data-ref="143">Speedway<span class="refn">#69</span></a> while the TRON return comes up, then <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a>.</span></div></li>
-      <li style="--c:var(--am)" data-h="10"><time>10:00</time><span class="rail"></span><div class="what"><b>Storybook Circus and Seven Dwarfs</b><span><a class="ref" href="#live" data-ref="126">Barnstormer<span class="refn">#54</span></a>, then <a class="ref" href="#live" data-ref="129">Seven Dwarfs<span class="refn">#48</span></a>. Lines are growing: start keeping a DAS return going.</span></div></li>
+      <li style="--c:var(--am)" data-h="8"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our first DAS return</b><span>Must-do. Do it right after Guest Relations. It stays good until close. Bought Lightning Lane Multi Pass? Book <a class="ref" href="#live" data-ref="129">Seven Dwarfs<span class="refn">#48</span></a>, <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>, <a class="ref" href="#live" data-ref="13630">Tiana&#39;s<span class="refn">#25</span></a> and <a class="ref" href="#live" data-ref="134">Jungle Cruise<span class="refn">#15</span></a> first.</span></div></li>
+      <li style="--c:var(--am)" data-h="8"><time>8:15</time><span class="rail"></span><div class="what"><b>Tomorrowland</b><span>Shortest lines of the day: use the regular lines, in this order. Ride TRON on the DAS return once it comes up. Long line? Skip ahead and loop back. Carousel of Progress is closed.</span><ul class="ridechk" data-rides="138,1190,131,143,11527"></ul></div></li>
+      <li style="--c:var(--am)" data-h="10"><time>10:00</time><span class="rail"></span><div class="what"><b>Storybook Circus and Seven Dwarfs</b><span>Lines are growing. From here on, keep one DAS return going: book the next one 10 min after you use the last.</span><span class="daspick" hidden></span><ul class="ridechk" data-rides="126,129"></ul></div></li>
       <li style="--c:var(--am)" data-h="10"><time>10:00</time><span class="rail"></span><div class="what"><b>🍎 Snack</b><span>Near Seven Dwarfs: <a class="ref" href="#live" data-ref="eric">Prince Eric's Village Market<span class="refn">#64</span></a> (fruit, drinks) or <a class="ref" href="#live" data-ref="cheshire">Cheshire Café<span class="refn">#65</span></a> (iced drinks). Refill water.</span></div></li>
-      <li style="--c:var(--mid)" data-h="11"><time>11:00</time><span class="rail"></span><div class="what"><b>Frontierland and Adventureland</b><span><a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="13630">Tiana's<span class="refn">#25</span></a> before 2, while it's dry. Then <a class="ref" href="#live" data-ref="134">Jungle Cruise<span class="refn">#15</span></a>, then the <a class="ref" href="#live" data-ref="334">Enchanted Tiki Room<span class="refn">#16</span></a> (must-do).</span></div></li>
+      <li style="--c:var(--mid)" data-h="11"><time>11:00</time><span class="rail"></span><div class="what"><b>Frontierland and Adventureland</b><span>Outdoor coasters before 2, while it's dry. Then the covered Jungle Cruise and the air-conditioned Tiki Room. The riverboat and Tom Sawyer Island are closed.</span><span class="daspick" hidden></span><ul class="ridechk" data-rides="130,13630,134,334"></ul></div></li>
       <li style="--c:var(--mid)" data-h="12"><time>12:00</time><span class="rail"></span><div class="what"><b>🍔 Lunch</b><span><a class="ref" href="#live" data-ref="pecos">Pecos Bill Tall Tale Inn and Cafe<span class="refn">#29</span></a> in Frontierland: big, air-conditioned, mobile order. Or <a class="ref" href="#live" data-ref="columbia">Columbia Harbour House<span class="refn">#39</span></a> upstairs, usually quieter. Order in the app by 11:15; noon pickup times fill up.</span></div></li>
       <li style="--c:var(--mid)" data-h="12-14" class="maybe"><time>12–3</time><span class="rail"></span><div class="what"><b>Too hot? Indoor breaks nearby</b><span>Hottest stretch of the day. Free ice water at any quick-service counter. The Tiki Room is already on our route. More: <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a> (22-min seated show). All air-conditioned, all close by.</span></div></li>
       <li style="--c:var(--mid)" data-h="14"><time>2:00</time><span class="rail"></span><div class="what"><b>🍍 Snack</b><span>Dole Whip at <a class="ref" href="#live" data-ref="aloha">Aloha Isle<span class="refn">#21</span></a> in Adventureland, or <a class="ref" href="#live" data-ref="sunshine">Sunshine Tree Terrace<span class="refn">#19</span></a>. Right by Pirates, our next stop.</span></div></li>
-      <li style="--c:var(--pm)" data-h="14-15"><time>2:30</time><span class="rail"></span><div class="what"><b>Storm hours: indoor rides</b><span>Storms likely 3–7. <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>, <a class="ref" href="#live" data-ref="127">Little Mermaid<span class="refn">#50</span></a>, then <a class="ref" href="#live" data-ref="135">Tea Cups<span class="refn">#56</span></a> under its roof. Keep the DAS return going.</span></div></li>
+      <li style="--c:var(--pm)" data-h="14-15"><time>2:30</time><span class="rail"></span><div class="what"><b>Storm hours: indoor rides</b><span>Storms likely 3–7, so everything here is indoors or covered. Keep the DAS return going.</span><span class="daspick" hidden></span><ul class="ridechk" data-rides="137,140,136,127,135"></ul></div></li>
       <li style="--c:var(--pm)" data-h="15-18" class="maybe"><time>3–7</time><span class="rail"></span><div class="what"><b>More indoor options if it pours</b><span><a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>, <a class="ref" href="#live" data-ref="142">Winnie the Pooh<span class="refn">#47</span></a>, <a class="ref" href="#live" data-ref="128">Enchanted Tales with Belle<span class="refn">#49</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a>, <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>. Outdoor rides close for lightning; check "Longest waits now" for what's running.</span></div></li>
       <li style="--c:var(--pm)" data-h="17"><time>5:00</time><span class="rail"></span><div class="what"><b>🍽️ Dinner</b><span>Indoors, out of the storm: <a class="ref" href="#live" data-ref="pinocchio">Pinocchio Village Haus<span class="refn">#58</span></a> by Peter Pan, mobile order. Or <a class="ref" href="#live" data-ref="columbia">Columbia Harbour House<span class="refn">#39</span></a> in Liberty Square. Order in the app by 4:15.</span></div></li>
-      <li style="--c:var(--eve)" data-h="19-20" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Backup time for any outdoor ride that closed in the storm. Storms are still possible until about 9: if it's raining, stick to <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a>, <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a> or <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>. Lines shrink in the last two hours.</span></div></li>
+      <li style="--c:var(--eve)" data-h="19-20" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Backup time for any outdoor ride that closed in the storm. Storms are still possible until about 9: if it's raining, stick to <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70 Running behind? Drop Tea Cups, Barnstormer, Speedway or PeopleMover first.</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a>, <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a> or <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>. Lines shrink in the last two hours.</span></div></li>
       <li style="--c:var(--eve)" data-h="21" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
       <li style="--c:var(--eve)" data-h="23"><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes. Expect a monorail wait after fireworks.</span></div></li>
     </ol>
+    <div class="foot"><span id="count"></span><button type="button" id="reset">Uncheck all</button></div>
+    <small class="wx-src" id="day-stamp">Posted waits: Queue-Times.com</small>
   </section>
 
-  <section class="part view" id="map" aria-labelledby="map-h">
-    <h2 id="map-h">Our route</h2>
-    <p class="sub">Our numbers show the order. Disney's map number is in [brackets]. Tap a numbered pin to move, finish or remove it. Tap a grey pin to add that ride. Changes save on this phone.</p>
-    <div class="lm-tools">
-      <div class="lm-legend"><span class="kind outdoor">Outdoor</span><span class="kind covered">Covered</span><span class="kind indoor">Indoor</span><span class="kind off">Not in plan</span></div>
-      <div class="lm-zoom"><button type="button" id="rm-out" aria-label="Zoom out">−</button><button type="button" id="rm-in" aria-label="Zoom in">+</button></div>
-    </div>
-    <div class="lm-scroll" id="rm-scroll"><div class="rm-inner" id="rm-inner">
-      <img src="MK-live-map.webp" width="1400" height="1443" alt="Official Magic Kingdom map with our route">
-      <svg id="rm-svg" viewBox="0 0 2060 2124" preserveAspectRatio="none" aria-hidden="true"></svg>
-      <div id="rm-pins"></div>
-    </div></div>
-    <div class="lm-card" id="rm-card" aria-live="polite">Tap a pin to see the ride.</div>
-    <div class="rm-add">
-      <select id="rm-add" aria-label="Add a ride to the plan"><option value="">Add a ride…</option></select>
-      <button type="button" id="rm-default">Reset to our plan</button>
-    </div>
-    <ol class="rm-list" id="rm-list"></ol>
-    <div class="foot">
-      <span id="count"></span>
-      <button type="button" id="reset">Uncheck all</button>
-    </div>
-    <div class="list">
-      <section class="live" aria-labelledby="live-h" aria-live="polite">
-        <h2 id="live-h">Longest waits now</h2>
-        <p>From about 10:30, book the top open one as your next DAS return, then ride short ones while you wait. Disney's posted times, refreshed every 2 minutes.</p>
-        <ol id="live-top"><li>Loading live waits…</li></ol>
-        <small id="live-stamp">Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a></small>
-      </section>
       <section class="plan" aria-labelledby="plan-h">
         <h2 id="plan-h">Game plan</h2>
         <ul>
@@ -539,86 +497,40 @@ const KIND_LABEL={indoor:"Indoor",covered:"Covered",outdoor:"Outdoor"};
 const NOTES={138:"Must-do · ride first, regular line · 44 in. to ride",11527:"Must-do · ride on the DAS return booked at 8:05 · 48 in. to ride",
   129:"DAS or Lightning Lane",130:"Ride before 2, before the storms",13630:"You will get wet · ride before 2",334:"Must-do · air-conditioned show, about 15 min",131:"New version",135:"Under a roof"};
 const DEFAULT_PLAN=[138,1190,131,143,11527,126,129,130,13630,134,334,137,140,136,127,135];
-const PLAN_KEY="mk-plan-v1", DONE_KEY="mk-done-v5";
+const DONE_KEY="mk-done-v5";
 const loadJSON=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:d}catch(e){return d}};
 const saveJSON=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-let plan=loadJSON(PLAN_KEY,DEFAULT_PLAN).filter(id=>byQ.has(id));
+const plan=DEFAULT_PLAN;
 let done=new Set(loadJSON(DONE_KEY,[]));
-try{if(!plan.includes(334)&&!localStorage.getItem("mk-tiki-added")){const i=plan.indexOf(134);plan.splice(i>=0?i+1:plan.length,0,334);localStorage.setItem(PLAN_KEY,JSON.stringify(plan));localStorage.setItem("mk-tiki-added","1")}}catch(e){}
-let stopOf=new Map(), rmSel=null, lastById=null, lastStamp="";
-const GR_PT=[1066,1586], START_PT=[1144,1780];
-const rmScroll=document.getElementById("rm-scroll"), rmInner=document.getElementById("rm-inner"), rmPins=document.getElementById("rm-pins"), rmSvg=document.getElementById("rm-svg");
-const pct=(x,y)=>`left:${x/2060*100}%;top:${y/2124*100}%`;
+let stopOf=new Map(plan.map((id,i)=>[id,i+1])), lastById=null, lastStamp="";
 function waitOf(id){const x=lastById&&lastById.get(id);return !x?null:x}
 function waitChip(id){const x=waitOf(id);return !x?"":`<span class="wait ${x.open?waitClass(x.wait):"closed"}">${x.open?x.wait+" min":"Closed"}</span>`}
-function savePlan(){saveJSON(PLAN_KEY,plan)}
-function renderPlan(){
-  stopOf=new Map(plan.map((id,i)=>[id,i+1]));
-  // path: entrance → City Hall → each stop in order
-  const pts=[START_PT,GR_PT,...plan.map(id=>[byQ.get(id).x,byQ.get(id).y])].map(p=>p.join(",")).join(" ");
-  rmSvg.innerHTML=`<polyline points="${pts}" fill="none" stroke="#fff" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/>
-    <polyline points="${pts}" fill="none" stroke="#4b4aa8" stroke-width="9" stroke-dasharray="26 16" stroke-linejoin="round" stroke-linecap="round"/>`;
-  // pins: City Hall, every ride (numbered if in the plan, grey if not)
-  rmPins.innerHTML=`<button type="button" class="rp gr" style="${pct(...GR_PT)}" data-gr="1">GR <small>[1]</small></button>`+
-    ALL.map(a=>{const n=stopOf.get(a.id);
-      return n?`<button type="button" class="rp ${kindOf(a.id)}${done.has(a.id)?" done":""}${rmSel===a.id?" sel":""}" style="${pct(a.x,a.y)}" data-q="${a.id}" aria-label="Stop ${n}, ${a.name}, Disney map ${a.m}">${n} <small>[${a.m}]</small></button>`
-              :`<button type="button" class="rp off" style="${pct(a.x,a.y)}" data-q="${a.id}" aria-label="Add ${a.name}, Disney map ${a.m}"><small>[${a.m}]</small></button>`}).join("");
-  // list
-  document.getElementById("rm-list").innerHTML=plan.map((id,i)=>{const a=byQ.get(id),k=kindOf(id);
-    return `<li id="rl-${id}" class="${done.has(id)?"done":""}${rmSel===id?" sel":""}">
-      <button type="button" class="rm-num ${k}" data-done="${id}" aria-pressed="${done.has(id)}" aria-label="Stop ${i+1}: mark ${a.name} ${done.has(id)?"not done":"done"}">${done.has(id)?"✓":i+1}</button>
-      <span class="rm-name">${a.name}<small>${KIND_LABEL[k]}${NOTES[id]?" · "+NOTES[id]:""}</small></span>
-      <span class="rm-side">${waitChip(id)}<a class="ht ref" href="#live" data-ref="${id}">[${a.m}]</a></span>
-      <span class="rm-ctl"><button type="button" data-up="${id}" ${i===0?"disabled":""} aria-label="Move ${a.name} earlier">▲ Earlier</button><button type="button" data-down="${id}" ${i===plan.length-1?"disabled":""} aria-label="Move ${a.name} later">▼ Later</button><button type="button" data-rm="${id}" aria-label="Remove ${a.name}">✕ Remove</button></span>
-    </li>`}).join("");
-  // add-a-ride menu
-  document.getElementById("rm-add").innerHTML='<option value="">Add a ride…</option>'+ALL.filter(a=>!stopOf.has(a.id)).sort((p,q)=>p.name.localeCompare(q.name))
-    .map(a=>`<option value="${a.id}">${a.name} [${a.m}] · ${KIND_LABEL[kindOf(a.id)]}</option>`).join("");
+function renderDay(){
+  document.querySelectorAll(".ridechk").forEach(ul=>{
+    ul.innerHTML=ul.dataset.rides.split(",").map(Number).map(id=>{const a=byQ.get(id);
+      return `<li class="${done.has(id)?"done":""}"><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""} aria-label="${a.name} done"><span class="rn">${a.name}<small>${KIND_LABEL[kindOf(id)]}${NOTES[id]?" · "+NOTES[id]:""}</small></span></label><span class="rs">${waitChip(id)}<a class="ht ref" href="#live" data-ref="${id}">#${a.m}</a></span></li>`}).join("");
+  });
   const n=plan.filter(id=>done.has(id)).length;
-  document.getElementById("count").textContent=`${n} of ${plan.length} done`;
-  renderTop();
+  document.getElementById("count").textContent=`${n} of ${plan.length} rides done`;
+  // best DAS pick right now: the longest open wait among rides we haven't done
+  const top=lastById&&plan.filter(id=>!done.has(id)&&lastById.get(id)?.open).sort((p,q)=>lastById.get(q).wait-lastById.get(p).wait)[0];
+  const P=Object.fromEntries(new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}).formatToParts(new Date()).map(x=>[x.type,x.value]));
+  const now=`${P.year}-${P.month}-${P.day}`===WX_DAY?(+P.hour%24)+(+P.minute)/60:0;
+  const picks=[...document.querySelectorAll(".daspick")];
+  const slot=now>=14.5?2:now>=11?1:0;
+  picks.forEach((el,i)=>{
+    if(!top||i!==slot){el.hidden=true;return}
+    el.hidden=false; el.innerHTML=`DAS pick right now: <b>${byQ.get(top).name}</b>, ${lastById.get(top).wait} min posted wait.`;
+  });
   if(lastById) updateLiveMap(lastById,lastStamp);
 }
-function rmCard(id){
-  const a=byQ.get(id), n=stopOf.get(id), x=waitOf(id);
-  const wait=!x?"":x.open?`<span class="wait ${waitClass(x.wait)}">${x.wait} min</span> posted wait · `:"Not running right now · ";
-  document.getElementById("rm-card").innerHTML=`<b>${n?n+". ":""}${a.name}</b> <span class="refn">[${a.m}]</span><br>${wait}${KIND_LABEL[kindOf(id)]}${NOTES[id]?" · "+NOTES[id]:""}`+
-    (n?`<div class="rm-ctl" style="margin-top:8px"><button type="button" data-up="${id}" ${n===1?"disabled":""}>▲ Earlier</button><button type="button" data-down="${id}" ${n===plan.length?"disabled":""}>▼ Later</button><button type="button" data-done="${id}">${done.has(id)?"Not done":"✓ Done"}</button><button type="button" data-rm="${id}">✕ Remove</button></div>`
-       :`<div class="rm-ctl" style="margin-top:8px"><button type="button" data-add="${id}">＋ Add to plan</button></div>`);
-}
-function rmSelect(id){rmSel=id;renderPlan();rmCard(id)}
-function move(id,d){const i=plan.indexOf(id),j=i+d;if(i<0||j<0||j>=plan.length)return;[plan[i],plan[j]]=[plan[j],plan[i]];savePlan();renderPlan();if(rmSel===id)rmCard(id)}
-document.getElementById("map").addEventListener("click",e=>{
-  const t=e.target.closest("button"); if(!t) return;
-  const d=t.dataset;
-  if(d.gr){rmSel=null;renderPlan();document.getElementById("rm-card").innerHTML="<b>GR. Guest Relations, City Hall</b> <span class=\"refn\">[1]</span><br>Our first stop. Confirm DAS, then book TRON.";return}
-  if(d.q){const id=+d.q; stopOf.has(id)?rmSelect(id):rmSelect(id); return}
-  if(d.up) return move(+d.up,-1);
-  if(d.down) return move(+d.down,1);
-  if(d.rm){const id=+d.rm; plan=plan.filter(x=>x!==id); savePlan(); renderPlan(); rmCard(id); return}
-  if(d.add){const id=+d.add; if(!plan.includes(id)) plan.push(id); savePlan(); rmSelect(id); return}
-  if(d.done){const id=+d.done; done.has(id)?done.delete(id):done.add(id); saveJSON(DONE_KEY,[...done]); renderPlan(); if(rmSel===id) rmCard(id); return}
+document.getElementById("day").addEventListener("change",e=>{
+  const id=+e.target.dataset.done; if(!id) return;
+  e.target.checked?done.add(id):done.delete(id); saveJSON(DONE_KEY,[...done]); renderDay();
 });
-document.getElementById("rm-add").addEventListener("change",e=>{const id=+e.target.value; if(!id) return; plan.push(id); savePlan(); rmSelect(id); e.target.value="";});
-document.getElementById("rm-default").addEventListener("click",()=>{plan=[...DEFAULT_PLAN]; savePlan(); rmSel=null; renderPlan(); document.getElementById("rm-card").textContent="Back to our plan.";});
-document.getElementById("reset").addEventListener("click",()=>{done.clear(); saveJSON(DONE_KEY,[]); renderPlan();});
-let rmZoom=1;
-function rmSetZoom(z){
-  const cx=(rmScroll.scrollLeft+rmScroll.clientWidth/2)/rmInner.offsetWidth, cy=(rmScroll.scrollTop+rmScroll.clientHeight/2)/rmInner.offsetHeight;
-  rmZoom=Math.min(3,Math.max(1,z)); rmInner.style.setProperty("--z",rmZoom);
-  rmScroll.scrollLeft=cx*rmInner.offsetWidth-rmScroll.clientWidth/2; rmScroll.scrollTop=cy*rmInner.offsetHeight-rmScroll.clientHeight/2;
-}
-document.getElementById("rm-in").addEventListener("click",()=>rmSetZoom(rmZoom+0.75));
-document.getElementById("rm-out").addEventListener("click",()=>rmSetZoom(rmZoom-0.75));
-if(matchMedia("(max-width:600px)").matches) rmSetZoom(1.75);
-function renderTop(){
-  if(!lastById) return;
-  const top=plan.filter(id=>!done.has(id)&&lastById.get(id)?.open).map(id=>({id,w:lastById.get(id).wait})).sort((a,b)=>b.w-a.w).slice(0,3);
-  const html=top.length?top.map(({id,w})=>`<li><span>${stopOf.get(id)}. ${byQ.get(id).name}</span><span class="wait ${waitClass(w)}">${w} min</span></li>`).join(""):"<li>No rides in our plan are running right now.</li>";
-  document.getElementById("live-top").innerHTML=html;
-}
+document.getElementById("reset").addEventListener("click",()=>{done.clear(); saveJSON(DONE_KEY,[]); renderDay();});
 
-// one section at a time: dropdown + #hash, Home by default
+// one section at a time: side nav + #hash, The day by default
 const views=[...document.querySelectorAll(".view")], side=document.getElementById("side"), scrim=document.getElementById("scrim"), menuBtn=document.getElementById("menu-btn");
 function setMenu(open){document.body.classList.toggle("nav-open",open);menuBtn.setAttribute("aria-expanded",open);scrim.hidden=!open;}
 menuBtn.addEventListener("click",()=>setMenu(!document.body.classList.contains("nav-open")));
@@ -771,17 +683,18 @@ const waitClass=w=>w>=45?"long":w>=20?"mid":"short";
 async function loadWaits(){
   let data;
   for(const url of WAITS){try{const res=await fetch(url,{cache:"no-store"}); if(res.ok){data=await res.json();break;}}catch(e){}}
-  if(!data){document.getElementById("live-stamp").innerHTML=`Live waits unavailable right now. Use the Disney app. · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`; return;}
+  const credit=`Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`;
+  if(!data){document.getElementById("lm-stamp").innerHTML=document.getElementById("day-stamp").innerHTML=`Live waits unavailable right now. Use the Disney app. · ${credit}`; return;}
   const byId=new Map(data.rides.map(x=>[x.id,x]));
   let newest=0;
   data.rides.forEach(x=>{newest=Math.max(newest,Date.parse(x.updated)||0)});
   lastById=byId;
   const mins=newest?Math.max(0,Math.round((Date.now()-newest)/60000)):null;
-  document.getElementById("live-stamp").innerHTML=`${mins===null?"":`Updated ${mins<1?"just now":mins+" min ago"} · `}Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`;
-  lastStamp=document.getElementById("live-stamp").innerHTML;
-  renderPlan();
+  lastStamp=`${mins===null?"":`Waits updated ${mins<1?"just now":mins+" min ago"} · `}${credit}`;
+  document.getElementById("day-stamp").innerHTML=lastStamp;
+  renderDay();
 }
-renderPlan();
+renderDay();
 loadWaits();
 setInterval(()=>{if(document.visibilityState==="visible") loadWaits()},120000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible") loadWaits()});
