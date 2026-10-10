@@ -321,7 +321,16 @@ body:has(#map.on) .pm-wrap .pm-card{right:68px}
 .ridechk .rn small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
 .ridechk .rs{display:flex;gap:6px;align-items:center}
 .ridechk li.done .rn{text-decoration:line-through;color:var(--muted)}
-.ridechk li{grid-template-columns:auto 1fr auto}
+.ridechk li{grid-template-columns:auto minmax(0,1fr) auto}
+.ridechk .rn{min-width:0;overflow-wrap:break-word}
+@media (max-width:480px){
+  .ridechk li{grid-template-columns:auto minmax(0,1fr)}
+  .ridechk .rs{grid-column:2;justify-content:flex-start;flex-wrap:wrap}
+  .ridechk .pri{grid-column:2}
+}
+.tl>li{min-width:0}
+html,body{max-width:100%;overflow-x:hidden}
+.wrap{overflow-x:clip}
 .ridechk .pri{grid-column:2/-1;justify-self:start;min-height:34px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:0 8px}
 .ridechk li.pri-must .pri{background:#16897a;border-color:#16897a;color:#fff}
 .ridechk li.pri-opt .pri{background:#e2a01c;border-color:#e2a01c;color:#1d2a26}
