@@ -199,7 +199,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
       <li style="--c:var(--pm)"><time>2:30</time><span class="rail"></span><div class="what"><b>Frontierland and Adventureland, stops 14–17</b><span>Big Thunder, Tiana's, Pirates, Jungle Cruise. Keep using DAS for the long ones.</span></div></li>
       <li style="--c:var(--eve)" class="maybe"><time>6:00</time><span class="rail"></span><div class="what"><b>Dinner?</b></div></li>
       <li style="--c:var(--eve)" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Backup time for TRON or Space Mountain if either broke down. Lines shrink in the last two hours and during fireworks.</span></div></li>
-      <li style="--c:var(--eve)" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks from Main Street?</b><span>Check the time in the app. Headphones help.</span></div></li>
+      <li style="--c:var(--eve)" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
       <li style="--c:var(--eve)"><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes. Expect a monorail wait after fireworks.</span></div></li>
     </ol>
   </section>
@@ -430,7 +430,7 @@ const rides = [
   {id:"r3",  q:13630, n:15, b:"pm",  m:25, name:"Tiana's Bayou Adventure", note:"You will get wet", pins:[[84,269]]},
   {id:"r2",  q:137,   n:16, b:"pm",  m:17, name:"Pirates of the Caribbean", pins:[[133,414]]},
   {id:"r1",  q:134,   n:17, b:"pm",  m:15, name:"Jungle Cruise", pins:[[197,410]]},
-  {id:"r18", n:18, b:"eve", name:"Re-ride favorites", note:"Then fireworks from Main Street", pins:[[385,470]]}
+  {id:"r18", n:18, b:"eve", name:"Re-ride favorites", note:"Ride during the fireworks, when lines are shortest", pins:[[385,470]]}
 ];
 const KEY="mk-sat-done-v4";
 let done = new Set();
