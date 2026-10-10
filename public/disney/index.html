@@ -171,7 +171,8 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .meals small{font-size:13px;color:var(--muted)}
 .meals .mline{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .meals .mside{flex:none;display:flex;gap:6px;align-items:center}
-.meals>li{min-width:0}
+.meals>li{min-width:0;justify-content:flex-start}
+.meals .mn{flex:1 1 auto}
 @media (max-width:480px){.meals .mside{flex-direction:column;align-items:flex-end}}
 .meals .menu{display:inline-flex;align-items:center;min-height:32px;padding:0 10px;font-size:13px;border-radius:999px}
 .meals .mnum{flex:none;margin:0;display:inline-flex;align-items:center;min-height:32px;padding:0 10px;font-size:13px;border-radius:999px}
