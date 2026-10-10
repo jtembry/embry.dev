@@ -180,6 +180,13 @@ a.ht{text-decoration:none;color:inherit}
 .lm-place{position:absolute;transform:translate(-50%,-100%);font-size:30px;line-height:1;z-index:4;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
 .view>*,.wrap>*{min-width:0}
 .lm-scroll{width:100%}
+.day-legend{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.dl{width:12px;height:12px;border-radius:50%;flex:none;background:var(--mid)}
+.dl.maybe{background:transparent;border:2px dashed var(--mid)}
+.wxc-l{font-size:11px;font-weight:700;padding:1px 6px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-variant-numeric:tabular-nums}
+.wxc-l.hi{background:#4b4aa8;border-color:transparent;color:#fff}
+.wxc-l.zap{background:#e2a01c;border-color:transparent;color:#1d2a26}
+.day-legend .refn{margin-left:0}
 .ridechk{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
 .ridechk li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:6px 8px;border-radius:10px;background:var(--bg)}
 .ridechk label{display:contents;cursor:pointer}
@@ -309,7 +316,15 @@ button{min-height:44px}
 
   <section class="part view" id="day" aria-labelledby="day-h">
     <h2 id="day-h">The day</h2>
-    <p class="sub">Solid dots are fixed, dashed ones are maybes. Each row shows the forecast for that hour: temperature and chance of rain (☔) or thunderstorms (⛈️), and ⚡ chance of lightning when it's 15% or more. Outdoor rides close when lightning is close by.</p>
+    <div class="day-legend lg-row" aria-label="Legend">
+      <span class="lg"><i class="dl fixed"></i>Planned</span>
+      <span class="lg"><i class="dl maybe"></i>Maybe</span>
+      <span class="lg"><span class="wxc-l">84°</span>Temp</span>
+      <span class="lg"><span class="wxc-l">☔ 8%</span>Rain</span>
+      <span class="lg"><span class="wxc-l hi">⛈️ 59%</span>Thunderstorms</span>
+      <span class="lg"><span class="wxc-l zap">⚡ 50%</span>Lightning</span>
+      <span class="lg"><span class="refn">#48</span>Disney map number</span>
+    </div>
     <div class="wx-alert" id="wx-alert" role="alert" hidden></div>
     <details class="radar" id="radar"><summary>Live radar</summary><img id="radar-img" alt="Live National Weather Service radar loop around Orlando" width="600" height="550"><small>Radar from the National Weather Service (Melbourne). Magic Kingdom is just southwest of Orlando.</small></details>
     <small class="wx-src" id="wx-src">Forecast: National Weather Service, Magic Kingdom.</small>
