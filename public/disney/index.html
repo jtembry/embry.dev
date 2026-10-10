@@ -238,7 +238,6 @@ a.ht{text-decoration:none;color:inherit}
 .znote{margin:8px 0 0;font-size:14px;color:var(--muted)}
 .zdet{margin-top:8px}
 .zdet summary{min-height:40px;display:flex;align-items:center;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer}
-.goback summary{color:var(--ink)}
 .tl .what .daspick{margin:8px 0 0}
 .daspick{display:block;margin-top:8px;font-size:14px;color:var(--ink)}
 .tl .what .daspick b{display:inline;color:var(--das)}
@@ -421,7 +420,7 @@ const ZONES=[null,
   {n:"Adventureland",start:840,end:960,rides:[137,334,141,134,355],cool:334,
    note:"Mostly indoors or covered, good for storm hours."},
   {n:"Evening: catch up and re-ride",start:960,end:1380,rides:[1189],cool:null,
-   note:"Catch up on anything skipped, then re-ride favorites. If it's raining, pick indoor rides. Lines shrink in the last two hours and during fireworks."}];
+   note:"Re-ride favorites. If it's raining, pick indoor rides. Lines shrink in the last two hours and during fireworks."}];
 const zoneOf=new Map(); ZONES.forEach((z,i)=>z&&z.rides.forEach(id=>zoneOf.set(id,i)));
 const ZONE_KEY="mk-zone-v1";
 function clockZone(min){ if(min<495) return 0; for(let i=ZONES.length-1;i>=1;i--) if(min>=ZONES[i].start) return i; return 0; }
@@ -455,7 +454,6 @@ function renderDay(){
   const n=nowET(), cur=currentZone(), hr=Math.floor(n.min/60), today=n.day===DAY;
   const open=id=>lastById&&lastById.get(id)?.open, wait=id=>lastById&&lastById.get(id)?.wait||0;
   const highLeft=z=>ZONES[z].rides.filter(id=>isHigh(id)&&!done.has(id));
-  const goBack=cur>=2?ZONES.slice(1,cur).flatMap(z=>z.rides).filter(id=>isHigh(id)&&!done.has(id)):[];
   ZONES.forEach((z,i)=>{ if(!z) return;
     const el=document.querySelector(`[data-zbody="${i}"]`); if(!el) return;
     const isCur=i===cur, high=z.rides.filter(isHigh).sort((p,q)=>PRI_RANK[priOf(p)]-PRI_RANK[priOf(q)]), med=z.rides.filter(id=>priOf(id)==="opt"), low=z.rides.filter(id=>priOf(id)==="wont");
@@ -476,16 +474,14 @@ function renderDay(){
     }
     let das="";
     if(isCur&&lastById){
-      const pool=(i===6?goBack.concat(highLeft(6)):[i,i+1].filter(k=>ZONES[k]).flatMap(k=>highLeft(k))).filter(open);
+      const pool=(i===6?highLeft(6):[i,i+1].filter(k=>ZONES[k]).flatMap(k=>highLeft(k))).filter(open);
       const top=pool.slice().sort((p,q)=>(priOf(p)==="das"?0:1)-(priOf(q)==="das"?0:1)||wait(q)-wait(p))[0];
       if(top) das=`<p class="daspick">${priOf(top)==="das"?"🎟 ":""}DAS pick now: <b>${byQ.get(top).name}</b>, ${wait(top)} min posted${zoneOf.get(top)!==i?` (next stop: ${ZONES[zoneOf.get(top)].n})`:""}. The return time comes up about when you get there.</p>`;
     }
-    const back=(isCur&&goBack.length)||(i===6&&goBack.length)?`<details class="zdet goback" data-det="back${i}" ${openDet.has("back"+i)||i===6?"open":""}><summary>↩︎ Go back for (${goBack.length})</summary><ul class="ridechk">${goBack.map(id=>rideLI(id,`${ZONES[zoneOf.get(id)].n}, ~${walkMin(byQ.get(id),zoneCenter(i===6?cur:i))} min walk`)).join("")}</ul></details>`:"";
     const nextHigh=highLeft(i)[0];
     el.innerHTML=`<p class="zmeta">${isCur?`<span class="here-now">📍 You're here</span>`:`<button type="button" class="here" data-here="${i}">📍 We're here</button>`}<span>${i<6?`Stop ${i} of 6 · aim to move on by ${fmtMin(z.end)}`:"Stop 6 of 6 · until close"}</span></p>
       ${nudges.map(t=>`<p class="znudge">${t}</p>`).join("")}${das}
       <p class="znote">${z.note}</p>
-      ${back}
       ${high.length?`<ul class="ridechk">${high.map(id=>rideLI(id)).join("")}</ul>`:`<p class="znote">${i===6?"":"No high-priority rides here."}</p>`}
       ${med.length?`<details class="zdet" data-det="med${i}" ${openDet.has("med"+i)||!high.length?"open":""}><summary>Medium priority (${med.length})</summary><ul class="ridechk">${med.map(id=>rideLI(id)).join("")}</ul></details>`:""}
       ${low.length?`<details class="zdet" data-det="low${i}" ${openDet.has("low"+i)?"open":""}><summary>Low priority (${low.length})</summary><ul class="ridechk">${low.map(id=>rideLI(id)).join("")}</ul></details>`:""}`;
