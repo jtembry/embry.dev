@@ -393,12 +393,14 @@ button{min-height:44px}
     <div class="map-sum" id="map-sum"></div>
     <div class="map-tools">
       <div class="map-legend"><span class="lg"><i class="pp start">GR</i>Start: Guest Relations</span><span class="lg"><i class="pp high">3</i>On the path</span><span class="lg"><i class="pp das">🎟</i>DAS candidate</span><span class="lg"><i class="pp food">🍴</i>Food stop</span><span class="lg"><i class="pp done">✓</i>Done</span><span class="lg"><i class="pp low"></i>Skip</span><span class="lg">📍 Last ride ticked</span></div>
-      <div class="map-zoom"><button type="button" id="pm-out" aria-label="Zoom out">−</button><button type="button" id="pm-in" aria-label="Zoom in">+</button></div>
+      <div class="map-zoom"><button type="button" id="pm-out" aria-label="Zoom out">−</button><button type="button" id="pm-in" aria-label="Zoom in">+</button><button type="button" id="pm-me" aria-label="Center the map on me">◎</button></div>
     </div>
+    <small class="wx-src" id="pm-gps"></small>
     <div class="pm-scroll" id="pm-scroll"><div class="pm-inner" id="pm-inner">
       <img src="MK-live-map.webp" width="1400" height="1443" alt="Magic Kingdom map with our path">
       <svg id="pm-svg" viewBox="0 0 2060 2124" preserveAspectRatio="none" aria-hidden="true"></svg>
       <div id="pm-pins"></div>
+      <span class="mv-you" id="pm-you" hidden></span>
     </div></div>
     <div class="pm-card" id="pm-card">Tap a pin to see the ride, change its priority or tick it off.</div>
     <p class="znote">The path visits every On the path and DAS ride stop by stop, counterclockwise: Tomorrowland, Fantasyland, Liberty Square, Frontierland, Adventureland, then the evening. Inside each stop it takes the order with the least walking. DAS rides can be ridden any time after their return time comes up. Changes from any phone redraw it.</p>
@@ -1133,6 +1135,27 @@ document.getElementById("pm-out").addEventListener("click",()=>pmSetZoom(pmZoom-
 addEventListener("hashchange",()=>{ if(location.hash==="#map"){ pmCentered=false; setTimeout(renderMap,30); } });
 document.getElementById("map").addEventListener("change",onRideChange);
 renderMap();
+// ---------- Map tab: GPS you-are-here dot, followed live while the tab is open ----------
+let pmWatch=null;
+function pmPaintYou(center){
+  const y=document.getElementById("pm-you"), msg=document.getElementById("pm-gps");
+  if(gpsOn()){ const p=geoPx(fix.ll); y.style.left=(p[0]/2060*100)+"%"; y.style.top=(p[1]/2124*100)+"%"; y.hidden=false;
+    msg.textContent=`🔵 You, GPS ±${Math.round(fix.acc)} m. Tap ◎ to center on you.`; if(center) pmCenter(p); return; }
+  y.hidden=true;
+  msg.textContent={ask:"Finding you on GPS…",off:"Location is off, so there's no you-are-here dot.",far:"GPS says you're not in the park.",fuzzy:"GPS is too rough to place you right now.",none:"No GPS fix yet."}[geo]||"";
+}
+function pmWatchStart(){
+  if(pmWatch!=null||!("geolocation" in navigator)) return;
+  if(!fix) geo="ask"; pmPaintYou(false);
+  pmWatch=navigator.geolocation.watchPosition(pos=>{
+    const ll=[pos.coords.latitude,pos.coords.longitude], acc=pos.coords.accuracy||999;
+    fix={ll,acc}; geo=metres(ll,CASTLE)>700?"far":acc>120?"fuzzy":"gps"; pmPaintYou(false);
+  },err=>{ if(err.code===1||!gpsOn()){ geo=err.code===1?"off":"none"; pmPaintYou(false); } },{enableHighAccuracy:true,maximumAge:10000,timeout:20000});
+}
+function pmWatchStop(){ if(pmWatch!=null){ navigator.geolocation.clearWatch(pmWatch); pmWatch=null; } }
+function pmWatchSync(){ location.hash==="#map"&&document.visibilityState==="visible"?pmWatchStart():pmWatchStop(); }
+addEventListener("hashchange",pmWatchSync); document.addEventListener("visibilitychange",pmWatchSync); pmWatchSync();
+document.getElementById("pm-me").addEventListener("click",()=>{ pmWatchStart(); gpsOn()?pmPaintYou(true):locate(()=>pmPaintYou(true)); });
 // ---------- 🍴 Food: nearest food spots (GPS, else from the last ride ticked); add one to a meal ----------
 let fdSel=null, fdNote="";
 function nextMealK(){ const n=nowET(); const ks=[1,2,3,4].filter(k=>!(chosenSpot(k)&&done.has(chosenSpot(k)))); return ks.find(k=>n.day!==DAY||MEALK[k].t>=n.min-45)||ks[ks.length-1]||2; }
