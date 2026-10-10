@@ -478,9 +478,7 @@ function renderDay(){
     el.innerHTML=`<p class="zmeta"><span>${i<6?`Stop ${i} of 6 · aim to move on by ${fmtMin(z.end)}`:"Stop 6 of 6 · until close"}</span></p>
       ${nudges.map(t=>`<p class="znudge">${t}</p>`).join("")}${das}
       <p class="znote">${z.note}</p>
-      ${high.length?`<ul class="ridechk">${high.map(id=>rideLI(id)).join("")}</ul>`:`<p class="znote">${i===6?"":"No high-priority rides here."}</p>`}
-      ${med.length?`<details class="zdet" data-det="med${i}" ${openDet.has("med"+i)||!high.length?"open":""}><summary>Medium priority (${med.length})</summary><ul class="ridechk">${med.map(id=>rideLI(id)).join("")}</ul></details>`:""}
-      ${low.length?`<details class="zdet" data-det="low${i}" ${openDet.has("low"+i)?"open":""}><summary>Low priority (${low.length})</summary><ul class="ridechk">${low.map(id=>rideLI(id)).join("")}</ul></details>`:""}`;
+      <ul class="ridechk">${high.concat(med,low).map(id=>rideLI(id)).join("")}</ul>`;
     el.closest("li").dataset.next=isCur&&nextHigh?nextHigh:"";
   });
   const musts=ALL.filter(a=>!a.meet).map(a=>a.id).filter(isHigh);
