@@ -227,6 +227,12 @@ a.ht{text-decoration:none;color:inherit}
 .ridechk .rn small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
 .ridechk .rs{display:flex;gap:6px;align-items:center}
 .ridechk li.done .rn{text-decoration:line-through;color:var(--muted)}
+.ridechk li{grid-template-columns:auto 1fr auto}
+.ridechk .pri{grid-column:2/-1;justify-self:start;min-height:34px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:0 8px}
+.ridechk li.pri-must .pri{border-color:var(--am);color:var(--am)}
+.ridechk li.pri-wont{opacity:.5}
+.ridechk li.pri-wont .rn{text-decoration:line-through}
+.ridechk li.pri-wont .rn small{display:none}
 .daspick{display:block;margin-top:8px;font-size:14px;color:var(--ink)}
 .tl .what .daspick b{display:inline;color:var(--das)}
 .tl .what span.wait{color:#fff}
@@ -276,7 +282,7 @@ button{min-height:44px}
       <span class="lg"><span class="wxc-l">☔ 8%</span>Rain</span>
       <span class="lg"><span class="wxc-l hi">⛈️ 59%</span>Thunderstorms</span>
       <span class="lg"><span class="wxc-l zap">⚡ 50%</span>Lightning</span>
-      <span class="lg"><span class="refn">#48</span>Disney map number: tap it to see the spot on the map 📍</span>
+      <span class="lg" style="white-space:normal"><span class="refn">#48</span>Disney map number: tap it to see the spot on the map 📍</span>
     </div>
     <div class="wx-alert" id="wx-alert" role="alert" hidden></div>
     <details class="radar" id="radar"><summary>Live radar</summary><img id="radar-img" alt="Live National Weather Service radar loop around Orlando" width="600" height="550"><small>Radar from the National Weather Service (Melbourne). Magic Kingdom is just southwest of Orlando.</small></details>
@@ -407,15 +413,22 @@ function buildExtras(){
   });
 }
 buildExtras();
+// each ride: Must do / Optional / Won't do, saved per phone. Planned rides start as Must do, the rest as Optional.
+const PRI_KEY="mk-pri-v1", PRI_LABEL={must:"Must do",opt:"Optional",wont:"Won't do"}, PRI_RANK={must:0,opt:1,wont:2};
+let pri={}; try{pri=JSON.parse(localStorage.getItem(PRI_KEY))||{}}catch(e){}
+const priOf=id=>pri[id]||(plan.includes(id)?"must":"opt");
 function renderDay(){
   document.querySelectorAll(".ridechk").forEach(ul=>{
-    ul.innerHTML=ul.dataset.rides.split(",").map(Number).map(id=>{const a=byQ.get(id);
-      return `<li class="${done.has(id)?"done":""}"><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""} aria-label="${a.name} done"><span class="rn">${a.name}<small>${plan.includes(id)?"":"Optional · "}${KIND_LABEL[kindOf(id)]}${NOTES[id]?" · "+NOTES[id]:""}</small></span></label><span class="rs">${waitChip(id)}<span class="ht">#${a.m}</span></span></li>`}).join("");
+    const ids=ul.dataset.rides.split(",").map(Number);
+    ul.innerHTML=ids.map((id,i)=>({id,i})).sort((p,q)=>PRI_RANK[priOf(p.id)]-PRI_RANK[priOf(q.id)]||p.i-q.i).map(({id})=>{const a=byQ.get(id), pr=priOf(id), note=(NOTES[id]||"").replace(/^Must-do · /,"");
+      return `<li class="${done.has(id)?"done":""} pri-${pr}"><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""} aria-label="${a.name} done"><span class="rn">${a.name}<small>${KIND_LABEL[kindOf(id)]}${note?" · "+note:""}</small></span></label><span class="rs">${pr==="wont"?"":waitChip(id)}<span class="ht">#${a.m}</span></span><select class="pri" data-pri="${id}" aria-label="${a.name}: must do, optional or won't do">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===pr?"selected":""}>${v}</option>`).join("")}</select></li>`}).join("");
   });
-  const n=plan.filter(id=>done.has(id)).length;
-  document.getElementById("count").textContent=`${n} of ${plan.length} rides done`;
-  // best DAS pick right now: the longest open wait among rides we haven't done
-  const top=lastById&&plan.filter(id=>!done.has(id)&&lastById.get(id)?.open).sort((p,q)=>lastById.get(q).wait-lastById.get(p).wait)[0];
+  const musts=plan.concat(ALL.filter(a=>!a.meet&&!plan.includes(a.id)).map(a=>a.id)).filter(id=>priOf(id)==="must");
+  const n=musts.filter(id=>done.has(id)).length;
+  document.getElementById("count").textContent=`${n} of ${musts.length} must-do rides done`;
+  // best DAS pick right now: the longest open wait among must-do rides we haven't done (optional ones if the musts are all done)
+  const pool=ALL.filter(a=>!a.meet).map(a=>a.id).filter(id=>priOf(id)!=="wont"&&!done.has(id)&&lastById&&lastById.get(id)?.open);
+  const top=lastById&&(pool.filter(id=>priOf(id)==="must").sort((p,q)=>lastById.get(q).wait-lastById.get(p).wait)[0]||pool.sort((p,q)=>lastById.get(q).wait-lastById.get(p).wait)[0]);
   const P=Object.fromEntries(new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}).formatToParts(new Date()).map(x=>[x.type,x.value]));
   const now=`${P.year}-${P.month}-${P.day}`===WX_DAY?(+P.hour%24)+(+P.minute)/60:0;
   const picks=[...document.querySelectorAll(".daspick")];
@@ -426,6 +439,7 @@ function renderDay(){
   });
 }
 document.getElementById("day").addEventListener("change",e=>{
+  if(e.target.dataset.pri){pri[+e.target.dataset.pri]=e.target.value; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} renderDay(); return;}
   const id=+e.target.dataset.done; if(!id) return;
   e.target.checked?done.add(id):done.delete(id); saveJSON(DONE_KEY,[...done]); renderDay();
 });
