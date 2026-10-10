@@ -229,7 +229,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
       <article class="acard wide das-card">
         <h3>Getting DAS return times in the park</h3>
         <p><b>In the app:</b> follow the steps below from anywhere in the park.</p>
-        <p><b>In person:</b> a Cast Member can book return times at <b>Guest Relations in City Hall</b> (the DAS marker on the map, on your left as you enter Main Street) or at any <b>Guest Experience Team</b> location around the park. This helps if a phone dies.</p>
+        <p><b>In person:</b> a Cast Member can book return times at <b>Guest Relations in City Hall</b> (stop GR on our map, on your left as you enter Main Street) or at any <b>Guest Experience Team</b> location around the park. This helps if a phone dies.</p>
         <p><b>Rules to know:</b> your party can hold one DAS return time at a time. After you use it, you can request the next one 10 minutes later. You can hold a virtual queue spot at the same time.</p>
         <p><b>On our route:</b> while you ride the shorter-wait stops, hold a DAS return for the next long one. Good DAS picks are TRON, Jungle Cruise, Tiana's, Big Thunder, Peter Pan, Seven Dwarfs and Space Mountain.</p>
         <p class="from">Source: Walt Disney World's Disability Access Service page, checked Oct 8, 2026.</p>
@@ -306,6 +306,7 @@ const blocks = [
   {key:"eve", name:"Evening",                                time:"6–11",       color:"var(--eve)"}
 ];
 const rides = [
+  {id:"r0",  n:"GR", b:"am", m:1, name:"Guest Relations (City Hall)", note:"Left side of Main Street as you enter. Check DAS is linked for everyone", pins:[[356,531]]},
   {id:"r1", q:134,  n:1,  b:"am",  m:15, name:"Jungle Cruise", note:"Bear left at the hub at opening", pins:[[197,410]]},
   {id:"r2", q:137,  n:2,  b:"am",  m:17, name:"Pirates of the Caribbean", pins:[[133,414]]},
   {id:"r3", q:13630,  n:3,  b:"am",  m:25, name:"Tiana's Bayou Adventure", note:"You will get wet", pins:[[84,269]]},
@@ -334,11 +335,11 @@ const colorOf = b => blocks.find(x=>x.key===b).color;
 
 // routes: entrance → hub → clockwise loop → back to hub, colored by block
 const routesG=document.getElementById("routes");
-const ENTRY=[[385,590],[385,392],[345,352],[290,368]];
+const ENTRY=[[385,590]];
 blocks.forEach((bl,i)=>{
   const mine=rides.filter(r=>r.b===bl.key);
   let pts=mine.map(r=>r.pins[0]);
-  if(i===0) pts=ENTRY.concat(pts);
+  if(i===0) pts=ENTRY.concat(pts.slice(0,1),[[385,392],[345,352],[290,368]],pts.slice(1));
   const next=blocks[i+1]&&rides.find(r=>r.b===blocks[i+1].key);
   if(next && next.b!=="eve") pts=pts.concat([next.pins[0]]);
   if(bl.key==="pm") pts=pts.concat([[430,340],[385,392]]);
@@ -363,19 +364,9 @@ rides.forEach(r=>r.pins.forEach(([x,y])=>{
   g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tap(r.id,true)}});
 }));
 // legend
-document.getElementById("legend").innerHTML=blocks.map(b=>`<span><i class="dot" style="background:${b.color}"></i>${b.name} ${b.time}</span>`).join("")+`<span><i class="dot" style="background:var(--das);border-radius:3px"></i>DAS help (City Hall)</span>`;
+document.getElementById("legend").innerHTML=blocks.map(b=>`<span><i class="dot" style="background:${b.color}"></i>${b.name} ${b.time}</span>`).join("");
 // list
 const list=document.getElementById("list");
-// DAS station: Guest Relations at City Hall
-(function(){
-  const g=document.createElementNS(NS,"g"); g.setAttribute("class","das");
-  const x=356,y=531;
-  g.innerHTML=`<line x1="${x+22}" y1="${y}" x2="${x+42}" y2="${y}" stroke="var(--das)" stroke-width="3"/>
-    <rect x="${x-24}" y="${y-15}" width="48" height="30" rx="8" fill="var(--das)" stroke="var(--paper)" stroke-width="3"/>
-    <text x="${x}" y="${y+6}" text-anchor="middle">DAS</text>`;
-  const t=document.createElementNS(NS,"title"); t.textContent="DAS help: Guest Relations at City Hall"; g.appendChild(t);
-  document.getElementById("pins").appendChild(g);
-})();
 
 blocks.forEach(bl=>{
   const sec=document.createElement("section"); sec.className="block"; sec.style.setProperty("--c",bl.color);
