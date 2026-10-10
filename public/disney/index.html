@@ -343,6 +343,13 @@ html,body{max-width:100%;overflow-x:hidden}
 .zmeta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:4px 0 0;font-size:13px;color:var(--muted)}
 .znudge{margin:8px 0 0;padding:8px 10px;border-radius:10px;background:var(--bg);border-left:4px solid var(--pm);font-size:14px;color:var(--ink)}
 .znote{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.skipped{margin-top:6px}
+.skipped summary{min-height:40px;display:flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--muted);cursor:pointer}
+.skipped .ridechk{margin-top:2px}
+.skipped summary{list-style:none}
+.skipped summary::-webkit-details-marker{display:none}
+.skipped summary::before{content:"▸";font-size:13px}
+.skipped[open] summary::before{content:"▾"}
 .zdet{margin-top:8px}
 .zdet summary{min-height:40px;display:flex;align-items:center;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer}
 .tl .what .daspick{margin:8px 0 0}
@@ -699,6 +706,9 @@ function rideLI(id,extra){
   return `<li class="${d?"done":""} pri-${pr}"><label>${box?`<input type="checkbox" data-done="${id}" ${d?"checked":""} aria-label="${a.name} done">`:`<span class="nobox" aria-hidden="true"></span>`}<span class="rn">${a.name}<small>${extra?extra+" · ":""}${KIND_LABEL[kindOf(id)]}${note?" · "+note:""}</small></span></label><span class="rs">${pr==="wont"?"":waitChip(id)}${a.m?`<span class="ht">#${a.m}</span>`:""}</span><select class="pri" data-pri="${id}" ${d?"disabled":""} aria-label="${a.name}: priority${d?" (locked: done)":""}">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===pr?"selected":""}>${v}</option>`).join("")}</select></li>`;
 }
 function wxAt(h){ try{ return WX[h]||null; }catch(e){ return null; } }
+// which stops have their Skipped list open, so the minute redraw keeps it that way
+const skipOpen=new Set();
+document.addEventListener("toggle",e=>{ const d=e.target; if(d.dataset&&d.dataset.skip){ d.open?skipOpen.add(+d.dataset.skip):skipOpen.delete(+d.dataset.skip); } },true);
 function renderDay(){
   refreshFoodZones();
   const n=nowET(), cur=currentZone(), hr=Math.floor(n.min/60), today=n.day===DAY;
@@ -727,7 +737,8 @@ function renderDay(){
     el.innerHTML=`<p class="zmeta"><span>${i<6?`Stop ${i} of 6 · aim to move on by ${fmtMin(z.end)}`:"Stop 6 of 6 · until close"}</span></p>
       ${nudges.map(t=>`<p class="znudge">${t}</p>`).join("")}${das}
       <p class="znote">${z.note}</p>
-      <ul class="ridechk">${high.concat(low).map(id=>rideLI(id)).join("")}</ul>`;
+      <ul class="ridechk">${high.map(id=>rideLI(id)).join("")}</ul>
+      ${low.length?`<details class="skipped" data-skip="${i}" ${skipOpen.has(i)?"open":""}><summary>Skipped (${low.length})</summary><ul class="ridechk">${low.map(id=>rideLI(id)).join("")}</ul></details>`:""}`;
     el.closest("li").dataset.next=isCur&&nextHigh?nextHigh:"";
   });
   renderMeals();
