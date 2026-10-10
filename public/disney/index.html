@@ -170,10 +170,10 @@ a.ht{text-decoration:none;color:inherit}
 .radar img{display:block;width:100%;height:auto;border-radius:8px;margin-bottom:6px;background:var(--bg)}
 .radar small{display:block;color:var(--muted);font-size:12px;padding-bottom:10px}
 .wx-src{color:var(--muted);font-size:12px}
-.wxc .zap.md{background:rgba(226,160,28,.35);border-color:transparent;color:var(--ink)}
-.wxc .zap.hi{background:#e2a01c;border-color:transparent;color:#1d2a26}
 .wxc{display:grid;justify-items:end;gap:3px;margin-top:5px;font-family:var(--body);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
 .wxc span{padding:1px 5px;white-space:nowrap;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.wxc .zap.md{background:rgba(226,160,28,.35);border-color:transparent;color:var(--ink)}
+.wxc .zap.hi{background:#e2a01c;border-color:transparent;color:#1d2a26}
 .wxc .rain.lo{color:var(--muted)}
 .wxc .rain.md{background:rgba(75,74,168,.35);border-color:transparent;color:var(--ink)}
 .wxc .rain.hi{background:#4b4aa8;border-color:transparent;color:#fff}
@@ -282,7 +282,6 @@ button{min-height:44px}
       <span class="lg"><i class="dl maybe"></i>Maybe</span>
       <span class="lg"><span class="wxc-l">84°</span>Temp</span>
       <span class="lg"><span class="wxc-l">☔ 8%</span>Rain</span>
-      <span class="lg"><span class="wxc-l hi">⛈️ 59%</span>Thunderstorms</span>
       <span class="lg"><span class="wxc-l zap">⚡ 50%</span>Lightning</span>
       <span class="lg" style="white-space:normal"><span class="refn">#48</span>Disney map number: tap it to see the spot on the map 📍</span>
     </div>
@@ -312,6 +311,7 @@ button{min-height:44px}
       <li style="--c:var(--eve)" data-h="23"><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes. Expect a monorail wait after fireworks.</span></div></li>
     </ol>
     <div class="foot"><span id="count"></span><button type="button" id="reset">Uncheck all</button></div>
+    <small class="wx-src" id="sync-status">Saved on this phone only.</small>
     <small class="wx-src" id="day-stamp">Posted waits: Queue-Times.com</small>
   </section>
 
@@ -441,11 +441,11 @@ function renderDay(){
   });
 }
 document.getElementById("day").addEventListener("change",e=>{
-  if(e.target.dataset.pri){pri[+e.target.dataset.pri]=e.target.value; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} renderDay(); return;}
+  if(e.target.dataset.pri){const pid=+e.target.dataset.pri; pri[pid]=e.target.value; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} queueChange(pid,"pri",e.target.value); renderDay(); return;}
   const id=+e.target.dataset.done; if(!id) return;
-  e.target.checked?done.add(id):done.delete(id); saveJSON(DONE_KEY,[...done]); renderDay();
+  e.target.checked?done.add(id):done.delete(id); saveJSON(DONE_KEY,[...done]); queueChange(id,"done",e.target.checked); renderDay();
 });
-document.getElementById("reset").addEventListener("click",()=>{done.clear(); saveJSON(DONE_KEY,[]); renderDay();});
+document.getElementById("reset").addEventListener("click",()=>{[...done].forEach(id=>queueChange(id,"done",false)); done.clear(); saveJSON(DONE_KEY,[]); renderDay();});
 
 // one section at a time: side nav + #hash, The day by default
 const views=[...document.querySelectorAll(".view")], tabs=document.querySelector(".tabs");
@@ -477,7 +477,7 @@ function paintWeather(){
     if(!hrs.length) return;
     const t=Math.max(...hrs.map(x=>x[0])), p=Math.max(...hrs.map(x=>x[1])), storm=hrs.some(x=>x[2]), zap=Math.max(...hrs.map(x=>x[3]||0));
     const c=document.createElement("span"); c.className="wxc";
-    c.innerHTML=`<span>${t}°</span><span class="rain ${p>=50?"hi":p>=20?"md":"lo"}">${storm?"⛈️":"☔"} ${p}%</span>${zap>=15?`<span class="zap ${zap>=40?"hi":"md"}">⚡ ${zap}%</span>`:""}`;
+    c.innerHTML=`<span>${t}°</span><span class="rain ${p>=50?"hi":p>=20?"md":"lo"}">☔ ${p}%</span>${zap>=15?`<span class="zap ${zap>=40?"hi":"md"}">⚡ ${zap}%</span>`:""}`;
     c.title=`Forecast: ${t}°, ${p}% chance of ${storm?"thunderstorms":"rain"}${zap>=15?`, ${zap}% chance of lightning. Outdoor rides close when lightning is close by.`:""}`;
     li.querySelector("time").append(c);
   });
@@ -664,6 +664,66 @@ document.addEventListener("keydown",e=>{
 function markChips(root){ (root||document).querySelectorAll(".refn, .ridechk .ht").forEach(el=>{ const n=numOf(el); if(n&&SPOTS[n]){ el.setAttribute("role","button"); el.tabIndex=0; el.setAttribute("aria-label",`Show #${n} ${SPOTS[n][0]} on the map`);} }); }
 markChips();
 new MutationObserver(()=>markChips()).observe(document.getElementById("day"),{childList:true,subtree:true});
+// ---------- shared sync: ride picks and checkmarks across the group's phones (sync.embry.dev, Cloudflare D1) ----------
+// The trip code comes from the link (?trip=...) and is remembered on the phone. No code = this phone only.
+const SYNC=["https://sync.embry.dev","https://embry-sync.system-map.workers.dev"], TRIP_KEY="mk-trip", STAMP_KEY="mk-stamps-v1", QUEUE_KEY="mk-queue-v1";
+let trip=new URLSearchParams(location.search).get("trip");
+try{ if(trip) localStorage.setItem(TRIP_KEY,trip); else trip=localStorage.getItem(TRIP_KEY); }catch(e){}
+if(trip&&!/^[a-z0-9-]{6,40}$/.test(trip)) trip=null;
+const loadObj=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}};
+let stamps=loadObj(STAMP_KEY,{pri:{},done:{}}), queue=loadObj(QUEUE_KEY,[]), lastSync=0, syncing=false;
+const saveSync=()=>{try{localStorage.setItem(STAMP_KEY,JSON.stringify(stamps));localStorage.setItem(QUEUE_KEY,JSON.stringify(queue))}catch(e){}};
+function queueChange(id,field,value){
+  const t=Date.now(); stamps[field][id]=t;
+  queue=queue.filter(c=>!(c.id===id&&c.field===field)); queue.push({id,field,value,t}); saveSync(); flushSync();
+}
+async function syncReq(body){
+  for(const base of SYNC){
+    try{const r=await fetch(`${base}/state?trip=${encodeURIComponent(trip)}`,body?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),cache:"no-store"}:{cache:"no-store"}); if(r.ok) return r.json();}catch(e){}
+  }
+  throw new Error("sync unavailable");
+}
+function applyServer(st){
+  let changed=false;
+  for(const [k,r] of Object.entries(st.rides||{})){
+    const id=+k;
+    if(r.pri&&r.pt>=(stamps.pri[id]||0)&&!queue.some(c=>c.id===id&&c.field==="pri")){ if(pri[id]!==r.pri){pri[id]=r.pri;changed=true} stamps.pri[id]=r.pt; }
+    if(r.done!=null&&r.dt>=(stamps.done[id]||0)&&!queue.some(c=>c.id===id&&c.field==="done")){ const v=!!r.done; if(done.has(id)!==v){v?done.add(id):done.delete(id);changed=true} stamps.done[id]=r.dt; }
+  }
+  try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(e){} saveJSON(DONE_KEY,[...done]); saveSync();
+  if(changed) renderDay();
+}
+function paintSync(state){
+  const el=document.getElementById("sync-status");
+  if(!trip){el.textContent="Saved on this phone only. Open the group link to share picks and checkmarks.";return}
+  if(state==="offline"||!navigator.onLine){el.textContent=`No signal: ${queue.length?queue.length+" change"+(queue.length>1?"s":"")+" will sync":"changes will sync"} when you're back online.`;return}
+  el.textContent=`Shared with the group · synced ${new Date(lastSync).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}`;
+}
+async function flushSync(){
+  if(!trip||syncing) return; syncing=true;
+  const sending=queue.slice();
+  try{
+    const st=await syncReq(sending.length?{changes:sending}:null);
+    queue=queue.filter(c=>!sending.includes(c)); saveSync(); applyServer(st); lastSync=Date.now(); paintSync("ok");
+    syncing=false;
+    if(queue.length) flushSync();   // changes made while this request was in flight
+    return;
+  }catch(e){ paintSync("offline"); }
+  syncing=false;
+}
+if(trip){
+  document.getElementById("reset").textContent="Uncheck all for everyone";
+  // first time this phone joins the trip: offer its existing picks and checkmarks with the oldest possible timestamp, so the group's choices win
+  try{ if(!localStorage.getItem("mk-seeded-"+trip)){
+    Object.entries(pri).forEach(([id,v])=>{ if(!stamps.pri[id]) queue.push({id:+id,field:"pri",value:v,t:1}); });
+    [...done].forEach(id=>{ if(!stamps.done[id]) queue.push({id,field:"done",value:true,t:1}); });
+    localStorage.setItem("mk-seeded-"+trip,"1"); saveSync();
+  } }catch(e){}
+}
+paintSync(); flushSync();
+setInterval(()=>{ if(document.visibilityState==="visible") flushSync(); },20000);
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") flushSync(); });
+addEventListener("online",flushSync); addEventListener("offline",()=>paintSync("offline"));
 </script>
 
 </body>

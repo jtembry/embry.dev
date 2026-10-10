@@ -1,0 +1,14 @@
+# Shared ride picks and checkmarks for embry.dev/disney (Magic Kingdom Planner).
+# Each trip code is its own namespace; last write wins per ride and field.
+# Deploy: npx wrangler deploy (from this folder). Schema: schema.sql.
+name = "embry-sync"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+routes = [{ pattern = "sync.embry.dev", custom_domain = true }]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "embry-sync"
+database_id = "e69985c5-9307-4540-bd31-772410c5accb"
