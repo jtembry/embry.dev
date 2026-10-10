@@ -381,7 +381,7 @@ button{min-height:44px}
       <li style="--c:var(--eve)" data-h="21" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
       <li style="--c:var(--eve)" data-h="23"><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes. Expect a monorail wait after fireworks.</span></div></li>
     </ol>
-    <div class="foot"><span id="count"></span><button type="button" id="reset">Uncheck all</button></div>
+    <div class="foot"><span id="count"></span></div>
     <small class="wx-src" id="sync-status">Saved on this phone only.</small>
     <small class="wx-src" id="day-stamp">Posted waits: Queue-Times.com</small>
     <small class="wx-src"><a class="dasinfo" href="#access">DAS info: how to book and cancel return times</a></small>
@@ -718,7 +718,6 @@ function onRideChange(e){
 
 }
 document.getElementById("day").addEventListener("change",onRideChange);
-document.getElementById("reset").addEventListener("click",()=>{[...done].forEach(id=>queueChange(id,"done",false)); done.clear(); saveJSON(DONE_KEY,[]); renderDay();});
 
 // one section at a time: side nav + #hash, The day by default
 const views=[...document.querySelectorAll(".view")], tabs=document.querySelector(".tabs");
@@ -1079,7 +1078,6 @@ async function flushSync(){
   syncing=false;
 }
 if(trip){
-  document.getElementById("reset").textContent="Uncheck all for everyone";
   // first time this phone joins the trip: offer its existing picks and checkmarks with the oldest possible timestamp, so the group's choices win
   try{ if(!localStorage.getItem("mk-seeded-"+trip)){
     Object.entries(pri).forEach(([id,v])=>{ if(!stamps.pri[id]) queue.push({id:+id,field:"pri",value:v,t:1}); });
