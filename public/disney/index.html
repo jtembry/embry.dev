@@ -299,6 +299,8 @@ body:has(#map.on) .wrap{padding-bottom:12px;gap:10px}
 .pm-wrap{position:relative;flex:none;min-height:260px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .pm-wrap .pm-scroll{height:100%;max-height:none;border:0;border-radius:0}
 .pm-wrap .map-zoom{position:absolute;top:8px;right:8px;z-index:6;display:grid;gap:6px}
+@media (pointer:coarse){#pm-in,#pm-out{display:none}}
+.pm-scroll,.mv-scroll{touch-action:pan-x pan-y}
 .pm-wrap .map-zoom button{width:40px;height:40px;min-height:0;padding:0;font-size:19px;border-radius:10px;background:rgba(26,36,33,.82);color:#fff;border:1px solid rgba(255,255,255,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .pm-key-btn{position:absolute;top:8px;left:8px;z-index:6;width:40px;height:40px;min-height:0;padding:0;border-radius:50%;font-size:20px;background:rgba(26,36,33,.82);color:#fff;border:1px solid rgba(255,255,255,.35)}
 .pm-gps{position:absolute;left:8px;bottom:8px;z-index:6;max-width:62%;padding:3px 8px;border-radius:8px;background:rgba(26,36,33,.78);color:#fff;font-size:11px}
@@ -1173,6 +1175,21 @@ function pmSetZoom(z){ const cx=(pmScroll.scrollLeft+pmScroll.clientWidth/2)/pmI
   pmZoom=Math.min(3,Math.max(1,z)); pmInner.style.setProperty("--z",pmZoom); pmScroll.scrollLeft=cx*pmInner.offsetWidth-pmScroll.clientWidth/2; pmScroll.scrollTop=cy*pmInner.offsetHeight-pmScroll.clientHeight/2; }
 document.getElementById("pm-in").addEventListener("click",()=>pmSetZoom(pmZoom+0.6));
 document.getElementById("pm-out").addEventListener("click",()=>pmSetZoom(pmZoom-0.6));
+// two-finger pinch zooms a map around the point between the fingers; the page itself never zooms
+function pinchZoom(sc,inner,get,set,min,max){
+  let st=null;
+  const mid=(t,r)=>[(t[0].clientX+t[1].clientX)/2-r.left,(t[0].clientY+t[1].clientY)/2-r.top], gap=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+  sc.addEventListener("touchstart",e=>{ if(e.touches.length!==2) return; const [fx,fy]=mid(e.touches,sc.getBoundingClientRect());
+    st={d:gap(e.touches)||1,z:get(),px:(sc.scrollLeft+fx)/inner.offsetWidth,py:(sc.scrollTop+fy)/inner.offsetHeight}; },{passive:true});
+  sc.addEventListener("touchmove",e=>{ if(!st||e.touches.length!==2) return; e.preventDefault();
+    const [fx,fy]=mid(e.touches,sc.getBoundingClientRect()), z=Math.min(max,Math.max(min,st.z*gap(e.touches)/st.d));
+    set(z); inner.style.setProperty("--z",z); sc.scrollLeft=st.px*inner.offsetWidth-fx; sc.scrollTop=st.py*inner.offsetHeight-fy; },{passive:false});
+  sc.addEventListener("touchend",e=>{ if(e.touches.length<2) st=null; });
+  sc.addEventListener("touchcancel",()=>{ st=null; });
+  sc.addEventListener("gesturestart",e=>e.preventDefault());   // Safari's own page pinch
+}
+pinchZoom(pmScroll,pmInner,()=>pmZoom,z=>{pmZoom=z},1,4);
+pinchZoom(mvScroll,mvInner,()=>mvZoom,z=>{mvZoom=z},1,4);
 addEventListener("hashchange",()=>{ if(location.hash==="#map"){ pmCentered=false; setTimeout(renderMap,30); } });
 document.getElementById("map").addEventListener("change",onRideChange);
 renderMap();
