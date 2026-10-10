@@ -215,6 +215,34 @@ a.ht{text-decoration:none;color:inherit}
 .mv-mark{position:absolute;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:5px solid #d4573f;box-shadow:0 0 0 4px #fff,0 0 0 14px rgba(212,87,63,.35);animation:mvpulse 1.4s ease-in-out infinite}
 @keyframes mvpulse{50%{box-shadow:0 0 0 4px #fff,0 0 0 24px rgba(212,87,63,.12)}}
 @media (prefers-reduced-motion:reduce){.mv-mark{animation:none}}
+.bigwarn{background:#d4573f;color:#fff;border-radius:14px;padding:12px 14px;display:grid;gap:6px;font-size:15px}
+.bigwarn .bw-h{font-size:18px}
+.bigwarn p{margin:0}
+.map-sum{display:grid;gap:4px;font-size:15px}
+.map-sum .daspick{margin:0}
+.map-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.map-legend{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.map-zoom{display:flex;gap:6px}
+.map-zoom button{width:48px;padding:0;font-size:20px}
+.pp{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:999px;border:2px solid #fff;font:800 12px/1 var(--body);font-style:normal;color:#fff}
+.pp.high{background:#16897a}.pp.das{background:#1f6fb8}.pp.done{background:#9aa9a3}.pp.low{background:#9aa9a3;min-width:12px;height:12px;padding:0}
+.pm-scroll{overflow:auto;max-height:74vh;border:1px solid var(--line);border-radius:14px;background:#d9d9d9;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.pm-inner{position:relative;width:calc(var(--z,1) * 100%)}
+.pm-inner img{display:block;width:100%;height:auto;filter:grayscale(1) brightness(1.08) contrast(.85)}
+#pm-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.pin2{position:absolute;transform:translate(-50%,-50%);min-height:0;display:inline-flex;align-items:center;gap:3px;height:28px;padding:0 8px;border-radius:999px;border:2px solid #fff;font:800 13px/1 var(--body);color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:pointer}
+.pin2 small{font-weight:700;font-size:11px;opacity:.95}
+.pin2.high{background:#16897a}.pin2.das{background:#1f6fb8}.pin2.done{background:#9aa9a3}
+.pin2.low{background:#9aa9a3;height:14px;min-width:14px;padding:0;border-width:2px;opacity:.85}
+.pin2.next{box-shadow:0 0 0 4px #e2a01c,0 1px 4px rgba(0,0,0,.45);z-index:3}
+.pin2.sel{outline:3px solid #1d2a26;z-index:4}
+.here-pin{position:absolute;transform:translate(-50%,-100%);font-size:28px;line-height:1;pointer-events:none;z-index:5;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.pm-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--muted);display:grid;gap:8px}
+.pm-card b{color:var(--ink);font-size:17px}
+.pm-card .pm-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pm-card select{min-height:40px;font:inherit;font-weight:700;border-radius:8px;padding:0 10px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.pm-card label{display:inline-flex;gap:8px;align-items:center;font-weight:700;color:var(--ink)}
+.pm-card input{width:22px;height:22px;accent-color:var(--mid)}
 .ridechk{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
 .ridechk li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:6px 8px;border-radius:10px;background:var(--bg)}
 .ridechk label{display:contents;cursor:pointer}
@@ -269,7 +297,7 @@ button{min-height:44px}
 <div class="wrap">
   <header class="bar">
     <a class="bar-home" href="#day" aria-label="Magic Kingdom Planner"><span class="castle" aria-hidden="true">🏰</span><span class="ttl">Magic Kingdom Planner</span><span class="spark" aria-hidden="true">✨</span></a>
-    <nav class="tabs" aria-label="Sections"><a href="#day">The day</a><a href="#access">DAS</a><a href="#radar">Radar</a></nav>
+    <nav class="tabs" aria-label="Sections"><a href="#day">The day</a><a href="#map">Map</a><a href="#access">DAS</a><a href="#radar">Radar</a></nav>
   </header>
 
 
@@ -278,6 +306,7 @@ button{min-height:44px}
   <section class="part view" id="day" aria-labelledby="day-h">
     <div class="offline" id="offline" hidden>No signal. Showing the plan, waits and forecast saved on this phone.</div>
     <h2 id="day-h">The day</h2>
+    <div id="day-warn"></div>
     <div class="wx-alert" id="wx-alert" role="alert" hidden></div>
     <small class="wx-src" id="wx-src">Forecast: National Weather Service, Magic Kingdom.</small>
     <ol class="tl">
@@ -304,6 +333,23 @@ button{min-height:44px}
     <div class="foot"><span id="count"></span><button type="button" id="reset">Uncheck all</button></div>
     <small class="wx-src" id="sync-status">Saved on this phone only.</small>
     <small class="wx-src" id="day-stamp">Posted waits: Queue-Times.com</small>
+  </section>
+
+  <section class="part view" id="map" aria-labelledby="map-h">
+    <h2 id="map-h">Map</h2>
+    <div id="map-warn"></div>
+    <div class="map-sum" id="map-sum"></div>
+    <div class="map-tools">
+      <div class="map-legend"><span class="lg"><i class="pp high">3</i>High</span><span class="lg"><i class="pp das">🎟</i>DAS candidate</span><span class="lg"><i class="pp done">✓</i>Done</span><span class="lg"><i class="pp low"></i>Low</span><span class="lg">📍 Last ride ticked</span></div>
+      <div class="map-zoom"><button type="button" id="pm-out" aria-label="Zoom out">−</button><button type="button" id="pm-in" aria-label="Zoom in">+</button></div>
+    </div>
+    <div class="pm-scroll" id="pm-scroll"><div class="pm-inner" id="pm-inner">
+      <img src="MK-live-map.webp" width="1400" height="1443" alt="Magic Kingdom map with our path">
+      <svg id="pm-svg" viewBox="0 0 2060 2124" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div id="pm-pins"></div>
+    </div></div>
+    <div class="pm-card" id="pm-card">Tap a pin to see the ride, change its priority or tick it off.</div>
+    <p class="znote">The path visits High and DAS rides stop by stop, counterclockwise: Tomorrowland, Fantasyland, Liberty Square, Frontierland, Adventureland, then the evening. Inside each stop it takes the order with the least walking. DAS rides can be ridden any time after their return time comes up. Changes from any phone redraw it.</p>
   </section>
 
   <section class="access view" id="access" aria-labelledby="access-h">
@@ -434,13 +480,73 @@ function zoneCenter(z){const r=ZONES[z].rides.map(id=>byQ.get(id));return [r.red
 const andList=l=>l.length<2?l.join(""):l.slice(0,-1).join(", ")+" and "+l[l.length-1];
 const walkMin=(a,[x,y])=>Math.max(2,Math.round(Math.hypot(a.x-x,a.y-y)*0.55/55));
 // each ride: High / Medium / Low priority, saved per phone. Planned rides start as High, the rest as Medium.
-const PRI_KEY="mk-pri-v1", PRI_LABEL={das:"DAS candidate (top)",must:"High priority",opt:"Medium priority",wont:"Low priority"}, PRI_RANK={das:-1,must:0,opt:1,wont:2};
+const PRI_KEY="mk-pri-v1", PRI_LABEL={das:"DAS candidate (top)",must:"High priority",wont:"Low priority"}, PRI_RANK={das:-1,must:0,opt:1,wont:2};
 let pri={}; try{pri=JSON.parse(localStorage.getItem(PRI_KEY))||{}}catch(e){}
 // DAS candidates: rides worth booking on DAS. Mark as many as you like; these start marked (long lines on our route).
 // Space Mountain stays High: ride it at opening in the regular line.
 const DAS_DEFAULT=new Set([11527,129,136,140,13630,130,134,137]);   // TRON, Seven Dwarfs, Peter Pan, Haunted Mansion, Tiana's, Big Thunder, Jungle Cruise, Pirates
-const priOf=id=>pri[id]||(DAS_DEFAULT.has(id)?"das":plan.includes(id)?"must":"opt");
+// Medium was retired: anything still saved as Medium counts as Low
+const priOf=id=>{const p=pri[id]; if(p) return p==="opt"?"wont":p; return DAS_DEFAULT.has(id)?"das":plan.includes(id)?"must":"wont";};
 const isHigh=id=>{const p=priOf(id);return p==="must"||p==="das"};
+
+// ---------- path: High + DAS rides, stop by stop counterclockwise; inside a stop, the order with the least walking ----------
+const CITYHALL=[1066,1586], ENTRANCE=[1144,1780], HUB=[1150,1000];
+const PT=id=>[byQ.get(id).x,byQ.get(id).y], dist=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
+const walkMinPx=px=>Math.round(px*0.55/55);
+function perms(a){ if(a.length<=1) return [a]; return a.flatMap((x,i)=>perms(a.slice(0,i).concat(a.slice(i+1))).map(r=>[x,...r])); }
+function orderStop(ids,from,toward){
+  if(ids.length<=1) return ids.slice();
+  const cost=o=>{let c=dist(from,PT(o[0])); for(let i=1;i<o.length;i++) c+=dist(PT(o[i-1]),PT(o[i])); return c+(toward?dist(PT(o[o.length-1]),toward):0)};
+  if(ids.length<=7) return perms(ids).reduce((b,o)=>cost(o)<cost(b)?o:b);
+  let left=ids.slice(), o=[], at=from;                       // nearest first, then untangle crossings
+  while(left.length){ left.sort((p,q)=>dist(at,PT(p))-dist(at,PT(q))); const nx=left.shift(); o.push(nx); at=PT(nx); }
+  for(let improved=true;improved;){ improved=false;
+    for(let i=0;i<o.length-1;i++) for(let j=i+1;j<o.length;j++){ const t=o.slice(0,i).concat(o.slice(i,j+1).reverse(),o.slice(j+1)); if(cost(t)<cost(o)-1){o=t;improved=true;} } }
+  return o;
+}
+let pathCache={key:"",path:[]};
+function computePath(){
+  const sel=ZONES.map(z=>z?z.rides.filter(isHigh):[]), key=JSON.stringify(sel);
+  if(pathCache.key===key) return pathCache.path;
+  const out=[]; let from=CITYHALL;
+  for(let z=1;z<ZONES.length;z++){
+    let ids=sel[z].slice(); if(!ids.length) continue;
+    if(z===1&&ids.includes(138)){ out.push(138); from=PT(138); ids=ids.filter(x=>x!==138); }   // Space Mountain first: shortest line at opening
+    const nz=sel.slice(z+1).find(a=>a&&a.length), toward=nz?[nz.reduce((a,id)=>a+PT(id)[0],0)/nz.length,nz.reduce((a,id)=>a+PT(id)[1],0)/nz.length]:HUB;
+    const o=orderStop(ids,from,toward); out.push(...o); if(o.length) from=PT(o[o.length-1]);
+  }
+  pathCache={key,path:out}; return out;
+}
+// how late we're running, and when the path reaches each stop
+function lateBy(){ const n=nowET(), cur=currentZone(); return n.day===DAY&&cur>=1&&cur<=5&&n.min>ZONES[cur].end?n.min-ZONES[cur].end:0; }
+function stopWindow(z){ const cur=currentZone(), late=z>=cur?lateBy():0; return [ZONES[z].start+late,ZONES[z].end+late]; }
+// big warnings: a High-priority outdoor ride the path reaches during likely storms
+function bigWarnings(){
+  const out=[];
+  computePath().filter(id=>priOf(id)==="must"&&!done.has(id)&&kindOf(id)==="outdoor").forEach(id=>{
+    const z=zoneOf.get(id); if(!z||z===6) return;
+    const [a,b]=stopWindow(z); let worst=null;
+    for(let h=Math.floor(a/60);h<=Math.floor((b-1)/60);h++){ const w=wxAt(h); if(w&&w[2]&&w[1]>=50&&(!worst||w[1]>worst[1])) worst=w; }
+    if(worst) out.push(`<b>${byQ.get(id).name}</b> is outdoors, and the path reaches it about ${fmtMin(a)}–${fmtMin(b)}, when thunderstorms are likely (up to ${worst[1]}%). It may close for lightning. Switch it to <b>DAS candidate</b> to ride it whenever it's open, or set it to <b>Low</b>.`);
+  });
+  return out;
+}
+function warnHTML(){ const w=bigWarnings(); return w.length?`<div class="bigwarn" role="alert"><b class="bw-h">⚠️ Weather conflict${w.length>1?"s":""} on our path</b>${w.map(t=>`<p>${t}</p>`).join("")}</div>`:""; }
+// DAS: book the next DAS ride on the path whose return time comes up about when we get there
+function dasBooking(){
+  const n=nowET(), path=computePath(), wait=id=>lastById&&lastById.get(id)?.open?lastById.get(id).wait:null;
+  const ahead=path.filter(id=>priOf(id)==="das"&&!done.has(id)&&zoneOf.get(id)>=Math.max(1,currentZone()));
+  if(!ahead.length) return null;
+  // first DAS ride on the path whose return time comes up before we'd leave its stop
+  for(const id of ahead){ const w=wait(id), [a,b]=stopWindow(zoneOf.get(id)); if(w===null) continue;
+    if(n.day!==DAY||b-n.min>=w-10) return {id,w,eta:Math.max(a,n.min)}; }
+  const id=ahead[0]; return {id,w:wait(id),eta:Math.max(stopWindow(zoneOf.get(id))[0],n.min)};
+}
+function dasHTML(){
+  const b=dasBooking(); if(!b) return "";
+  const a=byQ.get(b.id), n=nowET();
+  return `<p class="daspick">🎟 Book next on DAS: <b>${a.name}</b> #${a.m}${b.w!=null?`, ${b.w} min posted (return about ${fmtMin(n.min+Math.max(0,b.w-10))})`:""}. ${zoneOf.get(b.id)===currentZone()?"It's at this stop.":`The path gets there around ${fmtMin(b.eta)}.`} The return stays good until close.</p>`;
+}
 const openDet=new Set();
 document.addEventListener("toggle",e=>{const d=e.target; if(d.dataset&&d.dataset.det){d.open?openDet.add(d.dataset.det):openDet.delete(d.dataset.det)}},true);
 function rideLI(id,extra){
@@ -454,12 +560,12 @@ function renderDay(){
   const highLeft=z=>ZONES[z].rides.filter(id=>isHigh(id)&&!done.has(id));
   ZONES.forEach((z,i)=>{ if(!z) return;
     const el=document.querySelector(`[data-zbody="${i}"]`); if(!el) return;
-    const isCur=i===cur, high=z.rides.filter(isHigh).sort((p,q)=>PRI_RANK[priOf(p)]-PRI_RANK[priOf(q)]), med=z.rides.filter(id=>priOf(id)==="opt"), low=z.rides.filter(id=>priOf(id)==="wont");
+    const isCur=i===cur, path=computePath(), high=z.rides.filter(isHigh).sort((p,q)=>path.indexOf(p)-path.indexOf(q)), low=z.rides.filter(id=>priOf(id)==="wont");
     const nudges=[];
     if(isCur&&today){
       if(i<=5&&n.min>z.end+10){
-        const skip=med.filter(id=>!done.has(id)).map(id=>byQ.get(id).name), das=highLeft(i).filter(open).sort((p,q)=>wait(q)-wait(p))[0];
-        nudges.push(`⏱ Running ${n.min-z.end} min behind.${skip.length?` Skip the medium ones (${andList(skip)}).`:""}${das?` Put ${byQ.get(das).name} on DAS.`:""} Or move on to the next stop.`);
+        const das=highLeft(i).filter(id=>priOf(id)==="must"&&open(id)).sort((p,q)=>wait(q)-wait(p))[0];
+        nudges.push(`⏱ Running ${n.min-z.end} min behind.${das?` Switch ${byQ.get(das).name} to DAS candidate,`:""} or set a ride to Low to drop it from the path.`);
       }
       let stormAt=null; for(let h=hr;h<=hr+2;h++){const w=wxAt(h); if(w&&w[2]&&w[1]>=50){stormAt=h;break}}
       if(stormAt!==null){
@@ -470,30 +576,29 @@ function renderDay(){
       }
       const w=wxAt(hr); if(w&&w[0]>=88&&z.cool) nudges.push(`🥵 Hot right now. Cool off in ${byQ.get(z.cool).name} #${byQ.get(z.cool).m} (air-conditioned).`);
     }
-    let das="";
-    if(isCur&&lastById){
-      const pool=(i===6?highLeft(6):[i,i+1].filter(k=>ZONES[k]).flatMap(k=>highLeft(k))).filter(open);
-      const top=pool.slice().sort((p,q)=>(priOf(p)==="das"?0:1)-(priOf(q)==="das"?0:1)||wait(q)-wait(p))[0];
-      if(top) das=`<p class="daspick">${priOf(top)==="das"?"🎟 ":""}DAS pick now: <b>${byQ.get(top).name}</b>, ${wait(top)} min posted${zoneOf.get(top)!==i?` (next stop: ${ZONES[zoneOf.get(top)].n})`:""}. The return time comes up about when you get there.</p>`;
-    }
+    const das=isCur?dasHTML():"";
     const nextHigh=highLeft(i)[0];
     el.innerHTML=`<p class="zmeta"><span>${i<6?`Stop ${i} of 6 · aim to move on by ${fmtMin(z.end)}`:"Stop 6 of 6 · until close"}</span></p>
       ${nudges.map(t=>`<p class="znudge">${t}</p>`).join("")}${das}
       <p class="znote">${z.note}</p>
-      <ul class="ridechk">${high.concat(med,low).map(id=>rideLI(id)).join("")}</ul>`;
+      <ul class="ridechk">${high.concat(low).map(id=>rideLI(id)).join("")}</ul>`;
     el.closest("li").dataset.next=isCur&&nextHigh?nextHigh:"";
   });
+  const dw=document.getElementById("day-warn"); if(dw) dw.innerHTML=warnHTML();
+  if(typeof renderMap==="function") try{renderMap()}catch(e){}
   const musts=ALL.filter(a=>!a.meet).map(a=>a.id).filter(isHigh);
   document.getElementById("count").textContent=`${musts.filter(id=>done.has(id)).length} of ${musts.length} high-priority rides done`;
   if(typeof paintNow==="function") try{paintNow(false)}catch(e){}
 }
-document.getElementById("day").addEventListener("change",e=>{
+function onRideChange(e){
   if(e.target.dataset.pri){const pid=+e.target.dataset.pri;
     pri[pid]=e.target.value; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} queueChange(pid,"pri",e.target.value); renderDay(); return;}
   const id=+e.target.dataset.done; if(!id) return;
   e.target.checked?done.add(id):done.delete(id); saveJSON(DONE_KEY,[...done]); queueChange(id,"done",e.target.checked);
   renderDay();
-});
+
+}
+document.getElementById("day").addEventListener("change",onRideChange);
 document.getElementById("reset").addEventListener("click",()=>{[...done].forEach(id=>queueChange(id,"done",false)); done.clear(); saveJSON(DONE_KEY,[]); renderDay();});
 
 // one section at a time: side nav + #hash, The day by default
@@ -752,6 +857,47 @@ paintSync(); flushSync();
 setInterval(()=>{ if(document.visibilityState==="visible") flushSync(); },20000);
 document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") flushSync(); });
 addEventListener("online",flushSync); addEventListener("offline",()=>paintSync("offline"));
+// ---------- Map tab: our path drawn live from High + DAS picks ----------
+const pmScroll=document.getElementById("pm-scroll"), pmInner=document.getElementById("pm-inner"), pmPins=document.getElementById("pm-pins"), pmSvg=document.getElementById("pm-svg");
+let pmZoom=matchMedia("(max-width:600px)").matches?1.8:1, pmSel=null, pmCentered=false;
+pmInner.style.setProperty("--z",pmZoom);
+const pct2=([x,y])=>`left:${x/2060*100}%;top:${y/2124*100}%`;
+function lastTicked(){ let best=null; try{ for(const id of done){ const t=stamps.done[id]||0; if(!best||t>best.t) best={id,t}; } }catch(e){} return best&&best.t?best.id:null; }
+function renderMap(){
+  const path=computePath(), wait=id=>lastById&&lastById.get(id)?.open?lastById.get(id).wait:null;
+  const next=path.find(id=>!done.has(id)), here=lastTicked();
+  // path: entrance → City Hall → each stop; legs between rides already done turn grey
+  const pts=[ENTRANCE,CITYHALL,...path.map(PT)];
+  let svg="";
+  for(let i=1;i<pts.length;i++){ const a=pts[i-1], b=pts[i], doneLeg=i>=2&&done.has(path[i-2])&&(i-1>=path.length||done.has(path[i-1]))||(i===1&&path.some(id=>done.has(id)));
+    svg+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#fff" stroke-width="15" stroke-linecap="round" opacity=".85"/><line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${doneLeg?"#9aa9a3":"#4b4aa8"}" stroke-width="8" stroke-dasharray="${doneLeg?"0":"24 14"}" stroke-linecap="round"/>`; }
+  pmSvg.innerHTML=svg;
+  pmPins.innerHTML=ALL.filter(a=>!a.meet).map(a=>{
+    const n=path.indexOf(a.id)+1, p=priOf(a.id), d=done.has(a.id), w=wait(a.id);
+    if(!n) return `<button type="button" class="pin2 low${pmSel===a.id?" sel":""}" style="${pct2(PT(a.id))}" data-pin="${a.id}" aria-label="${a.name}, low priority"></button>`;
+    return `<button type="button" class="pin2 ${d?"done":p==="das"?"das":"high"}${a.id===next?" next":""}${pmSel===a.id?" sel":""}" style="${pct2(PT(a.id))}" data-pin="${a.id}" aria-label="Stop ${n}: ${a.name}">${d?"✓":(p==="das"?"🎟":"")+n}${!d&&w!=null?`<small>${w}m</small>`:""}</button>`;
+  }).join("")+(here?`<span class="here-pin" style="${pct2(PT(here))}">📍</span>`:"");
+  // summary
+  const left=path.filter(id=>!done.has(id)); let px=0, at=here?PT(here):CITYHALL; left.forEach(id=>{px+=dist(at,PT(id)); at=PT(id);});
+  document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name} #${byQ.get(next).m}${wait(next)!=null?`, ${wait(next)} min posted`:""}${priOf(next)==="das"?" (DAS candidate)":""}</span><span>${left.length} stops left on the path · about ${walkMinPx(px)} min of walking</span>${dasHTML()}`:"<span><b>Every High and DAS ride is done.</b> Re-ride favorites or head home.</span>";
+  document.getElementById("map-warn").innerHTML=warnHTML();
+  if(pmSel) pmCard(pmSel);
+  if(!pmCentered&&document.getElementById("map").classList.contains("on")&&next){ pmCentered=true; pmCenter(PT(next)); }
+}
+function pmCenter([x,y]){ pmScroll.scrollTo({left:x/2060*pmInner.offsetWidth-pmScroll.clientWidth/2,top:y/2124*pmInner.offsetHeight-pmScroll.clientHeight/2}); }
+function pmCard(id){
+  const a=byQ.get(id), p=priOf(id), n=computePath().indexOf(id)+1, w=lastById&&lastById.get(id);
+  document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${a.name}</b> <span>#${a.m||"–"} · ${ZONES[zoneOf.get(id)].n} · ${KIND_LABEL[kindOf(id)]}${w?` · ${w.open?w.wait+" min posted":"closed"}`:""}</span>
+    <div class="pm-row"><select data-pri="${id}" aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===p?"selected":""}>${v}</option>`).join("")}</select><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label></div>`;
+}
+pmPins.addEventListener("click",e=>{ const b=e.target.closest("[data-pin]"); if(!b) return; pmSel=+b.dataset.pin; renderMap(); });
+function pmSetZoom(z){ const cx=(pmScroll.scrollLeft+pmScroll.clientWidth/2)/pmInner.offsetWidth, cy=(pmScroll.scrollTop+pmScroll.clientHeight/2)/pmInner.offsetHeight;
+  pmZoom=Math.min(3,Math.max(1,z)); pmInner.style.setProperty("--z",pmZoom); pmScroll.scrollLeft=cx*pmInner.offsetWidth-pmScroll.clientWidth/2; pmScroll.scrollTop=cy*pmInner.offsetHeight-pmScroll.clientHeight/2; }
+document.getElementById("pm-in").addEventListener("click",()=>pmSetZoom(pmZoom+0.6));
+document.getElementById("pm-out").addEventListener("click",()=>pmSetZoom(pmZoom-0.6));
+addEventListener("hashchange",()=>{ if(location.hash==="#map"){ pmCentered=false; setTimeout(renderMap,30); } });
+document.getElementById("map").addEventListener("change",onRideChange);
+renderMap();
 </script>
 
 </body>
