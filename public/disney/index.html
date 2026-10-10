@@ -200,6 +200,11 @@ li.done .rm-num{background:var(--done)}
 .rm-ctl button{min-height:40px;padding:0 12px;font-size:14px}
 .lm-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .lm-legend{display:flex;gap:6px;flex-wrap:wrap}
+.lg-row{gap:6px 14px;align-items:center}
+.lg{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap}
+.sw{width:16px;height:16px;border-radius:50%;border:2px solid #fff;flex:none}
+.sw.short{background:#16897a}.sw.mid{background:#e2a01c}.sw.long{background:#d4573f}.sw.off{background:#7b8a85}
+.sw.ring{margin:0 3px 0 4px;background:#b9c0bd;box-shadow:0 0 0 3px #1d2a26,0 0 0 4.5px #fff}
 .lm-zoom{display:flex;gap:6px}
 .lm-zoom button{width:44px;height:40px;font-size:20px;padding:0}
 .lm-scroll{overflow:auto;max-height:72vh;border:1px solid var(--line);border-radius:14px;background:#d9d9d9;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
@@ -283,9 +288,9 @@ button{min-height:44px}
 
   <section class="view part" id="live" aria-labelledby="lm-h">
     <h2 id="lm-h">Live wait map</h2>
-    <p class="sub">Every ride with its posted wait right now. Tap a pin for details. Pins with a dark ring are on our route.</p>
+    <p class="sub">Every ride's posted wait right now, in minutes. Tap a pin for details.</p>
     <div class="lm-tools">
-      <div class="lm-legend"><span class="wait short">&lt;20</span><span class="wait mid">20–44</span><span class="wait long">45+</span><span class="wait closed">closed</span></div>
+      <div class="lm-legend lg-row" aria-label="Legend"><span class="lg"><i class="sw short"></i>Under 20 min</span><span class="lg"><i class="sw mid"></i>20–44</span><span class="lg"><i class="sw long"></i>45+</span><span class="lg"><i class="sw off"></i>Closed</span><span class="lg"><i class="sw ring"></i>On our route</span></div>
       <div class="lm-zoom"><button type="button" id="lm-out" aria-label="Zoom out">−</button><button type="button" id="lm-in" aria-label="Zoom in">+</button></div>
     </div>
     <div class="lm-scroll" id="lm-scroll"><div class="lm-inner" id="lm-inner">
