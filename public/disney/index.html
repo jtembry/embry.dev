@@ -232,8 +232,6 @@ a.ht{text-decoration:none;color:inherit}
 .ridechk li.pri-wont .rn{text-decoration:line-through}
 .ridechk li.pri-wont .rn small{display:none}
 .zmeta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:4px 0 0;font-size:13px;color:var(--muted)}
-.here{min-height:36px;padding:0 12px;font-size:14px;border-color:var(--c,var(--mid))}
-.here-now{display:inline-flex;align-items:center;min-height:30px;padding:0 10px;border-radius:999px;background:var(--am);color:#1d2a26;font-weight:800;font-size:13px}
 .znudge{margin:8px 0 0;padding:8px 10px;border-radius:10px;background:var(--bg);border-left:4px solid var(--pm);font-size:14px;color:var(--ink)}
 .znote{margin:8px 0 0;font-size:14px;color:var(--muted)}
 .zdet{margin-top:8px}
@@ -422,11 +420,9 @@ const ZONES=[null,
   {n:"Evening: catch up and re-ride",start:960,end:1380,rides:[1189],cool:null,
    note:"Re-ride favorites. If it's raining, pick indoor rides. Lines shrink in the last two hours and during fireworks."}];
 const zoneOf=new Map(); ZONES.forEach((z,i)=>z&&z.rides.forEach(id=>zoneOf.set(id,i)));
-const ZONE_KEY="mk-zone-v1";
 function clockZone(min){ if(min<495) return 0; for(let i=ZONES.length-1;i>=1;i--) if(min>=ZONES[i].start) return i; return 0; }
 function currentZone(){
   const n=nowET(); let ev=null;
-  try{const m=JSON.parse(localStorage.getItem(ZONE_KEY)); if(m&&m.z) ev={z:m.z,t:m.t};}catch(e){}
   try{ for(const id of done){ const t=stamps.done[id]||0, z=zoneOf.get(id); if(z&&t&&(!ev||t>ev.t)) ev={z,t}; } }catch(e){}
   if(ev) return ev.z;
   return n.day===DAY?clockZone(n.min):0;
@@ -461,7 +457,7 @@ function renderDay(){
     if(isCur&&today){
       if(i<=5&&n.min>z.end+10){
         const skip=med.filter(id=>!done.has(id)).map(id=>byQ.get(id).name), das=highLeft(i).filter(open).sort((p,q)=>wait(q)-wait(p))[0];
-        nudges.push(`⏱ Running ${n.min-z.end} min behind.${skip.length?` Skip the medium ones (${andList(skip)}).`:""}${das?` Put ${byQ.get(das).name} on DAS.`:""} Or move on: tap "We're here" on the next stop.`);
+        nudges.push(`⏱ Running ${n.min-z.end} min behind.${skip.length?` Skip the medium ones (${andList(skip)}).`:""}${das?` Put ${byQ.get(das).name} on DAS.`:""} Or move on to the next stop.`);
       }
       let stormAt=null; for(let h=hr;h<=hr+2;h++){const w=wxAt(h); if(w&&w[2]&&w[1]>=50){stormAt=h;break}}
       if(stormAt!==null){
@@ -479,7 +475,7 @@ function renderDay(){
       if(top) das=`<p class="daspick">${priOf(top)==="das"?"🎟 ":""}DAS pick now: <b>${byQ.get(top).name}</b>, ${wait(top)} min posted${zoneOf.get(top)!==i?` (next stop: ${ZONES[zoneOf.get(top)].n})`:""}. The return time comes up about when you get there.</p>`;
     }
     const nextHigh=highLeft(i)[0];
-    el.innerHTML=`<p class="zmeta">${isCur?`<span class="here-now">📍 You're here</span>`:`<button type="button" class="here" data-here="${i}">📍 We're here</button>`}<span>${i<6?`Stop ${i} of 6 · aim to move on by ${fmtMin(z.end)}`:"Stop 6 of 6 · until close"}</span></p>
+    el.innerHTML=`<p class="zmeta"><span>${i<6?`Stop ${i} of 6 · aim to move on by ${fmtMin(z.end)}`:"Stop 6 of 6 · until close"}</span></p>
       ${nudges.map(t=>`<p class="znudge">${t}</p>`).join("")}${das}
       <p class="znote">${z.note}</p>
       ${high.length?`<ul class="ridechk">${high.map(id=>rideLI(id)).join("")}</ul>`:`<p class="znote">${i===6?"":"No high-priority rides here."}</p>`}
@@ -491,11 +487,6 @@ function renderDay(){
   document.getElementById("count").textContent=`${musts.filter(id=>done.has(id)).length} of ${musts.length} high-priority rides done`;
   if(typeof paintNow==="function") try{paintNow(false)}catch(e){}
 }
-document.getElementById("day").addEventListener("click",e=>{
-  const b=e.target.closest("[data-here]"); if(!b) return;
-  try{localStorage.setItem(ZONE_KEY,JSON.stringify({z:+b.dataset.here,t:Date.now()}))}catch(x){}
-  renderDay(); paintNow(true);
-});
 document.getElementById("day").addEventListener("change",e=>{
   if(e.target.dataset.pri){const pid=+e.target.dataset.pri;
     pri[pid]=e.target.value; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} queueChange(pid,"pri",e.target.value); renderDay(); return;}
