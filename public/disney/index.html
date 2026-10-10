@@ -245,7 +245,6 @@ a.ht{text-decoration:none;color:inherit}
 .bigwarn p{margin:0}
 .map-sum{display:grid;gap:4px;font-size:15px}
 .map-sum .daspick{margin:0}
-.map-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .map-legend{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
 .map-zoom{display:flex;gap:6px}
 .map-zoom button{width:48px;padding:0;font-size:20px}
@@ -288,6 +287,26 @@ a.ht{text-decoration:none;color:inherit}
 .pin2.next{box-shadow:0 0 0 4px #e2a01c,0 1px 4px rgba(0,0,0,.45);z-index:3}
 .pin2.sel{outline:3px solid #1d2a26;z-index:4}
 .here-pin{position:absolute;transform:translate(-50%,-100%);font-size:28px;line-height:1;pointer-events:none;z-index:5;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+#map.view.on{display:flex!important;flex-direction:column;gap:8px}
+body:has(#map.on) .wrap{padding-bottom:12px;gap:10px}
+.map-sum{display:grid;gap:2px;font-size:14px;line-height:1.35}
+.map-sum .ms-sub{color:var(--muted)}
+.map-sum .daspick{margin:0;font-size:13px}
+#map-warn .bigwarn{padding:8px 12px;font-size:13px}
+#map-warn .bigwarn .bw-h{font-size:15px}
+.pm-wrap{position:relative;flex:none;min-height:260px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pm-wrap .pm-scroll{height:100%;max-height:none;border:0;border-radius:0}
+.pm-wrap .map-zoom{position:absolute;top:8px;right:8px;z-index:6;display:grid;gap:6px}
+.pm-wrap .map-zoom button{width:40px;height:40px;min-height:0;padding:0;font-size:19px;border-radius:10px;background:rgba(26,36,33,.82);color:#fff;border:1px solid rgba(255,255,255,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.pm-key-btn{position:absolute;top:8px;left:8px;z-index:6;width:40px;height:40px;min-height:0;padding:0;border-radius:50%;font-size:20px;background:rgba(26,36,33,.82);color:#fff;border:1px solid rgba(255,255,255,.35)}
+.pm-gps{position:absolute;left:8px;bottom:8px;z-index:6;max-width:62%;padding:3px 8px;border-radius:8px;background:rgba(26,36,33,.78);color:#fff;font-size:11px}
+.pm-gps:empty{display:none}
+.pm-key{position:absolute;top:54px;left:8px;right:56px;z-index:7;max-height:70%;overflow:auto;padding:10px 12px;border-radius:12px;background:var(--paper);border:1px solid var(--line);box-shadow:0 6px 20px rgba(0,0,0,.4);display:grid;gap:8px;font-size:13px}
+.pm-key .map-legend{display:flex;flex-wrap:wrap;gap:6px 12px}
+.pm-key p{margin:0;color:var(--muted)}
+.pm-wrap .pm-card{position:absolute;left:8px;right:8px;bottom:8px;z-index:8;box-shadow:0 6px 20px rgba(0,0,0,.45);padding:10px 44px 10px 12px;font-size:14px}
+body:has(#map.on) .pm-wrap .pm-card{right:68px}
+.pm-x{position:absolute;top:6px;right:6px;width:34px;height:34px;min-height:0;padding:0;font-size:16px;border-radius:50%}
 .pm-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--muted);display:grid;gap:8px}
 .pm-card b{color:var(--ink);font-size:17px}
 .pm-card .pm-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
@@ -388,22 +407,22 @@ button{min-height:44px}
   </section>
 
   <section class="part view" id="map" aria-labelledby="map-h">
-    <h2 id="map-h">Map</h2>
+    <h2 id="map-h" class="sr">Map</h2>
     <div id="map-warn"></div>
     <div class="map-sum" id="map-sum"></div>
-    <div class="map-tools">
-      <div class="map-legend"><span class="lg"><i class="pp start">GR</i>Start: Guest Relations</span><span class="lg"><i class="pp high">3</i>On the path</span><span class="lg"><i class="pp das">🎟</i>DAS candidate</span><span class="lg"><i class="pp food">🍴</i>Food stop</span><span class="lg"><i class="pp done">✓</i>Done</span><span class="lg"><i class="pp low"></i>Skip</span><span class="lg">📍 Last ride ticked</span></div>
+    <div class="pm-wrap" id="pm-wrap">
+      <div class="pm-scroll" id="pm-scroll"><div class="pm-inner" id="pm-inner">
+        <img src="MK-live-map.webp" width="1400" height="1443" alt="Magic Kingdom map with our path">
+        <svg id="pm-svg" viewBox="0 0 2060 2124" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div id="pm-pins"></div>
+        <span class="mv-you" id="pm-you" hidden></span>
+      </div></div>
+      <button type="button" class="pm-key-btn" id="pm-key-btn" aria-expanded="false" aria-controls="pm-key" aria-label="Map key">ⓘ</button>
       <div class="map-zoom"><button type="button" id="pm-out" aria-label="Zoom out">−</button><button type="button" id="pm-in" aria-label="Zoom in">+</button><button type="button" id="pm-me" aria-label="Center the map on me">◎</button></div>
+      <small class="pm-gps" id="pm-gps"></small>
+      <div class="pm-key" id="pm-key" hidden><div class="map-legend"><span class="lg"><i class="pp start">GR</i>Start: Guest Relations</span><span class="lg"><i class="pp high">3</i>On the path</span><span class="lg"><i class="pp das">🎟</i>DAS candidate</span><span class="lg"><i class="pp food">🍴</i>Food stop</span><span class="lg"><i class="pp done">✓</i>Done</span><span class="lg"><i class="pp low"></i>Skip</span><span class="lg">📍 Last ride ticked</span></div><p>The path visits every On the path and DAS ride stop by stop, counterclockwise: Tomorrowland, Fantasyland, Liberty Square, Frontierland, Adventureland, then the evening. Inside each stop it takes the order with the least walking. DAS rides can be ridden any time after their return time comes up. Changes from any phone redraw it.</p></div>
+      <div class="pm-card" id="pm-card" hidden></div>
     </div>
-    <small class="wx-src" id="pm-gps"></small>
-    <div class="pm-scroll" id="pm-scroll"><div class="pm-inner" id="pm-inner">
-      <img src="MK-live-map.webp" width="1400" height="1443" alt="Magic Kingdom map with our path">
-      <svg id="pm-svg" viewBox="0 0 2060 2124" preserveAspectRatio="none" aria-hidden="true"></svg>
-      <div id="pm-pins"></div>
-      <span class="mv-you" id="pm-you" hidden></span>
-    </div></div>
-    <div class="pm-card" id="pm-card">Tap a pin to see the ride, change its priority or tick it off.</div>
-    <p class="znote">The path visits every On the path and DAS ride stop by stop, counterclockwise: Tomorrowland, Fantasyland, Liberty Square, Frontierland, Adventureland, then the evening. Inside each stop it takes the order with the least walking. DAS rides can be ridden any time after their return time comes up. Changes from any phone redraw it.</p>
   </section>
 
   <section class="access view" id="access" aria-labelledby="access-h">
@@ -1114,17 +1133,18 @@ function renderMap(){
     return `<button type="button" class="pin2 food${d?" done":""}${f.id===next?" next":""}${pmSel===f.id?" sel":""}" style="${pct2(PT(f.id))}" data-pin="${f.id}" aria-label="Stop ${n}: ${f.meal} at ${f.name}">${d?"✓":"🍴"+n}</button>`; }).join("")+`<span class="pin2 start" style="${pct2(CITYHALL)}" title="Start: Guest Relations at City Hall #1">GR</span>`+(here?`<span class="here-pin" style="${pct2(PT(here))}">📍</span>`:"");
   // summary
   const left=path.filter(id=>!done.has(id)); let px=0, at=here?PT(here):CITYHALL; left.forEach(id=>{px+=dist(at,PT(id)); at=PT(id);});
-  document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name} #${byQ.get(next).m}${wait(next)!=null?`, ${wait(next)} min posted`:""}${isFood(next)?` (${byQ.get(next).meal})`:priOf(next)==="das"?" (DAS candidate)":""}</span><span>${left.length} stops left on the path · about ${walkMinPx(px)} min of walking</span>${dasHTML()}`:"<span><b>Every ride on the path is done.</b> Re-ride favorites or head home.</span>";
+  document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name}${wait(next)!=null?` · ${wait(next)} min`:""}${isFood(next)?` · ${byQ.get(next).meal}`:""} <span class="ms-sub">· ${left.length} stops · ~${walkMinPx(px)} min walk</span></span>${dasHTML()}`:"<span><b>Every ride on the path is done.</b> Re-ride favorites or head home.</span>";
   document.getElementById("map-warn").innerHTML=warnHTML();
   if(pmSel) pmCard(pmSel);
   if(!pmCentered&&document.getElementById("map").classList.contains("on")&&next){ pmCentered=true; pmCenter(PT(next)); }
 }
 function pmCenter([x,y]){ pmScroll.scrollTo({left:x/2060*pmInner.offsetWidth-pmScroll.clientWidth/2,top:y/2124*pmInner.offsetHeight-pmScroll.clientHeight/2}); }
 function pmCard(id){
+  document.getElementById("pm-card").hidden=false;
   if(isFood(id)){ const f=byQ.get(id), n=computePath().indexOf(id)+1, c=FOODCAT.find(x=>x.m===f.m);
-    document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${f.name}</b> <span>#${f.m} · ${f.meal} · ${FOOD_TYPE[c.type]}</span><div class="pm-row"><a class="menu" href="${menuURL(c)}" target="_blank" rel="noopener">Menu</a><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label></div><span>Change the spot in The day.</span>`; return; }
+    document.getElementById("pm-card").innerHTML=`<button type="button" class="pm-x" data-pmclose aria-label="Close">✕</button><b>${n?n+". ":""}${f.name}</b> <span>#${f.m} · ${f.meal} · ${FOOD_TYPE[c.type]}</span><div class="pm-row"><a class="menu" href="${menuURL(c)}" target="_blank" rel="noopener">Menu</a><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label></div><span>Change the spot in The day.</span>`; return; }
   const a=byQ.get(id), p=priOf(id), n=computePath().indexOf(id)+1, w=lastById&&lastById.get(id);
-  document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${a.name}</b> <span>#${a.m||"–"} · ${ZONES[zoneOf.get(id)].n} · ${KIND_LABEL[kindOf(id)]}${w?` · ${w.open?w.wait+" min posted":"closed"}`:""}</span>
+  document.getElementById("pm-card").innerHTML=`<button type="button" class="pm-x" data-pmclose aria-label="Close">✕</button><b>${n?n+". ":""}${a.name}</b> <span>#${a.m||"–"} · ${ZONES[zoneOf.get(id)].n} · ${KIND_LABEL[kindOf(id)]}${w?` · ${w.open?w.wait+" min posted":"closed"}`:""}</span>
     <div class="pm-row"><select data-pri="${id}" ${done.has(id)?"disabled":""} aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===p?"selected":""}>${v}</option>`).join("")}</select>${p!=="wont"||done.has(id)?`<label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label>`:""}</div>`;
 }
 pmPins.addEventListener("click",e=>{ const b=e.target.closest("[data-pin]"); if(!b) return; pmSel=+b.dataset.pin; renderMap(); });
@@ -1185,6 +1205,23 @@ fabToggle.addEventListener("click",e=>{ e.stopPropagation(); setFab(fabItems.hid
 fabItems.addEventListener("click",()=>setFab(false));
 document.addEventListener("click",e=>{ if(!fabItems.hidden&&!e.target.closest("#fab-stack")) setFab(false); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!fabItems.hidden) setFab(false); });
+// ---------- Map tab fits one screen: map fills what's left under the summary ----------
+function sizeMap(){
+  const sec=document.getElementById("map"), w=document.getElementById("pm-wrap");
+  if(!sec.classList.contains("on")) return;
+  const se=document.scrollingElement||document.documentElement;
+  // start from the space under the map's top edge, then trim whatever still makes the page scroll
+  let h=Math.max(260,window.innerHeight-(w.getBoundingClientRect().top+se.scrollTop)-12);
+  w.style.height=h+"px";
+  const over=se.scrollHeight-window.innerHeight;
+  if(over>0){ w.style.height=Math.max(260,h-over-1)+"px"; }
+  se.scrollTop=0;
+}
+addEventListener("resize",sizeMap); addEventListener("hashchange",()=>setTimeout(sizeMap,40));
+document.getElementById("pm-card").addEventListener("click",e=>{ if(e.target.closest("[data-pmclose]")){ pmSel=null; document.getElementById("pm-card").hidden=true; renderMap(); } });
+document.getElementById("pm-key-btn").addEventListener("click",e=>{ const k=document.getElementById("pm-key"); k.hidden=!k.hidden; e.currentTarget.setAttribute("aria-expanded",!k.hidden); });
+const _renderMap=renderMap; renderMap=function(){ _renderMap(); sizeMap(); };
+setTimeout(sizeMap,60);
 </script>
 
 </body>
