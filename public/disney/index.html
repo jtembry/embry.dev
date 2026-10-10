@@ -225,13 +225,14 @@ a.ht{text-decoration:none;color:inherit}
 .map-zoom{display:flex;gap:6px}
 .map-zoom button{width:48px;padding:0;font-size:20px}
 .pp{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:999px;border:2px solid #fff;font:800 12px/1 var(--body);font-style:normal;color:#fff}
-.pp.high{background:#16897a}.pp.das{background:#1f6fb8}.pp.done{background:#9aa9a3}.pp.low{background:#9aa9a3;min-width:12px;height:12px;padding:0}
+.pp.start{background:#4b4aa8;font-size:10px}.pp.high{background:#16897a}.pp.das{background:#1f6fb8}.pp.done{background:#9aa9a3}.pp.low{background:#9aa9a3;min-width:12px;height:12px;padding:0}
 .pm-scroll{overflow:auto;max-height:74vh;border:1px solid var(--line);border-radius:14px;background:#d9d9d9;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .pm-inner{position:relative;width:calc(var(--z,1) * 100%)}
 .pm-inner img{display:block;width:100%;height:auto;filter:grayscale(1) brightness(1.08) contrast(.85)}
 #pm-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .pin2{position:absolute;transform:translate(-50%,-50%);min-height:0;display:inline-flex;align-items:center;gap:3px;height:28px;padding:0 8px;border-radius:999px;border:2px solid #fff;font:800 13px/1 var(--body);color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:pointer}
 .pin2 small{font-weight:700;font-size:11px;opacity:.95}
+.pin2.start{background:#4b4aa8;cursor:default}
 .pin2.high{background:#16897a}.pin2.das{background:#1f6fb8}.pin2.done{background:#9aa9a3}
 .pin2.low{background:#9aa9a3;height:14px;min-width:14px;padding:0;border-width:2px;opacity:.85}
 .pin2.next{box-shadow:0 0 0 4px #e2a01c,0 1px 4px rgba(0,0,0,.45);z-index:3}
@@ -340,7 +341,7 @@ button{min-height:44px}
     <div id="map-warn"></div>
     <div class="map-sum" id="map-sum"></div>
     <div class="map-tools">
-      <div class="map-legend"><span class="lg"><i class="pp high">3</i>High</span><span class="lg"><i class="pp das">🎟</i>DAS candidate</span><span class="lg"><i class="pp done">✓</i>Done</span><span class="lg"><i class="pp low"></i>Low</span><span class="lg">📍 Last ride ticked</span></div>
+      <div class="map-legend"><span class="lg"><i class="pp start">GR</i>Start: Guest Relations</span><span class="lg"><i class="pp high">3</i>High</span><span class="lg"><i class="pp das">🎟</i>DAS candidate</span><span class="lg"><i class="pp done">✓</i>Done</span><span class="lg"><i class="pp low"></i>Low</span><span class="lg">📍 Last ride ticked</span></div>
       <div class="map-zoom"><button type="button" id="pm-out" aria-label="Zoom out">−</button><button type="button" id="pm-in" aria-label="Zoom in">+</button></div>
     </div>
     <div class="pm-scroll" id="pm-scroll"><div class="pm-inner" id="pm-inner">
@@ -432,7 +433,7 @@ const byQ=new Map(ALL.map(a=>[a.id,a]));
 const INDOOR=[138,131,137,140,136,127,133,142,128,356,1214,334,171,125,457], COVERED=[134,135,161,1190,13763];
 const kindOf=id=>INDOOR.includes(id)?"indoor":COVERED.includes(id)?"covered":"outdoor";
 const KIND_LABEL={indoor:"Indoor",covered:"Covered",outdoor:"Outdoor"};
-const NOTES={13763:"Walk through the castle and take photos in front of it",138:"High priority · ride first, regular line · 44 in. to ride",11527:"High priority · ride on the DAS return booked at 8:05 · 48 in. to ride",
+const NOTES={13763:"Walk through the castle and take photos in front of it",138:"High priority · 44 in. to ride",11527:"High priority · ride on the DAS return booked at 8:05 · 48 in. to ride",
   129:"Good DAS pick",130:"Ride before 2, before the storms",13630:"You will get wet · ride before 2",334:"High priority · air-conditioned show, about 15 min",131:"New version",135:"Under a roof"};
 const DEFAULT_PLAN=[138,1190,131,143,11527,126,129,130,13630,134,334,137,140,136,127,135,13763];
 const DONE_KEY="mk-done-v5";
@@ -456,7 +457,7 @@ const fmtMin=m=>{const h=Math.floor(m/60)%24,mm=m%60;return `${h%12||12}${mm?":"
 // rides in walking order inside each zone; start/end = target window in minutes after midnight
 const ZONES=[null,
   {n:"Tomorrowland",start:495,end:600,rides:[138,457,1190,248,131,125,143,11527],cool:125,
-   note:"Space Mountain first in the regular line. Ride TRON on the DAS return booked at 8:05. Carousel of Progress is closed."},
+   note:"Shortest lines of the day: use the regular lines. Ride TRON on the DAS return booked at 8:05. Carousel of Progress is closed."},
   {n:"Storybook Circus and Fantasyland",start:600,end:720,rides:[126,1181,132,135,142,127,128,129,171,161,136,133],cool:171,
    note:"Lines are growing. From here on, keep one DAS return going."},
   {n:"Liberty Square",start:720,end:750,rides:[356,140],cool:356,
@@ -511,7 +512,6 @@ function computePath(){
   const out=[]; let from=CITYHALL;
   for(let z=1;z<ZONES.length;z++){
     let ids=sel[z].slice(); if(!ids.length) continue;
-    if(z===1&&ids.includes(138)){ out.push(138); from=PT(138); ids=ids.filter(x=>x!==138); }   // Space Mountain first: shortest line at opening
     const nz=sel.slice(z+1).find(a=>a&&a.length), toward=nz?[nz.reduce((a,id)=>a+PT(id)[0],0)/nz.length,nz.reduce((a,id)=>a+PT(id)[1],0)/nz.length]:HUB;
     const o=orderStop(ids,from,toward); out.push(...o); if(o.length) from=PT(o[o.length-1]);
   }
@@ -919,7 +919,7 @@ function renderMap(){
     const n=path.indexOf(a.id)+1, p=priOf(a.id), d=done.has(a.id), w=wait(a.id);
     if(!n) return `<button type="button" class="pin2 low${pmSel===a.id?" sel":""}" style="${pct2(PT(a.id))}" data-pin="${a.id}" aria-label="${a.name}, low priority"></button>`;
     return `<button type="button" class="pin2 ${d?"done":p==="das"?"das":"high"}${a.id===next?" next":""}${pmSel===a.id?" sel":""}" style="${pct2(PT(a.id))}" data-pin="${a.id}" aria-label="Stop ${n}: ${a.name}">${d?"✓":(p==="das"?"🎟":"")+n}${!d&&w!=null?`<small>${w}m</small>`:""}</button>`;
-  }).join("")+(here?`<span class="here-pin" style="${pct2(PT(here))}">📍</span>`:"");
+  }).join("")+`<span class="pin2 start" style="${pct2(CITYHALL)}" title="Start: Guest Relations at City Hall #1">GR</span>`+(here?`<span class="here-pin" style="${pct2(PT(here))}">📍</span>`:"");
   // summary
   const left=path.filter(id=>!done.has(id)); let px=0, at=here?PT(here):CITYHALL; left.forEach(id=>{px+=dist(at,PT(id)); at=PT(id);});
   document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name} #${byQ.get(next).m}${wait(next)!=null?`, ${wait(next)} min posted`:""}${priOf(next)==="das"?" (DAS candidate)":""}</span><span>${left.length} stops left on the path · about ${walkMinPx(px)} min of walking</span>${dasHTML()}`:"<span><b>Every High and DAS ride is done.</b> Re-ride favorites or head home.</span>";
