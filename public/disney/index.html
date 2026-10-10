@@ -249,10 +249,9 @@ button{min-height:44px}
 
 
 <nav class="side" id="side" aria-label="Sections">
-  <a class="side-title" href="#home">Magic Kingdom · Sat Oct 10</a>
-  <a href="#home">Home</a>
-  <a href="#live">Live wait map</a>
+  <a class="side-title" href="#day">Magic Kingdom · Sat Oct 10</a>
   <a href="#day">The day</a>
+  <a href="#live">Live wait map</a>
   <a href="#map">Our route</a>
   <a href="#access">Lines &amp; DAS</a>
   <a href="#breaks">Need a break</a>
@@ -263,29 +262,9 @@ button{min-height:44px}
 <div class="wrap">
   <header class="bar">
     <button type="button" class="menu-btn" id="menu-btn" aria-controls="side" aria-expanded="false"><span aria-hidden="true">☰</span> Menu</button>
-    <a class="bar-home" href="#home">Magic Kingdom · Sat</a>
+    <a class="bar-home" href="#day">Magic Kingdom · Sat</a>
   </header>
 
-  <section class="view home" id="home" aria-labelledby="home-h">
-    <div class="eyebrow">Sat Oct 10 · open 8am–11pm</div>
-    <h1 id="home-h">Our Magic Kingdom day</h1>
-    <div class="facts">
-      <div><b>6:50am</b><span>Leave the rental</span></div>
-      <div><b>8:00am</b><span>Park opens · Guest Relations</span></div>
-      <div><b><a class="ref" href="#live" data-ref="cityhall">City Hall<span class="refn">#1</span></a></b><span>Meeting spot</span></div>
-    </div>
-    <p class="sub meals"><b>Food:</b> snack 10 · lunch 12 · snack 2 · dinner 5. Spots are in The day.</p>
-    <div class="must">
-      <h2>Don't miss</h2>
-      <p><b>8:05</b> book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our DAS return. <b>Then</b> <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> in the regular line, then TRON on the return.</p>
-    </div>
-    <p class="sub" id="wx-home"><b>Saturday:</b> high 91°, feels like up to 103°. Storms likely 3–7pm.</p>
-    <div class="live mini">
-      <h2>Longest waits now</h2>
-      <ol id="home-top"><li>Loading live waits…</li></ol>
-      <small>Posted waits · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a></small>
-    </div>
-  </section>
 
   <section class="view part" id="live" aria-labelledby="lm-h">
     <h2 id="lm-h">Live wait map</h2>
@@ -335,6 +314,23 @@ button{min-height:44px}
   </section>
 
   <section class="part view" id="day" aria-labelledby="day-h">
+    <div class="eyebrow">Sat Oct 10 · open 8am–11pm</div>
+    <h1>Our Magic Kingdom day</h1>
+    <div class="facts">
+      <div><b>6:50am</b><span>Leave the rental</span></div>
+      <div><b>8:00am</b><span>Park opens · Guest Relations</span></div>
+      <div><b><a class="ref" href="#live" data-ref="cityhall">City Hall<span class="refn">#1</span></a></b><span>Meeting spot</span></div>
+    </div>
+    <div class="must">
+      <h2>Don't miss</h2>
+      <p><b>8:05</b> book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our DAS return. <b>Then</b> <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> in the regular line, then TRON on the return.</p>
+    </div>
+    <div class="live mini">
+      <h2>Longest waits now</h2>
+      <ol id="home-top"><li>Loading live waits…</li></ol>
+      <small>Posted waits · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a></small>
+    </div>
+
     <h2 id="day-h">The day</h2>
     <p class="sub">Our visual schedule. Solid dots are fixed. Dashed ones are maybes we can swap or skip.</p>
     <div class="must heat">
@@ -647,7 +643,7 @@ menuBtn.addEventListener("click",()=>setMenu(!document.body.classList.contains("
 scrim.addEventListener("click",()=>setMenu(false));
 document.addEventListener("keydown",e=>{if(e.key==="Escape")setMenu(false)});
 function show(id){
-  if(!views.some(v=>v.id===id)) id="home";
+  if(!views.some(v=>v.id===id)) id="day";
   views.forEach(v=>v.classList.toggle("on",v.id===id));
   side.querySelectorAll("a:not(.side-title)").forEach(a=>{a.toggleAttribute("aria-current",a.getAttribute("href")==="#"+id); if(a.getAttribute("href")==="#"+id) a.setAttribute("aria-current","page")});
   setMenu(false); window.scrollTo(0,0);
@@ -749,7 +745,6 @@ async function loadWeather(){
     const rain=wet.length?`Storms likely ${fmt(wet[0].h).replace(/am|pm/,"")}–${fmt(wet[wet.length-1].h+1)} (up to ${maxP}%).`:`Rain chance up to ${maxP}%.`;
     const sum=`High ${hi}°${hx?`, feels like up to ${hx}°`:""}. ${rain}`;
     document.getElementById("wx-sum").textContent=sum;
-    document.getElementById("wx-home").innerHTML=`<b>Saturday:</b> ${sum}`;
     document.getElementById("wx-src").textContent=`National Weather Service forecast for Magic Kingdom, issued ${new Date(h.properties.updateTime||h.properties.generatedAt).toLocaleString([], {weekday:"short",hour:"numeric",minute:"2-digit"})}.`;
   }catch(e){}
 }
