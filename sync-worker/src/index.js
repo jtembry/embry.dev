@@ -2,7 +2,7 @@
 // GET  /state?trip=CODE           -> { rides: { [id]: {pri, pt, done, dt} } }
 // POST /state?trip=CODE  {changes:[{id, field:"pri"|"done", value, t}]} -> same as GET, after applying
 const ORIGINS = [/^https:\/\/(www\.)?embry\.dev$/, /^http:\/\/(localhost|127\.0\.0\.1):\d+$/];
-const PRI = new Set(["must", "opt", "wont"]);
+const PRI = new Set(["das", "must", "opt", "wont"]);
 
 export default {
   async fetch(request, env) {

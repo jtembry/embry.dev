@@ -234,6 +234,8 @@ a.ht{text-decoration:none;color:inherit}
 .ridechk li.pri-must .pri{background:#16897a;border-color:#16897a;color:#fff}
 .ridechk li.pri-opt .pri{background:#e2a01c;border-color:#e2a01c;color:#1d2a26}
 .ridechk li.pri-wont .pri{background:#7b8a85;border-color:#7b8a85;color:#fff}
+.ridechk li.pri-das .pri{background:#1f6fb8;border-color:#1f6fb8;color:#fff}
+.ridechk li.pri-das{box-shadow:inset 3px 0 0 #1f6fb8}
 .ridechk li.pri-wont{opacity:.5}
 .ridechk li.pri-wont .rn{text-decoration:line-through}
 .ridechk li.pri-wont .rn small{display:none}
@@ -450,9 +452,11 @@ function zoneCenter(z){const r=ZONES[z].rides.map(id=>byQ.get(id));return [r.red
 const andList=l=>l.length<2?l.join(""):l.slice(0,-1).join(", ")+" and "+l[l.length-1];
 const walkMin=(a,[x,y])=>Math.max(2,Math.round(Math.hypot(a.x-x,a.y-y)*0.55/55));
 // each ride: High / Medium / Low priority, saved per phone. Planned rides start as High, the rest as Medium.
-const PRI_KEY="mk-pri-v1", PRI_LABEL={must:"High priority",opt:"Medium priority",wont:"Low priority"}, PRI_RANK={must:0,opt:1,wont:2};
+const PRI_KEY="mk-pri-v1", PRI_LABEL={das:"DAS return (top)",must:"High priority",opt:"Medium priority",wont:"Low priority"}, PRI_RANK={das:-1,must:0,opt:1,wont:2};
 let pri={}; try{pri=JSON.parse(localStorage.getItem(PRI_KEY))||{}}catch(e){}
 const priOf=id=>pri[id]||(plan.includes(id)?"must":"opt");
+const isHigh=id=>{const p=priOf(id);return p==="must"||p==="das"};
+const heldDAS=()=>ALL.filter(a=>!a.meet).map(a=>a.id).find(id=>priOf(id)==="das"&&!done.has(id));
 const openDet=new Set();
 document.addEventListener("toggle",e=>{const d=e.target; if(d.dataset&&d.dataset.det){d.open?openDet.add(d.dataset.det):openDet.delete(d.dataset.det)}},true);
 function rideLI(id,extra){
@@ -463,11 +467,11 @@ function wxAt(h){ try{ return WX[h]||null; }catch(e){ return null; } }
 function renderDay(){
   const n=nowET(), cur=currentZone(), hr=Math.floor(n.min/60), today=n.day===DAY;
   const open=id=>lastById&&lastById.get(id)?.open, wait=id=>lastById&&lastById.get(id)?.wait||0;
-  const highLeft=z=>ZONES[z].rides.filter(id=>priOf(id)==="must"&&!done.has(id));
-  const goBack=cur>=2?ZONES.slice(1,cur).flatMap(z=>z.rides).filter(id=>priOf(id)==="must"&&!done.has(id)):[];
+  const highLeft=z=>ZONES[z].rides.filter(id=>isHigh(id)&&!done.has(id));
+  const goBack=cur>=2?ZONES.slice(1,cur).flatMap(z=>z.rides).filter(id=>isHigh(id)&&!done.has(id)):[];
   ZONES.forEach((z,i)=>{ if(!z) return;
     const el=document.querySelector(`[data-zbody="${i}"]`); if(!el) return;
-    const isCur=i===cur, high=z.rides.filter(id=>priOf(id)==="must"), med=z.rides.filter(id=>priOf(id)==="opt"), low=z.rides.filter(id=>priOf(id)==="wont");
+    const isCur=i===cur, high=z.rides.filter(isHigh).sort((p,q)=>PRI_RANK[priOf(p)]-PRI_RANK[priOf(q)]), med=z.rides.filter(id=>priOf(id)==="opt"), low=z.rides.filter(id=>priOf(id)==="wont");
     const nudges=[];
     if(isCur&&today){
       if(i<=5&&n.min>z.end+10){
@@ -487,7 +491,9 @@ function renderDay(){
     if(isCur&&lastById){
       const pool=(i===6?goBack.concat(highLeft(6)):[i,i+1].filter(k=>ZONES[k]).flatMap(k=>highLeft(k))).filter(open);
       const top=pool.sort((p,q)=>wait(q)-wait(p))[0];
-      if(top) das=`<p class="daspick">DAS pick now: <b>${byQ.get(top).name}</b>, ${wait(top)} min posted${zoneOf.get(top)!==i?` (next stop: ${ZONES[zoneOf.get(top)].n})`:""}. The return time comes up about when you get there.</p>`;
+      const held=heldDAS();
+      if(held) das=`<p class="daspick">🎟 Holding a DAS return for <b>${byQ.get(held).name}</b> #${byQ.get(held).m}${zoneOf.get(held)!==i?` (${ZONES[zoneOf.get(held)].n})`:""}. Ride it once the return time comes up, then book the next one 10 min later.</p>`;
+      else if(top) das=`<p class="daspick">DAS pick now: <b>${byQ.get(top).name}</b>, ${wait(top)} min posted${zoneOf.get(top)!==i?` (next stop: ${ZONES[zoneOf.get(top)].n})`:""}. The return time comes up about when you get there.</p>`;
     }
     const back=(isCur&&goBack.length)||(i===6&&goBack.length)?`<details class="zdet goback" data-det="back${i}" ${openDet.has("back"+i)||i===6?"open":""}><summary>↩︎ Go back for (${goBack.length})</summary><ul class="ridechk">${goBack.map(id=>rideLI(id,`${ZONES[zoneOf.get(id)].n}, ~${walkMin(byQ.get(id),zoneCenter(i===6?cur:i))} min walk`)).join("")}</ul></details>`:"";
     const nextHigh=highLeft(i)[0];
@@ -500,7 +506,7 @@ function renderDay(){
       ${low.length?`<details class="zdet" data-det="low${i}" ${openDet.has("low"+i)?"open":""}><summary>Low priority (${low.length})</summary><ul class="ridechk">${low.map(id=>rideLI(id)).join("")}</ul></details>`:""}`;
     el.closest("li").dataset.next=isCur&&nextHigh?nextHigh:"";
   });
-  const musts=ALL.filter(a=>!a.meet).map(a=>a.id).filter(id=>priOf(id)==="must");
+  const musts=ALL.filter(a=>!a.meet).map(a=>a.id).filter(isHigh);
   document.getElementById("count").textContent=`${musts.filter(id=>done.has(id)).length} of ${musts.length} high-priority rides done`;
   if(typeof paintNow==="function") try{paintNow(false)}catch(e){}
 }
@@ -510,9 +516,13 @@ document.getElementById("day").addEventListener("click",e=>{
   renderDay(); paintNow(true);
 });
 document.getElementById("day").addEventListener("change",e=>{
-  if(e.target.dataset.pri){const pid=+e.target.dataset.pri; pri[pid]=e.target.value; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} queueChange(pid,"pri",e.target.value); renderDay(); return;}
+  if(e.target.dataset.pri){const pid=+e.target.dataset.pri;
+    if(e.target.value==="das") ALL.forEach(a=>{ if(a.id!==pid&&priOf(a.id)==="das"&&!done.has(a.id)){ pri[a.id]="must"; queueChange(a.id,"pri","must"); } });
+    pri[pid]=e.target.value; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} queueChange(pid,"pri",e.target.value); renderDay(); return;}
   const id=+e.target.dataset.done; if(!id) return;
-  e.target.checked?done.add(id):done.delete(id); saveJSON(DONE_KEY,[...done]); queueChange(id,"done",e.target.checked); renderDay();
+  e.target.checked?done.add(id):done.delete(id); saveJSON(DONE_KEY,[...done]); queueChange(id,"done",e.target.checked);
+  if(e.target.checked&&priOf(id)==="das"){ pri[id]="must"; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} queueChange(id,"pri","must"); }
+  renderDay();
 });
 document.getElementById("reset").addEventListener("click",()=>{[...done].forEach(id=>queueChange(id,"done",false)); done.clear(); saveJSON(DONE_KEY,[]); renderDay();});
 
@@ -635,7 +645,8 @@ function paintNow(scroll){
   }
   [main,meal].forEach(r=>r&&r.li.classList.add("now"));
   nowRow=meal||main;
-  nowbar.innerHTML=`<span><b>Now:</b> ${meal?meal.title+" · ":""}${main?main.title:"Getting ready"}</span>${nextTxt?`<span class="nx">${nextTxt}</span>`:""}`;
+  const hd=heldDAS();
+  nowbar.innerHTML=`<span><b>Now:</b> ${meal?meal.title+" · ":""}${main?main.title:"Getting ready"}</span>${nextTxt?`<span class="nx">${nextTxt}</span>`:""}${hd?`<span class="nx">🎟 <b>DAS return:</b> ${byQ.get(hd).name} #${byQ.get(hd).m}</span>`:""}`;
   nowbar.hidden=false;
   if(scroll&&nowRow&&location.hash.slice(1)!=="access"&&location.hash.slice(1)!=="lost") nowRow.li.scrollIntoView({block:"center"});
 }
