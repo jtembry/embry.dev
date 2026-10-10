@@ -439,7 +439,11 @@ const walkMin=(a,[x,y])=>Math.max(2,Math.round(Math.hypot(a.x-x,a.y-y)*0.55/55))
 // each ride: High / Medium / Low priority, saved per phone. Planned rides start as High, the rest as Medium.
 const PRI_KEY="mk-pri-v1", PRI_LABEL={das:"DAS return (top)",must:"High priority",opt:"Medium priority",wont:"Low priority"}, PRI_RANK={das:-1,must:0,opt:1,wont:2};
 let pri={}; try{pri=JSON.parse(localStorage.getItem(PRI_KEY))||{}}catch(e){}
-const priOf=id=>pri[id]||(plan.includes(id)?"must":"opt");
+// DAS return picked for you, in route order: the longest lines on the way. The next one takes over once the last is checked off.
+// Any ride set to DAS by hand wins; giving one of these another priority drops it from the list.
+const DAS_ORDER=[11527,129,136,140,13630,130,134,137];
+const autoDAS=()=>ALL.some(a=>pri[a.id]==="das"&&!done.has(a.id))?null:DAS_ORDER.find(id=>!pri[id]&&!done.has(id));
+const priOf=id=>pri[id]||(id===autoDAS()?"das":plan.includes(id)?"must":"opt");
 const isHigh=id=>{const p=priOf(id);return p==="must"||p==="das"};
 const heldDAS=()=>ALL.filter(a=>!a.meet).map(a=>a.id).find(id=>priOf(id)==="das"&&!done.has(id));
 const openDet=new Set();
@@ -502,7 +506,7 @@ document.getElementById("day").addEventListener("click",e=>{
 });
 document.getElementById("day").addEventListener("change",e=>{
   if(e.target.dataset.pri){const pid=+e.target.dataset.pri;
-    if(e.target.value==="das") ALL.forEach(a=>{ if(a.id!==pid&&priOf(a.id)==="das"&&!done.has(a.id)){ pri[a.id]="must"; queueChange(a.id,"pri","must"); } });
+    if(e.target.value==="das") ALL.forEach(a=>{ if(a.id!==pid&&pri[a.id]==="das"&&!done.has(a.id)){ pri[a.id]="must"; queueChange(a.id,"pri","must"); } });
     pri[pid]=e.target.value; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} queueChange(pid,"pri",e.target.value); renderDay(); return;}
   const id=+e.target.dataset.done; if(!id) return;
   e.target.checked?done.add(id):done.delete(id); saveJSON(DONE_KEY,[...done]); queueChange(id,"done",e.target.checked);
