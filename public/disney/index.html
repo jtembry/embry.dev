@@ -171,6 +171,8 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .meals small{font-size:13px;color:var(--muted)}
 .meals .mline{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .meals .mside{flex:none;display:flex;gap:6px;align-items:center}
+.meals>li{min-width:0}
+@media (max-width:480px){.meals .mside{flex-direction:column;align-items:flex-end}}
 .meals .menu{display:inline-flex;align-items:center;min-height:32px;padding:0 10px;font-size:13px;border-radius:999px}
 .meals .mnum{flex:none;margin:0;display:inline-flex;align-items:center;min-height:32px;padding:0 10px;font-size:13px;border-radius:999px}
 .refn{display:inline-block;margin-left:4px;padding:0 5px;border-radius:999px;border:1px solid var(--line);font-size:11px;font-weight:700;line-height:16px;text-decoration:none;color:var(--muted);vertical-align:1px}
@@ -235,6 +237,13 @@ a.ht{text-decoration:none;color:inherit}
 .pin2 small{font-weight:700;font-size:11px;opacity:.95}
 .tl .what{min-width:0}
 .meals .mn{min-width:0}
+.nobox{display:inline-block;width:22px;height:22px}
+.ridechk select:disabled,.fsel:disabled,.pm-card select:disabled{opacity:.55;cursor:not-allowed}
+.meals>li{align-items:center}
+.fbox{flex:none;display:inline-flex;width:22px}
+.meals .fchk{width:22px;height:22px;margin:0;accent-color:var(--mid);position:static;opacity:1;pointer-events:auto}
+.meals .fchk[hidden]{display:inline-block!important;visibility:hidden}
+.meals>li.done .ref{text-decoration:line-through;color:var(--muted)}
 .fctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:4px}
 .fsel{min-height:34px;font:inherit;font-size:13px;font-weight:700;border-radius:8px;padding:0 8px;border:1px solid #7b8a85;background:#7b8a85;color:#fff}
 .food-on .fsel{background:#16897a;border-color:#16897a}
@@ -493,12 +502,15 @@ document.querySelectorAll(".tl>li").forEach(li=>{
     FOOD.push({id,m:num,name,x:pos[0],y:pos[1],zone:meal.zone,meal:meal.label,food:true}); if(i===0) FOOD_ON.add(id);
     byQ.set(id,{id,m:num,name,x:pos[0],y:pos[1],food:true,meal:meal.label}); zoneOf.set(id,meal.zone);
     row.dataset.food=id;
-    row.querySelector(".mn").insertAdjacentHTML("beforeend",`<span class="fctl"><select class="fsel" data-pri="${id}" aria-label="${name} for ${meal.label}"><option value="must">On the path</option><option value="wont">Skip</option></select><label class="ate"><input type="checkbox" data-done="${id}"> Ate here</label></span>`);
+    row.querySelector(".mn").insertAdjacentHTML("beforeend",`<span class="fctl"><select class="fsel" data-pri="${id}" aria-label="${name} for ${meal.label}"><option value="must">On the path</option><option value="wont">Skip</option></select></span>`);
+    row.insertAdjacentHTML("afterbegin",`<span class="fbox"><input type="checkbox" class="fchk" data-done="${id}" aria-label="${name}: ate here"></span>`);
   });
 });
 const FOOD_IDS=new Set(FOOD.map(f=>f.id)), isFood=id=>FOOD_IDS.has(id);
 function paintFood(){ FOOD.forEach(f=>{ const row=document.querySelector(`[data-food="${f.id}"]`); if(!row) return; const on=priOf(f.id)==="must";
-  row.classList.toggle("food-on",on); row.querySelector(".fsel").value=on?"must":"wont"; row.querySelector('input[type="checkbox"]').checked=done.has(f.id); }); }
+  const d=done.has(f.id), box=row.querySelector(".fchk"), sel=row.querySelector(".fsel");
+  row.classList.toggle("food-on",on); row.classList.toggle("done",d); sel.value=on?"must":"wont"; sel.disabled=d;
+  box.checked=d; box.hidden=!(on||d); }); }
 
 function clockZone(min){ if(min<495) return 0; for(let i=ZONES.length-1;i>=1;i--) if(min>=ZONES[i].start) return i; return 0; }
 function currentZone(){
@@ -582,7 +594,8 @@ const openDet=new Set();
 document.addEventListener("toggle",e=>{const d=e.target; if(d.dataset&&d.dataset.det){d.open?openDet.add(d.dataset.det):openDet.delete(d.dataset.det)}},true);
 function rideLI(id,extra){
   const a=byQ.get(id), pr=priOf(id), note=(NOTES[id]||"").replace(/^High priority · /,"");
-  return `<li class="${done.has(id)?"done":""} pri-${pr}"><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""} aria-label="${a.name} done"><span class="rn">${a.name}<small>${extra?extra+" · ":""}${KIND_LABEL[kindOf(id)]}${note?" · "+note:""}</small></span></label><span class="rs">${pr==="wont"?"":waitChip(id)}${a.m?`<span class="ht">#${a.m}</span>`:""}</span><select class="pri" data-pri="${id}" aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===pr?"selected":""}>${v}</option>`).join("")}</select></li>`;
+  const d=done.has(id), box=pr!=="wont"||d;
+  return `<li class="${d?"done":""} pri-${pr}"><label>${box?`<input type="checkbox" data-done="${id}" ${d?"checked":""} aria-label="${a.name} done">`:`<span class="nobox" aria-hidden="true"></span>`}<span class="rn">${a.name}<small>${extra?extra+" · ":""}${KIND_LABEL[kindOf(id)]}${note?" · "+note:""}</small></span></label><span class="rs">${pr==="wont"?"":waitChip(id)}${a.m?`<span class="ht">#${a.m}</span>`:""}</span><select class="pri" data-pri="${id}" ${d?"disabled":""} aria-label="${a.name}: priority${d?" (locked: done)":""}">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===pr?"selected":""}>${v}</option>`).join("")}</select></li>`;
 }
 function wxAt(h){ try{ return WX[h]||null; }catch(e){ return null; } }
 function renderDay(){
@@ -963,10 +976,10 @@ function renderMap(){
 function pmCenter([x,y]){ pmScroll.scrollTo({left:x/2060*pmInner.offsetWidth-pmScroll.clientWidth/2,top:y/2124*pmInner.offsetHeight-pmScroll.clientHeight/2}); }
 function pmCard(id){
   if(isFood(id)){ const f=byQ.get(id), n=computePath().indexOf(id)+1, on=priOf(id)==="must";
-    document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${f.name}</b> <span>#${f.m} · ${f.meal} · ${ZONES[zoneOf.get(id)].n}</span><div class="pm-row"><select data-pri="${id}" aria-label="${f.name}: on the path or skip"><option value="must" ${on?"selected":""}>On the path</option><option value="wont" ${on?"":"selected"}>Skip</option></select><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Ate here</label></div>`; return; }
+    document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${f.name}</b> <span>#${f.m} · ${f.meal} · ${ZONES[zoneOf.get(id)].n}</span><div class="pm-row"><select data-pri="${id}" ${done.has(id)?"disabled":""} aria-label="${f.name}: on the path or skip"><option value="must" ${on?"selected":""}>On the path</option><option value="wont" ${on?"":"selected"}>Skip</option></select>${on||done.has(id)?`<label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label>`:""}</div>`; return; }
   const a=byQ.get(id), p=priOf(id), n=computePath().indexOf(id)+1, w=lastById&&lastById.get(id);
   document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${a.name}</b> <span>#${a.m||"–"} · ${ZONES[zoneOf.get(id)].n} · ${KIND_LABEL[kindOf(id)]}${w?` · ${w.open?w.wait+" min posted":"closed"}`:""}</span>
-    <div class="pm-row"><select data-pri="${id}" aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===p?"selected":""}>${v}</option>`).join("")}</select><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label></div>`;
+    <div class="pm-row"><select data-pri="${id}" ${done.has(id)?"disabled":""} aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===p?"selected":""}>${v}</option>`).join("")}</select>${p!=="wont"||done.has(id)?`<label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label>`:""}</div>`;
 }
 pmPins.addEventListener("click",e=>{ const b=e.target.closest("[data-pin]"); if(!b) return; pmSel=+b.dataset.pin; renderMap(); });
 function pmSetZoom(z){ const cx=(pmScroll.scrollLeft+pmScroll.clientWidth/2)/pmInner.offsetWidth, cy=(pmScroll.scrollTop+pmScroll.clientHeight/2)/pmInner.offsetHeight;
