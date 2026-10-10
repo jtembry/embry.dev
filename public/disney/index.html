@@ -206,6 +206,8 @@ a.ht{text-decoration:none;color:inherit}
 .lg{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap}
 .sw{width:16px;height:16px;border-radius:50%;border:2px solid #fff;flex:none}
 .sw.short{background:#16897a}.sw.mid{background:#e2a01c}.sw.long{background:#d4573f}.sw.off{background:#7b8a85}
+.sw.star{width:auto;height:auto;border:0;background:none;color:var(--ink);font-style:normal;font-size:15px;line-height:1}
+.lm-pin.meet{border-radius:7px;border-style:solid}
 .sw.ring{margin:0 3px 0 4px;background:#b9c0bd;box-shadow:0 0 0 3px #1d2a26,0 0 0 4.5px #fff}
 .lm-zoom{display:flex;gap:6px}
 .lm-zoom button{width:44px;height:40px;font-size:20px;padding:0}
@@ -269,9 +271,9 @@ button{min-height:44px}
 
   <section class="view part" id="live" aria-labelledby="lm-h">
     <h2 id="lm-h">Live wait map</h2>
-    <p class="sub">Every ride's posted wait right now, in minutes. Tap a pin for details.</p>
+    <p class="sub">Every ride and character meet, with its posted wait in minutes. Tap a pin for details.</p>
     <div class="lm-tools">
-      <div class="lm-legend lg-row" aria-label="Legend"><span class="lg"><i class="sw short"></i>Under 20 min</span><span class="lg"><i class="sw mid"></i>20–44</span><span class="lg"><i class="sw long"></i>45+</span><span class="lg"><i class="sw off"></i>Closed</span><span class="lg"><i class="sw ring"></i>On our route</span></div>
+      <div class="lm-legend lg-row" aria-label="Legend"><span class="lg"><i class="sw short"></i>Under 20 min</span><span class="lg"><i class="sw mid"></i>20–44</span><span class="lg"><i class="sw long"></i>45+</span><span class="lg"><i class="sw off"></i>Closed</span><span class="lg"><i class="sw ring"></i>On our route</span><span class="lg"><i class="sw star">★</i>Character meet</span></div>
       <div class="lm-zoom"><button type="button" id="lm-out" aria-label="Zoom out">−</button><button type="button" id="lm-in" aria-label="Zoom in">+</button></div>
     </div>
     <div class="lm-scroll" id="lm-scroll"><div class="lm-inner" id="lm-inner">
@@ -279,7 +281,7 @@ button{min-height:44px}
       <div id="lm-pins"></div>
     </div></div>
     <div class="lm-card" id="lm-card" aria-live="polite">Tap a pin to see the ride.</div>
-    <h3 class="lm-h3">All rides by wait</h3>
+    <h3 class="lm-h3">All rides and character meets by wait</h3>
     <ol class="lm-list" id="lm-list"></ol>
     <small class="lm-stamp" id="lm-stamp">Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a></small>
   </section>
@@ -504,6 +506,10 @@ const ALL=[
  [131,"Buzz Lightyear",74,1637,1155],[125,"Monsters Inc Laugh Floor",75,1497,1097],
  [1189,"Railroad · Main Street",2,1160,1656],[1181,"Railroad · Fantasyland",53,1890,395]
 ].map(([id,name,m,x,y])=>({id,name,m,x,y}));
+// character meets (star pins on the live map); Pete's Silly Sideshow has no number, only a Mickey-head icon
+[[146,"Meet Mickey at Town Square Theater",3,1268,1590],[6700,"Meet Cinderella and a Visiting Princess",46,1203,647],[6699,"Meet Tiana and a Visiting Princess",46,1263,647],
+ [147,"Meet Ariel at Her Grotto",51,1527,412],[144,"Disney Pals at Pete's Silly Sideshow (Daring)",0,1665,295],[145,"Disney Pals at Pete's Silly Sideshow (Dashing)",0,1725,295]]
+ .forEach(([id,name,m,x,y])=>ALL.push({id,name,m,x,y,meet:true}));
 const byQ=new Map(ALL.map(a=>[a.id,a]));
 // weather exposure: indoor rides and shows, covered (roof or covered boat), the rest outdoor
 const INDOOR=[138,131,137,140,136,127,133,142,128,356,1214,334,171,125,457], COVERED=[134,135,161,1190];
@@ -572,18 +578,18 @@ const lmInner=document.getElementById("lm-inner"), lmPins=document.getElementByI
 let lmZoom=1, lmSel=null, lmData=new Map();
 ALL.forEach(a=>{
   const b=document.createElement("button");
-  b.type="button"; b.className="lm-pin"+(stopOf.has(a.id)?" route":""); b.id="lm-"+a.id; b.textContent="…";
+  b.type="button"; b.className="lm-pin"+(a.meet?" meet":"")+(stopOf.has(a.id)?" route":""); b.id="lm-"+a.id; b.textContent=a.meet?"★ …":"…";
   b.style.left=(a.x/2060*100)+"%"; b.style.top=(a.y/2124*100)+"%";
   b.addEventListener("click",()=>lmSelect(a.id,false));
   lmPins.appendChild(b);
 });
-function lmLabel(x){return !x?"…":x.open?String(x.wait):"–"}
+function lmLabel(x,a){const v=!x?"…":x.open?String(x.wait):"–";return a&&a.meet?"★ "+v:v}
 function lmCls(x){return !x?"":x.open?waitClass(x.wait):"closed"}
 function lmSelect(id,scroll){
   lmSel=id;
   document.querySelectorAll(".lm-pin").forEach(p=>p.classList.toggle("sel",p.id==="lm-"+id));
   const a=ALL.find(z=>z.id===id), x=lmData.get(id), stop=stopOf.get(id);
-  document.getElementById("lm-card").innerHTML=`<b>${a.name}</b><br>${!x?"Waiting for live data":x.open?`<span class="wait ${waitClass(x.wait)}">${x.wait} min</span> posted wait`:"Not running right now"} · ${stop?`Stop ${stop} on our route`:"Not on our route"} · Disney map #${a.m}`;
+  document.getElementById("lm-card").innerHTML=`<b>${a.name}</b><br>${!x?"Waiting for live data":x.open?`<span class="wait ${waitClass(x.wait)}">${x.wait} min</span> posted wait`:"Not running right now"} · ${a.meet?"Character meet":stop?`Stop ${stop} on our route`:"Not on our route"} · ${a.m?`Disney map #${a.m}`:"Storybook Circus, by the Mickey-head icon (no number)"}`;
   if(scroll){
     const el=document.getElementById("lm-"+id);
     lmScroll.scrollTo({left:el.offsetLeft-lmScroll.clientWidth/2,top:el.offsetTop-lmScroll.clientHeight/2,behavior:"smooth"});
@@ -601,11 +607,11 @@ if(matchMedia("(max-width:600px)").matches) lmSetZoom(1.75);
 function updateLiveMap(byId,stamp){
   lmData=byId;
   ALL.forEach(a=>{const x=byId.get(a.id), el=document.getElementById("lm-"+a.id);
-    el.textContent=lmLabel(x); el.className="lm-pin "+lmCls(x)+(stopOf.has(a.id)?" route":"")+(lmSel===a.id?" sel":"");
+    el.textContent=lmLabel(x,a); el.className="lm-pin "+lmCls(x)+(a.meet?" meet":"")+(stopOf.has(a.id)?" route":"")+(lmSel===a.id?" sel":"");
     el.setAttribute("aria-label",a.name+": "+(!x?"loading":x.open?x.wait+" minute wait":"closed"));});
   const sorted=[...ALL].sort((p,q)=>{const a=byId.get(p.id),b=byId.get(q.id);return (b&&b.open?b.wait:-1)-(a&&a.open?a.wait:-1)});
   document.getElementById("lm-list").innerHTML=sorted.map(a=>{const x=byId.get(a.id),st=stopOf.get(a.id);
-    return `<li><button type="button" data-id="${a.id}"><span>${a.name}<small>${st?"Stop "+st+" on our route":"Not on our route"}</small></span><span class="wait ${lmCls(x)}">${!x?"…":x.open?x.wait+" min":"Closed"}</span></button></li>`}).join("");
+    return `<li><button type="button" data-id="${a.id}"><span>${a.name}<small>${a.meet?"★ Character meet":st?"Stop "+st+" on our route":"Not on our route"}</small></span><span class="wait ${lmCls(x)}">${!x?"…":x.open?x.wait+" min":"Closed"}</span></button></li>`}).join("");
   document.querySelectorAll("#lm-list button").forEach(b=>b.addEventListener("click",()=>lmSelect(+b.dataset.id,true)));
   document.getElementById("lm-stamp").innerHTML=stamp;
   if(lmSel) lmSelect(lmSel,false);
