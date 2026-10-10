@@ -316,7 +316,7 @@ button{min-height:44px}
 
   <section class="part view" id="day" aria-labelledby="day-h">
     <h2 id="day-h">The day</h2>
-    <p class="sub">Solid dots are fixed, dashed ones are maybes. Each row shows the forecast for that hour: temperature and ☔ chance of rain.</p>
+    <p class="sub">Solid dots are fixed, dashed ones are maybes. Each row shows the forecast for that hour: temperature and chance of rain (☔) or thunderstorms (⛈️).</p>
     <small class="wx-src" id="wx-src">Forecast: National Weather Service, Magic Kingdom.</small>
     <ol class="tl">
       <li data-h="6"><time>6:30</time><span class="rail"></span><div class="what"><b>Photo of everyone</b><span>Shows what each kid is wearing today, in case we get separated.</span></div></li>
@@ -702,17 +702,17 @@ document.addEventListener("click",e=>{
 
 // Saturday's forecast on the timeline, live from the National Weather Service (Magic Kingdom grid point)
 const WX_DAY="2026-10-10";
-let WX={7:[77,4],8:[78,3],9:[81,6],10:[84,7],11:[86,8],12:[89,10],13:[89,14],14:[89,47],15:[89,59],16:[86,70],17:[85,68],18:[84,69],19:[81,49],20:[80,31],21:[79,27],22:[78,11],23:[78,10]};
+let WX={7:[77,4,0],8:[78,3,0],9:[81,6,0],10:[84,7,0],11:[86,8,0],12:[89,10,0],13:[89,14,0],14:[89,47,1],15:[89,59,1],16:[86,70,1],17:[85,68,1],18:[84,69,1],19:[81,49,1],20:[80,31,1],21:[79,27,1],22:[78,11,0],23:[78,10,0]};
 function paintWeather(){
   document.querySelectorAll(".tl li[data-h]").forEach(li=>{
     const [a,b]=li.dataset.h.split("-").map(Number), hrs=[];
     for(let h=a;h<=(b||a);h++) if(WX[h]) hrs.push(WX[h]);
     li.querySelector(".wxc")?.remove();
     if(!hrs.length) return;
-    const t=Math.max(...hrs.map(x=>x[0])), p=Math.max(...hrs.map(x=>x[1]));
+    const t=Math.max(...hrs.map(x=>x[0])), p=Math.max(...hrs.map(x=>x[1])), storm=hrs.some(x=>x[2]);
     const c=document.createElement("span"); c.className="wxc";
-    c.innerHTML=`<span>${t}°</span><span class="rain ${p>=50?"hi":p>=20?"md":"lo"}">☔ ${p}%</span>`;
-    c.title=`Forecast: ${t}°, ${p}% chance of rain`;
+    c.innerHTML=`<span>${t}°</span><span class="rain ${p>=50?"hi":p>=20?"md":"lo"}">${storm?"⛈️":"☔"} ${p}%</span>`;
+    c.title=`Forecast: ${t}°, ${p}% chance of ${storm?"thunderstorms":"rain"}`;
     li.querySelector("time").append(c);
   });
 }
@@ -720,7 +720,7 @@ async function loadWeather(){
   try{
     const h=await fetch("https://api.weather.gov/gridpoints/MLB/19,62/forecast/hourly",{headers:{Accept:"application/geo+json"}}).then(r=>{if(!r.ok) throw 0; return r.json()});
     const next={};
-    h.properties.periods.filter(x=>x.startTime.startsWith(WX_DAY)).forEach(x=>{next[+x.startTime.slice(11,13)]=[x.temperature,x.probabilityOfPrecipitation.value||0]});
+    h.properties.periods.filter(x=>x.startTime.startsWith(WX_DAY)).forEach(x=>{next[+x.startTime.slice(11,13)]=[x.temperature,x.probabilityOfPrecipitation.value||0,/thunder/i.test(x.shortForecast)?1:0]});
     if(!Object.keys(next).length) return;
     WX=next; paintWeather();
     document.getElementById("wx-src").textContent=`Forecast: National Weather Service, issued ${new Date(h.properties.updateTime||h.properties.generatedAt).toLocaleString([], {weekday:"short",hour:"numeric",minute:"2-digit"})}.`;
