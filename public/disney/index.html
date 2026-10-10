@@ -1217,10 +1217,10 @@ function pmCenter([x,y]){ pmScroll.scrollTo({left:x/2060*pmInner.offsetWidth-pmS
 function pmCard(id){
   document.getElementById("pm-card").hidden=false;
   if(isFood(id)){ const f=byQ.get(id), n=computePath().indexOf(id)+1, c=FOODCAT.find(x=>x.m===f.m);
-    document.getElementById("pm-card").innerHTML=`<button type="button" class="pm-x" data-pmclose aria-label="Close">✕</button><b>${n?n+". ":""}${f.name}</b> <span>#${f.m} · ${f.meal} · ${FOOD_TYPE[c.type]}</span><div class="pm-row"><a class="menu" href="${menuURL(c)}" target="_blank" rel="noopener">Menu</a><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label></div><span>Change the spot in The day.</span>`; return; }
+    document.getElementById("pm-card").innerHTML=`<button type="button" class="pm-x" data-pmclose aria-label="Close">✕</button><b>${n?n+". ":""}${f.name}</b> <span>#${f.m} · ${f.meal} · ${FOOD_TYPE[c.type]}</span><div class="pm-row"><a class="menu" href="${menuURL(c)}" target="_blank" rel="noopener">Menu</a></div><span>Change the spot in The day.</span>`; return; }
   const a=byQ.get(id), p=priOf(id), n=computePath().indexOf(id)+1, w=lastById&&lastById.get(id);
   document.getElementById("pm-card").innerHTML=`<button type="button" class="pm-x" data-pmclose aria-label="Close">✕</button><b>${n?n+". ":""}${a.name}</b> <span>#${a.m||"–"} · ${ZONES[zoneOf.get(id)].n} · ${KIND_LABEL[kindOf(id)]}${w?` · ${w.open?w.wait+" min posted":"closed"}`:""}</span>
-    <div class="pm-row"><select data-pri="${id}" ${done.has(id)?"disabled":""} aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===p?"selected":""}>${v}</option>`).join("")}</select>${p!=="wont"||done.has(id)?`<label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label>`:""}</div>`;
+    <div class="pm-row"><select data-pri="${id}" ${done.has(id)?"disabled":""} aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===p?"selected":""}>${v}</option>`).join("")}</select></div>`;
 }
 pmPins.addEventListener("click",e=>{ const b=e.target.closest("[data-pin]"); if(!b) return; pmSel=+b.dataset.pin; renderMap(); });
 function pmSetZoom(z){ const cx=(pmScroll.scrollLeft+pmScroll.clientWidth/2)/pmInner.offsetWidth, cy=(pmScroll.scrollTop+pmScroll.clientHeight/2)/pmInner.offsetHeight;
