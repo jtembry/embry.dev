@@ -162,12 +162,13 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .ref{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
 .refn{display:inline-block;margin-left:4px;padding:0 5px;border-radius:999px;border:1px solid var(--line);font-size:11px;font-weight:700;line-height:16px;text-decoration:none;color:var(--muted);vertical-align:1px}
 a.ht{text-decoration:none;color:inherit}
-.wx-strip{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(46px,1fr);gap:4px;overflow-x:auto;padding-bottom:4px}
-.wx-strip div{display:grid;gap:2px;text-align:center;padding:6px 2px;border-radius:8px;background:var(--bg);font-size:12px;font-variant-numeric:tabular-nums}
-.wx-strip b{font-size:14px}
-.wx-strip .pop{border-radius:4px;padding:1px 0;color:#fff}
 .wx-src{color:var(--muted);font-size:12px}
-.heat ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.wxc{display:grid;justify-items:end;gap:3px;margin-top:5px;font-family:var(--body);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
+.wxc span{padding:1px 5px;white-space:nowrap;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.wxc .rain.lo{color:var(--muted)}
+.wxc .rain.md{background:rgba(75,74,168,.35);border-color:transparent;color:var(--ink)}
+.wxc .rain.hi{background:#4b4aa8;border-color:transparent;color:#fff}
+.wx-src{color:var(--muted);font-size:12px}
 .lm-place{position:absolute;transform:translate(-50%,-100%);font-size:30px;line-height:1;z-index:4;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
 .view>*,.wrap>*{min-width:0}
 .lm-scroll{width:100%}
@@ -333,42 +334,29 @@ button{min-height:44px}
     </div>
 
     <h2 id="day-h">The day</h2>
-    <p class="sub">Our visual schedule. Solid dots are fixed. Dashed ones are maybes we can swap or skip.</p>
-    <div class="must heat">
-      <h2>Saturday's weather</h2>
-      <p id="wx-sum">High 91°, feels like up to 103°. Mostly sunny until 2. Storms likely 3–7pm (up to 70%), a chance until 9.</p>
-      <div class="wx-strip" id="wx-strip" aria-label="Hourly forecast"></div>
-      <small class="wx-src" id="wx-src">National Weather Service forecast for Magic Kingdom.</small>
-      <ul>
-        <li><b>The route follows the forecast.</b> Outdoor coasters while it's dry: <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a>, <a class="ref" href="#live" data-ref="126">Barnstormer<span class="refn">#54</span></a> and <a class="ref" href="#live" data-ref="129">Seven Dwarfs<span class="refn">#48</span></a> in the morning, <a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="13630">Tiana's<span class="refn">#25</span></a> before 2. Indoor rides 2:30–7.</li>
-        <li><b>Noon to 3 is the hottest stretch.</b> Air-conditioned breaks near our midday stops: <a class="ref" href="#live" data-ref="334">Tiki Room<span class="refn">#16</span></a>, <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a>.</li>
-        <li><b>Water every hour.</b> Any quick-service counter gives free cups of ice water.</li>
-        <li><b>Storms likely 3–7pm.</b> That's our indoor block: <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>, <a class="ref" href="#live" data-ref="127">Little Mermaid<span class="refn">#50</span></a>. Extra indoor options: <a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>, <a class="ref" href="#live" data-ref="142">Winnie the Pooh<span class="refn">#47</span></a>, <a class="ref" href="#live" data-ref="128">Enchanted Tales with Belle<span class="refn">#49</span></a>.</li>
-        <li><b>Chance of storms until 9.</b> Evening re-rides: pick indoor ones if it's raining, like <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> or <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a>. Or call it a day. TRON and Space Mountain are done by 10.</li>
-        <li><b>Need a real cool-off?</b> The Contemporary resort's lobby is a 10-min walk from the <a class="ref" href="#live" data-ref="entrance">park entrance<span class="refn">map</span></a>.</li>
-      </ul>
-    </div>
+    <p class="sub">Solid dots are fixed, dashed ones are maybes. Each row shows the forecast for that hour: temperature and ☔ chance of rain.</p>
+    <small class="wx-src" id="wx-src">Forecast: National Weather Service, Magic Kingdom.</small>
     <ol class="tl">
-      <li><time>6:30</time><span class="rail"></span><div class="what"><b>Photo of everyone</b><span>Shows what each kid is wearing today, in case we get separated.</span></div></li>
-      <li><time>6:50</time><span class="rail"></span><div class="what"><b>Leave the rental</b><span>15–20 min drive to Magic Kingdom parking (8 miles). Latest safe start: 7:05.</span></div></li>
-      <li><time>7:10</time><span class="rail"></span><div class="what"><b>Park the car</b><span>Photo of the section and row sign. Then the tram to the Ticket Center.</span></div></li>
-      <li><time>7:20</time><span class="rail"></span><div class="what"><b>Security, then monorail or ferry</b><span>Bags open, pockets empty. Monorail 10 min, ferry 12–15. Lines can be long at opening.</span></div></li>
-      <li style="--c:var(--am)"><time>7:50</time><span class="rail"></span><div class="what"><b><a class="ref" href="#live" data-ref="entrance">Gate<span class="refn">map</span></a></b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
-      <li style="--c:var(--am)"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at <a class="ref" href="#live" data-ref="cityhall">City Hall<span class="refn">#1</span></a> (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
-      <li style="--c:var(--am)"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our first DAS return</b><span>Must-do. Do it right after Guest Relations. It stays good until close.</span></div></li>
-      <li style="--c:var(--am)"><time>8:15</time><span class="rail"></span><div class="what"><b>Tomorrowland</b><span><a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> first in the regular line, then <a class="ref" href="#live" data-ref="1190">PeopleMover<span class="refn">#72</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a> and <a class="ref" href="#live" data-ref="143">Speedway<span class="refn">#69</span></a> while the TRON return comes up, then <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a>.</span></div></li>
-      <li style="--c:var(--am)"><time>10:00</time><span class="rail"></span><div class="what"><b>Storybook Circus and Seven Dwarfs</b><span><a class="ref" href="#live" data-ref="126">Barnstormer<span class="refn">#54</span></a>, then <a class="ref" href="#live" data-ref="129">Seven Dwarfs<span class="refn">#48</span></a>. Lines are growing: start keeping a DAS return going.</span></div></li>
-      <li style="--c:var(--am)"><time>10:00</time><span class="rail"></span><div class="what"><b>🍎 Snack</b><span>Near Seven Dwarfs: <a class="ref" href="#live" data-ref="eric">Prince Eric's Village Market<span class="refn">#64</span></a> (fruit, drinks) or <a class="ref" href="#live" data-ref="cheshire">Cheshire Café<span class="refn">#65</span></a> (iced drinks). Refill water.</span></div></li>
-      <li style="--c:var(--mid)"><time>11:00</time><span class="rail"></span><div class="what"><b>Frontierland and Adventureland</b><span><a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="13630">Tiana's<span class="refn">#25</span></a> before 2, while it's dry. Then <a class="ref" href="#live" data-ref="134">Jungle Cruise<span class="refn">#15</span></a>, then the <a class="ref" href="#live" data-ref="334">Enchanted Tiki Room<span class="refn">#16</span></a> (must-do).</span></div></li>
-      <li style="--c:var(--mid)"><time>12:00</time><span class="rail"></span><div class="what"><b>🍔 Lunch</b><span><a class="ref" href="#live" data-ref="pecos">Pecos Bill Tall Tale Inn and Cafe<span class="refn">#29</span></a> in Frontierland: big, air-conditioned, mobile order. Or <a class="ref" href="#live" data-ref="columbia">Columbia Harbour House<span class="refn">#39</span></a> upstairs, usually quieter. Order in the app by 11:15; noon pickup times fill up.</span></div></li>
-      <li style="--c:var(--mid)" class="maybe"><time>12–3</time><span class="rail"></span><div class="what"><b>Too hot? Indoor breaks nearby</b><span>The Tiki Room is already on our route. More: <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a> (22-min seated show). All air-conditioned, all close by.</span></div></li>
-      <li style="--c:var(--mid)"><time>2:00</time><span class="rail"></span><div class="what"><b>🍍 Snack</b><span>Dole Whip at <a class="ref" href="#live" data-ref="aloha">Aloha Isle<span class="refn">#21</span></a> in Adventureland, or <a class="ref" href="#live" data-ref="sunshine">Sunshine Tree Terrace<span class="refn">#19</span></a>. Right by Pirates, our next stop.</span></div></li>
-      <li style="--c:var(--pm)"><time>2:30</time><span class="rail"></span><div class="what"><b>Storm hours: indoor rides</b><span>Storms likely 3–7. <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>, <a class="ref" href="#live" data-ref="127">Little Mermaid<span class="refn">#50</span></a>, then <a class="ref" href="#live" data-ref="135">Tea Cups<span class="refn">#56</span></a> under its roof. Keep the DAS return going.</span></div></li>
-      <li style="--c:var(--pm)" class="maybe"><time>3–7</time><span class="rail"></span><div class="what"><b>More indoor options if it pours</b><span><a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>, <a class="ref" href="#live" data-ref="142">Winnie the Pooh<span class="refn">#47</span></a>, <a class="ref" href="#live" data-ref="128">Enchanted Tales with Belle<span class="refn">#49</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a>, <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>. Outdoor rides close for lightning; check "Longest waits now" for what's running.</span></div></li>
-      <li style="--c:var(--pm)"><time>5:00</time><span class="rail"></span><div class="what"><b>🍽️ Dinner</b><span>Indoors, out of the storm: <a class="ref" href="#live" data-ref="pinocchio">Pinocchio Village Haus<span class="refn">#58</span></a> by Peter Pan, mobile order. Or <a class="ref" href="#live" data-ref="columbia">Columbia Harbour House<span class="refn">#39</span></a> in Liberty Square. Order in the app by 4:15.</span></div></li>
-      <li style="--c:var(--eve)" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Backup time for any outdoor ride that closed in the storm. Storms are still possible until about 9: if it's raining, stick to <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a>, <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a> or <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>. Lines shrink in the last two hours.</span></div></li>
-      <li style="--c:var(--eve)" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
-      <li style="--c:var(--eve)"><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes. Expect a monorail wait after fireworks.</span></div></li>
+      <li data-h="6"><time>6:30</time><span class="rail"></span><div class="what"><b>Photo of everyone</b><span>Shows what each kid is wearing today, in case we get separated.</span></div></li>
+      <li data-h="6"><time>6:50</time><span class="rail"></span><div class="what"><b>Leave the rental</b><span>15–20 min drive to Magic Kingdom parking (8 miles). Latest safe start: 7:05.</span></div></li>
+      <li data-h="7"><time>7:10</time><span class="rail"></span><div class="what"><b>Park the car</b><span>Photo of the section and row sign. Then the tram to the Ticket Center.</span></div></li>
+      <li data-h="7"><time>7:20</time><span class="rail"></span><div class="what"><b>Security, then monorail or ferry</b><span>Bags open, pockets empty. Monorail 10 min, ferry 12–15. Lines can be long at opening.</span></div></li>
+      <li style="--c:var(--am)" data-h="7"><time>7:50</time><span class="rail"></span><div class="what"><b><a class="ref" href="#live" data-ref="entrance">Gate<span class="refn">map</span></a></b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
+      <li style="--c:var(--am)" data-h="8"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at <a class="ref" href="#live" data-ref="cityhall">City Hall<span class="refn">#1</span></a> (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
+      <li style="--c:var(--am)" data-h="8"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our first DAS return</b><span>Must-do. Do it right after Guest Relations. It stays good until close.</span></div></li>
+      <li style="--c:var(--am)" data-h="8"><time>8:15</time><span class="rail"></span><div class="what"><b>Tomorrowland</b><span><a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> first in the regular line, then <a class="ref" href="#live" data-ref="1190">PeopleMover<span class="refn">#72</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a> and <a class="ref" href="#live" data-ref="143">Speedway<span class="refn">#69</span></a> while the TRON return comes up, then <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a>.</span></div></li>
+      <li style="--c:var(--am)" data-h="10"><time>10:00</time><span class="rail"></span><div class="what"><b>Storybook Circus and Seven Dwarfs</b><span><a class="ref" href="#live" data-ref="126">Barnstormer<span class="refn">#54</span></a>, then <a class="ref" href="#live" data-ref="129">Seven Dwarfs<span class="refn">#48</span></a>. Lines are growing: start keeping a DAS return going.</span></div></li>
+      <li style="--c:var(--am)" data-h="10"><time>10:00</time><span class="rail"></span><div class="what"><b>🍎 Snack</b><span>Near Seven Dwarfs: <a class="ref" href="#live" data-ref="eric">Prince Eric's Village Market<span class="refn">#64</span></a> (fruit, drinks) or <a class="ref" href="#live" data-ref="cheshire">Cheshire Café<span class="refn">#65</span></a> (iced drinks). Refill water.</span></div></li>
+      <li style="--c:var(--mid)" data-h="11"><time>11:00</time><span class="rail"></span><div class="what"><b>Frontierland and Adventureland</b><span><a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="13630">Tiana's<span class="refn">#25</span></a> before 2, while it's dry. Then <a class="ref" href="#live" data-ref="134">Jungle Cruise<span class="refn">#15</span></a>, then the <a class="ref" href="#live" data-ref="334">Enchanted Tiki Room<span class="refn">#16</span></a> (must-do).</span></div></li>
+      <li style="--c:var(--mid)" data-h="12"><time>12:00</time><span class="rail"></span><div class="what"><b>🍔 Lunch</b><span><a class="ref" href="#live" data-ref="pecos">Pecos Bill Tall Tale Inn and Cafe<span class="refn">#29</span></a> in Frontierland: big, air-conditioned, mobile order. Or <a class="ref" href="#live" data-ref="columbia">Columbia Harbour House<span class="refn">#39</span></a> upstairs, usually quieter. Order in the app by 11:15; noon pickup times fill up.</span></div></li>
+      <li style="--c:var(--mid)" data-h="12-14" class="maybe"><time>12–3</time><span class="rail"></span><div class="what"><b>Too hot? Indoor breaks nearby</b><span>Hottest stretch of the day. Free ice water at any quick-service counter. The Tiki Room is already on our route. More: <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a> (22-min seated show). All air-conditioned, all close by.</span></div></li>
+      <li style="--c:var(--mid)" data-h="14"><time>2:00</time><span class="rail"></span><div class="what"><b>🍍 Snack</b><span>Dole Whip at <a class="ref" href="#live" data-ref="aloha">Aloha Isle<span class="refn">#21</span></a> in Adventureland, or <a class="ref" href="#live" data-ref="sunshine">Sunshine Tree Terrace<span class="refn">#19</span></a>. Right by Pirates, our next stop.</span></div></li>
+      <li style="--c:var(--pm)" data-h="14-15"><time>2:30</time><span class="rail"></span><div class="what"><b>Storm hours: indoor rides</b><span>Storms likely 3–7. <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>, <a class="ref" href="#live" data-ref="127">Little Mermaid<span class="refn">#50</span></a>, then <a class="ref" href="#live" data-ref="135">Tea Cups<span class="refn">#56</span></a> under its roof. Keep the DAS return going.</span></div></li>
+      <li style="--c:var(--pm)" data-h="15-18" class="maybe"><time>3–7</time><span class="rail"></span><div class="what"><b>More indoor options if it pours</b><span><a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>, <a class="ref" href="#live" data-ref="142">Winnie the Pooh<span class="refn">#47</span></a>, <a class="ref" href="#live" data-ref="128">Enchanted Tales with Belle<span class="refn">#49</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a>, <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>. Outdoor rides close for lightning; check "Longest waits now" for what's running.</span></div></li>
+      <li style="--c:var(--pm)" data-h="17"><time>5:00</time><span class="rail"></span><div class="what"><b>🍽️ Dinner</b><span>Indoors, out of the storm: <a class="ref" href="#live" data-ref="pinocchio">Pinocchio Village Haus<span class="refn">#58</span></a> by Peter Pan, mobile order. Or <a class="ref" href="#live" data-ref="columbia">Columbia Harbour House<span class="refn">#39</span></a> in Liberty Square. Order in the app by 4:15.</span></div></li>
+      <li style="--c:var(--eve)" data-h="19-20" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Backup time for any outdoor ride that closed in the storm. Storms are still possible until about 9: if it's raining, stick to <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a>, <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a> or <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>. Lines shrink in the last two hours.</span></div></li>
+      <li style="--c:var(--eve)" data-h="21" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
+      <li style="--c:var(--eve)" data-h="23"><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes. Expect a monorail wait after fireworks.</span></div></li>
     </ol>
   </section>
 
@@ -730,26 +718,33 @@ document.addEventListener("click",e=>{
   },60);
 },true);
 
-// Saturday's forecast, live from the National Weather Service (Magic Kingdom grid point)
+// Saturday's forecast on the timeline, live from the National Weather Service (Magic Kingdom grid point)
 const WX_DAY="2026-10-10";
+let WX={7:[77,4],8:[78,3],9:[81,6],10:[84,7],11:[86,8],12:[89,10],13:[89,14],14:[89,47],15:[89,59],16:[86,70],17:[85,68],18:[84,69],19:[81,49],20:[80,31],21:[79,27],22:[78,11],23:[78,10]};
+function paintWeather(){
+  document.querySelectorAll(".tl li[data-h]").forEach(li=>{
+    const [a,b]=li.dataset.h.split("-").map(Number), hrs=[];
+    for(let h=a;h<=(b||a);h++) if(WX[h]) hrs.push(WX[h]);
+    li.querySelector(".wxc")?.remove();
+    if(!hrs.length) return;
+    const t=Math.max(...hrs.map(x=>x[0])), p=Math.max(...hrs.map(x=>x[1]));
+    const c=document.createElement("span"); c.className="wxc";
+    c.innerHTML=`<span>${t}°</span><span class="rain ${p>=50?"hi":p>=20?"md":"lo"}">☔ ${p}%</span>`;
+    c.title=`Forecast: ${t}°, ${p}% chance of rain`;
+    li.querySelector("time").append(c);
+  });
+}
 async function loadWeather(){
   try{
-    const [h,d]=await Promise.all(["https://api.weather.gov/gridpoints/MLB/19,62/forecast/hourly","https://api.weather.gov/gridpoints/MLB/19,62/forecast"]
-      .map(u=>fetch(u,{headers:{Accept:"application/geo+json"}}).then(r=>{if(!r.ok) throw 0; return r.json()})));
-    const hrs=h.properties.periods.filter(x=>x.startTime.startsWith(WX_DAY)).map(x=>({h:+x.startTime.slice(11,13),t:x.temperature,p:x.probabilityOfPrecipitation.value||0})).filter(x=>x.h>=7&&x.h<=23);
-    if(!hrs.length) return;
-    const fmt=h=>(h%12||12)+(h<12?"am":"pm");
-    document.getElementById("wx-strip").innerHTML=hrs.map(x=>`<div><span>${fmt(x.h)}</span><b>${x.t}°</b><span class="pop" style="background:rgba(75,74,168,${0.15+x.p/100*0.85})">${x.p}%</span></div>`).join("");
-    const day=d.properties.periods.find(x=>x.startTime.startsWith(WX_DAY)&&x.isDaytime);
-    const hi=day?day.temperature:Math.max(...hrs.map(x=>x.t));
-    const hx=day&&(day.detailedForecast.match(/[Hh]eat index values as high as (\d+)/)||[])[1];
-    const wet=hrs.filter(x=>x.p>=50), maxP=Math.max(...hrs.map(x=>x.p));
-    const rain=wet.length?`Storms likely ${fmt(wet[0].h).replace(/am|pm/,"")}–${fmt(wet[wet.length-1].h+1)} (up to ${maxP}%).`:`Rain chance up to ${maxP}%.`;
-    const sum=`High ${hi}°${hx?`, feels like up to ${hx}°`:""}. ${rain}`;
-    document.getElementById("wx-sum").textContent=sum;
-    document.getElementById("wx-src").textContent=`National Weather Service forecast for Magic Kingdom, issued ${new Date(h.properties.updateTime||h.properties.generatedAt).toLocaleString([], {weekday:"short",hour:"numeric",minute:"2-digit"})}.`;
+    const h=await fetch("https://api.weather.gov/gridpoints/MLB/19,62/forecast/hourly",{headers:{Accept:"application/geo+json"}}).then(r=>{if(!r.ok) throw 0; return r.json()});
+    const next={};
+    h.properties.periods.filter(x=>x.startTime.startsWith(WX_DAY)).forEach(x=>{next[+x.startTime.slice(11,13)]=[x.temperature,x.probabilityOfPrecipitation.value||0]});
+    if(!Object.keys(next).length) return;
+    WX=next; paintWeather();
+    document.getElementById("wx-src").textContent=`Forecast: National Weather Service, issued ${new Date(h.properties.updateTime||h.properties.generatedAt).toLocaleString([], {weekday:"short",hour:"numeric",minute:"2-digit"})}.`;
   }catch(e){}
 }
+paintWeather();
 loadWeather();
 
 // live waits: Queue-Times.com via the waits.embry.dev relay (Disney's posted times)
