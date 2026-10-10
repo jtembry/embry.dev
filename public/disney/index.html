@@ -197,6 +197,14 @@ a.ht{text-decoration:none;color:inherit}
 .calm-btn{min-height:52px;padding:0 18px;border-radius:999px;border:0;background:#4b4aa8;color:#fff;font-size:17px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .calm-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .calm-btn.rr-btn{background:#16897a}
+.fab-items{display:grid;gap:8px;justify-items:end}
+.fab-items .calm-btn{min-height:44px;padding:0 14px;font-size:15px}
+.fab-toggle{width:52px;height:52px;min-height:0;padding:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);background:rgba(75,74,168,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font-size:26px;font-weight:700;line-height:1;box-shadow:0 4px 14px rgba(0,0,0,.25);display:grid;place-items:center}
+.fab-toggle .ft-dots{transition:transform .2s ease}
+.fab-toggle[aria-expanded="true"]{background:rgba(75,74,168,.75)}
+.fab-toggle[aria-expanded="true"] .ft-dots{transform:rotate(45deg)}
+.fab-toggle:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.fab-toggle .ft-dots{transition:none}}
 .calm .from{margin:0;font-size:14px;color:var(--muted)}
 .calm .sp{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .calm .sp small{color:var(--muted)}
@@ -442,7 +450,7 @@ button{min-height:44px}
 
 </div>
 
-<div class="fab-stack"><button type="button" class="calm-btn food-btn" id="food-btn" aria-haspopup="dialog" aria-controls="mapview">🍴 Food</button><button type="button" class="calm-btn rr-btn" id="rr-btn" aria-haspopup="dialog" aria-controls="mapview">🚻 Restroom</button><button type="button" class="calm-btn" id="calm-btn" aria-haspopup="dialog" aria-controls="calm">🫧 Calm</button></div>
+<div class="fab-stack" id="fab-stack"><div class="fab-items" id="fab-items" hidden><button type="button" class="calm-btn food-btn" id="food-btn" aria-haspopup="dialog" aria-controls="mapview">🍴 Food</button><button type="button" class="calm-btn rr-btn" id="rr-btn" aria-haspopup="dialog" aria-controls="mapview">🚻 Restroom</button><button type="button" class="calm-btn" id="calm-btn" aria-haspopup="dialog" aria-controls="calm">🫧 Calm</button></div><button type="button" class="fab-toggle" id="fab-toggle" aria-expanded="false" aria-controls="fab-items" aria-label="Show Food, Restroom and Calm"><span class="ft-dots" aria-hidden="true">＋</span></button></div>
 <div class="scrim" id="calm-scrim" hidden></div>
 <section class="calm" id="calm" role="dialog" aria-modal="true" aria-labelledby="calm-h" hidden>
   <div class="calm-head"><h2 id="calm-h">Find calm</h2><button type="button" id="calm-close" aria-label="Close">✕</button></div>
@@ -1149,6 +1157,13 @@ document.getElementById("mv-sub").addEventListener("click",e=>{
   if(add){ const k=+add.dataset.addmeal, m=+add.dataset.m; setMeal(k,m); renderDay(); fdNote=`✓ ${FOODCAT.find(c=>c.m===m).name} is now our ${MEALK[k].label.toLowerCase()} on the path.`; fdSel=FOODCAT.findIndex(c=>c.m===m); showFood(); }
   else if(other){ fdSel=+other.dataset.fpick; fdNote=""; showFood(); }
 });
+// ---------- floating bubble: tap to show Food / Restroom / Calm, tap again (or anywhere else) to fold ----------
+const fabItems=document.getElementById("fab-items"), fabToggle=document.getElementById("fab-toggle");
+function setFab(open){ fabItems.hidden=!open; fabToggle.setAttribute("aria-expanded",open); fabToggle.setAttribute("aria-label",open?"Hide Food, Restroom and Calm":"Show Food, Restroom and Calm"); }
+fabToggle.addEventListener("click",e=>{ e.stopPropagation(); setFab(fabItems.hidden); });
+fabItems.addEventListener("click",()=>setFab(false));
+document.addEventListener("click",e=>{ if(!fabItems.hidden&&!e.target.closest("#fab-stack")) setFab(false); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!fabItems.hidden) setFab(false); });
 </script>
 
 </body>
