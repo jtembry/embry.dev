@@ -186,12 +186,6 @@ a.ht{text-decoration:none;color:inherit}
 .wxc .rain.hi{background:#4b4aa8;border-color:transparent;color:#fff}
 .wx-src{color:var(--muted);font-size:12px}
 .view>*,.wrap>*{min-width:0}
-.nowbar{position:sticky;top:var(--barh,0px);z-index:4;width:100%;text-align:left;display:grid;gap:2px;padding:10px 14px;border-radius:12px;border:2px solid var(--am);background:var(--paper);color:var(--ink);font-size:14px;font-weight:400;min-height:44px}
-.nowbar b{font-weight:800}
-.nowbar .nx{color:var(--muted)}
-.tl>li.now .what{border-color:var(--am);box-shadow:0 0 0 2px var(--am) inset}
-.tl>li.now .what>b::after{content:"NOW";margin-left:8px;padding:1px 7px;border-radius:999px;background:var(--am);color:#1d2a26;font-size:11px;font-weight:800;vertical-align:2px}
-.tl>li.soon .what{border-color:var(--mid)}
 .offline{background:var(--paper);border:1px dashed var(--line);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--muted)}
 .calm-btn{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:12;min-height:52px;padding:0 18px;border-radius:999px;border:0;background:#4b4aa8;color:#fff;font-size:17px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .calm-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
@@ -283,7 +277,6 @@ button{min-height:44px}
 
 
   <section class="part view" id="day" aria-labelledby="day-h">
-    <button type="button" class="nowbar" id="nowbar" hidden></button>
     <div class="offline" id="offline" hidden>No signal. Showing the plan, waits and forecast saved on this phone.</div>
     <h2 id="day-h">The day</h2>
     <div class="wx-alert" id="wx-alert" role="alert" hidden></div>
@@ -616,31 +609,12 @@ const tlRows=[...document.querySelectorAll(".tl>li[data-h]")].map(li=>{
   const tt=li.querySelector("time").childNodes[0].textContent, m=tt.match(/:(\d\d)/), title=li.querySelector(".what>b").textContent.trim();
   return {li,t:(+li.dataset.h.split("-")[0])*60+(m?+m[1]:0),time:tt,title,zone:+(li.dataset.zone||0),maybe:li.classList.contains("maybe"),meal:/^(🍎|🍔|🍍|🍽)/.test(title)};
 });
-const nowbar=document.getElementById("nowbar");
-let nowRow=null;
 function paintNow(scroll){
+  if(!scroll) return;
   const n=nowET(), cur=currentZone();
-  tlRows.forEach(r=>r.li.classList.remove("now","soon"));
-  if(n.day!==DAY&&!cur){nowbar.hidden=true;nowRow=null;return}
-  const meal=n.day===DAY?tlRows.filter(r=>r.meal&&r.t<=n.min&&n.min<r.t+45).pop():null;
-  let main, nextTxt="";
-  if(cur){
-    main=tlRows.find(r=>r.zone===cur);
-    const nid=+(main.li.dataset.next||0), nz=tlRows.find(r=>r.zone===cur+1);
-    nextTxt=nid?`<b>Next:</b> ${byQ.get(nid).name}${lastById&&lastById.get(nid)?.open?` (${lastById.get(nid).wait} min)`:""}${nz?` · then ${nz.title}`:""}`:(nz?`<b>Next stop:</b> ${nz.title}`:"");
-    if(nz) nz.li.classList.add("soon");
-  }else{
-    const solid=tlRows.filter(r=>!r.maybe&&!r.zone&&!r.meal);
-    solid.forEach(r=>{if(r.t<=n.min) main=r});
-    const nx=tlRows.find(r=>!r.maybe&&r.t>n.min); if(nx){nx.li.classList.add("soon"); nextTxt=`<b>Next ${nx.time}:</b> ${nx.title}`;}
-  }
-  [main,meal].forEach(r=>r&&r.li.classList.add("now"));
-  nowRow=meal||main;
-  nowbar.innerHTML=`<span><b>Now:</b> ${meal?meal.title+" · ":""}${main?main.title:"Getting ready"}</span>${nextTxt?`<span class="nx">${nextTxt}</span>`:""}`;
-  nowbar.hidden=false;
-  if(scroll&&nowRow&&location.hash.slice(1)!=="access"&&location.hash.slice(1)!=="lost"&&location.hash.slice(1)!=="radar") nowRow.li.scrollIntoView({block:"center"});
+  const row=cur?tlRows.find(r=>r.zone===cur):(n.day===DAY?tlRows.filter(r=>!r.maybe&&!r.zone&&!r.meal&&r.t<=n.min).pop():null);
+  if(row&&location.hash.slice(1)!=="access"&&location.hash.slice(1)!=="lost") row.li.scrollIntoView({block:"center"});
 }
-nowbar.addEventListener("click",()=>nowRow&&nowRow.li.scrollIntoView({block:"center",behavior:"smooth"}));
 function setBarH(){const b=document.querySelector(".bar");document.documentElement.style.setProperty("--barh",(b&&b.offsetParent?b.offsetHeight:0)+"px")}
 setBarH(); addEventListener("resize",setBarH);
 renderDay(); paintNow(true);
