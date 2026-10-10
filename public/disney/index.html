@@ -128,10 +128,22 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .breaks li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 .breaks b{display:block}
 .breaks span{font-size:14px;color:var(--muted)}
-.bar{position:sticky;top:0;z-index:5;display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;margin-block:-20px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{position:sticky;top:0;z-index:5;display:flex;gap:12px;align-items:center;justify-content:flex-start;padding-top:max(10px,env(safe-area-inset-top,0px));padding:10px 0;margin-block:-20px 0;background:var(--bg);border-bottom:1px solid var(--line)}
 .bar-home{font-family:var(--display);font-weight:800;color:var(--ink);text-decoration:none;white-space:nowrap}
-.pick select{font:inherit;font-weight:700;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 10px;max-width:60vw}
-.pick select:focus-visible,.bar-home:focus-visible,.tiles a:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
+.menu-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;font-weight:700}
+.menu-btn span{font-size:20px;line-height:1}
+.side{position:fixed;inset:0 auto 0 0;z-index:20;width:min(280px,82vw);background:var(--paper);border-right:1px solid var(--line);padding:calc(env(safe-area-inset-top,0px) + 12px) 12px 24px;display:flex;flex-direction:column;gap:2px;overflow-y:auto;transform:translateX(-102%);transition:transform .2s ease}
+.side a{display:flex;align-items:center;min-height:48px;padding:0 14px;border-radius:10px;color:var(--ink);text-decoration:none;font-weight:700}
+.side a[aria-current]{background:var(--bg);box-shadow:inset 4px 0 0 var(--mid)}
+.side a:focus-visible,.menu-btn:focus-visible,.bar-home:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
+.side .side-title{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-height:40px}
+.nav-open .side{transform:none}
+.scrim{position:fixed;inset:0;z-index:15;background:rgba(0,0,0,.45)}
+@media (min-width:1100px){
+  .side{transform:none;width:240px}
+  .menu-btn,.scrim,.bar{display:none!important}
+  .wrap{margin-left:max(256px,calc((100vw - 980px)/2))}
+}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .view{display:none!important}
 .view.on{display:grid!important}
@@ -157,6 +169,35 @@ a.ht{text-decoration:none;color:inherit}
 .wx-src{color:var(--muted);font-size:12px}
 .heat ul{margin:0;padding-left:18px;display:grid;gap:6px}
 .lm-place{position:absolute;transform:translate(-50%,-100%);font-size:30px;line-height:1;z-index:4;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.view>*,.wrap>*{min-width:0}
+.lm-scroll{width:100%}
+.rm-inner{position:relative;width:calc(var(--z,1) * 100%)}
+.rm-inner img{display:block;width:100%;height:auto}
+#rm-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.rp{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:3px;height:28px;padding:0 7px;border-radius:999px;border:2px solid #fff;font:700 13px/1 var(--body);font-variant-numeric:tabular-nums;color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:pointer;min-height:0}
+.rp small{font-size:11px;font-weight:700;opacity:.9}
+.rp.outdoor{background:#c2610f}.rp.indoor{background:#16897a}.rp.covered{background:#1f6fb8}
+.rp.off{background:rgba(70,80,77,.82);height:24px;padding:0 6px;border-style:dashed}
+.rp.gr{background:#4b4aa8}
+.rp.done{opacity:.45}
+.rp.sel{z-index:3;transform:translate(-50%,-50%) scale(1.25);outline:3px solid #1d2a26}
+.rp:focus-visible{outline:3px solid #1d2a26;outline-offset:2px}
+.kind{font-size:13px;font-weight:700;padding:3px 8px;border-radius:999px;color:#fff}
+.kind.outdoor{background:#c2610f}.kind.indoor{background:#16897a}.kind.covered{background:#1f6fb8}.kind.off{background:#6b7a75}
+.rm-add{display:flex;gap:8px;flex-wrap:wrap}
+.rm-add select{flex:1 1 200px;min-width:0;max-width:100%;min-height:44px;font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:0 10px}
+.rm-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.rm-list li{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 10px}
+.rm-list li.sel{box-shadow:0 0 0 2px var(--mid) inset}
+.rm-list li.done .rm-name{text-decoration:line-through;color:var(--muted)}
+.rm-num{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font:800 15px var(--display);border:0;padding:0;min-height:0}
+.rm-num.outdoor{background:#c2610f}.rm-num.indoor{background:#16897a}.rm-num.covered{background:#1f6fb8}
+li.done .rm-num{background:var(--done)}
+.rm-name{font-weight:700;min-width:0}
+.rm-name small{display:block;font-weight:400;font-size:13px;color:var(--muted)}
+.rm-side{display:grid;justify-items:end;gap:4px}
+.rm-ctl{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}
+.rm-ctl button{min-height:40px;padding:0 12px;font-size:14px}
 .lm-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .lm-legend{display:flex;gap:6px;flex-wrap:wrap}
 .lm-zoom{display:flex;gap:6px}
@@ -164,7 +205,7 @@ a.ht{text-decoration:none;color:inherit}
 .lm-scroll{overflow:auto;max-height:72vh;border:1px solid var(--line);border-radius:14px;background:#d9d9d9;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .lm-inner{position:relative;width:calc(var(--z,1) * 100%)}
 .lm-inner img{display:block;width:100%;height:auto;filter:grayscale(1) brightness(1.08) contrast(.85)}
-.lm-pin{position:absolute;transform:translate(-50%,-50%);min-width:32px;height:26px;padding:0 6px;border-radius:999px;border:2px solid #fff;font:700 13px/22px var(--body);font-variant-numeric:tabular-nums;color:#fff;background:#7b8a85;box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:pointer}
+.lm-pin{min-height:0;position:absolute;transform:translate(-50%,-50%);min-width:32px;height:26px;padding:0 6px;border-radius:999px;border:2px solid #fff;font:700 13px/22px var(--body);font-variant-numeric:tabular-nums;color:#fff;background:#7b8a85;box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:pointer}
 .lm-pin.closed{background:#7b8a85;border:2px solid #fff;border-radius:999px;padding:0 6px;color:#fff;font-size:13px}
 .lm-pin.short{background:#16897a}.lm-pin.mid{background:#e2a01c;color:#1d2a26}.lm-pin.long{background:#d4573f}
 .lm-pin.route{box-shadow:0 0 0 3px #1d2a26,0 1px 4px rgba(0,0,0,.45)}
@@ -178,6 +219,16 @@ a.ht{text-decoration:none;color:inherit}
 .lm-list small{display:block;font-weight:400;color:var(--muted);font-size:13px}
 .lm-stamp{color:var(--muted);font-size:12px}
 .lm-stamp a{color:inherit}
+button{min-height:44px}
+.lm-zoom button{min-height:44px;width:48px}
+@media (max-width:420px){
+  .facts{grid-template-columns:1fr}
+  .facts div{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .tl li{grid-template-columns:52px 12px 1fr;gap:8px}
+  .tl time{font-size:14px}
+  h1{font-size:30px}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none}}
 .plan{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:10px}
 .plan h2{font-family:var(--display);font-weight:800;font-size:20px;margin:0}
 .plan ul{margin:0;padding-left:18px;display:grid;gap:6px}
@@ -192,21 +243,22 @@ a.ht{text-decoration:none;color:inherit}
 <body>
 
 
+<nav class="side" id="side" aria-label="Sections">
+  <a class="side-title" href="#home">Magic Kingdom · Sat Oct 10</a>
+  <a href="#home">Home</a>
+  <a href="#live">Live wait map</a>
+  <a href="#day">The day</a>
+  <a href="#map">Our route</a>
+  <a href="#access">Lines &amp; DAS</a>
+  <a href="#breaks">Need a break</a>
+  <a href="#prep">Before we go</a>
+  <a href="#lost">If someone gets lost</a>
+</nav>
+<div class="scrim" id="scrim" hidden></div>
 <div class="wrap">
   <header class="bar">
-    <a class="bar-home" href="#home" aria-label="Home">Magic Kingdom · Sat</a>
-    <label class="pick"><span class="sr">Go to</span>
-      <select id="pick" aria-label="Go to section">
-        <option value="home">Home</option>
-        <option value="live">Live wait map</option>
-        <option value="day">The day</option>
-        <option value="map">Ride map &amp; live waits</option>
-        <option value="access">Lines &amp; DAS</option>
-        <option value="breaks">Need a break</option>
-        <option value="prep">Before we go</option>
-        <option value="lost">If someone gets lost</option>
-      </select>
-    </label>
+    <button type="button" class="menu-btn" id="menu-btn" aria-controls="side" aria-expanded="false"><span aria-hidden="true">☰</span> Menu</button>
+    <a class="bar-home" href="#home">Magic Kingdom · Sat</a>
   </header>
 
   <section class="view home" id="home" aria-labelledby="home-h">
@@ -219,23 +271,14 @@ a.ht{text-decoration:none;color:inherit}
     </div>
     <div class="must">
       <h2>Don't miss</h2>
-      <p><b>8:05</b> book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our DAS return. <b>Then</b> <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> in the regular line, then TRON.</p>
+      <p><b>8:05</b> book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our DAS return. <b>Then</b> <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> in the regular line, then TRON on the return.</p>
     </div>
-    <p class="sub" id="wx-home"><b>Saturday:</b> high 91°, feels like up to 103°. Storms likely 3–7pm. <a class="jump" href="#day">Weather plan</a></p>
+    <p class="sub" id="wx-home"><b>Saturday:</b> high 91°, feels like up to 103°. Storms likely 3–7pm.</p>
     <div class="live mini">
       <h2>Longest waits now</h2>
       <ol id="home-top"><li>Loading live waits…</li></ol>
-      <small>Posted waits · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a> · <a href="#map">Ride map</a></small>
+      <small>Posted waits · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a></small>
     </div>
-    <nav class="tiles" aria-label="Sections">
-      <a href="#live"><b>Live wait map</b><span>Every ride, wait right now</span></a>
-      <a href="#day"><b>The day</b><span>Hour by hour</span></a>
-      <a href="#map"><b>Ride map</b><span>Route, live waits, checklist</span></a>
-      <a href="#access"><b>Lines &amp; DAS</b><span>Book DAS, Rider Switch</span></a>
-      <a href="#breaks"><b>Need a break</b><span>Quiet spots by area</span></a>
-      <a href="#prep"><b>Before we go</b><span>Tonight + packing</span></a>
-      <a href="#lost"><b>If someone gets lost</b><span>What to do</span></a>
-    </nav>
   </section>
 
   <section class="view part" id="live" aria-labelledby="lm-h">
@@ -293,10 +336,11 @@ a.ht{text-decoration:none;color:inherit}
       <div class="wx-strip" id="wx-strip" aria-label="Hourly forecast"></div>
       <small class="wx-src" id="wx-src">National Weather Service forecast for Magic Kingdom.</small>
       <ul>
-        <li><b>Outdoor coasters early.</b> <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a>, <a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="126">Barnstormer<span class="refn">#54</span></a> close for lightning. Ride them before 2.</li>
-        <li><b>Noon to 3 is the hottest stretch.</b> Stay in the air-conditioning: Indoor rides and seated shows: <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a> (22-min show), <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>, <a class="ref" href="#live" data-ref="334">Tiki Room<span class="refn">#16</span></a>, <a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>.</li>
+        <li><b>The route follows the forecast.</b> Outdoor coasters while it's dry: <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a>, <a class="ref" href="#live" data-ref="126">Barnstormer<span class="refn">#54</span></a> and <a class="ref" href="#live" data-ref="129">Seven Dwarfs<span class="refn">#48</span></a> in the morning, <a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="13630">Tiana's<span class="refn">#25</span></a> before 2. Indoor rides 2:30–7.</li>
+        <li><b>Noon to 3 is the hottest stretch.</b> Air-conditioned breaks near our midday stops: <a class="ref" href="#live" data-ref="334">Tiki Room<span class="refn">#16</span></a>, <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a>.</li>
         <li><b>Water every hour.</b> Any quick-service counter gives free cups of ice water.</li>
-        <li><b>Storms likely 3–7pm.</b> Head indoors: <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a>, <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a>, <a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>. Our 2:30 stops <a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="13630">Tiana's<span class="refn">#25</span></a> are outdoors and close for lightning. If it storms, ride them after 7 instead, or call it a day. The must-dos are done by 10:30.</li>
+        <li><b>Storms likely 3–7pm.</b> That's our indoor block: <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>, <a class="ref" href="#live" data-ref="127">Little Mermaid<span class="refn">#50</span></a>. Extra indoor options: <a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>, <a class="ref" href="#live" data-ref="142">Winnie the Pooh<span class="refn">#47</span></a>, <a class="ref" href="#live" data-ref="128">Enchanted Tales with Belle<span class="refn">#49</span></a>.</li>
+        <li><b>Chance of storms until 9.</b> Evening re-rides: pick indoor ones if it's raining, like <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> or <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a>. Or call it a day. The must-dos are done by 10.</li>
         <li><b>Need a real cool-off?</b> The Contemporary resort's lobby is a 10-min walk from the <a class="ref" href="#live" data-ref="entrance">park entrance<span class="refn">map</span></a>.</li>
       </ul>
     </div>
@@ -308,71 +352,43 @@ a.ht{text-decoration:none;color:inherit}
       <li style="--c:var(--am)"><time>7:50</time><span class="rail"></span><div class="what"><b><a class="ref" href="#live" data-ref="entrance">Gate<span class="refn">map</span></a></b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
       <li style="--c:var(--am)"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at <a class="ref" href="#live" data-ref="cityhall">City Hall<span class="refn">#1</span></a> (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
       <li style="--c:var(--am)"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our first DAS return</b><span>Must-do. Do it right after Guest Relations. It stays good until close.</span></div></li>
-      <li style="--c:var(--am)"><time>8:15</time><span class="rail"></span><div class="what"><b>Tomorrowland, stops 1–5</b><span><a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> first in the regular line, then <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> on the DAS return. <a class="ref" href="#live" data-ref="143">Speedway<span class="refn">#69</span></a>, <a class="ref" href="#live" data-ref="1190">PeopleMover<span class="refn">#72</span></a> and <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a> after.</span></div></li>
-      <li style="--c:var(--mid)"><time>10:30</time><span class="rail"></span><div class="what"><b>Fantasyland and Liberty Square, stops 6–11</b><span>Lines peak now. Keep a DAS return going: book the top ride in "Longest waits now," ride short ones while you wait.</span></div></li>
+      <li style="--c:var(--am)"><time>8:15</time><span class="rail"></span><div class="what"><b>Tomorrowland</b><span><a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> first in the regular line, then <a class="ref" href="#live" data-ref="1190">PeopleMover<span class="refn">#72</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a> and <a class="ref" href="#live" data-ref="143">Speedway<span class="refn">#69</span></a> while the TRON return comes up, then <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a>.</span></div></li>
+      <li style="--c:var(--am)"><time>10:00</time><span class="rail"></span><div class="what"><b>Storybook Circus and Seven Dwarfs</b><span><a class="ref" href="#live" data-ref="126">Barnstormer<span class="refn">#54</span></a>, then <a class="ref" href="#live" data-ref="129">Seven Dwarfs<span class="refn">#48</span></a>. Lines are growing: start keeping a DAS return going.</span></div></li>
+      <li style="--c:var(--mid)"><time>11:00</time><span class="rail"></span><div class="what"><b>Frontierland and Adventureland</b><span><a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="13630">Tiana's<span class="refn">#25</span></a> before 2, while it's dry. Then <a class="ref" href="#live" data-ref="134">Jungle Cruise<span class="refn">#15</span></a>.</span></div></li>
       <li style="--c:var(--mid)" class="maybe"><time>11:30</time><span class="rail"></span><div class="what"><b>Lunch?</b><span>Mobile order in the app to skip the counter line.</span></div></li>
-      <li style="--c:var(--pm)" class="maybe"><time>2:00</time><span class="rail"></span><div class="what"><b>Break in the air-conditioning?</b><span>Hottest part of the day. A seated indoor show or a quiet spot from Need a break.</span></div></li>
-      <li style="--c:var(--pm)"><time>2:30</time><span class="rail"></span><div class="what"><b>Frontierland and Adventureland, stops 12–15</b><span><a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a>, <a class="ref" href="#live" data-ref="13630">Tiana's<span class="refn">#25</span></a>, <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="134">Jungle Cruise<span class="refn">#15</span></a>. Keep using DAS for the long ones.</span></div></li>
-      <li style="--c:var(--eve)" class="maybe"><time>6:00</time><span class="rail"></span><div class="what"><b>Dinner?</b></div></li>
-      <li style="--c:var(--eve)" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Backup time for <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> or <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> if either broke down. Lines shrink in the last two hours and during fireworks.</span></div></li>
+      <li style="--c:var(--mid)" class="maybe"><time>12–3</time><span class="rail"></span><div class="what"><b>Too hot? Indoor breaks nearby</b><span><a class="ref" href="#live" data-ref="334">Enchanted Tiki Room<span class="refn">#16</span></a>, <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a> (22-min seated show). All air-conditioned, all close by.</span></div></li>
+      <li style="--c:var(--pm)"><time>2:30</time><span class="rail"></span><div class="what"><b>Storm hours: indoor rides</b><span>Storms likely 3–7. <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>, <a class="ref" href="#live" data-ref="127">Little Mermaid<span class="refn">#50</span></a>, then <a class="ref" href="#live" data-ref="135">Tea Cups<span class="refn">#56</span></a> under its roof. Keep the DAS return going.</span></div></li>
+      <li style="--c:var(--pm)" class="maybe"><time>3–7</time><span class="rail"></span><div class="what"><b>More indoor options if it pours</b><span><a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>, <a class="ref" href="#live" data-ref="142">Winnie the Pooh<span class="refn">#47</span></a>, <a class="ref" href="#live" data-ref="128">Enchanted Tales with Belle<span class="refn">#49</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a>, <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>. Outdoor rides close for lightning; check "Longest waits now" for what's running.</span></div></li>
+      <li style="--c:var(--eve)" class="maybe"><time>6:00</time><span class="rail"></span><div class="what"><b>Dinner?</b><span>Sit out the last of the storm indoors.</span></div></li>
+      <li style="--c:var(--eve)" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Backup time for any outdoor ride that closed in the storm. Storms are still possible until about 9: if it's raining, stick to <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a>, <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a> or <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>. Lines shrink in the last two hours.</span></div></li>
       <li style="--c:var(--eve)" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
       <li style="--c:var(--eve)"><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes. Expect a monorail wait after fireworks.</span></div></li>
     </ol>
   </section>
 
   <section class="part view" id="map" aria-labelledby="map-h">
-    <h2 id="map-h">Ride map</h2>
-    <p class="sub">One loop, Tomorrowland first, no doubling back. Pins sit where each ride is on the official guide map, and the #numbers match it. Tap a pin or ride to find it, tap again to check it off.</p>
-
-  <figure class="guidemap">
-    <a href="MK-guide-map.webp?v=4" target="_blank"><img class="poster" src="MK-guide-map.webp?v=4" width="4446" height="2124" alt="Magic Kingdom guide map with Saturday's route, the attraction list, and the legend" fetchpriority="high"></a>
-    <figcaption class="poster-note">Guide map with the route and the number key. Tap to open full size, then pinch to zoom.</figcaption>
-  </figure>
-
-  <div class="layout">
-    <div class="mapcard">
-      <svg class="map" viewBox="30 60 650 580" role="img" aria-label="Park map with numbered ride stops, laid out to match the official guide map">
-        <rect x="30" y="590" width="650" height="50" fill="var(--water)"/>
-        <!-- Rivers of America -->
-        <path d="M160 300 Q200 280 240 300 Q290 330 330 320" fill="none" stroke="var(--water)" stroke-width="18" stroke-linecap="round"/>
-        <g>
-        <path class="land" d="M80 440 L108 392 L177 359 L228 355 L304 360 L250 440 Z"/>
-        <path class="land" d="M60 240 L130 225 L213 340 L87 353 Z"/>
-        <path class="land" d="M244 207 L268 211 L330 300 L310 310 L253 324 Z"/>
-        <path class="land" d="M300 150 L460 85 L630 134 L624 148 L489 239 L463 255 L376 236 L328 202 Z"/>
-        <path class="land" d="M460 401 L489 279 L640 215 L660 350 L580 425 L470 410 Z"/>
-        </g>
-        <!-- hub, moat, Main Street -->
-        <circle cx="385" cy="345" r="62" fill="var(--water)"/>
-        <circle cx="385" cy="345" r="46" fill="var(--path)"/>
-        <rect x="372" y="385" width="26" height="195" rx="8" fill="var(--path)"/>
-        <rect x="320" y="575" width="130" height="22" rx="11" fill="var(--path)"/>
-        <!-- spokes from the hub -->
-        <g stroke="var(--path)" stroke-width="14" stroke-linecap="round">
-          <line x1="345" y1="350" x2="290" y2="368"/><line x1="350" y1="318" x2="318" y2="288"/>
-          <line x1="385" y1="300" x2="385" y2="245"/><line x1="428" y1="335" x2="490" y2="330"/>
-        </g>
-        <!-- castle glyph -->
-        <g fill="var(--land-ink)">
-          <rect x="371" y="252" width="28" height="22"/><rect x="365" y="244" width="9" height="30"/><rect x="396" y="244" width="9" height="30"/>
-          <polygon points="365,244 369.5,230 374,244"/><polygon points="396,244 400.5,230 405,244"/><polygon points="378,252 385,232 392,252"/>
-        </g>
-        <text class="land-label" x="385" y="615" text-anchor="middle">Entrance</text>
-        <text class="land-label" x="415" y="500">Main St</text>
-        <text class="land-label" x="330" y="112" text-anchor="middle">Fantasyland</text>
-        <text class="land-label" x="580" y="455" text-anchor="middle">Tomorrowland</text>
-        <text class="land-label" x="70" y="215">Frontierland</text>
-        <text class="land-label" x="70" y="475">Adventureland</text>
-        <text class="land-label" x="300" y="345" text-anchor="middle">Liberty Sq</text>
-        <g transform="translate(70 560)" fill="var(--land-ink)"><polygon points="0,-18 6,0 -6,0"/><text class="land-label" x="0" y="16" text-anchor="middle">N</text></g>
-        <g id="routes"></g>
-        <g id="pins"></g>
-      </svg>
-      <div class="legend" id="legend"></div>
-      <a class="maplink" href="https://magicguides.com/wp-content/uploads/2026/02/WDW-Map-MK-2026-01-05.pdf" target="_blank" rel="noopener">Open the official park map (PDF) ↗</a>
+    <h2 id="map-h">Our route</h2>
+    <p class="sub">Our numbers show the order. Disney's map number is in [brackets]. Tap a numbered pin to move, finish or remove it. Tap a grey pin to add that ride. Changes save on this phone.</p>
+    <div class="lm-tools">
+      <div class="lm-legend"><span class="kind outdoor">Outdoor</span><span class="kind covered">Covered</span><span class="kind indoor">Indoor</span><span class="kind off">Not in plan</span></div>
+      <div class="lm-zoom"><button type="button" id="rm-out" aria-label="Zoom out">−</button><button type="button" id="rm-in" aria-label="Zoom in">+</button></div>
     </div>
-
-    <div class="list" id="list">
+    <div class="lm-scroll" id="rm-scroll"><div class="rm-inner" id="rm-inner">
+      <img src="MK-live-map.webp" width="1400" height="1443" alt="Official Magic Kingdom map with our route">
+      <svg id="rm-svg" viewBox="0 0 2060 2124" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div id="rm-pins"></div>
+    </div></div>
+    <div class="lm-card" id="rm-card" aria-live="polite">Tap a pin to see the ride.</div>
+    <div class="rm-add">
+      <select id="rm-add" aria-label="Add a ride to the plan"><option value="">Add a ride…</option></select>
+      <button type="button" id="rm-default">Reset to our plan</button>
+    </div>
+    <ol class="rm-list" id="rm-list"></ol>
+    <div class="foot">
+      <span id="count"></span>
+      <button type="button" id="reset">Uncheck all</button>
+    </div>
+    <div class="list">
       <section class="live" aria-labelledby="live-h" aria-live="polite">
         <h2 id="live-h">Longest waits now</h2>
         <p>From about 10:30, book the top open one as your next DAS return, then ride short ones while you wait. Disney's posted times, refreshed every 2 minutes.</p>
@@ -382,25 +398,19 @@ a.ht{text-decoration:none;color:inherit}
       <section class="plan" aria-labelledby="plan-h">
         <h2 id="plan-h">Game plan</h2>
         <ul>
-          <li><b>Don't miss: <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> and <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a>.</b> Right after Guest Relations, book TRON as our DAS return. Ride Space Mountain in the regular line while we wait, then TRON. A DAS return stays good until the park or ride closes, so a breakdown doesn't cost us the ride.</li>
-          <li><b>8–10:30, shortest lines of the day:</b> use the regular lines for the rest of Tomorrowland.</li>
+          <li><b>Don't miss: <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> and <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a>.</b> Right after Guest Relations, book TRON as our DAS return. Ride Space Mountain in the regular line, then PeopleMover, Buzz and Speedway, then TRON. A DAS return stays good until the park or ride closes, so a breakdown doesn't cost us the ride.</li>
+          <li><b>8–10:30, shortest lines of the day:</b> use the regular lines in Tomorrowland.</li>
           <li><b>From about 10:30, lines peak until 3:</b> keep a DAS return going. Book the top ride in "Longest waits now," ride the short ones nearby while you wait. One return at a time; request the next 10 min after you use it.</li>
           <li><b>Lightning Lane Multi Pass:</b> book <a class="ref" href="#live" data-ref="129">Seven Dwarfs<span class="refn">#48</span></a>, <a class="ref" href="#live" data-ref="136">Peter Pan<span class="refn">#43</span></a>, <a class="ref" href="#live" data-ref="13630">Tiana's<span class="refn">#25</span></a> and <a class="ref" href="#live" data-ref="134">Jungle Cruise<span class="refn">#15</span></a> first.</li>
           <li><b>Long line?</b> Skip ahead to the next stop and loop back. Nothing in each area is far apart.</li>
           <li><b>Running behind?</b> Drop <a class="ref" href="#live" data-ref="135">Tea Cups<span class="refn">#56</span></a>, <a class="ref" href="#live" data-ref="126">Barnstormer<span class="refn">#54</span></a>, <a class="ref" href="#live" data-ref="143">Speedway<span class="refn">#69</span></a> or <a class="ref" href="#live" data-ref="1190">PeopleMover<span class="refn">#72</span></a> first, or save them for later. Lines shrink again in the last two hours and during fireworks.</li>
         </ul>
         <div class="links">
-          <a href="https://disneyworld.disney.go.com/plan/my-disney-experience/mobile-apps/" target="_blank" rel="noopener">Get the Disney app (live waits) ↗</a>
-          <a href="https://queue-times.com/parks/6/queue_times" target="_blank" rel="noopener">Live wait times on the web ↗</a>
+          <a href="https://disneyworld.disney.go.com/plan/my-disney-experience/mobile-apps/" target="_blank" rel="noopener">Get the My Disney Experience app ↗</a>
         </div>
       </section>
       <div class="closed">Closed this trip: <a class="ref" href="#live" data-ref="457">Carousel of Progress<span class="refn">#73</span></a>, the riverboat and Tom Sawyer Island. Check live waits in the Disney app.</div>
     </div>
-  </div>
-  <div class="foot">
-    <span id="count"></span>
-    <button type="button" id="reset">Uncheck all</button>
-  </div>
   </section>
 
   <section class="part view" id="breaks" aria-labelledby="breaks-h">
@@ -408,11 +418,11 @@ a.ht{text-decoration:none;color:inherit}
     <p class="sub">Quieter spots Disney lists for Magic Kingdom. Any Cast Member can point to the nearest one. <a class="ref" href="#live" data-ref="firstaid">First Aid<span class="refn">map</span></a> is quiet too, with roomier restrooms and private space for changing.</p>
     <ul class="breaks">
       <li><b>Main Street</b><span><a class="ref" href="#live" data-ref="center">Center Street<span class="refn">map</span></a>, the side street halfway up Main Street.</span></li>
-      <li><b>Adventureland</b><span>Near <a class="ref" href="#live" data-ref="355">Swiss Family Treehouse<span class="refn">#13</span></a>, or next to the <a class="ref" href="#live" data-ref="pirrest">Pirates restrooms<span class="refn">map</span></a>. Near stops 14–15.</span></li>
-      <li><b>Frontierland</b><span>Near the <a class="ref" href="#live" data-ref="tianarest">Tiana's Bayou Adventure restrooms<span class="refn">map</span></a>. Stop 13.</span></li>
-      <li><b>Liberty Square</b><span>Behind <a class="ref" href="#live" data-ref="xmas">Ye Olde Christmas Shoppe<span class="refn">#40</span></a>, or next to <a class="ref" href="#live" data-ref="356">The Hall of Presidents<span class="refn">#33</span></a>. Near stop 11.</span></li>
-      <li><b>Fantasyland</b><span>Near the Wishing Well by <a class="ref" href="#live" data-ref="castle">Cinderella Castle<span class="refn">map</span></a>, or outside Pete's Silly Sideshow by <a class="ref" href="#live" data-ref="132">Dumbo<span class="refn">#55</span></a>. Near stops 10 and 7.</span></li>
-      <li><b>Tomorrowland</b><span>The path from <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> toward Fantasyland, between <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> and the <a class="ref" href="#live" data-ref="rocket">Rockettower Plaza Stage<span class="refn">map</span></a>, or near <a class="ref" href="#live" data-ref="457">Carousel of Progress<span class="refn">#73</span></a>. Near stops 1, 2 and 4.</span></li>
+      <li><b>Adventureland</b><span>Near <a class="ref" href="#live" data-ref="355">Swiss Family Treehouse<span class="refn">#13</span></a>, or next to the <a class="ref" href="#live" data-ref="pirrest">Pirates restrooms<span class="refn">map</span></a>.</span></li>
+      <li><b>Frontierland</b><span>Near the <a class="ref" href="#live" data-ref="tianarest">Tiana's Bayou Adventure restrooms<span class="refn">map</span></a>.</span></li>
+      <li><b>Liberty Square</b><span>Behind <a class="ref" href="#live" data-ref="xmas">Ye Olde Christmas Shoppe<span class="refn">#40</span></a>, or next to <a class="ref" href="#live" data-ref="356">The Hall of Presidents<span class="refn">#33</span></a>.</span></li>
+      <li><b>Fantasyland</b><span>Near the Wishing Well by <a class="ref" href="#live" data-ref="castle">Cinderella Castle<span class="refn">map</span></a>, or outside Pete's Silly Sideshow by <a class="ref" href="#live" data-ref="132">Dumbo<span class="refn">#55</span></a>.</span></li>
+      <li><b>Tomorrowland</b><span>The path from <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> toward Fantasyland, between <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> and the <a class="ref" href="#live" data-ref="rocket">Rockettower Plaza Stage<span class="refn">map</span></a>, or near <a class="ref" href="#live" data-ref="457">Carousel of Progress<span class="refn">#73</span></a>.</span></li>
     </ul>
     <p class="sub">Companion (family) restrooms are listed in the Disney app.</p>
   </section>
@@ -521,128 +531,6 @@ Kevin • 4:30 PM
 </div>
 
 <script>
-const blocks = [
-  {key:"am",  name:"Morning · Tomorrowland",                 time:"8–10:30",    color:"var(--am)"},
-  {key:"mid", name:"Midday · Fantasyland → Liberty Sq",      time:"10:30–2",    color:"var(--mid)"},
-  {key:"pm",  name:"Afternoon · Frontierland → Adventureland", time:"2–6",      color:"var(--pm)"},
-  {key:"eve", name:"Evening",                                time:"6–11",       color:"var(--eve)"}
-];
-const rides = [
-  {id:"r0",  n:"GR", b:"am", m:1, name:"Guest Relations (City Hall)", note:"Left side of Main Street as you enter. Check DAS is linked for everyone", pins:[[356,531]]},
-  {id:"r14", q:138,   n:1,  b:"am",  m:70, name:"Space Mountain", note:"Must-do · first ride, regular line · 44 in. to ride", pins:[[642,330]]},
-  {id:"r12", q:11527, n:2,  b:"am",  m:68, name:"TRON Lightcycle Run", note:"Must-do · book as our DAS return at 8:00 · 48 in. to ride", pins:[[640,215]]},
-  {id:"r13", q:143,   n:3,  b:"am",  m:69, name:"Tomorrowland Speedway", pins:[[550,287]]},
-  {id:"r15", q:1190,  n:4,  b:"am",  m:72, name:"PeopleMover", pins:[[578,382]]},
-  {id:"r16", q:131,   n:5,  b:"am",  m:74, name:"Buzz Lightyear", note:"New version", pins:[[546,385]]},
-  {id:"r9",  q:135,   n:6,  b:"mid", m:56, name:"Mad Tea Party", pins:[[504,217]]},
-  {id:"r11", q:126,   n:7,  b:"mid", m:54, name:"The Barnstormer", pins:[[624,148]]},
-  {id:"r10", q:127,   n:8,  b:"mid", m:50, name:"Little Mermaid", pins:[[491,125]]},
-  {id:"r8",  q:129,   n:9, b:"mid", m:48, name:"Seven Dwarfs Mine Train", note:"Book a Lightning Lane or DAS for this window", pins:[[444,183]]},
-  {id:"r6",  q:136,   n:10, b:"mid", m:43, name:"Peter Pan's Flight", pins:[[328,202]]},
-  {id:"r5",  q:140,   n:11, b:"mid", m:34, name:"Haunted Mansion", pins:[[244,207]]},
-  {id:"r4",  q:130,   n:12, b:"pm",  m:26, name:"Big Thunder Mountain", pins:[[112,247]]},
-  {id:"r3",  q:13630, n:13, b:"pm",  m:25, name:"Tiana's Bayou Adventure", note:"You will get wet", pins:[[84,269]]},
-  {id:"r2",  q:137,   n:14, b:"pm",  m:17, name:"Pirates of the Caribbean", pins:[[133,414]]},
-  {id:"r1",  q:134,   n:15, b:"pm",  m:15, name:"Jungle Cruise", pins:[[197,410]]},
-  {id:"r18", n:16, b:"eve", name:"Re-ride favorites", note:"Ride during the fireworks, when lines are shortest", pins:[[385,470]]}
-];
-const KEY="mk-sat-done-v4";
-let done = new Set();
-try{done = new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e){}};
-const NS="http://www.w3.org/2000/svg";
-const colorOf = b => blocks.find(x=>x.key===b).color;
-
-// routes: entrance → City Hall → Tomorrowland → counterclockwise loop → back to hub, colored by block
-const routesG=document.getElementById("routes");
-const ENTRY=[[385,590]];
-blocks.forEach((bl,i)=>{
-  const mine=rides.filter(r=>r.b===bl.key);
-  let pts=mine.map(r=>r.pins[0]);
-  if(i===0) pts=ENTRY.concat(pts.slice(0,1),[[385,392],[428,360]],pts.slice(1));
-  const next=blocks[i+1]&&rides.find(r=>r.b===blocks[i+1].key);
-  if(bl.key==="am") pts=pts.concat([[430,335],[440,280]]);
-  if(next && next.b!=="eve") pts=pts.concat([next.pins[0]]);
-  if(bl.key==="pm") pts=pts.concat([[290,368],[345,352],[385,392]]);
-  if(pts.length<2) return;
-  const p=document.createElementNS(NS,"polyline");
-  p.setAttribute("points",pts.map(q=>q.join(",")).join(" "));
-  p.setAttribute("class","route"); p.style.stroke=bl.color;
-  routesG.appendChild(p);
-});
-// pins
-const pinsG=document.getElementById("pins");
-rides.forEach(r=>r.pins.forEach(([x,y])=>{
-  const g=document.createElementNS(NS,"g");
-  g.setAttribute("class","pin"); g.dataset.id=r.id; g.setAttribute("tabindex","0");
-  g.setAttribute("role","button"); g.setAttribute("aria-label",r.n+". "+r.name);
-  const c=document.createElementNS(NS,"circle");
-  c.setAttribute("cx",x); c.setAttribute("cy",y); c.setAttribute("r",15); c.style.fill=colorOf(r.b);
-  const t=document.createElementNS(NS,"text");
-  t.setAttribute("x",x); t.setAttribute("y",y+5); t.setAttribute("text-anchor","middle"); t.textContent=r.n;
-  g.append(c,t); pinsG.appendChild(g);
-  g.addEventListener("click",()=>tap(r.id,true));
-  g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tap(r.id,true)}});
-}));
-// legend
-document.getElementById("legend").innerHTML=blocks.map(b=>`<span><i class="dot" style="background:${b.color}"></i>${b.name} ${b.time}</span>`).join("");
-// list
-const list=document.getElementById("list");
-
-blocks.forEach(bl=>{
-  const sec=document.createElement("section"); sec.className="block"; sec.style.setProperty("--c",bl.color);
-  sec.innerHTML=`<h2>${bl.name}<small>${bl.time}</small></h2><ol></ol>`;
-  const ol=sec.querySelector("ol");
-  rides.filter(r=>r.b===bl.key).forEach(r=>{
-    const li=document.createElement("li"); li.id="li-"+r.id; li.style.setProperty("--c",bl.color);
-    li.innerHTML=`<input type="checkbox" id="cb-${r.id}"><label for="cb-${r.id}"><span class="num">${r.n}</span><span class="name">${r.name}${r.note?`<span class="note">${r.note}</span>`:""}</span><span class="chips"><span class="wait" id="w-${r.id}" hidden></span>${r.m?`<a class="ht ref" href="#live" data-ref="${r.q||"cityhall"}" title="Show on the live map (Disney map #${r.m})">#${r.m}</a>`:""}</span></label>`;
-    ol.appendChild(li);
-    li.querySelector("input").addEventListener("change",e=>{e.target.checked?done.add(r.id):done.delete(r.id);save();render();setActive(r.id)});
-  });
-  list.appendChild(sec);
-});
-let active=null;
-function setActive(id){
-  active=id;
-  document.querySelectorAll(".pin").forEach(p=>p.classList.toggle("active",p.dataset.id===id));
-  document.querySelectorAll("li").forEach(l=>l.classList.toggle("active",l.id==="li-"+id));
-}
-function tap(id,fromMap){
-  if(active===id){ done.has(id)?done.delete(id):done.add(id); save(); render(); }
-  setActive(id);
-  if(fromMap){const el=document.getElementById("li-"+id); el&&el.scrollIntoView({block:"nearest",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});}
-}
-function render(){
-  rides.forEach(r=>{
-    const isDone=done.has(r.id);
-    document.getElementById("cb-"+r.id).checked=isDone;
-    document.getElementById("li-"+r.id).classList.toggle("done",isDone);
-    document.querySelectorAll(`.pin[data-id="${r.id}"]`).forEach(p=>p.classList.toggle("done",isDone));
-  });
-  document.getElementById("count").textContent=`${done.size} of ${rides.length} done`;
-}
-document.getElementById("reset").addEventListener("click",()=>{done.clear();save();render()});
-render();
-
-// one section at a time: dropdown + #hash, Home by default
-const views=[...document.querySelectorAll(".view")], pick=document.getElementById("pick");
-function show(id){
-  if(!views.some(v=>v.id===id)) id="home";
-  views.forEach(v=>v.classList.toggle("on",v.id===id));
-  pick.value=id; window.scrollTo(0,0);
-}
-pick.addEventListener("change",()=>{location.hash=pick.value});
-window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
-show(location.hash.slice(1));
-
-// prep and pack checklists, saved per device
-document.querySelectorAll(".checks[data-key]").forEach(ul=>{
-  const k=ul.dataset.key, boxes=[...ul.querySelectorAll("input")];
-  let on=[]; try{on=JSON.parse(localStorage.getItem(k)||"[]")}catch(e){}
-  boxes.forEach((b,i)=>{b.checked=on.includes(i); b.addEventListener("change",()=>{try{localStorage.setItem(k,JSON.stringify(boxes.flatMap((x,j)=>x.checked?[j]:[])))}catch(e){}})});
-});
-
-// live wait map: every ride on the official map (x,y in px of the 2060x2124 map panel)
 const ALL=[
  [134,"Jungle Cruise",15,590,1222],[137,"Pirates of the Caribbean",17,400,1240],[355,"Swiss Family Treehouse",13,744,1144],
  [141,"Magic Carpets of Aladdin",14,590,1136],[334,"Enchanted Tiki Room",16,536,1164],
@@ -657,7 +545,115 @@ const ALL=[
  [131,"Buzz Lightyear",74,1637,1155],[125,"Monsters Inc Laugh Floor",75,1497,1097],
  [1189,"Railroad · Main Street",2,1160,1656],[1181,"Railroad · Fantasyland",53,1890,395]
 ].map(([id,name,m,x,y])=>({id,name,m,x,y}));
-const stopOf=new Map(rides.filter(r=>r.q).map(r=>[r.q,r.n]));
+const byQ=new Map(ALL.map(a=>[a.id,a]));
+// weather exposure: indoor rides and shows, covered (roof or covered boat), the rest outdoor
+const INDOOR=[138,131,137,140,136,127,133,142,128,356,1214,334,171,125,457], COVERED=[134,135,161,1190];
+const kindOf=id=>INDOOR.includes(id)?"indoor":COVERED.includes(id)?"covered":"outdoor";
+const KIND_LABEL={indoor:"Indoor",covered:"Covered",outdoor:"Outdoor"};
+const NOTES={138:"Must-do · ride first, regular line · 44 in. to ride",11527:"Must-do · ride on the DAS return booked at 8:05 · 48 in. to ride",
+  129:"DAS or Lightning Lane",130:"Ride before 2, before the storms",13630:"You will get wet · ride before 2",131:"New version",135:"Under a roof"};
+const DEFAULT_PLAN=[138,1190,131,143,11527,126,129,130,13630,134,137,140,136,127,135];
+const PLAN_KEY="mk-plan-v1", DONE_KEY="mk-done-v5";
+const loadJSON=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:d}catch(e){return d}};
+const saveJSON=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let plan=loadJSON(PLAN_KEY,DEFAULT_PLAN).filter(id=>byQ.has(id));
+let done=new Set(loadJSON(DONE_KEY,[]));
+let stopOf=new Map(), rmSel=null, lastById=null, lastStamp="";
+const GR_PT=[1066,1586], START_PT=[1144,1780];
+const rmScroll=document.getElementById("rm-scroll"), rmInner=document.getElementById("rm-inner"), rmPins=document.getElementById("rm-pins"), rmSvg=document.getElementById("rm-svg");
+const pct=(x,y)=>`left:${x/2060*100}%;top:${y/2124*100}%`;
+function waitOf(id){const x=lastById&&lastById.get(id);return !x?null:x}
+function waitChip(id){const x=waitOf(id);return !x?"":`<span class="wait ${x.open?waitClass(x.wait):"closed"}">${x.open?x.wait+" min":"Closed"}</span>`}
+function savePlan(){saveJSON(PLAN_KEY,plan)}
+function renderPlan(){
+  stopOf=new Map(plan.map((id,i)=>[id,i+1]));
+  // path: entrance → City Hall → each stop in order
+  const pts=[START_PT,GR_PT,...plan.map(id=>[byQ.get(id).x,byQ.get(id).y])].map(p=>p.join(",")).join(" ");
+  rmSvg.innerHTML=`<polyline points="${pts}" fill="none" stroke="#fff" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/>
+    <polyline points="${pts}" fill="none" stroke="#4b4aa8" stroke-width="9" stroke-dasharray="26 16" stroke-linejoin="round" stroke-linecap="round"/>`;
+  // pins: City Hall, every ride (numbered if in the plan, grey if not)
+  rmPins.innerHTML=`<button type="button" class="rp gr" style="${pct(...GR_PT)}" data-gr="1">GR <small>[1]</small></button>`+
+    ALL.map(a=>{const n=stopOf.get(a.id);
+      return n?`<button type="button" class="rp ${kindOf(a.id)}${done.has(a.id)?" done":""}${rmSel===a.id?" sel":""}" style="${pct(a.x,a.y)}" data-q="${a.id}" aria-label="Stop ${n}, ${a.name}, Disney map ${a.m}">${n} <small>[${a.m}]</small></button>`
+              :`<button type="button" class="rp off" style="${pct(a.x,a.y)}" data-q="${a.id}" aria-label="Add ${a.name}, Disney map ${a.m}"><small>[${a.m}]</small></button>`}).join("");
+  // list
+  document.getElementById("rm-list").innerHTML=plan.map((id,i)=>{const a=byQ.get(id),k=kindOf(id);
+    return `<li id="rl-${id}" class="${done.has(id)?"done":""}${rmSel===id?" sel":""}">
+      <button type="button" class="rm-num ${k}" data-done="${id}" aria-pressed="${done.has(id)}" aria-label="Stop ${i+1}: mark ${a.name} ${done.has(id)?"not done":"done"}">${done.has(id)?"✓":i+1}</button>
+      <span class="rm-name">${a.name}<small>${KIND_LABEL[k]}${NOTES[id]?" · "+NOTES[id]:""}</small></span>
+      <span class="rm-side">${waitChip(id)}<a class="ht ref" href="#live" data-ref="${id}">[${a.m}]</a></span>
+      <span class="rm-ctl"><button type="button" data-up="${id}" ${i===0?"disabled":""} aria-label="Move ${a.name} earlier">▲ Earlier</button><button type="button" data-down="${id}" ${i===plan.length-1?"disabled":""} aria-label="Move ${a.name} later">▼ Later</button><button type="button" data-rm="${id}" aria-label="Remove ${a.name}">✕ Remove</button></span>
+    </li>`}).join("");
+  // add-a-ride menu
+  document.getElementById("rm-add").innerHTML='<option value="">Add a ride…</option>'+ALL.filter(a=>!stopOf.has(a.id)).sort((p,q)=>p.name.localeCompare(q.name))
+    .map(a=>`<option value="${a.id}">${a.name} [${a.m}] · ${KIND_LABEL[kindOf(a.id)]}</option>`).join("");
+  const n=plan.filter(id=>done.has(id)).length;
+  document.getElementById("count").textContent=`${n} of ${plan.length} done`;
+  renderTop();
+  if(lastById) updateLiveMap(lastById,lastStamp);
+}
+function rmCard(id){
+  const a=byQ.get(id), n=stopOf.get(id), x=waitOf(id);
+  const wait=!x?"":x.open?`<span class="wait ${waitClass(x.wait)}">${x.wait} min</span> posted wait · `:"Not running right now · ";
+  document.getElementById("rm-card").innerHTML=`<b>${n?n+". ":""}${a.name}</b> <span class="refn">[${a.m}]</span><br>${wait}${KIND_LABEL[kindOf(id)]}${NOTES[id]?" · "+NOTES[id]:""}`+
+    (n?`<div class="rm-ctl" style="margin-top:8px"><button type="button" data-up="${id}" ${n===1?"disabled":""}>▲ Earlier</button><button type="button" data-down="${id}" ${n===plan.length?"disabled":""}>▼ Later</button><button type="button" data-done="${id}">${done.has(id)?"Not done":"✓ Done"}</button><button type="button" data-rm="${id}">✕ Remove</button></div>`
+       :`<div class="rm-ctl" style="margin-top:8px"><button type="button" data-add="${id}">＋ Add to plan</button></div>`);
+}
+function rmSelect(id){rmSel=id;renderPlan();rmCard(id)}
+function move(id,d){const i=plan.indexOf(id),j=i+d;if(i<0||j<0||j>=plan.length)return;[plan[i],plan[j]]=[plan[j],plan[i]];savePlan();renderPlan();if(rmSel===id)rmCard(id)}
+document.getElementById("map").addEventListener("click",e=>{
+  const t=e.target.closest("button"); if(!t) return;
+  const d=t.dataset;
+  if(d.gr){rmSel=null;renderPlan();document.getElementById("rm-card").innerHTML="<b>GR. Guest Relations, City Hall</b> <span class=\"refn\">[1]</span><br>Our first stop. Confirm DAS, then book TRON.";return}
+  if(d.q){const id=+d.q; stopOf.has(id)?rmSelect(id):rmSelect(id); return}
+  if(d.up) return move(+d.up,-1);
+  if(d.down) return move(+d.down,1);
+  if(d.rm){const id=+d.rm; plan=plan.filter(x=>x!==id); savePlan(); renderPlan(); rmCard(id); return}
+  if(d.add){const id=+d.add; if(!plan.includes(id)) plan.push(id); savePlan(); rmSelect(id); return}
+  if(d.done){const id=+d.done; done.has(id)?done.delete(id):done.add(id); saveJSON(DONE_KEY,[...done]); renderPlan(); if(rmSel===id) rmCard(id); return}
+});
+document.getElementById("rm-add").addEventListener("change",e=>{const id=+e.target.value; if(!id) return; plan.push(id); savePlan(); rmSelect(id); e.target.value="";});
+document.getElementById("rm-default").addEventListener("click",()=>{plan=[...DEFAULT_PLAN]; savePlan(); rmSel=null; renderPlan(); document.getElementById("rm-card").textContent="Back to our plan.";});
+document.getElementById("reset").addEventListener("click",()=>{done.clear(); saveJSON(DONE_KEY,[]); renderPlan();});
+let rmZoom=1;
+function rmSetZoom(z){
+  const cx=(rmScroll.scrollLeft+rmScroll.clientWidth/2)/rmInner.offsetWidth, cy=(rmScroll.scrollTop+rmScroll.clientHeight/2)/rmInner.offsetHeight;
+  rmZoom=Math.min(3,Math.max(1,z)); rmInner.style.setProperty("--z",rmZoom);
+  rmScroll.scrollLeft=cx*rmInner.offsetWidth-rmScroll.clientWidth/2; rmScroll.scrollTop=cy*rmInner.offsetHeight-rmScroll.clientHeight/2;
+}
+document.getElementById("rm-in").addEventListener("click",()=>rmSetZoom(rmZoom+0.75));
+document.getElementById("rm-out").addEventListener("click",()=>rmSetZoom(rmZoom-0.75));
+if(matchMedia("(max-width:600px)").matches) rmSetZoom(1.75);
+function renderTop(){
+  if(!lastById) return;
+  const top=plan.filter(id=>!done.has(id)&&lastById.get(id)?.open).map(id=>({id,w:lastById.get(id).wait})).sort((a,b)=>b.w-a.w).slice(0,3);
+  const html=top.length?top.map(({id,w})=>`<li><span>${stopOf.get(id)}. ${byQ.get(id).name}</span><span class="wait ${waitClass(w)}">${w} min</span></li>`).join(""):"<li>No rides in our plan are running right now.</li>";
+  document.getElementById("live-top").innerHTML=html; document.getElementById("home-top").innerHTML=html;
+}
+
+// one section at a time: dropdown + #hash, Home by default
+const views=[...document.querySelectorAll(".view")], side=document.getElementById("side"), scrim=document.getElementById("scrim"), menuBtn=document.getElementById("menu-btn");
+function setMenu(open){document.body.classList.toggle("nav-open",open);menuBtn.setAttribute("aria-expanded",open);scrim.hidden=!open;}
+menuBtn.addEventListener("click",()=>setMenu(!document.body.classList.contains("nav-open")));
+scrim.addEventListener("click",()=>setMenu(false));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")setMenu(false)});
+function show(id){
+  if(!views.some(v=>v.id===id)) id="home";
+  views.forEach(v=>v.classList.toggle("on",v.id===id));
+  side.querySelectorAll("a:not(.side-title)").forEach(a=>{a.toggleAttribute("aria-current",a.getAttribute("href")==="#"+id); if(a.getAttribute("href")==="#"+id) a.setAttribute("aria-current","page")});
+  setMenu(false); window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+show(location.hash.slice(1));
+
+// prep and pack checklists, saved per device
+document.querySelectorAll(".checks[data-key]").forEach(ul=>{
+  const k=ul.dataset.key, boxes=[...ul.querySelectorAll("input")];
+  let on=[]; try{on=JSON.parse(localStorage.getItem(k)||"[]")}catch(e){}
+  boxes.forEach((b,i)=>{b.checked=on.includes(i); b.addEventListener("change",()=>{try{localStorage.setItem(k,JSON.stringify(boxes.flatMap((x,j)=>x.checked?[j]:[])))}catch(e){}})});
+});
+
+// live wait map: every ride on the official map (x,y in px of the 2060x2124 map panel)
 const lmInner=document.getElementById("lm-inner"), lmPins=document.getElementById("lm-pins"), lmScroll=document.getElementById("lm-scroll");
 let lmZoom=1, lmSel=null, lmData=new Map();
 ALL.forEach(a=>{
@@ -742,7 +738,7 @@ async function loadWeather(){
     const rain=wet.length?`Storms likely ${fmt(wet[0].h).replace(/am|pm/,"")}–${fmt(wet[wet.length-1].h+1)} (up to ${maxP}%).`:`Rain chance up to ${maxP}%.`;
     const sum=`High ${hi}°${hx?`, feels like up to ${hx}°`:""}. ${rain}`;
     document.getElementById("wx-sum").textContent=sum;
-    document.getElementById("wx-home").innerHTML=`<b>Saturday:</b> ${sum} <a class="jump" href="#day">Weather plan</a>`;
+    document.getElementById("wx-home").innerHTML=`<b>Saturday:</b> ${sum}`;
     document.getElementById("wx-src").textContent=`National Weather Service forecast for Magic Kingdom, issued ${new Date(h.properties.updateTime||h.properties.generatedAt).toLocaleString([], {weekday:"short",hour:"numeric",minute:"2-digit"})}.`;
   }catch(e){}
 }
@@ -757,26 +753,14 @@ async function loadWaits(){
   if(!data){document.getElementById("home-top").innerHTML="<li>Live waits unavailable. Use the Disney app.</li>";document.getElementById("live-stamp").innerHTML=`Live waits unavailable right now. Use the Disney app. · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`; return;}
   const byId=new Map(data.rides.map(x=>[x.id,x]));
   let newest=0;
-  rides.forEach(r=>{
-    const el=document.getElementById("w-"+r.id); if(!el) return;
-    const x=r.q&&byId.get(r.q); if(!x){el.hidden=true;return;}
-    newest=Math.max(newest,Date.parse(x.updated)||0);
-    el.hidden=false;
-    el.className="wait "+(x.open?waitClass(x.wait):"closed");
-    el.textContent=x.open?`${x.wait} min`:"Closed";
-    el.title=x.open?"Posted wait right now":"Not running right now";
-  });
-  const top=rides.filter(r=>r.q&&!done.has(r.id)&&byId.get(r.q)?.open)
-    .map(r=>({r,w:byId.get(r.q).wait})).sort((a,b)=>b.w-a.w).slice(0,3);
-  const topHTML=top.length
-    ? top.map(({r,w})=>`<li><span>${r.n}. ${r.name}</span><span class="wait ${waitClass(w)}">${w} min</span></li>`).join("")
-    : "<li>No rides on our list are running right now.</li>";
-  document.getElementById("live-top").innerHTML=topHTML;
-  document.getElementById("home-top").innerHTML=topHTML;
+  data.rides.forEach(x=>{newest=Math.max(newest,Date.parse(x.updated)||0)});
+  lastById=byId;
   const mins=newest?Math.max(0,Math.round((Date.now()-newest)/60000)):null;
   document.getElementById("live-stamp").innerHTML=`${mins===null?"":`Updated ${mins<1?"just now":mins+" min ago"} · `}Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`;
-  updateLiveMap(byId, document.getElementById("live-stamp").innerHTML);
+  lastStamp=document.getElementById("live-stamp").innerHTML;
+  renderPlan();
 }
+renderPlan();
 loadWaits();
 setInterval(()=>{if(document.visibilityState==="visible") loadWaits()},120000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible") loadWaits()});
