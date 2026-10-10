@@ -191,13 +191,12 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
       <li><time>7:20</time><span class="rail"></span><div class="what"><b>Security, then monorail or ferry</b><span>Bags open, pockets empty. Monorail 10 min, ferry 12–15. Lines can be long at opening.</span></div></li>
       <li style="--c:var(--am)"><time>7:50</time><span class="rail"></span><div class="what"><b>Gate</b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
       <li style="--c:var(--am)"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at City Hall (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
-      <li style="--c:var(--am)"><time>8:15</time><span class="rail"></span><div class="what"><b>Adventureland and Frontierland, stops 1–4</b><span>Shortest lines of the day. Use the regular lines.</span></div></li>
-      <li style="--c:var(--am)"><time>10:00</time><span class="rail"></span><div class="what"><b>Start DAS</b><span>Book the top ride in "Longest waits now," then ride short ones while you wait.</span></div></li>
+      <li style="--c:var(--am)"><time>8:05</time><span class="rail"></span><div class="what"><b>Book TRON as our first DAS return</b><span>Must-do. Do it right after Guest Relations. It stays good until close.</span></div></li>
+      <li style="--c:var(--am)"><time>8:15</time><span class="rail"></span><div class="what"><b>Tomorrowland, stops 1–6</b><span>Space Mountain first in the regular line, then TRON on the DAS return. Speedway, PeopleMover, Buzz and Laugh Floor after.</span></div></li>
+      <li style="--c:var(--mid)"><time>10:30</time><span class="rail"></span><div class="what"><b>Fantasyland and Liberty Square, stops 7–13</b><span>Lines peak now. Keep a DAS return going: book the top ride in "Longest waits now," ride short ones while you wait.</span></div></li>
       <li style="--c:var(--mid)" class="maybe"><time>11:30</time><span class="rail"></span><div class="what"><b>Lunch?</b><span>Mobile order in the app to skip the counter line.</span></div></li>
-      <li style="--c:var(--mid)"><time>12:00</time><span class="rail"></span><div class="what"><b>Liberty Square and Fantasyland, stops 5–11</b><span>Busiest part of the day. Keep a DAS return going.</span></div></li>
-      <li style="--c:var(--mid)" class="maybe"><time>2:00</time><span class="rail"></span><div class="what"><b>Break?</b><span>Snack and a quiet spot. See Need a break. Afternoon storms are likely in Florida.</span></div></li>
-      <li style="--c:var(--pm)"><time>1:30</time><span class="rail"></span><div class="what"><b>Book TRON as our DAS return</b><span>Must-do. Book it from Fantasyland so it's ready when we get there. It stays good until close.</span></div></li>
-      <li style="--c:var(--pm)"><time>2:30</time><span class="rail"></span><div class="what"><b>Tomorrowland, stops 12–17</b><span>Ride TRON, then book Space Mountain as the next DAS return and do Speedway, PeopleMover and Buzz while we wait.</span></div></li>
+      <li style="--c:var(--pm)" class="maybe"><time>2:00</time><span class="rail"></span><div class="what"><b>Break?</b><span>Snack and a quiet spot. See Need a break. Afternoon storms are likely in Florida.</span></div></li>
+      <li style="--c:var(--pm)"><time>2:30</time><span class="rail"></span><div class="what"><b>Frontierland and Adventureland, stops 14–17</b><span>Big Thunder, Tiana's, Pirates, Jungle Cruise. Keep using DAS for the long ones.</span></div></li>
       <li style="--c:var(--eve)" class="maybe"><time>6:00</time><span class="rail"></span><div class="what"><b>Dinner?</b></div></li>
       <li style="--c:var(--eve)" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Backup time for TRON or Space Mountain if either broke down. Lines shrink in the last two hours and during fireworks.</span></div></li>
       <li style="--c:var(--eve)" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks from Main Street?</b><span>Check the time in the app. Headphones help.</span></div></li>
@@ -207,7 +206,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 
   <section class="part" id="map" aria-labelledby="map-h">
     <h2 id="map-h">Ride map</h2>
-    <p class="sub">One clockwise loop, no doubling back. Pins sit where each ride is on the official guide map, and the #numbers match it. Tap a pin or ride to find it, tap again to check it off.</p>
+    <p class="sub">One loop, Tomorrowland first, no doubling back. Pins sit where each ride is on the official guide map, and the #numbers match it. Tap a pin or ride to find it, tap again to check it off.</p>
   </section>
 
   <figure class="guidemap">
@@ -261,20 +260,19 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
     <div class="list" id="list">
       <section class="live" aria-labelledby="live-h" aria-live="polite">
         <h2 id="live-h">Longest waits now</h2>
-        <p>From about 10am, book the top open one as your next DAS return, then ride short ones while you wait. Disney's posted times, refreshed every 2 minutes.</p>
+        <p>From about 10:30, book the top open one as your next DAS return, then ride short ones while you wait. Disney's posted times, refreshed every 2 minutes.</p>
         <ol id="live-top"><li>Loading live waits…</li></ol>
         <small id="live-stamp">Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a></small>
       </section>
       <section class="plan" aria-labelledby="plan-h">
         <h2 id="plan-h">Game plan</h2>
         <ul>
-          <li><b>8–10am, shortest lines of the day:</b> use the regular lines. Jungle Cruise, Pirates, Tiana's and Big Thunder are often 5–20 min. A DAS return saves little this early.</li>
-          <li><b>From about 10am, lines peak until 3:</b> start DAS. Book the top ride in "Longest waits now," ride the short ones nearby while you wait. One return at a time; request the next 10 min after you use it.</li>
-          <li><b>Don't miss: TRON and Space Mountain.</b> Book TRON as a DAS return by 1:30 so it's ready when we reach Tomorrowland. Use it, then book Space Mountain 10 min later. A DAS return stays good until the park or ride closes, so a breakdown doesn't cost us the ride.</li>
+          <li><b>Don't miss: TRON and Space Mountain.</b> Right after Guest Relations, book TRON as our DAS return. Ride Space Mountain in the regular line while we wait, then TRON. A DAS return stays good until the park or ride closes, so a breakdown doesn't cost us the ride.</li>
+          <li><b>8–10:30, shortest lines of the day:</b> use the regular lines for the rest of Tomorrowland.</li>
+          <li><b>From about 10:30, lines peak until 3:</b> keep a DAS return going. Book the top ride in "Longest waits now," ride the short ones nearby while you wait. One return at a time; request the next 10 min after you use it.</li>
           <li><b>Lightning Lane Multi Pass:</b> book Seven Dwarfs, Peter Pan, Tiana's and Jungle Cruise first.</li>
-          <li><b>TRON:</b> has a regular line, so DAS works there too. The Single Pass skips it.</li>
           <li><b>Long line?</b> Skip ahead to the next stop and loop back. Nothing in each area is far apart.</li>
-          <li><b>Running behind?</b> Drop Tea Cups, Barnstormer, Speedway or PeopleMover first. Lines shrink again in the last two hours and during fireworks.</li>
+          <li><b>Running behind?</b> Drop Tea Cups, Barnstormer, Speedway or PeopleMover first, or save them for later. Lines shrink again in the last two hours and during fireworks.</li>
         </ul>
         <div class="links">
           <a href="https://disneyworld.disney.go.com/plan/my-disney-experience/mobile-apps/" target="_blank" rel="noopener">Get the Disney app (live waits) ↗</a>
@@ -294,11 +292,11 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
     <p class="sub">Quieter spots Disney lists for Magic Kingdom. Any Cast Member can point to the nearest one. First Aid is quiet too, with roomier restrooms and private space for changing.</p>
     <ul class="breaks">
       <li><b>Main Street</b><span>Center Street, the side street off Main Street. Near stop GR.</span></li>
-      <li><b>Adventureland</b><span>Near Swiss Family Treehouse, or next to the Pirates restrooms. Near stops 1–2.</span></li>
-      <li><b>Frontierland</b><span>Near the Tiana's Bayou Adventure restrooms. Stop 3.</span></li>
-      <li><b>Liberty Square</b><span>Behind Ye Olde Christmas Shoppe, or next to The Hall of Presidents. Near stop 5.</span></li>
-      <li><b>Fantasyland</b><span>Near the Wishing Well by the castle, or outside Pete's Silly Sideshow. Near stops 7 and 11.</span></li>
-      <li><b>Tomorrowland</b><span>The path from TRON toward Fantasyland, between Space Mountain and the Rockettower Plaza Stage, or near Carousel of Progress. Near stops 12, 14 and 15.</span></li>
+      <li><b>Adventureland</b><span>Near Swiss Family Treehouse, or next to the Pirates restrooms. Near stops 16–17.</span></li>
+      <li><b>Frontierland</b><span>Near the Tiana's Bayou Adventure restrooms. Stop 15.</span></li>
+      <li><b>Liberty Square</b><span>Behind Ye Olde Christmas Shoppe, or next to The Hall of Presidents. Near stop 13.</span></li>
+      <li><b>Fantasyland</b><span>Near the Wishing Well by the castle, or outside Pete's Silly Sideshow. Near stops 11 and 8.</span></li>
+      <li><b>Tomorrowland</b><span>The path from TRON toward Fantasyland, between Space Mountain and the Rockettower Plaza Stage, or near Carousel of Progress. Near stops 1, 2 and 4.</span></li>
     </ul>
     <p class="sub">Companion (family) restrooms are listed in the Disney app.</p>
   </section>
@@ -408,30 +406,30 @@ Kevin • 4:30 PM
 
 <script>
 const blocks = [
-  {key:"am",  name:"Morning · Adventureland → Frontierland", time:"8–11:30",    color:"var(--am)"},
-  {key:"mid", name:"Midday · Liberty Sq → Fantasyland",      time:"11:30–2:30", color:"var(--mid)"},
-  {key:"pm",  name:"Afternoon · Tomorrowland",               time:"2:30–6",     color:"var(--pm)"},
+  {key:"am",  name:"Morning · Tomorrowland",                 time:"8–10:30",    color:"var(--am)"},
+  {key:"mid", name:"Midday · Fantasyland → Liberty Sq",      time:"10:30–2",    color:"var(--mid)"},
+  {key:"pm",  name:"Afternoon · Frontierland → Adventureland", time:"2–6",      color:"var(--pm)"},
   {key:"eve", name:"Evening",                                time:"6–11",       color:"var(--eve)"}
 ];
 const rides = [
   {id:"r0",  n:"GR", b:"am", m:1, name:"Guest Relations (City Hall)", note:"Left side of Main Street as you enter. Check DAS is linked for everyone", pins:[[356,531]]},
-  {id:"r1", q:134,  n:1,  b:"am",  m:15, name:"Jungle Cruise", note:"Bear left at the hub at opening", pins:[[197,410]]},
-  {id:"r2", q:137,  n:2,  b:"am",  m:17, name:"Pirates of the Caribbean", pins:[[133,414]]},
-  {id:"r3", q:13630,  n:3,  b:"am",  m:25, name:"Tiana's Bayou Adventure", note:"You will get wet", pins:[[84,269]]},
-  {id:"r4", q:130,  n:4,  b:"am",  m:26, name:"Big Thunder Mountain", pins:[[112,247]]},
-  {id:"r5", q:140,  n:5,  b:"mid", m:34, name:"Haunted Mansion", pins:[[244,207]]},
-  {id:"r6", q:136,  n:6,  b:"mid", m:43, name:"Peter Pan's Flight", pins:[[328,202]]},
-  {id:"r7", q:171,  n:7,  b:"mid", m:45, name:"Mickey's PhilharMagic", note:"Air-conditioned show", pins:[[365,223]]},
-  {id:"r8", q:129,  n:8,  b:"mid", m:48, name:"Seven Dwarfs Mine Train", note:"Book a Lightning Lane for this window", pins:[[444,183]]},
-  {id:"r9", q:135,  n:9,  b:"mid", m:56, name:"Mad Tea Party", pins:[[504,217]]},
-  {id:"r10", q:127, n:10, b:"mid", m:50, name:"Little Mermaid", pins:[[491,125]]},
-  {id:"r11", q:126, n:11, b:"mid", m:54, name:"The Barnstormer", pins:[[624,148]]},
-  {id:"r12", q:11527, n:12, b:"pm",  m:68, name:"TRON Lightcycle Run", note:"Must-do · book the DAS return by 1:30 · 48 in. to ride", pins:[[640,215]]},
-  {id:"r13", q:143, n:13, b:"pm",  m:69, name:"Tomorrowland Speedway", pins:[[550,287]]},
-  {id:"r14", q:138, n:14, b:"pm",  m:70, name:"Space Mountain", note:"Must-do · book DAS right after TRON · 44 in. to ride", pins:[[642,330]]},
-  {id:"r15", q:1190, n:15, b:"pm",  m:72, name:"PeopleMover", pins:[[578,382]]},
-  {id:"r16", q:131, n:16, b:"pm",  m:74, name:"Buzz Lightyear", note:"New version", pins:[[546,385]]},
-  {id:"r17", q:125, n:17, b:"pm",  m:75, name:"Monsters Inc Laugh Floor", note:"Air-conditioned show · closest to the hub", pins:[[500,364]]},
+  {id:"r14", q:138,   n:1,  b:"am",  m:70, name:"Space Mountain", note:"Must-do · first ride, regular line · 44 in. to ride", pins:[[642,330]]},
+  {id:"r12", q:11527, n:2,  b:"am",  m:68, name:"TRON Lightcycle Run", note:"Must-do · book as our DAS return at 8:00 · 48 in. to ride", pins:[[640,215]]},
+  {id:"r13", q:143,   n:3,  b:"am",  m:69, name:"Tomorrowland Speedway", pins:[[550,287]]},
+  {id:"r15", q:1190,  n:4,  b:"am",  m:72, name:"PeopleMover", pins:[[578,382]]},
+  {id:"r16", q:131,   n:5,  b:"am",  m:74, name:"Buzz Lightyear", note:"New version", pins:[[546,385]]},
+  {id:"r17", q:125,   n:6,  b:"am",  m:75, name:"Monsters Inc Laugh Floor", note:"Air-conditioned show · closest to the hub", pins:[[500,364]]},
+  {id:"r9",  q:135,   n:7,  b:"mid", m:56, name:"Mad Tea Party", pins:[[504,217]]},
+  {id:"r11", q:126,   n:8,  b:"mid", m:54, name:"The Barnstormer", pins:[[624,148]]},
+  {id:"r10", q:127,   n:9,  b:"mid", m:50, name:"Little Mermaid", pins:[[491,125]]},
+  {id:"r8",  q:129,   n:10, b:"mid", m:48, name:"Seven Dwarfs Mine Train", note:"Book a Lightning Lane or DAS for this window", pins:[[444,183]]},
+  {id:"r7",  q:171,   n:11, b:"mid", m:45, name:"Mickey's PhilharMagic", note:"Air-conditioned show", pins:[[365,223]]},
+  {id:"r6",  q:136,   n:12, b:"mid", m:43, name:"Peter Pan's Flight", pins:[[328,202]]},
+  {id:"r5",  q:140,   n:13, b:"mid", m:34, name:"Haunted Mansion", pins:[[244,207]]},
+  {id:"r4",  q:130,   n:14, b:"pm",  m:26, name:"Big Thunder Mountain", pins:[[112,247]]},
+  {id:"r3",  q:13630, n:15, b:"pm",  m:25, name:"Tiana's Bayou Adventure", note:"You will get wet", pins:[[84,269]]},
+  {id:"r2",  q:137,   n:16, b:"pm",  m:17, name:"Pirates of the Caribbean", pins:[[133,414]]},
+  {id:"r1",  q:134,   n:17, b:"pm",  m:15, name:"Jungle Cruise", pins:[[197,410]]},
   {id:"r18", n:18, b:"eve", name:"Re-ride favorites", note:"Then fireworks from Main Street", pins:[[385,470]]}
 ];
 const KEY="mk-sat-done-v4";
@@ -441,16 +439,17 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e)
 const NS="http://www.w3.org/2000/svg";
 const colorOf = b => blocks.find(x=>x.key===b).color;
 
-// routes: entrance → hub → clockwise loop → back to hub, colored by block
+// routes: entrance → City Hall → Tomorrowland → counterclockwise loop → back to hub, colored by block
 const routesG=document.getElementById("routes");
 const ENTRY=[[385,590]];
 blocks.forEach((bl,i)=>{
   const mine=rides.filter(r=>r.b===bl.key);
   let pts=mine.map(r=>r.pins[0]);
-  if(i===0) pts=ENTRY.concat(pts.slice(0,1),[[385,392],[345,352],[290,368]],pts.slice(1));
+  if(i===0) pts=ENTRY.concat(pts.slice(0,1),[[385,392],[428,360]],pts.slice(1));
   const next=blocks[i+1]&&rides.find(r=>r.b===blocks[i+1].key);
+  if(bl.key==="am") pts=pts.concat([[430,335],[440,280]]);
   if(next && next.b!=="eve") pts=pts.concat([next.pins[0]]);
-  if(bl.key==="pm") pts=pts.concat([[430,340],[385,392]]);
+  if(bl.key==="pm") pts=pts.concat([[290,368],[345,352],[385,392]]);
   if(pts.length<2) return;
   const p=document.createElementNS(NS,"polyline");
   p.setAttribute("points",pts.map(q=>q.join(",")).join(" "));
