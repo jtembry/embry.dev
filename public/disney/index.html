@@ -128,6 +128,25 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .breaks li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 .breaks b{display:block}
 .breaks span{font-size:14px;color:var(--muted)}
+.bar{position:sticky;top:0;z-index:5;display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;margin-block:-20px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar-home{font-family:var(--display);font-weight:800;color:var(--ink);text-decoration:none;white-space:nowrap}
+.pick select{font:inherit;font-weight:700;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 10px;max-width:60vw}
+.pick select:focus-visible,.bar-home:focus-visible,.tiles a:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.view{display:none!important}
+.view.on{display:grid!important}
+.view.part{border-top:0;padding-top:0}
+.home{gap:14px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.facts div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:2px}
+.facts b{font-family:var(--display);font-size:clamp(17px,4.5vw,22px)}
+.facts span{font-size:13px;color:var(--muted)}
+.must{background:var(--paper);border:1px solid var(--am);box-shadow:inset 4px 0 0 var(--am);border-radius:14px;padding:12px 16px;display:grid;gap:6px}
+.must h2,.mini h2{font-family:var(--display);font-weight:800;font-size:18px;margin:0}
+.must p{margin:0}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tiles a{display:grid;gap:2px;padding:14px;border-radius:12px;background:var(--paper);border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.tiles a span{font-size:13px;color:var(--muted)}
 .plan{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:10px}
 .plan h2{font-family:var(--display);font-weight:800;font-size:20px;margin:0}
 .plan ul{margin:0;padding-left:18px;display:grid;gap:6px}
@@ -143,16 +162,49 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 
 
 <div class="wrap">
-  <header>
-    <div class="eyebrow">Magic Kingdom · Sat Oct 10 · 8am–11pm · leave 6:50am</div>
-    <h1>Our Magic Kingdom day</h1>
-    <p class="sub">Built on the three steps in Disney's Accessibility Planning Guide: how to prepare, what to bring, and what to expect. Then the ride map, break spots, and line options.</p>
-    <nav class="nav" aria-label="Sections">
-      <a href="#prep">Before we go</a><a href="#day">The day</a><a href="#map">Ride map</a><a href="#breaks">Need a break</a><a href="#access">Lines &amp; DAS</a><a href="#lost">If someone gets lost</a>
-    </nav>
+  <header class="bar">
+    <a class="bar-home" href="#home" aria-label="Home">Magic Kingdom · Sat</a>
+    <label class="pick"><span class="sr">Go to</span>
+      <select id="pick" aria-label="Go to section">
+        <option value="home">Home</option>
+        <option value="day">The day</option>
+        <option value="map">Ride map &amp; live waits</option>
+        <option value="access">Lines &amp; DAS</option>
+        <option value="breaks">Need a break</option>
+        <option value="prep">Before we go</option>
+        <option value="lost">If someone gets lost</option>
+      </select>
+    </label>
   </header>
 
-  <section class="part" id="prep" aria-labelledby="prep-h">
+  <section class="view home" id="home" aria-labelledby="home-h">
+    <div class="eyebrow">Sat Oct 10 · open 8am–11pm</div>
+    <h1 id="home-h">Our Magic Kingdom day</h1>
+    <div class="facts">
+      <div><b>6:50am</b><span>Leave the rental</span></div>
+      <div><b>8:00am</b><span>Park opens · Guest Relations</span></div>
+      <div><b>City Hall</b><span>Meeting spot</span></div>
+    </div>
+    <div class="must">
+      <h2>Don't miss</h2>
+      <p><b>8:05</b> book TRON as our DAS return. <b>Then</b> Space Mountain in the regular line, then TRON.</p>
+    </div>
+    <div class="live mini">
+      <h2>Longest waits now</h2>
+      <ol id="home-top"><li>Loading live waits…</li></ol>
+      <small>Posted waits · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a> · <a href="#map">Ride map</a></small>
+    </div>
+    <nav class="tiles" aria-label="Sections">
+      <a href="#day"><b>The day</b><span>Hour by hour</span></a>
+      <a href="#map"><b>Ride map</b><span>Route, live waits, checklist</span></a>
+      <a href="#access"><b>Lines &amp; DAS</b><span>Book DAS, Rider Switch</span></a>
+      <a href="#breaks"><b>Need a break</b><span>Quiet spots by area</span></a>
+      <a href="#prep"><b>Before we go</b><span>Tonight + packing</span></a>
+      <a href="#lost"><b>If someone gets lost</b><span>What to do</span></a>
+    </nav>
+  </section>
+
+  <section class="part view" id="prep" aria-labelledby="prep-h">
     <h2 id="prep-h">Before we go</h2>
     <div class="access-grid">
       <article class="acard">
@@ -181,7 +233,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
     </div>
   </section>
 
-  <section class="part" id="day" aria-labelledby="day-h">
+  <section class="part view" id="day" aria-labelledby="day-h">
     <h2 id="day-h">The day</h2>
     <p class="sub">Our visual schedule. Solid dots are fixed. Dashed ones are maybes we can swap or skip.</p>
     <ol class="tl">
@@ -204,10 +256,9 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
     </ol>
   </section>
 
-  <section class="part" id="map" aria-labelledby="map-h">
+  <section class="part view" id="map" aria-labelledby="map-h">
     <h2 id="map-h">Ride map</h2>
     <p class="sub">One loop, Tomorrowland first, no doubling back. Pins sit where each ride is on the official guide map, and the #numbers match it. Tap a pin or ride to find it, tap again to check it off.</p>
-  </section>
 
   <figure class="guidemap">
     <a href="MK-guide-map.webp?v=3" target="_blank"><img class="poster" src="MK-guide-map.webp?v=3" width="4446" height="2124" alt="Magic Kingdom guide map with Saturday's route, the attraction list, and the legend" fetchpriority="high"></a>
@@ -286,8 +337,9 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
     <span id="count"></span>
     <button type="button" id="reset">Uncheck all</button>
   </div>
+  </section>
 
-  <section class="part" id="breaks" aria-labelledby="breaks-h">
+  <section class="part view" id="breaks" aria-labelledby="breaks-h">
     <h2 id="breaks-h">Need a break</h2>
     <p class="sub">Quieter spots Disney lists for Magic Kingdom. Any Cast Member can point to the nearest one. First Aid is quiet too, with roomier restrooms and private space for changing.</p>
     <ul class="breaks">
@@ -301,7 +353,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
     <p class="sub">Companion (family) restrooms are listed in the Disney app.</p>
   </section>
 
-  <section class="access" id="access" aria-labelledby="access-h">
+  <section class="access view" id="access" aria-labelledby="access-h">
     <div class="access-head">
       <div class="eyebrow">For our crew</div>
       <h2 id="access-h">Lines &amp; DAS</h2>
@@ -392,7 +444,7 @@ Kevin • 4:30 PM
     </details>
   </section>
 
-  <section class="part" id="lost" aria-labelledby="lost-h">
+  <section class="part view" id="lost" aria-labelledby="lost-h">
     <h2 id="lost-h">If someone gets lost</h2>
     <ul class="checks" style="list-style:disc;padding-left:20px">
       <li><b>Kids:</b> stop and find a Cast Member, anyone in a Disney name tag. Show them your name tag.</li>
@@ -510,6 +562,17 @@ function render(){
 document.getElementById("reset").addEventListener("click",()=>{done.clear();save();render()});
 render();
 
+// one section at a time: dropdown + #hash, Home by default
+const views=[...document.querySelectorAll(".view")], pick=document.getElementById("pick");
+function show(id){
+  if(!views.some(v=>v.id===id)) id="home";
+  views.forEach(v=>v.classList.toggle("on",v.id===id));
+  pick.value=id; window.scrollTo(0,0);
+}
+pick.addEventListener("change",()=>{location.hash=pick.value});
+window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+show(location.hash.slice(1));
+
 // prep and pack checklists, saved per device
 document.querySelectorAll(".checks[data-key]").forEach(ul=>{
   const k=ul.dataset.key, boxes=[...ul.querySelectorAll("input")];
@@ -523,7 +586,7 @@ const waitClass=w=>w>=45?"long":w>=20?"mid":"short";
 async function loadWaits(){
   let data;
   for(const url of WAITS){try{const res=await fetch(url,{cache:"no-store"}); if(res.ok){data=await res.json();break;}}catch(e){}}
-  if(!data){document.getElementById("live-stamp").innerHTML=`Live waits unavailable right now. Use the Disney app. · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`; return;}
+  if(!data){document.getElementById("home-top").innerHTML="<li>Live waits unavailable. Use the Disney app.</li>";document.getElementById("live-stamp").innerHTML=`Live waits unavailable right now. Use the Disney app. · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`; return;}
   const byId=new Map(data.rides.map(x=>[x.id,x]));
   let newest=0;
   rides.forEach(r=>{
@@ -537,9 +600,11 @@ async function loadWaits(){
   });
   const top=rides.filter(r=>r.q&&!done.has(r.id)&&byId.get(r.q)?.open)
     .map(r=>({r,w:byId.get(r.q).wait})).sort((a,b)=>b.w-a.w).slice(0,3);
-  document.getElementById("live-top").innerHTML=top.length
+  const topHTML=top.length
     ? top.map(({r,w})=>`<li><span>${r.n}. ${r.name}</span><span class="wait ${waitClass(w)}">${w} min</span></li>`).join("")
     : "<li>No rides on our list are running right now.</li>";
+  document.getElementById("live-top").innerHTML=topHTML;
+  document.getElementById("home-top").innerHTML=topHTML;
   const mins=newest?Math.max(0,Math.round((Date.now()-newest)/60000)):null;
   document.getElementById("live-stamp").innerHTML=`${mins===null?"":`Updated ${mins<1?"just now":mins+" min ago"} · `}Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`;
 }
