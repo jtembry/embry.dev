@@ -225,7 +225,7 @@ a.ht{text-decoration:none;color:inherit}
 .refn:focus-visible,.ridechk .ht:focus-visible{outline:2px solid var(--mid);outline-offset:2px}
 .mapview{position:fixed;inset:0;z-index:40;background:var(--bg);display:grid;grid-template-rows:auto 1fr;padding-top:env(safe-area-inset-top,0px)}
 .mv-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line)}
-.mv-tt{min-width:0;display:grid;gap:2px}
+.mv-tt{flex:1 1 auto;min-width:0;display:grid;grid-template-columns:minmax(0,1fr);gap:2px}
 .mv-sub{margin:0;font-size:14px;color:var(--muted)}
 .mv-head h2{font-family:var(--display);font-weight:800;font-size:19px;margin:0;min-width:0}
 .mv-ctl{display:flex;gap:6px;flex:none}
@@ -266,8 +266,10 @@ a.ht{text-decoration:none;color:inherit}
 .meals .fchk[hidden]{display:inline-block!important;visibility:hidden}
 .meals>li.done .ref{text-decoration:line-through;color:var(--muted)}
 .mzone{font-size:13px}
-.fd-add{min-height:34px;padding:0 10px;margin:4px 4px 0 0;font-size:13px}
-.fd-add.next{background:#16897a;border-color:#16897a;color:#fff}
+.fd-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px}
+.fd-menu{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;font-size:16px;line-height:1;border-width:2px;color:var(--mid)}
+.fd-meal{flex:1 1 170px;min-width:0;max-width:100%;text-overflow:ellipsis;min-height:44px;font:inherit;font-size:15px;font-weight:700;border-radius:10px;padding:0 10px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.fd-add{flex:none;min-height:44px;padding:0 16px;font-size:15px;background:#16897a;border-color:#16897a;color:#fff}
 .dasinfo{color:var(--muted)}
 .food-btn{background:#c2610f}
 .meals .fctl{width:100%}
@@ -1196,24 +1198,27 @@ function pmWatchSync(){ location.hash==="#map"&&document.visibilityState==="visi
 addEventListener("hashchange",pmWatchSync); document.addEventListener("visibilitychange",pmWatchSync); pmWatchSync();
 document.getElementById("pm-me").addEventListener("click",()=>{ pmWatchStart(); gpsOn()?pmPaintYou(true):locate(()=>pmPaintYou(true)); });
 // ---------- 🍴 Food: nearest food spots (GPS, else from the last ride ticked); add one to a meal ----------
-let fdSel=null, fdNote="";
+let fdSel=null, fdNote="", fdMeal=null;
 function nextMealK(){ const n=nowET(); const ks=[1,2,3,4].filter(k=>!(chosenSpot(k)&&done.has(chosenSpot(k)))); return ks.find(k=>n.day!==DAY||MEALK[k].t>=n.min-45)||ks[ks.length-1]||2; }
 function showFood(){
   const near=byDistance(FOODCAT), list=near.filter(c=>c.type!=="table").concat(near.filter(c=>c.type==="table"));   // walk-up spots first; table service needs a reservation
   const k=fdSel==null?0:list.findIndex(c=>c.i===fdSel), c=list[k], nk=nextMealK();
   openMapAt({title:k===0?"🍴 Nearest food":"🍴 Food",
-    sub:`<b>${c.name}</b> #${c.m} · ${FOOD_TYPE[c.type]} · ${roundM(c.d)} · <a class="menu" href="${menuURL(c)}" target="_blank" rel="noopener">Menu</a><br>
-      Add to the path as: ${[nk,...[1,2,3,4].filter(x=>x!==nk)].map(m=>`<button type="button" class="fd-add${m===nk?" next":""}" data-addmeal="${m}" data-m="${c.m}">${MEALK[m].label}</button>`).join(" ")}
-      ${fdNote?`<br><b>${fdNote}</b>`:""}<br>${fromLabel()}`,
+    sub:`<b>${c.name}</b> #${c.m} · ${FOOD_TYPE[c.type]} · ${roundM(c.d)}
+      <span class="fd-row"><a class="menu fd-menu" href="${menuURL(c)}" target="_blank" rel="noopener" aria-label="${c.name} menu">Menu</a></span>
+      <span class="fd-row"><select class="fd-meal" id="fd-meal" aria-label="Which meal">${[1,2,3,4].map(m=>{ const cur=chosenSpot(m), on=cur?FOODCAT.find(x=>x.m===cur%100):null;
+        return `<option value="${m}" ${m===(fdMeal||nk)?"selected":""}>${MEALK[m].label}${on?(on.m===c.m?" · already this":` · now ${on.name}`):""}</option>`; }).join("")}</select><button type="button" class="fd-add" data-addmeal data-m="${c.m}">Add to path</button></span>
+      ${fdNote?`<b>${fdNote}</b><br>`:""}${fromLabel()}`,
     x:c.px[0],y:c.px[1],you:gpsOn()?geoPx(fix.ll):null,
     dots:FOODCAT.map(q=>({x:q.px[0],y:q.px[1],icon:q.type==="table"?"🍽":"🍴",cls:"",label:q.name})),
     pick:i=>{ fdSel=i; fdNote=""; showFood(); }});
 }
-function openFood(from){ fdSel=null; fdNote=""; mvFrom=from; showFood(); locate(()=>{ if(!mv.hidden&&document.getElementById("mv-h").textContent.startsWith("🍴")) showFood(); }); }
+function openFood(from){ fdSel=null; fdNote=""; fdMeal=null; mvFrom=from; showFood(); locate(()=>{ if(!mv.hidden&&document.getElementById("mv-h").textContent.startsWith("🍴")) showFood(); }); }
 document.getElementById("food-btn").addEventListener("click",e=>openFood(e.currentTarget));
+document.getElementById("mv-sub").addEventListener("change",e=>{ if(e.target.id==="fd-meal") fdMeal=+e.target.value; });
 document.getElementById("mv-sub").addEventListener("click",e=>{
   const add=e.target.closest("[data-addmeal]");
-  if(add){ const k=+add.dataset.addmeal, m=+add.dataset.m; setMeal(k,m); renderDay(); fdNote=`✓ ${FOODCAT.find(c=>c.m===m).name} is now our ${MEALK[k].label.toLowerCase()} on the path.`; fdSel=FOODCAT.findIndex(c=>c.m===m); showFood(); }
+  if(add){ const k=+document.getElementById("fd-meal").value, m=+add.dataset.m; fdMeal=k; setMeal(k,m); renderDay(); fdNote=`✓ ${FOODCAT.find(c=>c.m===m).name} is now our ${MEALK[k].label.toLowerCase()} on the path.`; fdSel=FOODCAT.findIndex(c=>c.m===m); showFood(); }
 });
 // ---------- floating bubble: tap to show Food / Restroom / Calm, tap again (or anywhere else) to fold ----------
 const fabItems=document.getElementById("fab-items"), fabToggle=document.getElementById("fab-toggle");
