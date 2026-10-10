@@ -237,7 +237,7 @@ a.ht{text-decoration:none;color:inherit}
 .meals .mn{min-width:0}
 .fctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:4px}
 .fsel{min-height:34px;font:inherit;font-size:13px;font-weight:700;border-radius:8px;padding:0 8px;border:1px solid #7b8a85;background:#7b8a85;color:#fff}
-.food-on .fsel{background:#c2610f;border-color:#c2610f}
+.food-on .fsel{background:#16897a;border-color:#16897a}
 .meals li label.ate{display:inline-flex;align-items:center;gap:6px;min-height:34px;font-size:13px;font-weight:700;color:var(--ink);background:none;border:0;padding:0;border-radius:0;grid-template-columns:none;cursor:pointer}
 .meals li .ate input{position:static;opacity:1;pointer-events:auto;width:20px;height:20px;margin:0;accent-color:var(--mid)}
 .meals>li:not(.food-on){opacity:.75}
@@ -328,7 +328,7 @@ button{min-height:44px}
       <li data-h="7"><time>7:20</time><span class="rail"></span><div class="what"><b>Security, then monorail or ferry</b><span>Bags open, pockets empty. Monorail 10 min, ferry 12–15. Lines can be long at opening.</span></div></li>
       <li style="--c:var(--am)" data-h="7"><time>7:50</time><span class="rail"></span><div class="what"><b><span class="ref">Gate</span></b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
       <li style="--c:var(--am)" data-h="8"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at <span class="ref">City Hall<span class="refn">#1</span></span> (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
-      <li style="--c:var(--am)" data-h="8"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <span class="ref">TRON<span class="refn">#68</span></span> as our first DAS return</b><span>High priority. Do it right after Guest Relations. It stays good until close.</span></div></li>
+      <li style="--c:var(--am)" data-h="8"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <span class="ref">TRON<span class="refn">#68</span></span> as our first DAS return</b><span>Do it right after Guest Relations. It stays good until close.</span></div></li>
       <li style="--c:var(--am)" data-h="8-9" data-zone="1"><time>8:15</time><span class="rail"></span><div class="what zone"><b>Tomorrowland</b><div class="zbody" data-zbody="1"></div></div></li>
       <li style="--c:var(--am)" data-h="10-11" data-zone="2"><time>10:00</time><span class="rail"></span><div class="what zone"><b>Storybook Circus and Fantasyland</b><div class="zbody" data-zbody="2"></div></div></li>
       <li style="--c:var(--am)" data-h="10"><time>10:00</time><span class="rail"></span><div class="what"><b>🍎 Snack</b><p class="mtip">Near Seven Dwarfs. Refill water.</p><ul class="meals"><li><div class="mn"><span class="mline"><span class="ref">Prince Eric's Village Market</span></span><small>Fruit and drinks</small></div><span class="mside"><a class="menu" href="https://disneyworld.disney.go.com/dining/magic-kingdom/prince-eric-village-market/menus/" target="_blank" rel="noopener" aria-label="Prince Eric&#39;s Village Market menu">Menu</a><span class="refn mnum">#64</span></span></li><li><div class="mn"><span class="mline"><span class="ref">Cheshire Café</span></span><small>Iced drinks</small></div><span class="mside"><a class="menu" href="https://disneyworld.disney.go.com/dining/magic-kingdom/cheshire-cafe/menus/" target="_blank" rel="noopener" aria-label="Cheshire Café menu">Menu</a><span class="refn mnum">#65</span></span></li></ul></div></li>
@@ -352,7 +352,7 @@ button{min-height:44px}
     <div id="map-warn"></div>
     <div class="map-sum" id="map-sum"></div>
     <div class="map-tools">
-      <div class="map-legend"><span class="lg"><i class="pp start">GR</i>Start: Guest Relations</span><span class="lg"><i class="pp high">3</i>High</span><span class="lg"><i class="pp das">🎟</i>DAS candidate</span><span class="lg"><i class="pp food">🍴</i>Food stop</span><span class="lg"><i class="pp done">✓</i>Done</span><span class="lg"><i class="pp low"></i>Low</span><span class="lg">📍 Last ride ticked</span></div>
+      <div class="map-legend"><span class="lg"><i class="pp start">GR</i>Start: Guest Relations</span><span class="lg"><i class="pp high">3</i>On the path</span><span class="lg"><i class="pp das">🎟</i>DAS candidate</span><span class="lg"><i class="pp food">🍴</i>Food stop</span><span class="lg"><i class="pp done">✓</i>Done</span><span class="lg"><i class="pp low"></i>Skip</span><span class="lg">📍 Last ride ticked</span></div>
       <div class="map-zoom"><button type="button" id="pm-out" aria-label="Zoom out">−</button><button type="button" id="pm-in" aria-label="Zoom in">+</button></div>
     </div>
     <div class="pm-scroll" id="pm-scroll"><div class="pm-inner" id="pm-inner">
@@ -361,7 +361,7 @@ button{min-height:44px}
       <div id="pm-pins"></div>
     </div></div>
     <div class="pm-card" id="pm-card">Tap a pin to see the ride, change its priority or tick it off.</div>
-    <p class="znote">The path visits High and DAS rides stop by stop, counterclockwise: Tomorrowland, Fantasyland, Liberty Square, Frontierland, Adventureland, then the evening. Inside each stop it takes the order with the least walking. DAS rides can be ridden any time after their return time comes up. Changes from any phone redraw it.</p>
+    <p class="znote">The path visits every On the path and DAS ride stop by stop, counterclockwise: Tomorrowland, Fantasyland, Liberty Square, Frontierland, Adventureland, then the evening. Inside each stop it takes the order with the least walking. DAS rides can be ridden any time after their return time comes up. Changes from any phone redraw it.</p>
   </section>
 
   <section class="access view" id="access" aria-labelledby="access-h">
@@ -444,8 +444,8 @@ const byQ=new Map(ALL.map(a=>[a.id,a]));
 const INDOOR=[138,131,137,140,136,127,133,142,128,356,1214,334,171,125,457], COVERED=[134,135,161,1190,13763];
 const kindOf=id=>INDOOR.includes(id)?"indoor":COVERED.includes(id)?"covered":"outdoor";
 const KIND_LABEL={indoor:"Indoor",covered:"Covered",outdoor:"Outdoor"};
-const NOTES={13763:"Walk through the castle and take photos in front of it",138:"High priority · 44 in. to ride",11527:"High priority · ride on the DAS return booked at 8:05 · 48 in. to ride",
-  129:"Good DAS pick",130:"Ride before 2, before the storms",13630:"You will get wet · ride before 2",334:"High priority · air-conditioned show, about 15 min",131:"New version",135:"Under a roof"};
+const NOTES={13763:"Walk through the castle and take photos in front of it",138:"44 in. to ride",11527:"Ride on the DAS return booked at 8:05 · 48 in. to ride",
+  129:"Good DAS pick",130:"Ride before 2, before the storms",13630:"You will get wet · ride before 2",334:"Air-conditioned show, about 15 min",131:"New version",135:"Under a roof"};
 const DEFAULT_PLAN=[138,1190,131,143,11527,126,129,130,13630,134,334,137,140,136,127,135,13763];
 const DONE_KEY="mk-done-v5";
 const loadJSON=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:d}catch(e){return d}};
@@ -493,7 +493,7 @@ document.querySelectorAll(".tl>li").forEach(li=>{
     FOOD.push({id,m:num,name,x:pos[0],y:pos[1],zone:meal.zone,meal:meal.label,food:true}); if(i===0) FOOD_ON.add(id);
     byQ.set(id,{id,m:num,name,x:pos[0],y:pos[1],food:true,meal:meal.label}); zoneOf.set(id,meal.zone);
     row.dataset.food=id;
-    row.querySelector(".mn").insertAdjacentHTML("beforeend",`<span class="fctl"><select class="fsel" data-pri="${id}" aria-label="${name} for ${meal.label}"><option value="must">🍴 On the path</option><option value="wont">Skip</option></select><label class="ate"><input type="checkbox" data-done="${id}"> Ate here</label></span>`);
+    row.querySelector(".mn").insertAdjacentHTML("beforeend",`<span class="fctl"><select class="fsel" data-pri="${id}" aria-label="${name} for ${meal.label}"><option value="must">On the path</option><option value="wont">Skip</option></select><label class="ate"><input type="checkbox" data-done="${id}"> Ate here</label></span>`);
   });
 });
 const FOOD_IDS=new Set(FOOD.map(f=>f.id)), isFood=id=>FOOD_IDS.has(id);
@@ -511,8 +511,8 @@ function zoneCenter(z){const r=ZONES[z].rides.map(id=>byQ.get(id));return [r.red
 // ~1 map px ≈ 0.55 m; walking with kids ≈ 55 m/min
 const andList=l=>l.length<2?l.join(""):l.slice(0,-1).join(", ")+" and "+l[l.length-1];
 const walkMin=(a,[x,y])=>Math.max(2,Math.round(Math.hypot(a.x-x,a.y-y)*0.55/55));
-// each ride: High / Medium / Low priority, saved per phone. Planned rides start as High, the rest as Medium.
-const PRI_KEY="mk-pri-v1", PRI_LABEL={das:"DAS candidate (top)",must:"High priority",wont:"Low priority"}, PRI_RANK={das:-1,must:0,opt:1,wont:2};
+// each ride: DAS candidate / On the path / Skip, synced across phones. Planned rides start as High, the rest as Medium.
+const PRI_KEY="mk-pri-v1", PRI_LABEL={das:"DAS candidate (top)",must:"On the path",wont:"Skip"}, PRI_RANK={das:-1,must:0,opt:1,wont:2};
 let pri={}; try{pri=JSON.parse(localStorage.getItem(PRI_KEY))||{}}catch(e){}
 // DAS candidates: rides worth booking on DAS. Mark as many as you like; these start marked (long lines on our route).
 // Space Mountain stays High: ride it at opening in the regular line.
@@ -558,7 +558,7 @@ function bigWarnings(){
     const z=zoneOf.get(id); if(!z||z===6) return;
     const [a,b]=stopWindow(z); let worst=null;
     for(let h=Math.floor(a/60);h<=Math.floor((b-1)/60);h++){ const w=wxAt(h); if(w&&w[2]&&w[1]>=50&&(!worst||w[1]>worst[1])) worst=w; }
-    if(worst) out.push(`<b>${byQ.get(id).name}</b> is outdoors, and the path reaches it about ${fmtMin(a)}–${fmtMin(b)}, when thunderstorms are likely (up to ${worst[1]}%). It may close for lightning. Switch it to <b>DAS candidate</b> to ride it whenever it's open, or set it to <b>Low</b>.`);
+    if(worst) out.push(`<b>${byQ.get(id).name}</b> is outdoors, and the path reaches it about ${fmtMin(a)}–${fmtMin(b)}, when thunderstorms are likely (up to ${worst[1]}%). It may close for lightning. Switch it to <b>DAS candidate</b> to ride it whenever it's open, or set it to <b>Skip</b>.`);
   });
   return out;
 }
@@ -596,7 +596,7 @@ function renderDay(){
     if(isCur&&today){
       if(i<=5&&n.min>z.end+10){
         const das=highLeft(i).filter(id=>priOf(id)==="must"&&open(id)).sort((p,q)=>wait(q)-wait(p))[0];
-        nudges.push(`⏱ Running ${n.min-z.end} min behind.${das?` Switch ${byQ.get(das).name} to DAS candidate,`:""} or set a ride to Low to drop it from the path.`);
+        nudges.push(`⏱ Running ${n.min-z.end} min behind.${das?` Switch ${byQ.get(das).name} to DAS candidate,`:""} or set a ride to Skip to drop it from the path.`);
       }
       let stormAt=null; for(let h=hr;h<=hr+2;h++){const w=wxAt(h); if(w&&w[2]&&w[1]>=50){stormAt=h;break}}
       if(stormAt!==null){
@@ -619,7 +619,7 @@ function renderDay(){
   const dw=document.getElementById("day-warn"); if(dw) dw.innerHTML=warnHTML();
   if(typeof renderMap==="function") try{renderMap()}catch(e){}
   const musts=ALL.filter(a=>!a.meet).map(a=>a.id).filter(isHigh);
-  document.getElementById("count").textContent=`${musts.filter(id=>done.has(id)).length} of ${musts.length} high-priority rides done`;
+  document.getElementById("count").textContent=`${musts.filter(id=>done.has(id)).length} of ${musts.length} rides on the path done`;
   if(typeof paintNow==="function") try{paintNow(false)}catch(e){}
 }
 function onRideChange(e){
@@ -955,7 +955,7 @@ function renderMap(){
     return `<button type="button" class="pin2 food${d?" done":""}${f.id===next?" next":""}${pmSel===f.id?" sel":""}" style="${pct2(PT(f.id))}" data-pin="${f.id}" aria-label="Stop ${n}: ${f.meal} at ${f.name}">${d?"✓":"🍴"+n}</button>`; }).join("")+`<span class="pin2 start" style="${pct2(CITYHALL)}" title="Start: Guest Relations at City Hall #1">GR</span>`+(here?`<span class="here-pin" style="${pct2(PT(here))}">📍</span>`:"");
   // summary
   const left=path.filter(id=>!done.has(id)); let px=0, at=here?PT(here):CITYHALL; left.forEach(id=>{px+=dist(at,PT(id)); at=PT(id);});
-  document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name} #${byQ.get(next).m}${wait(next)!=null?`, ${wait(next)} min posted`:""}${isFood(next)?` (${byQ.get(next).meal})`:priOf(next)==="das"?" (DAS candidate)":""}</span><span>${left.length} stops left on the path · about ${walkMinPx(px)} min of walking</span>${dasHTML()}`:"<span><b>Every High and DAS ride is done.</b> Re-ride favorites or head home.</span>";
+  document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name} #${byQ.get(next).m}${wait(next)!=null?`, ${wait(next)} min posted`:""}${isFood(next)?` (${byQ.get(next).meal})`:priOf(next)==="das"?" (DAS candidate)":""}</span><span>${left.length} stops left on the path · about ${walkMinPx(px)} min of walking</span>${dasHTML()}`:"<span><b>Every ride on the path is done.</b> Re-ride favorites or head home.</span>";
   document.getElementById("map-warn").innerHTML=warnHTML();
   if(pmSel) pmCard(pmSel);
   if(!pmCentered&&document.getElementById("map").classList.contains("on")&&next){ pmCentered=true; pmCenter(PT(next)); }
@@ -963,7 +963,7 @@ function renderMap(){
 function pmCenter([x,y]){ pmScroll.scrollTo({left:x/2060*pmInner.offsetWidth-pmScroll.clientWidth/2,top:y/2124*pmInner.offsetHeight-pmScroll.clientHeight/2}); }
 function pmCard(id){
   if(isFood(id)){ const f=byQ.get(id), n=computePath().indexOf(id)+1, on=priOf(id)==="must";
-    document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${f.name}</b> <span>#${f.m} · ${f.meal} · ${ZONES[zoneOf.get(id)].n}</span><div class="pm-row"><select data-pri="${id}" aria-label="${f.name}: on the path or skip"><option value="must" ${on?"selected":""}>🍴 On the path</option><option value="wont" ${on?"":"selected"}>Skip</option></select><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Ate here</label></div>`; return; }
+    document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${f.name}</b> <span>#${f.m} · ${f.meal} · ${ZONES[zoneOf.get(id)].n}</span><div class="pm-row"><select data-pri="${id}" aria-label="${f.name}: on the path or skip"><option value="must" ${on?"selected":""}>On the path</option><option value="wont" ${on?"":"selected"}>Skip</option></select><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Ate here</label></div>`; return; }
   const a=byQ.get(id), p=priOf(id), n=computePath().indexOf(id)+1, w=lastById&&lastById.get(id);
   document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${a.name}</b> <span>#${a.m||"–"} · ${ZONES[zoneOf.get(id)].n} · ${KIND_LABEL[kindOf(id)]}${w?` · ${w.open?w.wait+" min posted":"closed"}`:""}</span>
     <div class="pm-row"><select data-pri="${id}" aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===p?"selected":""}>${v}</option>`).join("")}</select><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label></div>`;
