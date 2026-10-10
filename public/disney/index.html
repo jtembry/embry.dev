@@ -193,8 +193,15 @@ a.ht{text-decoration:none;color:inherit}
 .wx-src{color:var(--muted);font-size:12px}
 .view>*,.wrap>*{min-width:0}
 .offline{background:var(--paper);border:1px dashed var(--line);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--muted)}
-.calm-btn{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:12;min-height:52px;padding:0 18px;border-radius:999px;border:0;background:#4b4aa8;color:#fff;font-size:17px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.fab-stack{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:12;display:grid;gap:10px;justify-items:end}
+.calm-btn{min-height:52px;padding:0 18px;border-radius:999px;border:0;background:#4b4aa8;color:#fff;font-size:17px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .calm-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.calm-btn.rr-btn{background:#16897a}
+.calm .from{margin:0;font-size:14px;color:var(--muted)}
+.calm .sp{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.calm .sp small{color:var(--muted)}
+.calm .sp button{flex:none;min-height:40px;padding:0 14px}
+.calm ul.spots{list-style:none;padding:0}
 .calm{position:fixed;left:0;right:0;bottom:0;z-index:30;max-height:85vh;overflow-y:auto;background:var(--paper);border-radius:18px 18px 0 0;padding:16px 16px calc(24px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 24px rgba(0,0,0,.4);display:grid;gap:12px}
 @media (min-width:700px){.calm{left:auto;right:16px;bottom:16px;width:440px;border-radius:18px}}
 .calm-head{display:flex;justify-content:space-between;align-items:center}
@@ -210,6 +217,8 @@ a.ht{text-decoration:none;color:inherit}
 .refn:focus-visible,.ridechk .ht:focus-visible{outline:2px solid var(--mid);outline-offset:2px}
 .mapview{position:fixed;inset:0;z-index:40;background:var(--bg);display:grid;grid-template-rows:auto 1fr;padding-top:env(safe-area-inset-top,0px)}
 .mv-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.mv-tt{min-width:0;display:grid;gap:2px}
+.mv-sub{margin:0;font-size:14px;color:var(--muted)}
 .mv-head h2{font-family:var(--display);font-weight:800;font-size:19px;margin:0;min-width:0}
 .mv-ctl{display:flex;gap:6px;flex:none}
 .mv-ctl button{width:44px;padding:0;font-size:18px}
@@ -217,6 +226,10 @@ a.ht{text-decoration:none;color:inherit}
 .mv-inner{position:relative;width:calc(var(--z,1) * 100%)}
 .mv-inner img{display:block;width:100%;height:auto;filter:grayscale(1) brightness(1.06) contrast(.85)}
 .mv-mark{position:absolute;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:5px solid #d4573f;box-shadow:0 0 0 4px #fff,0 0 0 14px rgba(212,87,63,.35);animation:mvpulse 1.4s ease-in-out infinite}
+.mv-mark{z-index:5;pointer-events:none}
+.mv-dot{position:absolute;transform:translate(-50%,-50%);min-height:0;width:36px;height:36px;padding:0;border-radius:50%;border:2px solid #fff;background:#1f6fb8;color:#fff;font-size:17px;line-height:1;display:grid;place-items:center;box-shadow:0 1px 4px rgba(0,0,0,.45);z-index:4}
+.mv-dot.c{background:#16897a}
+.mv-you{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:#1a73e8;border:3px solid #fff;box-shadow:0 0 0 7px rgba(26,115,232,.3);z-index:6;pointer-events:none}
 @keyframes mvpulse{50%{box-shadow:0 0 0 4px #fff,0 0 0 24px rgba(212,87,63,.12)}}
 @media (prefers-reduced-motion:reduce){.mv-mark{animation:none}}
 .bigwarn{background:#d4573f;color:#fff;border-radius:14px;padding:12px 14px;display:grid;gap:6px;font-size:15px}
@@ -420,15 +433,15 @@ button{min-height:44px}
 
 </div>
 
-<button type="button" class="calm-btn" id="calm-btn" aria-haspopup="dialog" aria-controls="calm">🫧 Calm</button>
+<div class="fab-stack"><button type="button" class="calm-btn rr-btn" id="rr-btn" aria-haspopup="dialog" aria-controls="mapview">🚻 Restroom</button><button type="button" class="calm-btn" id="calm-btn" aria-haspopup="dialog" aria-controls="calm">🫧 Calm</button></div>
 <div class="scrim" id="calm-scrim" hidden></div>
 <section class="calm" id="calm" role="dialog" aria-modal="true" aria-labelledby="calm-h" hidden>
   <div class="calm-head"><h2 id="calm-h">Find calm</h2><button type="button" id="calm-close" aria-label="Close">✕</button></div>
   <div id="calm-body"></div>
 </section>
 <section class="mapview" id="mapview" role="dialog" aria-modal="true" aria-labelledby="mv-h" hidden>
-  <div class="mv-head"><h2 id="mv-h"></h2><div class="mv-ctl"><button type="button" id="mv-out" aria-label="Zoom out">−</button><button type="button" id="mv-in" aria-label="Zoom in">+</button><button type="button" id="mv-close" aria-label="Close map">✕</button></div></div>
-  <div class="mv-scroll" id="mv-scroll"><div class="mv-inner" id="mv-inner"><img src="MK-live-map.webp" width="1400" height="1443" alt="Magic Kingdom map"><span class="mv-mark" id="mv-mark"></span></div></div>
+  <div class="mv-head"><div class="mv-tt"><h2 id="mv-h"></h2><p class="mv-sub" id="mv-sub" hidden></p></div><div class="mv-ctl"><button type="button" id="mv-out" aria-label="Zoom out">−</button><button type="button" id="mv-in" aria-label="Zoom in">+</button><button type="button" id="mv-close" aria-label="Close map">✕</button></div></div>
+  <div class="mv-scroll" id="mv-scroll"><div class="mv-inner" id="mv-inner"><img src="MK-live-map.webp" width="1400" height="1443" alt="Magic Kingdom map"><div id="mv-dots"></div><span class="mv-you" id="mv-you" hidden></span><span class="mv-mark" id="mv-mark"></span></div></div>
 </section>
 <script>
 const ALL=[
@@ -763,76 +776,135 @@ if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch
 function paintOnline(){document.getElementById("offline").hidden=navigator.onLine}
 addEventListener("online",paintOnline); addEventListener("offline",paintOnline); paintOnline();
 
-// ---------- Calm: nearest quiet spots for where we are now ----------
-// Coordinates from OpenStreetMap. `at` = the spot itself; `near` = extra points that mark the land
-// (rides and shops) so a GPS fix lands in the right one.
-const AREAS={
-  "Main Street":{quiet:[{t:"Center Street, the side street halfway up Main Street",at:[28.41749,-81.58100]}],rest:{t:"Companion restroom by City Hall #1",at:[28.41676,-81.58167]},
-    near:[[28.41794,-81.58133],[28.41778,-81.58120],[28.41809,-81.58199],[28.41723,-81.58102]]},
-  "Tomorrowland":{quiet:[{t:"The path from TRON #68 toward Fantasyland",at:[28.42040,-81.57740]},{t:"Between Space Mountain #70 and the Rockettower Plaza Stage",at:[28.41870,-81.57790]},{t:"Near Carousel of Progress #73",at:[28.41779,-81.57884]}],rest:{t:"Companion restroom near Joffrey's #80, by Space Mountain",at:[28.41850,-81.57848]},
-    near:[[28.41915,-81.57725],[28.42051,-81.57672],[28.41819,-81.57993],[28.41797,-81.58047],[28.41952,-81.57922],[28.41842,-81.57873]]},
-  "Fantasyland":{quiet:[{t:"Near the Wishing Well by Cinderella Castle",at:[28.41960,-81.58075]},{t:"Outside Pete's Silly Sideshow in Storybook Circus, by Dumbo #55",at:[28.42136,-81.57907]}],rest:{t:"Companion restrooms by Pinocchio Village Haus #58 and by the Barnstormer #54",at:[28.42065,-81.58148]},
-    near:[[28.42044,-81.57823],[28.42043,-81.57895],[28.42077,-81.57872],[28.42019,-81.58060],[28.42076,-81.58050],[28.42010,-81.58120]]},
-  "Liberty Square":{quiet:[{t:"Behind Ye Olde Christmas Shoppe #40",at:[28.41913,-81.58223]},{t:"Next to The Hall of Presidents #33",at:[28.41968,-81.58208]}],rest:{t:"Nearest companion restroom: by Tiana's #25 or Pinocchio Village Haus #58"},
-    near:[[28.41999,-81.58254],[28.42045,-81.58300]]},
-  "Frontierland":{quiet:[{t:"Near the Tiana's Bayou Adventure #25 restrooms",at:[28.41935,-81.58440]}],rest:{t:"Companion restroom by Tiana's #25",at:[28.41935,-81.58440]},
-    near:[[28.41910,-81.58460],[28.41873,-81.58382],[28.41965,-81.58509],[28.42000,-81.58400]]},
-  "Adventureland":{quiet:[{t:"Near Swiss Family Treehouse #13",at:[28.41822,-81.58298]},{t:"Next to the Pirates #17 restrooms",at:[28.41804,-81.58423]}],rest:{t:"Companion restroom by Pirates #17",at:[28.41804,-81.58423]},
-    near:[[28.41843,-81.58389],[28.41768,-81.58384]]}
-};
-const CASTLE=[28.4195,-81.58118];
+// ---------- Where are we: GPS when the phone allows it, else the last ride ticked ----------
+// GPS → map: [lat, lng, x, y] for rides found both on OpenStreetMap and on the 2060x2124 map panel.
+// A least-squares affine fit, then each anchor pulls nearby points onto itself (inverse-distance weights).
+const GEO_ANCHORS=[[28.41873,-81.58382,532,1014],[28.41968,-81.58208,892,816],[28.41843,-81.58389,536,1164],[28.41822,-81.58298,744,1144],
+  [28.41804,-81.58423,400,1240],[28.41919,-81.58513,251,802],[28.42044,-81.57823,1870,440],[28.42043,-81.57895,1722,490],[28.41915,-81.57725,1925,982],
+  [28.41779,-81.57884,1706,1230],[28.41819,-81.57993,1497,1097],[28.41676,-81.58167,1066,1586],[28.41809,-81.58199,980,1210],[28.42065,-81.58148,1127,531],
+  [28.41913,-81.58223,930,928],[28.41850,-81.57848,1850,1100],[28.41950,-81.58118,1170,760],[28.41952,-81.57922,1650,857],[28.41652,-81.58120,1160,1656],
+  [28.42136,-81.57907,1695,295],[28.42111,-81.57837,1890,395]];
 function metres(a,b){ const k=111320, dx=(a[1]-b[1])*k*Math.cos(a[0]*Math.PI/180), dy=(a[0]-b[0])*k; return Math.hypot(dx,dy); }
-function anchors(name){ const a=AREAS[name]; return [...a.quiet.map(q=>q.at),a.rest.at,...a.near].filter(Boolean); }
-// lands ranked by their closest point to the fix; a second land shows too when we're on the border
-function areasAt(ll){
-  const r=Object.keys(AREAS).map(n=>({n,d:Math.min(...anchors(n).map(p=>metres(ll,p)))})).sort((a,b)=>a.d-b.d);
-  return r.slice(0,1).concat(r[1]&&r[1].d-r[0].d<40?[r[1]]:[]).map(x=>x.n);
+const GEO_FIT=(()=>{
+  const A=GEO_ANCHORS, S=Array.from({length:3},()=>[0,0,0]), bx=[0,0,0], by=[0,0,0];
+  A.forEach(([la,ln,x,y])=>{ const r=[1,la-28.419,ln+81.581]; for(let i=0;i<3;i++){ for(let j=0;j<3;j++) S[i][j]+=r[i]*r[j]; bx[i]+=r[i]*x; by[i]+=r[i]*y; } });
+  const solve=b=>{ const M=S.map((r,i)=>[...r,b[i]]); for(let c=0;c<3;c++){ let p=c; for(let r=c+1;r<3;r++) if(Math.abs(M[r][c])>Math.abs(M[p][c])) p=r; [M[c],M[p]]=[M[p],M[c]];
+      for(let r=0;r<3;r++) if(r!==c){ const f=M[r][c]/M[c][c]; for(let k=c;k<4;k++) M[r][k]-=f*M[c][k]; } } return M.map((r,i)=>r[3]/r[i]); };
+  const cx=solve(bx), cy=solve(by), aff=(la,ln)=>{ const r=[1,la-28.419,ln+81.581]; return [r[0]*cx[0]+r[1]*cx[1]+r[2]*cx[2], r[0]*cy[0]+r[1]*cy[1]+r[2]*cy[2]]; };
+  return {aff, res:A.map(([la,ln,x,y])=>{ const p=aff(la,ln); return [la,ln,x-p[0],y-p[1]]; })};
+})();
+function geoPx([la,ln]){
+  const p=GEO_FIT.aff(la,ln); let w=0, dx=0, dy=0;
+  for(const [a,b,rx,ry] of GEO_FIT.res){ const d=metres([la,ln],[a,b]); if(d<1) return [p[0]+rx,p[1]+ry]; const k=1/(d*d); w+=k; dx+=k*rx; dy+=k*ry; }
+  return [p[0]+dx/w, p[1]+dy/w];
 }
-function areasNow(){
-  return [null,["Tomorrowland"],["Fantasyland"],["Liberty Square","Frontierland"],["Frontierland","Adventureland"],["Adventureland","Liberty Square"],["Main Street"]][currentZone()]||["Main Street"];
-}
-const chipify=t=>t.replace(/#(\d+)/g,'<span class="refn">#$1</span>');
-const away=(ll,at)=>ll&&at?` <small>· ~${Math.max(10,Math.round(metres(ll,at)/10)*10)} m</small>`:"";
-function areaHTML(name,ll){
-  const a=AREAS[name], q=ll?[...a.quiet].sort((x,y)=>metres(ll,x.at)-metres(ll,y.at)):a.quiet;
-  return `<h3>${name}</h3><ul>${q.map(x=>`<li>${chipify(x.t)}${away(ll,x.at)}</li>`).join("")}<li>${chipify(a.rest.t)}${away(ll,a.rest.at)}</li></ul>`;
-}
-// GPS: the last good fix, and what the panel says about it
-let calmFix=null, calmGeo="ask";
-function calmLabel(){
-  if(calmGeo==="gps") return `Closest to you <small>(GPS, ±${Math.round(calmFix.acc)} m)</small>`;
-  const why={ask:"Finding where you are…",off:"Location is off, so this follows the plan.",far:"GPS says you're not in the park, so this follows the plan.",fuzzy:"GPS is too rough right now, so this follows the plan.",none:"No GPS fix, so this follows the plan."}[calmGeo]||"";
-  return `Closest to where the plan says we are <small>${why}</small>`;
-}
-function paintCalm(){
-  const ll=calmGeo==="gps"?calmFix.ll:null, here=ll?areasAt(ll):areasNow();
-  document.getElementById("calm-body").innerHTML=`
-    <div class="here"><b>${calmLabel()}</b>${here.map(n=>areaHTML(n,ll)).join("")}</div>
-    <h3>Anywhere in the park</h3>
-    <ul>
-      <li><b>First Aid:</b> quiet rooms, cots and roomier restrooms. End of Main Street, next to The Crystal Palace #9.</li>
-      <li><b>Sit in the air-conditioning:</b> Hall of Presidents #33 (about 22 min), Country Bear Jamboree #27, Tiki Room #16, PhilharMagic #45, Laugh Floor #75.</li>
-      <li><b>Stuck in a line?</b> One adult can step out with the kid while the rest hold the place, then rejoin at the front. Tell the Cast Member you're using Queue Re-Entry. No reason needed.</li>
-      <li><b>Any Cast Member</b> can point to the nearest quiet spot.</li>
-    </ul>
-    <details><summary>Other areas</summary>${Object.keys(AREAS).filter(k=>!here.includes(k)).map(n=>areaHTML(n,ll)).join("")}</details>`;
-  const cb=document.getElementById("calm-body"); cb.querySelectorAll("li").forEach(li=>{ if(!li.querySelector(".refn")) li.innerHTML=chipify(li.innerHTML); }); markChips(cb);
-}
-function locateCalm(){
-  if(!("geolocation" in navigator)){ calmGeo="none"; return paintCalm(); }
-  if(!calmFix) calmGeo="ask";
+const CASTLE=[28.4195,-81.58118], PX_PER_M=2.7;
+let fix=null, geo="ask";
+function locate(then){
+  if(!("geolocation" in navigator)){ geo="none"; return then&&then(); }
+  if(!fix) geo="ask";
   navigator.geolocation.getCurrentPosition(pos=>{
     const ll=[pos.coords.latitude,pos.coords.longitude], acc=pos.coords.accuracy||999;
-    calmFix={ll,acc};
-    calmGeo=metres(ll,CASTLE)>700?"far":acc>120?"fuzzy":"gps";
-    if(!document.getElementById("calm").hidden) paintCalm();
-  },err=>{
-    calmGeo=err.code===1?"off":"none";
-    if(!document.getElementById("calm").hidden) paintCalm();
-  },{enableHighAccuracy:true,timeout:10000,maximumAge:20000});
+    fix={ll,acc}; geo=metres(ll,CASTLE)>700?"far":acc>120?"fuzzy":"gps"; then&&then();
+  },err=>{ geo=err.code===1?"off":"none"; then&&then(); },{enableHighAccuracy:true,timeout:10000,maximumAge:20000});
+}
+const gpsOn=()=>geo==="gps";
+function herePx(){ if(gpsOn()) return geoPx(fix.ll); const t=lastTicked(); return t?PT(t):CITYHALL; }
+function fromLabel(){
+  if(gpsOn()) return `Distances from you (GPS, ±${Math.round(fix.acc)} m).`;
+  const why={ask:"Finding you on GPS…",off:"Location is off.",far:"GPS says you're not in the park.",fuzzy:"GPS is too rough right now.",none:"No GPS fix."}[geo]||"";
+  const t=lastTicked();
+  return `${why} Distances from ${t?`the last ride ticked, ${byQ.get(t).name}`:"Guest Relations"}.`;
+}
+// every place has `at` (lat, lng) and/or `m` (a Disney map number in SPOTS); px comes from the map number when there is one
+const pxOf=p=>p.px||(p.px=p.m&&SPOTS[p.m]?[SPOTS[p.m][1],SPOTS[p.m][2]]:geoPx(p.at));
+const metresTo=p=>gpsOn()&&p.at?metres(fix.ll,p.at):dist(herePx(),pxOf(p))/PX_PER_M;
+const byDistance=list=>list.map((p,i)=>({...p,i,d:metresTo(p)})).sort((a,b)=>a.d-b.d);
+const roundM=d=>`~${Math.max(10,Math.round(d/10)*10)} m`;
+
+// ---------- Restroom: nearest one on the map ----------
+// From OpenStreetMap; c = companion restroom (room for a parent and kid together)
+const RESTROOMS=[
+ {t:"Town Square, next to City Hall #1",at:[28.41687,-81.58183],c:1},
+ {t:"End of Main Street, by First Aid and the Baby Care Center",at:[28.41784,-81.58157]},
+ {t:"Tomorrowland Terrace, off the hub",at:[28.41785,-81.58066]},
+ {t:"Adventureland entrance, just over the bridge",at:[28.41866,-81.58290]},
+ {t:"Caribbean Plaza, by Pirates #17",at:[28.41799,-81.58470],c:1},
+ {t:"Between Pecos Bill #29 and Tortuga Tavern",at:[28.41855,-81.58435]},
+ {t:"By Tiana's Bayou Adventure #25",at:[28.41957,-81.58561],c:1},
+ {t:"Under the Frontierland railroad station",at:[28.41979,-81.58509]},
+ {t:"Liberty Square, by the Tangled tower on the way to Fantasyland",at:[28.42053,-81.58253]},
+ {t:"Pinocchio Village Haus #58",at:[28.42080,-81.58130],c:1},
+ {t:"Gaston's Tavern, Fantasyland",at:[28.42154,-81.58040]},
+ {t:"Cheshire Café #65, on the walk to Tomorrowland",at:[28.41974,-81.58014]},
+ {t:"Storybook Circus, by the Fantasyland train station",at:[28.42104,-81.57849]},
+ {t:"Storybook Circus, past the Barnstormer #54",at:[28.42047,-81.57769],c:1},
+ {t:"Tomorrowland, under the PeopleMover by Auntie Gravity's",at:[28.41888,-81.57955]},
+ {t:"Tomorrowland, by Joffrey's #80 and Space Mountain",at:[28.41841,-81.57821],c:1}];
+let rrSel=null;
+function showRestroom(){
+  const list=byDistance(RESTROOMS), k=rrSel==null?0:list.findIndex(r=>r.i===rrSel), r=list[k], pt=pxOf(r);
+  openMapAt({title:k===0?"🚻 Nearest restroom":"🚻 Restroom",
+    sub:`<b>${r.t}</b> · ${roundM(r.d)}${r.c?" · companion restroom":""}<br>${fromLabel()} Tap another 🚻 to switch.`,
+    x:pt[0],y:pt[1],you:gpsOn()?geoPx(fix.ll):null,
+    dots:RESTROOMS.map(q=>({x:pxOf(q)[0],y:pxOf(q)[1],icon:"🚻",cls:q.c?"c":"",label:q.t})),
+    pick:i=>{ rrSel=i; showRestroom(); }});
+}
+function openRestroom(from){
+  rrSel=null; mvFrom=from;
+  showRestroom();
+  locate(()=>{ if(!mv.hidden&&document.getElementById("mv-h").textContent.startsWith("🚻")) showRestroom(); });
+}
+
+// ---------- Calm: quiet spots and air-conditioning, nearest first ----------
+const QUIET=[
+ {t:"First Aid: quiet rooms, cots and roomier restrooms, next to The Crystal Palace #9",at:[28.41784,-81.58157]},
+ {t:"Center Street, the side street halfway up Main Street",at:[28.41749,-81.58100]},
+ {t:"The path from TRON #68 toward Fantasyland",at:[28.42040,-81.57740]},
+ {t:"Between Space Mountain #70 and the Rockettower Plaza Stage",at:[28.41870,-81.57790]},
+ {t:"Near Carousel of Progress #73",at:[28.41779,-81.57884]},
+ {t:"Near the Wishing Well by Cinderella Castle",at:[28.41960,-81.58075]},
+ {t:"Outside Pete's Silly Sideshow in Storybook Circus, by Dumbo #55",at:[28.42136,-81.57907]},
+ {t:"Behind Ye Olde Christmas Shoppe #40",at:[28.41913,-81.58223]},
+ {t:"Next to The Hall of Presidents #33",at:[28.41968,-81.58208]},
+ {t:"Near the Tiana's Bayou Adventure #25 restrooms",at:[28.41935,-81.58440]},
+ {t:"Near Swiss Family Treehouse #13",at:[28.41822,-81.58298]},
+ {t:"Next to the Pirates #17 restrooms",at:[28.41804,-81.58423]}];
+const COOL=[
+ {t:"The Hall of Presidents #33",note:"about 22 min",m:33,at:[28.41968,-81.58208]},
+ {t:"Country Bear Musical Jamboree #27",note:"about 16 min",m:27,at:[28.41873,-81.58382]},
+ {t:"Enchanted Tiki Room #16",note:"about 15 min",m:16,at:[28.41843,-81.58389]},
+ {t:"Mickey's PhilharMagic #45",note:"about 12 min, 3D",m:45},
+ {t:"Monsters Inc Laugh Floor #75",note:"about 15 min",m:75,at:[28.41819,-81.57993]},
+ {t:"Carousel of Progress #73",note:"about 21 min",m:73,at:[28.41779,-81.57884]}];
+const CALM_KINDS={q:{list:QUIET,icon:"🤫",title:"🤫 Quiet spot"},a:{list:COOL,icon:"❄️",title:"❄️ Air-conditioning"}};
+function spotsHTML(kind){
+  const li=p=>`<li class="sp"><span>${chipify(p.t)}${p.note?` <small>· ${p.note}</small>`:""} <small>· ${roundM(p.d)}</small></span><button type="button" data-cm="${kind}" data-i="${p.i}" aria-label="Show ${p.t.replace(/ #\d+/,"")} on the map">Map</button></li>`;
+  const all=byDistance(CALM_KINDS[kind].list);
+  return `<ul class="spots">${all.slice(0,3).map(li).join("")}</ul>${all.length>3?`<details><summary>${all.length-3} more</summary><ul class="spots">${all.slice(3).map(li).join("")}</ul></details>`:""}`;
+}
+const chipify=t=>t.replace(/#(\d+)/g,'<span class="refn">#$1</span>');
+function paintCalm(){
+  const cb=document.getElementById("calm-body");
+  cb.innerHTML=`<p class="from">${fromLabel()}</p>
+    <h3>🤫 Quiet</h3>${spotsHTML("q")}
+    <h3>❄️ Air-conditioning</h3>${spotsHTML("a")}
+    <h3>Also</h3>
+    <ul>
+      <li><b>Stuck in a line?</b> One adult can step out with the kid while the rest hold the place, then rejoin at the front. Tell the Cast Member you're using Queue Re-Entry. No reason needed.</li>
+      <li><b>Any Cast Member</b> can point to the nearest quiet spot.</li>
+    </ul>`;
+  markChips(cb);
+}
+function showCalmSpot(kind,i,from){
+  const K=CALM_KINDS[kind], p=K.list[i], pt=pxOf(p), d=metresTo(p);
+  openMapAt({title:K.title, sub:`<b>${p.t}</b>${p.note?` · ${p.note}`:""} · ${roundM(d)}<br>${fromLabel()}`,
+    x:pt[0],y:pt[1],you:gpsOn()?geoPx(fix.ll):null,
+    dots:K.list.map(q=>({x:pxOf(q)[0],y:pxOf(q)[1],icon:K.icon,label:q.t})),
+    pick:j=>showCalmSpot(kind,j)},from);
 }
 function openCalm(){
-  locateCalm(); paintCalm();
+  paintCalm(); locate(()=>{ if(!document.getElementById("calm").hidden) paintCalm(); });
   document.getElementById("calm").hidden=false; document.getElementById("calm-scrim").hidden=false;
   document.getElementById("calm-close").focus();
 }
@@ -840,7 +912,9 @@ function closeCalm(){document.getElementById("calm").hidden=true;document.getEle
 document.getElementById("calm-btn").addEventListener("click",openCalm);
 document.getElementById("calm-close").addEventListener("click",closeCalm);
 document.getElementById("calm-scrim").addEventListener("click",closeCalm);
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!document.getElementById("calm").hidden) closeCalm()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!document.getElementById("calm").hidden&&document.getElementById("mapview").hidden) closeCalm()});
+document.getElementById("rr-btn").addEventListener("click",e=>openRestroom(e.currentTarget));
+document.getElementById("calm-body").addEventListener("click",e=>{ const b=e.target.closest("[data-cm]"); if(b) showCalmSpot(b.dataset.cm,+b.dataset.i,b); });
 // ---------- tap a Disney #number → grayscale map with that spot highlighted ----------
 // positions in px of the 2060x2124 map panel; rides come from ALL, other numbered places are listed here
 const SPOTS={1:["City Hall · Guest Relations",1066,1586],9:["The Crystal Palace (First Aid is next door)",980,1210],19:["Sunshine Tree Terrace",862,1105],21:["Aloha Isle",532,1072],
@@ -854,16 +928,27 @@ function mvCenter(smooth){ if(!mvAt) return; const x=mvAt[1]/2060*mvInner.offset
 function mvSetZoom(z){ mvZoom=Math.min(4,Math.max(1,z)); mvInner.style.setProperty("--z",mvZoom); mvCenter(false); }
 function openMap(num,from){
   const spot=SPOTS[num]; if(!spot) return;
-  mvAt=spot; mvFrom=from||null;
-  document.getElementById("mv-h").textContent=`#${num} ${spot[0]}`;
-  mvMark.style.left=(spot[1]/2060*100)+"%"; mvMark.style.top=(spot[2]/2124*100)+"%";
+  openMapAt({title:`#${num} ${spot[0]}`,x:spot[1],y:spot[2]},from||null);
+}
+// o: {title, sub (html), x, y, dots:[{x,y,icon,cls,label}], pick(i) when a dot is tapped, you:[x,y]}
+let mvPick=null;
+function openMapAt(o,from){
+  mvAt=[o.title,o.x,o.y]; if(from!==undefined) mvFrom=from||null;
+  document.getElementById("mv-h").textContent=o.title;
+  const sub=document.getElementById("mv-sub"); sub.innerHTML=o.sub||""; sub.hidden=!o.sub;
+  mvMark.style.left=(o.x/2060*100)+"%"; mvMark.style.top=(o.y/2124*100)+"%";
+  document.getElementById("mv-dots").innerHTML=(o.dots||[]).map((d,i)=>`<button type="button" class="mv-dot${d.cls?" "+d.cls:""}" style="left:${d.x/2060*100}%;top:${d.y/2124*100}%" data-dot="${i}" aria-label="${d.label}">${d.icon}</button>`).join("");
+  mvPick=o.pick||null;
+  const you=document.getElementById("mv-you"); you.hidden=!o.you; if(o.you){ you.style.left=(o.you[0]/2060*100)+"%"; you.style.top=(o.you[1]/2124*100)+"%"; }
+  const wasOpen=!mv.hidden;
   mv.hidden=false; document.body.style.overflow="hidden";
   mvInner.style.setProperty("--z",mvZoom);
   const img=mvInner.querySelector("img");
-  const go=()=>requestAnimationFrame(()=>mvCenter(false));
-  img.complete?go():img.addEventListener("load",go,{once:true}); setTimeout(()=>mvCenter(false),80);
-  document.getElementById("mv-close").focus();
+  const go=()=>requestAnimationFrame(()=>mvCenter(wasOpen));
+  img.complete?go():img.addEventListener("load",go,{once:true}); setTimeout(()=>mvCenter(wasOpen),80);
+  if(!wasOpen) document.getElementById("mv-close").focus();
 }
+document.getElementById("mv-dots").addEventListener("click",e=>{ const b=e.target.closest("[data-dot]"); if(b&&mvPick) mvPick(+b.dataset.dot); });
 function closeMap(){ mv.hidden=true; document.body.style.overflow=""; if(mvFrom&&mvFrom.focus) mvFrom.focus(); }
 document.getElementById("mv-close").addEventListener("click",closeMap);
 document.getElementById("mv-in").addEventListener("click",()=>mvSetZoom(mvZoom+0.6));
