@@ -315,24 +315,6 @@ button{min-height:44px}
   </section>
 
   <section class="part view" id="day" aria-labelledby="day-h">
-    <div class="eyebrow">Sat Oct 10 · open 8am–11pm</div>
-    <h1>Our Magic Kingdom day</h1>
-    <div class="facts">
-      <div><b>6:50am</b><span>Leave the rental</span></div>
-      <div><b>8:00am</b><span>Park opens · Guest Relations</span></div>
-      <div><b><a class="ref" href="#live" data-ref="cityhall">City Hall<span class="refn">#1</span></a></b><span>Meeting spot</span></div>
-    </div>
-    <div class="must">
-      <h2>Don't miss</h2>
-      <p><b>8:05</b> book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our DAS return. <b>Then</b> <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> in the regular line, then TRON on the return.</p>
-      <p><b>Midday</b> <a class="ref" href="#live" data-ref="334">Enchanted Tiki Room<span class="refn">#16</span></a> in Adventureland, right after Jungle Cruise. Air-conditioned, so it doubles as a heat break.</p>
-    </div>
-    <div class="live mini">
-      <h2>Longest waits now</h2>
-      <ol id="home-top"><li>Loading live waits…</li></ol>
-      <small>Posted waits · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a></small>
-    </div>
-
     <h2 id="day-h">The day</h2>
     <p class="sub">Solid dots are fixed, dashed ones are maybes. Each row shows the forecast for that hour: temperature and ☔ chance of rain.</p>
     <small class="wx-src" id="wx-src">Forecast: National Weather Service, Magic Kingdom.</small>
@@ -623,7 +605,7 @@ function renderTop(){
   if(!lastById) return;
   const top=plan.filter(id=>!done.has(id)&&lastById.get(id)?.open).map(id=>({id,w:lastById.get(id).wait})).sort((a,b)=>b.w-a.w).slice(0,3);
   const html=top.length?top.map(({id,w})=>`<li><span>${stopOf.get(id)}. ${byQ.get(id).name}</span><span class="wait ${waitClass(w)}">${w} min</span></li>`).join(""):"<li>No rides in our plan are running right now.</li>";
-  document.getElementById("live-top").innerHTML=html; document.getElementById("home-top").innerHTML=html;
+  document.getElementById("live-top").innerHTML=html;
 }
 
 // one section at a time: dropdown + #hash, Home by default
@@ -753,7 +735,7 @@ const waitClass=w=>w>=45?"long":w>=20?"mid":"short";
 async function loadWaits(){
   let data;
   for(const url of WAITS){try{const res=await fetch(url,{cache:"no-store"}); if(res.ok){data=await res.json();break;}}catch(e){}}
-  if(!data){document.getElementById("home-top").innerHTML="<li>Live waits unavailable. Use the Disney app.</li>";document.getElementById("live-stamp").innerHTML=`Live waits unavailable right now. Use the Disney app. · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`; return;}
+  if(!data){document.getElementById("live-stamp").innerHTML=`Live waits unavailable right now. Use the Disney app. · Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a>`; return;}
   const byId=new Map(data.rides.map(x=>[x.id,x]));
   let newest=0;
   data.rides.forEach(x=>{newest=Math.max(newest,Date.parse(x.updated)||0)});
