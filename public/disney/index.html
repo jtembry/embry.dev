@@ -128,28 +128,14 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .breaks li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 .breaks b{display:block}
 .breaks span{font-size:14px;color:var(--muted)}
-.bar{position:sticky;top:0;z-index:5;display:flex;gap:12px;align-items:center;justify-content:flex-start;padding-top:max(10px,env(safe-area-inset-top,0px));padding:10px 0;margin-block:-20px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding-top:max(10px,env(safe-area-inset-top,0px));padding:10px 0;margin-block:-20px 0;background:var(--bg);border-bottom:1px solid var(--line)}
 .bar-home{font-family:var(--display);font-weight:800;color:var(--ink);text-decoration:none;white-space:nowrap}
-.menu-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;font-weight:700}
-.menu-btn span{font-size:20px;line-height:1}
-.side{position:fixed;inset:0 auto 0 0;z-index:20;width:min(280px,82vw);background:var(--paper);border-right:1px solid var(--line);padding:calc(env(safe-area-inset-top,0px) + 12px) 12px 24px;display:flex;flex-direction:column;gap:2px;overflow-y:auto;transform:translateX(-102%);transition:transform .2s ease}
-.side a{display:flex;align-items:center;min-height:48px;padding:0 14px;border-radius:10px;color:var(--ink);text-decoration:none;font-weight:700}
-.side a[aria-current]{background:var(--bg);box-shadow:inset 4px 0 0 var(--mid)}
-.side a:focus-visible,.menu-btn:focus-visible,.bar-home:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
-.side .side-title{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-height:40px}
-.nav-open .side{transform:none}
 .scrim{position:fixed;inset:0;z-index:15;background:rgba(0,0,0,.45);cursor:pointer}
-.side-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.side-close{width:44px;min-height:44px;padding:0;font-size:18px;flex:none}
-@media (min-width:1100px){
-  .side{transform:none;width:240px}
-  .menu-btn,.scrim,.bar{display:none!important}
-  .wrap{margin-left:max(256px,calc((100vw - 980px)/2))}
-  .side-hidden .side{transform:translateX(-102%)}
-  .side-hidden .wrap{margin-left:auto}
-  .side-hidden .bar{display:flex!important}
-  .side-hidden .menu-btn{display:inline-flex!important}
-}
+.tabs{display:flex;gap:4px;padding:3px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.tabs a{display:flex;align-items:center;min-height:40px;padding:0 14px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:700;font-size:15px}
+.tabs a[aria-current]{background:var(--mid);color:#fff}
+.tabs a:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
+@media (max-width:420px){.bar-home{display:none}.tabs{flex:1}.tabs a{flex:1;justify-content:center;padding:0 8px}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .view{display:none!important}
 .view.on{display:grid!important}
@@ -233,7 +219,6 @@ button{min-height:44px}
   .tl time{font-size:14px}
   h1{font-size:30px}
 }
-@media (prefers-reduced-motion:reduce){.side{transition:none}}
 .plan{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:10px}
 .plan h2{font-family:var(--display);font-weight:800;font-size:20px;margin:0}
 .plan ul{margin:0;padding-left:18px;display:grid;gap:6px}
@@ -248,17 +233,10 @@ button{min-height:44px}
 <body>
 
 
-<nav class="side" id="side" aria-label="Sections">
-  <div class="side-top"><a class="side-title" href="#day">Magic Kingdom · Sat Oct 10</a><button type="button" class="side-close" id="side-close" aria-label="Close menu">✕</button></div>
-  <a href="#day">The day</a>
-  <a href="#access">Lines &amp; DAS</a>
-  <a href="#lost">If someone gets lost</a>
-</nav>
-<div class="scrim" id="scrim" hidden></div>
 <div class="wrap">
   <header class="bar">
-    <button type="button" class="menu-btn" id="menu-btn" aria-controls="side" aria-expanded="false"><span aria-hidden="true">☰</span> Menu</button>
     <a class="bar-home" href="#day">Magic Kingdom · Sat</a>
+    <nav class="tabs" aria-label="Sections"><a href="#day">The day</a><a href="#access">DAS</a><a href="#lost">If lost</a></nav>
   </header>
 
 
@@ -285,7 +263,7 @@ button{min-height:44px}
       <li data-h="6"><time>6:50</time><span class="rail"></span><div class="what"><b>Leave the rental</b><span>15–20 min drive to Magic Kingdom parking (8 miles). Latest safe start: 7:05.</span></div></li>
       <li data-h="7"><time>7:10</time><span class="rail"></span><div class="what"><b>Park the car</b><span>Photo of the section and row sign. Then the tram to the Ticket Center.</span></div></li>
       <li data-h="7"><time>7:20</time><span class="rail"></span><div class="what"><b>Security, then monorail or ferry</b><span>Bags open, pockets empty. Monorail 10 min, ferry 12–15. Lines can be long at opening.</span></div></li>
-      <li style="--c:var(--am)" data-h="7"><time>7:50</time><span class="rail"></span><div class="what"><b><span class="ref">Gate<span class="refn">map</span></span></b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
+      <li style="--c:var(--am)" data-h="7"><time>7:50</time><span class="rail"></span><div class="what"><b><span class="ref">Gate</span></b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
       <li style="--c:var(--am)" data-h="8"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at <span class="ref">City Hall<span class="refn">#1</span></span> (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
       <li style="--c:var(--am)" data-h="8"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <span class="ref">TRON<span class="refn">#68</span></span> as our first DAS return</b><span>Must-do. Do it right after Guest Relations. It stays good until close. Bought Lightning Lane Multi Pass? Book <span class="ref">Seven Dwarfs<span class="refn">#48</span></span>, <span class="ref">Peter Pan<span class="refn">#43</span></span>, <span class="ref">Tiana&#39;s<span class="refn">#25</span></span> and <span class="ref">Jungle Cruise<span class="refn">#15</span></span> first.</span></div></li>
       <li style="--c:var(--am)" data-h="8"><time>8:15</time><span class="rail"></span><div class="what"><b>Tomorrowland</b><span>Shortest lines of the day: use the regular lines, in this order. Ride TRON on the DAS return once it comes up. Long line? Skip ahead and loop back. Carousel of Progress is closed.</span><ul class="ridechk" data-rides="138,1190,131,143,11527"></ul></div></li>
@@ -328,32 +306,14 @@ button{min-height:44px}
   <section class="access view" id="access" aria-labelledby="access-h">
     <div class="access-head">
       <div class="eyebrow">For our crew</div>
-      <h2 id="access-h">Lines &amp; DAS</h2>
-      <p class="sub">Ways to handle lines with our four kids, from Disney's Accessibility Planning Guide and Guest Services.</p>
+      <h2 id="access-h">DAS</h2>
+      <p class="sub">Disability Access Service: how to book, hold and cancel return times today. From Disney Guest Services.</p>
     </div>
     <div class="access-grid">
-      <article class="acard">
-        <h3>Planning guide</h3>
-        <p>The Walt Disney World Resort Accessibility Planning Guide &amp; Recommendations helps Guests with disabilities on various services we offer. It also offers tips on planning, what to bring, and how to manage wait times:</p>
-        <a class="btn" href="https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-global-assets/disney-world/guest-services/accessibility/planning-guide/WDW-Access-Planning-Guide-FINAL-7-26.pdf?%24web_only=true&amp;_branch_match_id=1623324382433402794&amp;_branch_referrer=H4sIAAAAAAAAA8soKSkottLXT8kszkutLM8vyknRSywo0MvJzMvWD3cJj3cPd4kPyEnMy8vMS493L81MSbWvK0pNSy0qAgkkFeWXF6cW2TpnFOXnpgIAnoH%2BMk0AAAA%3D" target="_blank" rel="noopener">Accessibility Planning Guide &amp; Recommendations (PDF) ↗</a>
-      </article>
-      <article class="acard">
-        <h3>Sensory details</h3>
-        <p>Click here to access the Sensory Experience Details for Guests with Disabilities. This guide will cover the sensory elements that are within our Attractions and shows.</p>
-        <a class="btn" href="https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-global-assets/disney-world/guest-services/accessibility/sensory-experience/WDW-Sensory-Experience-Details-FINAL-6-26.pdf?%24web_only=true&amp;_branch_match_id=1623324382433402794&amp;_branch_referrer=H4sIAAAAAAAAAwXByw5AMBAF0D%2FSvUQs8AUWlo3HpRM1be40wca3OyeUkq12bhNTvHdi3Ko55yqKnm7qJz9CLfH1w5NBga7wPcos0dqP2EGKHn5hug1susB04Qc8IljgVQAAAA%3D%3D;" target="_blank" rel="noopener">Sensory Experience Details for Guests with Disabilities (PDF) ↗</a>
-      </article>
-      <article class="acard">
-        <h3>Rider Switch</h3>
-        <p>For when a kid is too short for a ride or doesn't want to go. Tell the Cast Member at the entrance, with everyone there. Group A rides while group B waits outside. Then group B rides without waiting in line again.</p>
-      </article>
-      <article class="acard">
-        <h3>Leave the line and come back</h3>
-        <p>Attraction Queue Re-Entry: a kid who needs out can leave while the rest of us hold our place, then rejoin before boarding. Or they wait outside and meet us at the front. Tell the Cast Member at the front you're using Re-Entry or Meet-Up. No reason needed.</p>
-      </article>
       <article class="acard wide das-card">
         <h3>Getting DAS return times in the park</h3>
         <p><b>In the app:</b> follow the steps below from anywhere in the park.</p>
-        <p><b>In person:</b> a Cast Member can book return times at <b>Guest Relations in <span class="ref">City Hall<span class="refn">#1</span></span></b> (stop GR on our map, on your left as you enter Main Street) or at any <b>Guest Experience Team</b> location around the park. This helps if a phone dies.</p>
+        <p><b>In person:</b> a Cast Member can book return times at <b>Guest Relations in <span class="ref">City Hall<span class="refn">#1</span></span></b> (on your left as you enter Main Street) or at any <b>Guest Experience Team</b> location around the park. This helps if a phone dies.</p>
         <p><b>Rules to know:</b> your party can hold one DAS return time at a time. After you use it, you can request the next one 10 minutes later. You can hold a virtual queue spot at the same time.</p>
         <p><b>On our route:</b> while you ride the shorter-wait stops, hold a DAS return for the next long one. Good DAS picks are <span class="ref">TRON<span class="refn">#68</span></span>, <span class="ref">Jungle Cruise<span class="refn">#15</span></span>, <span class="ref">Tiana's<span class="refn">#25</span></span>, <span class="ref">Big Thunder<span class="refn">#26</span></span>, <span class="ref">Peter Pan<span class="refn">#43</span></span>, <span class="ref">Seven Dwarfs<span class="refn">#48</span></span> and <span class="ref">Space Mountain<span class="refn">#70</span></span>.</p>
         <p class="from">Source: Walt Disney World's Disability Access Service page, checked Oct 8, 2026.</p>
@@ -370,50 +330,6 @@ button{min-height:44px}
         <p class="from">Kevin • 4:30 PM</p>
       </article>
     </div>
-    <details class="orig">
-      <summary>Original notes, word for word</summary>
-      <pre>-   The Walt Disney World Resort Accessibility Planning Guide &amp;
-    Recommendations helps Guests with disabilities on various services
-    we offer. It also offers tips on planning, what to bring, and how to
-    manage wait times: [Accessibility Planning Guide &amp;
-    Recommendations](https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-global-assets/disney-world/guest-services/accessibility/planning-guide/WDW-Access-Planning-Guide-FINAL-7-26.pdf?%24web_only=true&amp;_branch_match_id=1623324382433402794&amp;_branch_referrer=H4sIAAAAAAAAA8soKSkottLXT8kszkutLM8vyknRSywo0MvJzMvWD3cJj3cPd4kPyEnMy8vMS493L81MSbWvK0pNSy0qAgkkFeWXF6cW2TpnFOXnpgIAnoH%2BMk0AAAA%3D)
-
-Click here to access the [Sensory Experience Details for Guests with
-Disabilities.](https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-global-assets/disney-world/guest-services/accessibility/sensory-experience/WDW-Sensory-Experience-Details-FINAL-6-26.pdf?%24web_only=true&amp;_branch_match_id=1623324382433402794&amp;_branch_referrer=H4sIAAAAAAAAAwXByw5AMBAF0D%2FSvUQs8AUWlo3HpRM1be40wca3OyeUkq12bhNTvHdi3Ko55yqKnm7qJz9CLfH1w5NBga7wPcos0dqP2EGKHn5hug1susB04Qc8IljgVQAAAA%3D%3D;)
-This guide will cover the sensory elements that are within our
-Attractions and shows.
-
--   K
-
-Follow these steps to book return times.
-
-• Log in to your account on the My Disney Experience app\
-• Tap the \[≡\] icon on the bottom right-hand corner of the screen\
-• On the next screen, select the Disability Access Service (DAS) button\
-• Choose the Attraction you\&#x27;d like to visit\
-• On the following page, select Request DAS Return Time\
-• Next, select who will be joining the Guest with the DAS accommodation
-and press Continue\
-• Review the return time, height requirements and party members then
-press Confirm\
-• On the next screen, you will see a confirmation message. Now tap on
-View My Day\
-• The attraction name and return time will appear on the My Day page of
-the My Disney Experience app
-
-Once you&#x27;ve completed this, your return time will appear on the My Day
-screen of the My Disney Experience app.
-
-Cancelation\
-If you click on the return time tile on the My Day page of the My Disney
-Experience app, you&#x27;ll see an option to cancel. From there, you can
-cancel the return time or remove party members who no longer wish to
-experience the attraction. Please note that removing the Guest with the
-DAS accommodation will automatically cancel the return time.
-
-Kevin • 4:30 PM
-</pre>
-    </details>
   </section>
 
   <section class="part view" id="lost" aria-labelledby="lost-h">
@@ -508,24 +424,12 @@ document.getElementById("day").addEventListener("change",e=>{
 document.getElementById("reset").addEventListener("click",()=>{done.clear(); saveJSON(DONE_KEY,[]); renderDay();});
 
 // one section at a time: side nav + #hash, The day by default
-const views=[...document.querySelectorAll(".view")], side=document.getElementById("side"), scrim=document.getElementById("scrim"), menuBtn=document.getElementById("menu-btn");
-const wide=matchMedia("(min-width:1100px)");
-function setMenu(open){
-  if(wide.matches){document.body.classList.toggle("side-hidden",!open);document.body.classList.remove("nav-open");scrim.hidden=true;}
-  else{document.body.classList.remove("side-hidden");document.body.classList.toggle("nav-open",open);scrim.hidden=!open;}
-  menuBtn.setAttribute("aria-expanded",open);
-  if(typeof setBarH==="function") setBarH();
-}
-menuBtn.addEventListener("click",()=>setMenu(wide.matches?document.body.classList.contains("side-hidden"):!document.body.classList.contains("nav-open")));
-document.getElementById("side-close").addEventListener("click",()=>setMenu(false));
-wide.addEventListener("change",()=>{document.body.classList.remove("nav-open","side-hidden");scrim.hidden=true;});
-scrim.addEventListener("click",()=>setMenu(false));
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.body.classList.contains("nav-open"))setMenu(false)});
+const views=[...document.querySelectorAll(".view")], tabs=document.querySelector(".tabs");
 function show(id){
   if(!views.some(v=>v.id===id)) id="day";
   views.forEach(v=>v.classList.toggle("on",v.id===id));
-  side.querySelectorAll("a:not(.side-title)").forEach(a=>{a.toggleAttribute("aria-current",a.getAttribute("href")==="#"+id); if(a.getAttribute("href")==="#"+id) a.setAttribute("aria-current","page")});
-  if(!wide.matches) setMenu(false); window.scrollTo(0,0);
+  tabs.querySelectorAll("a").forEach(a=>{a.getAttribute("href")==="#"+id?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+  window.scrollTo(0,0);
 }
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
 show(location.hash.slice(1));
