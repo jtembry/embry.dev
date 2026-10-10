@@ -150,6 +150,11 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .ref{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
 .refn{display:inline-block;margin-left:4px;padding:0 5px;border-radius:999px;border:1px solid var(--line);font-size:11px;font-weight:700;line-height:16px;text-decoration:none;color:var(--muted);vertical-align:1px}
 a.ht{text-decoration:none;color:inherit}
+.wx-strip{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(46px,1fr);gap:4px;overflow-x:auto;padding-bottom:4px}
+.wx-strip div{display:grid;gap:2px;text-align:center;padding:6px 2px;border-radius:8px;background:var(--bg);font-size:12px;font-variant-numeric:tabular-nums}
+.wx-strip b{font-size:14px}
+.wx-strip .pop{border-radius:4px;padding:1px 0;color:#fff}
+.wx-src{color:var(--muted);font-size:12px}
 .heat ul{margin:0;padding-left:18px;display:grid;gap:6px}
 .lm-place{position:absolute;transform:translate(-50%,-100%);font-size:30px;line-height:1;z-index:4;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
 .lm-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -216,7 +221,7 @@ a.ht{text-decoration:none;color:inherit}
       <h2>Don't miss</h2>
       <p><b>8:05</b> book <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a> as our DAS return. <b>Then</b> <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a> in the regular line, then TRON.</p>
     </div>
-    <p class="sub"><b>Heat:</b> feels like 102° after noon, storms around 6. Stay indoors noon–3. <a class="jump" href="#day">Heat plan</a></p>
+    <p class="sub" id="wx-home"><b>Saturday:</b> high 91°, feels like up to 103°. Storms likely 3–7pm. <a class="jump" href="#day">Weather plan</a></p>
     <div class="live mini">
       <h2>Longest waits now</h2>
       <ol id="home-top"><li>Loading live waits…</li></ol>
@@ -261,7 +266,7 @@ a.ht{text-decoration:none;color:inherit}
           <li><label><input type="checkbox"><span>Look at the ride map together and pick favorites</span></label></li>
           <li><label><input type="checkbox"><span>Skim the Sensory Experience Details for loud, dark or flashing rides<small>Link in Lines &amp; DAS below.</small></span></label></li>
           <li><label><input type="checkbox"><span>Agree on the meeting spot: front of <a class="ref" href="#live" data-ref="cityhall">City Hall<span class="refn">#1</span></a><small>And the rule: if you're lost, find a Cast Member.</small></span></label></li>
-          <li><label><input type="checkbox"><span>Check the forecast for afternoon storms<small>Some rides close for lightning.</small></span></label></li>
+          <li><label><input type="checkbox"><span>Look over Saturday's weather in The day<small>Storms likely 3–7pm. Outdoor rides close for lightning.</small></span></label></li>
           <li><label><input type="checkbox"><span>Set a 6:30 alarm and a 6:50 leave time</span></label></li>
         </ul>
       </article>
@@ -283,13 +288,15 @@ a.ht{text-decoration:none;color:inherit}
     <h2 id="day-h">The day</h2>
     <p class="sub">Our visual schedule. Solid dots are fixed. Dashed ones are maybes we can swap or skip.</p>
     <div class="must heat">
-      <h2>Heat and rain</h2>
-      <p>Feels like 102° in the afternoon, with storms likely around 6.</p>
+      <h2>Saturday's weather</h2>
+      <p id="wx-sum">High 91°, feels like up to 103°. Mostly sunny until 2. Storms likely 3–7pm (up to 70%), a chance until 9.</p>
+      <div class="wx-strip" id="wx-strip" aria-label="Hourly forecast"></div>
+      <small class="wx-src" id="wx-src">National Weather Service forecast for Magic Kingdom.</small>
       <ul>
-        <li><b>Outdoor coasters early.</b> <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a>, <a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="126">Barnstormer<span class="refn">#54</span></a> close for lightning. Ride them before 5.</li>
-        <li><b>Noon to 3, stay in the air-conditioning.</b> Indoor rides and seated shows: <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a> (22-min show), <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>, <a class="ref" href="#live" data-ref="334">Tiki Room<span class="refn">#16</span></a>, <a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>.</li>
+        <li><b>Outdoor coasters early.</b> <a class="ref" href="#live" data-ref="11527">TRON<span class="refn">#68</span></a>, <a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="126">Barnstormer<span class="refn">#54</span></a> close for lightning. Ride them before 2.</li>
+        <li><b>Noon to 3 is the hottest stretch.</b> Stay in the air-conditioning: Indoor rides and seated shows: <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="356">Hall of Presidents<span class="refn">#33</span></a> (22-min show), <a class="ref" href="#live" data-ref="1214">Country Bear Jamboree<span class="refn">#27</span></a>, <a class="ref" href="#live" data-ref="334">Tiki Room<span class="refn">#16</span></a>, <a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>.</li>
         <li><b>Water every hour.</b> Any quick-service counter gives free cups of ice water.</li>
-        <li><b>Storm at 6?</b> Duck into <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a> or <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a>, or call it a day. The must-dos are done by 10:30.</li>
+        <li><b>Storms likely 3–7pm.</b> Head indoors: <a class="ref" href="#live" data-ref="137">Pirates<span class="refn">#17</span></a>, <a class="ref" href="#live" data-ref="140">Haunted Mansion<span class="refn">#34</span></a>, <a class="ref" href="#live" data-ref="131">Buzz<span class="refn">#74</span></a>, <a class="ref" href="#live" data-ref="138">Space Mountain<span class="refn">#70</span></a>, <a class="ref" href="#live" data-ref="133">it's a small world<span class="refn">#42</span></a>. Our 2:30 stops <a class="ref" href="#live" data-ref="130">Big Thunder<span class="refn">#26</span></a> and <a class="ref" href="#live" data-ref="13630">Tiana's<span class="refn">#25</span></a> are outdoors and close for lightning. If it storms, ride them after 7 instead, or call it a day. The must-dos are done by 10:30.</li>
         <li><b>Need a real cool-off?</b> The Contemporary resort's lobby is a 10-min walk from the <a class="ref" href="#live" data-ref="entrance">park entrance<span class="refn">map</span></a>.</li>
       </ul>
     </div>
@@ -717,6 +724,29 @@ document.addEventListener("click",e=>{
     lmScroll.scrollIntoView({block:"start",behavior:"smooth"});
   },60);
 },true);
+
+// Saturday's forecast, live from the National Weather Service (Magic Kingdom grid point)
+const WX_DAY="2026-10-10";
+async function loadWeather(){
+  try{
+    const [h,d]=await Promise.all(["https://api.weather.gov/gridpoints/MLB/19,62/forecast/hourly","https://api.weather.gov/gridpoints/MLB/19,62/forecast"]
+      .map(u=>fetch(u,{headers:{Accept:"application/geo+json"}}).then(r=>{if(!r.ok) throw 0; return r.json()})));
+    const hrs=h.properties.periods.filter(x=>x.startTime.startsWith(WX_DAY)).map(x=>({h:+x.startTime.slice(11,13),t:x.temperature,p:x.probabilityOfPrecipitation.value||0})).filter(x=>x.h>=7&&x.h<=23);
+    if(!hrs.length) return;
+    const fmt=h=>(h%12||12)+(h<12?"am":"pm");
+    document.getElementById("wx-strip").innerHTML=hrs.map(x=>`<div><span>${fmt(x.h)}</span><b>${x.t}°</b><span class="pop" style="background:rgba(75,74,168,${0.15+x.p/100*0.85})">${x.p}%</span></div>`).join("");
+    const day=d.properties.periods.find(x=>x.startTime.startsWith(WX_DAY)&&x.isDaytime);
+    const hi=day?day.temperature:Math.max(...hrs.map(x=>x.t));
+    const hx=day&&(day.detailedForecast.match(/[Hh]eat index values as high as (\d+)/)||[])[1];
+    const wet=hrs.filter(x=>x.p>=50), maxP=Math.max(...hrs.map(x=>x.p));
+    const rain=wet.length?`Storms likely ${fmt(wet[0].h).replace(/am|pm/,"")}–${fmt(wet[wet.length-1].h+1)} (up to ${maxP}%).`:`Rain chance up to ${maxP}%.`;
+    const sum=`High ${hi}°${hx?`, feels like up to ${hx}°`:""}. ${rain}`;
+    document.getElementById("wx-sum").textContent=sum;
+    document.getElementById("wx-home").innerHTML=`<b>Saturday:</b> ${sum} <a class="jump" href="#day">Weather plan</a>`;
+    document.getElementById("wx-src").textContent=`National Weather Service forecast for Magic Kingdom, issued ${new Date(h.properties.updateTime||h.properties.generatedAt).toLocaleString([], {weekday:"short",hour:"numeric",minute:"2-digit"})}.`;
+  }catch(e){}
+}
+loadWeather();
 
 // live waits: Queue-Times.com via the waits.embry.dev relay (Disney's posted times)
 const WAITS=["https://waits.embry.dev","https://embry-waits.system-map.workers.dev"];
