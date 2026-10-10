@@ -200,6 +200,12 @@ a.ht{text-decoration:none;color:inherit}
 .tl .what span.wait{color:#fff}
 .tl .what span.wait.mid{color:#1d2a26}
 .tl .what span.wait.closed{color:var(--muted)}
+#lm-path{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.sw.path{width:22px;height:0;border:0;border-top:4px dashed #4b4aa8;border-radius:0}
+.lm-pin[data-n]::before{content:attr(data-n);position:absolute;top:-9px;left:-9px;min-width:18px;height:18px;padding:0 3px;border-radius:9px;background:#4b4aa8;color:#fff;font:800 11px/18px var(--body);text-align:center;border:1.5px solid #fff}
+.extras{margin-top:8px}
+.extras summary{min-height:40px;display:flex;align-items:center;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer}
+.extras .ridechk{margin-top:2px}
 .lm-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .lm-legend{display:flex;gap:6px;flex-wrap:wrap}
 .lg-row{gap:6px 14px;align-items:center}
@@ -255,7 +261,7 @@ button{min-height:44px}
 <nav class="side" id="side" aria-label="Sections">
   <a class="side-title" href="#day">Magic Kingdom · Sat Oct 10</a>
   <a href="#day">The day</a>
-  <a href="#live">Live wait map</a>
+  <a href="#live">Map</a>
   <a href="#access">Lines &amp; DAS</a>
   <a href="#breaks">Need a break</a>
   <a href="#prep">Before we go</a>
@@ -270,14 +276,15 @@ button{min-height:44px}
 
 
   <section class="view part" id="live" aria-labelledby="lm-h">
-    <h2 id="lm-h">Live wait map</h2>
-    <p class="sub">Every ride and character meet, with its posted wait in minutes. Tap a pin for details.</p>
+    <h2 id="lm-h">Map</h2>
+    <p class="sub">Our path for the day, plus every ride and character meet with its posted wait in minutes. Tap a pin for details.</p>
     <div class="lm-tools">
-      <div class="lm-legend lg-row" aria-label="Legend"><span class="lg"><i class="sw short"></i>Under 20 min</span><span class="lg"><i class="sw mid"></i>20–44</span><span class="lg"><i class="sw long"></i>45+</span><span class="lg"><i class="sw off"></i>Closed</span><span class="lg"><i class="sw ring"></i>On our route</span><span class="lg"><i class="sw star">★</i>Character meet</span></div>
+      <div class="lm-legend lg-row" aria-label="Legend"><span class="lg"><i class="sw short"></i>Under 20 min</span><span class="lg"><i class="sw mid"></i>20–44</span><span class="lg"><i class="sw long"></i>45+</span><span class="lg"><i class="sw off"></i>Closed</span><span class="lg"><i class="sw path"></i>Our path</span><span class="lg"><i class="sw ring"></i>On our route (stop number)</span><span class="lg"><i class="sw star">★</i>Character meet</span></div>
       <div class="lm-zoom"><button type="button" id="lm-out" aria-label="Zoom out">−</button><button type="button" id="lm-in" aria-label="Zoom in">+</button></div>
     </div>
     <div class="lm-scroll" id="lm-scroll"><div class="lm-inner" id="lm-inner">
       <img src="MK-live-map.webp" width="1400" height="1443" alt="Official Magic Kingdom map with a live wait pin on every ride">
+      <svg id="lm-path" viewBox="0 0 2060 2124" preserveAspectRatio="none" aria-hidden="true"></svg>
       <div id="lm-pins"></div>
     </div></div>
     <div class="lm-card" id="lm-card" aria-live="polite">Tap a pin to see the ride.</div>
@@ -526,6 +533,22 @@ let done=new Set(loadJSON(DONE_KEY,[]));
 let stopOf=new Map(plan.map((id,i)=>[id,i+1])), lastById=null, lastStamp="";
 function waitOf(id){const x=lastById&&lastById.get(id);return !x?null:x}
 function waitChip(id){const x=waitOf(id);return !x?"":`<span class="wait ${x.open?waitClass(x.wait):"closed"}">${x.open?x.wait+" min":"Closed"}</span>`}
+function buildExtras(){
+  const groups=[...document.querySelectorAll(".ridechk[data-rides]")].map(ul=>({ul,ids:ul.dataset.rides.split(",").map(Number),extra:[]}));
+  const d2=(a,b)=>(a.x-b.x)**2+(a.y-b.y)**2;
+  ALL.filter(a=>!a.meet&&!plan.includes(a.id)).forEach(a=>{
+    let best=null,bd=Infinity;
+    groups.forEach(g=>g.ids.forEach(id=>{const v=d2(a,byQ.get(id)); if(v<bd){bd=v;best=g}}));
+    best.extra.push(a.id);
+  });
+  groups.forEach(g=>{ if(!g.extra.length) return;
+    g.extra.sort((p,q)=>d2(byQ.get(p),byQ.get(g.ids[0]))-d2(byQ.get(q),byQ.get(g.ids[0])));
+    const det=document.createElement("details"); det.className="extras";
+    det.innerHTML=`<summary>More rides nearby (${g.extra.length})</summary><ul class="ridechk" data-rides="${g.extra.join(",")}" data-extra="1"></ul>`;
+    g.ul.after(det);
+  });
+}
+buildExtras();
 function renderDay(){
   document.querySelectorAll(".ridechk").forEach(ul=>{
     ul.innerHTML=ul.dataset.rides.split(",").map(Number).map(id=>{const a=byQ.get(id);
@@ -583,6 +606,13 @@ ALL.forEach(a=>{
   b.addEventListener("click",()=>lmSelect(a.id,false));
   lmPins.appendChild(b);
 });
+
+// our general path on the map: entrance → City Hall → each planned stop
+(function(){
+  const pts=[[1144,1780],[1066,1586],...plan.map(id=>[byQ.get(id).x,byQ.get(id).y])].map(p=>p.join(",")).join(" ");
+  document.getElementById("lm-path").innerHTML=`<polyline points="${pts}" fill="none" stroke="#fff" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" opacity=".85"/><polyline points="${pts}" fill="none" stroke="#4b4aa8" stroke-width="9" stroke-dasharray="26 16" stroke-linejoin="round" stroke-linecap="round"/>`;
+  plan.forEach((id,i)=>{const el=document.getElementById("lm-"+id); if(el) el.dataset.n=i+1;});
+})();
 function lmLabel(x,a){const v=!x?"…":x.open?String(x.wait):"–";return a&&a.meet?"★ "+v:v}
 function lmCls(x){return !x?"":x.open?waitClass(x.wait):"closed"}
 function lmSelect(id,scroll){
