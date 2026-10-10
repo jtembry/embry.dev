@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Magic Kingdom Day</title>
+<title>Magic Kingdom Planner</title>
+<meta name="apple-mobile-web-app-title" content="MK Planner">
+<meta name="application-name" content="Magic Kingdom Planner">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
 <style>
@@ -135,7 +137,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .tabs a{display:flex;align-items:center;min-height:40px;padding:0 14px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:700;font-size:15px}
 .tabs a[aria-current]{background:var(--mid);color:#fff}
 .tabs a:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
-@media (max-width:420px){.bar-home{display:none}.tabs{flex:1}.tabs a{flex:1;justify-content:center;padding:0 8px}}
+@media (max-width:420px){.bar-home{flex-basis:100%;font-size:15px}.tabs{flex:1}.tabs a{flex:1;justify-content:center;padding:0 8px}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .view{display:none!important}
 .view.on{display:grid!important}
@@ -196,6 +198,20 @@ a.ht{text-decoration:none;color:inherit}
 .calm .here{border:2px solid var(--mid);border-radius:12px;padding:10px 12px;display:grid;gap:6px}
 .calm details summary{min-height:40px;display:flex;align-items:center;font-weight:700;cursor:pointer}
 .wrap{padding-bottom:96px}
+.refn,.ridechk .ht{cursor:pointer}
+.refn:hover,.ridechk .ht:hover{border-color:var(--ink)}
+.refn:focus-visible,.ridechk .ht:focus-visible{outline:2px solid var(--mid);outline-offset:2px}
+.mapview{position:fixed;inset:0;z-index:40;background:var(--bg);display:grid;grid-template-rows:auto 1fr;padding-top:env(safe-area-inset-top,0px)}
+.mv-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.mv-head h2{font-family:var(--display);font-weight:800;font-size:19px;margin:0;min-width:0}
+.mv-ctl{display:flex;gap:6px;flex:none}
+.mv-ctl button{width:44px;padding:0;font-size:18px}
+.mv-scroll{overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:#d9d9d9}
+.mv-inner{position:relative;width:calc(var(--z,1) * 100%)}
+.mv-inner img{display:block;width:100%;height:auto;filter:grayscale(1) brightness(1.06) contrast(.85)}
+.mv-mark{position:absolute;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:5px solid #d4573f;box-shadow:0 0 0 4px #fff,0 0 0 14px rgba(212,87,63,.35);animation:mvpulse 1.4s ease-in-out infinite}
+@keyframes mvpulse{50%{box-shadow:0 0 0 4px #fff,0 0 0 24px rgba(212,87,63,.12)}}
+@media (prefers-reduced-motion:reduce){.mv-mark{animation:none}}
 .ridechk{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
 .ridechk li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:6px 8px;border-radius:10px;background:var(--bg)}
 .ridechk label{display:contents;cursor:pointer}
@@ -235,7 +251,7 @@ button{min-height:44px}
 
 <div class="wrap">
   <header class="bar">
-    <a class="bar-home" href="#day">Magic Kingdom · Sat</a>
+    <a class="bar-home" href="#day">Magic Kingdom Planner</a>
     <nav class="tabs" aria-label="Sections"><a href="#day">The day</a><a href="#access">DAS</a><a href="#lost">If lost</a></nav>
   </header>
 
@@ -330,6 +346,10 @@ button{min-height:44px}
 <section class="calm" id="calm" role="dialog" aria-modal="true" aria-labelledby="calm-h" hidden>
   <div class="calm-head"><h2 id="calm-h">Find calm</h2><button type="button" id="calm-close" aria-label="Close">✕</button></div>
   <div id="calm-body"></div>
+</section>
+<section class="mapview" id="mapview" role="dialog" aria-modal="true" aria-labelledby="mv-h" hidden>
+  <div class="mv-head"><h2 id="mv-h"></h2><div class="mv-ctl"><button type="button" id="mv-out" aria-label="Zoom out">−</button><button type="button" id="mv-in" aria-label="Zoom in">+</button><button type="button" id="mv-close" aria-label="Close map">✕</button></div></div>
+  <div class="mv-scroll" id="mv-scroll"><div class="mv-inner" id="mv-inner"><img src="MK-live-map.webp" width="1400" height="1443" alt="Magic Kingdom map"><span class="mv-mark" id="mv-mark"></span></div></div>
 </section>
 <script>
 const ALL=[
@@ -554,7 +574,8 @@ function areasNow(){
   if(/Storm|Snack|Dinner/.test(t)) return ["Adventureland","Liberty Square","Fantasyland"];
   return ["Main Street"];
 }
-function areaHTML(name){const a=AREAS[name];return `<h3>${name}</h3><ul>${a.quiet.map(q=>`<li>${q}</li>`).join("")}<li>${a.rest}</li></ul>`}
+const chipify=t=>t.replace(/#(\d+)/g,'<span class="refn">#$1</span>');
+function areaHTML(name){const a=AREAS[name];return `<h3>${name}</h3><ul>${a.quiet.map(q=>`<li>${chipify(q)}</li>`).join("")}<li>${chipify(a.rest)}</li></ul>`}
 function openCalm(){
   const here=areasNow();
   document.getElementById("calm-body").innerHTML=`
@@ -567,6 +588,7 @@ function openCalm(){
       <li><b>Any Cast Member</b> can point to the nearest quiet spot.</li>
     </ul>
     <details><summary>Other areas</summary>${Object.keys(AREAS).filter(k=>!here.includes(k)).map(areaHTML).join("")}</details>`;
+  const cb=document.getElementById("calm-body"); cb.querySelectorAll("li").forEach(li=>{ if(!li.querySelector(".refn")) li.innerHTML=chipify(li.innerHTML); }); markChips(cb);
   document.getElementById("calm").hidden=false; document.getElementById("calm-scrim").hidden=false;
   document.getElementById("calm-close").focus();
 }
@@ -575,6 +597,50 @@ document.getElementById("calm-btn").addEventListener("click",openCalm);
 document.getElementById("calm-close").addEventListener("click",closeCalm);
 document.getElementById("calm-scrim").addEventListener("click",closeCalm);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!document.getElementById("calm").hidden) closeCalm()});
+// ---------- tap a Disney #number → grayscale map with that spot highlighted ----------
+// positions in px of the 2060x2124 map panel; rides come from ALL, other numbered places are listed here
+const SPOTS={1:["City Hall · Guest Relations",1066,1586],9:["The Crystal Palace (First Aid is next door)",980,1210],19:["Sunshine Tree Terrace",862,1105],21:["Aloha Isle",532,1072],
+  29:["Pecos Bill Tall Tale Inn and Cafe",450,1015],39:["Columbia Harbour House",836,673],40:["Ye Olde Christmas Shoppe",930,928],58:["Pinocchio Village Haus",1127,531],
+  64:["Prince Eric's Village Market",1487,442],65:["Cheshire Café",1465,712],80:["Joffrey's Coffee & Tea",1850,1100]};
+ALL.forEach(a=>{ if(a.m && !SPOTS[a.m]) SPOTS[a.m]=[a.name.replace(/^Meet /,""),a.x,a.y]; });
+const mv=document.getElementById("mapview"), mvScroll=document.getElementById("mv-scroll"), mvInner=document.getElementById("mv-inner"), mvMark=document.getElementById("mv-mark");
+let mvZoom=matchMedia("(max-width:600px)").matches?2.2:1.4, mvAt=null, mvFrom=null;
+function mvCenter(smooth){ if(!mvAt) return; const x=mvAt[1]/2060*mvInner.offsetWidth, y=mvAt[2]/2124*mvInner.offsetHeight;
+  mvScroll.scrollTo({left:x-mvScroll.clientWidth/2,top:y-mvScroll.clientHeight/2,behavior:smooth?"smooth":"auto"}); }
+function mvSetZoom(z){ mvZoom=Math.min(4,Math.max(1,z)); mvInner.style.setProperty("--z",mvZoom); mvCenter(false); }
+function openMap(num,from){
+  const spot=SPOTS[num]; if(!spot) return;
+  mvAt=spot; mvFrom=from||null;
+  document.getElementById("mv-h").textContent=`#${num} ${spot[0]}`;
+  mvMark.style.left=(spot[1]/2060*100)+"%"; mvMark.style.top=(spot[2]/2124*100)+"%";
+  mv.hidden=false; document.body.style.overflow="hidden";
+  mvInner.style.setProperty("--z",mvZoom);
+  const img=mvInner.querySelector("img");
+  const go=()=>requestAnimationFrame(()=>mvCenter(false));
+  img.complete?go():img.addEventListener("load",go,{once:true}); setTimeout(()=>mvCenter(false),80);
+  document.getElementById("mv-close").focus();
+}
+function closeMap(){ mv.hidden=true; document.body.style.overflow=""; if(mvFrom&&mvFrom.focus) mvFrom.focus(); }
+document.getElementById("mv-close").addEventListener("click",closeMap);
+document.getElementById("mv-in").addEventListener("click",()=>mvSetZoom(mvZoom+0.6));
+document.getElementById("mv-out").addEventListener("click",()=>mvSetZoom(mvZoom-0.6));
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!mv.hidden) closeMap(); });
+function numOf(el){ const m=el.textContent.match(/#(\d+)/); return m?+m[1]:null; }
+function isNumChip(el){ return el.closest(".refn, .ridechk .ht"); }
+document.addEventListener("click",e=>{
+  const el=isNumChip(e.target); if(!el) return;
+  const n=numOf(el); if(!n||!SPOTS[n]) return;
+  e.preventDefault(); e.stopPropagation(); openMap(n,el);
+},true);
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Enter"&&e.key!==" ") return;
+  const el=isNumChip(e.target); if(!el) return;
+  const n=numOf(el); if(!n||!SPOTS[n]) return;
+  e.preventDefault(); openMap(n,el);
+});
+function markChips(root){ (root||document).querySelectorAll(".refn, .ridechk .ht").forEach(el=>{ const n=numOf(el); if(n&&SPOTS[n]){ el.setAttribute("role","button"); el.tabIndex=0; el.setAttribute("aria-label",`Show #${n} ${SPOTS[n][0]} on the map`);} }); }
+markChips();
+new MutationObserver(()=>markChips()).observe(document.getElementById("day"),{childList:true,subtree:true});
 </script>
 
 </body>
