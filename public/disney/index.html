@@ -295,7 +295,7 @@ button{min-height:44px}
       <li data-h="7"><time>7:20</time><span class="rail"></span><div class="what"><b>Security, then monorail or ferry</b><span>Bags open, pockets empty. Monorail 10 min, ferry 12–15. Lines can be long at opening.</span></div></li>
       <li style="--c:var(--am)" data-h="7"><time>7:50</time><span class="rail"></span><div class="what"><b><span class="ref">Gate</span></b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
       <li style="--c:var(--am)" data-h="8"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at <span class="ref">City Hall<span class="refn">#1</span></span> (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
-      <li style="--c:var(--am)" data-h="8"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <span class="ref">TRON<span class="refn">#68</span></span> as our first DAS return</b><span>Must-do. Do it right after Guest Relations. It stays good until close.</span></div></li>
+      <li style="--c:var(--am)" data-h="8"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <span class="ref">TRON<span class="refn">#68</span></span> as our first DAS return</b><span>High priority. Do it right after Guest Relations. It stays good until close.</span></div></li>
       <li style="--c:var(--am)" data-h="8"><time>8:15</time><span class="rail"></span><div class="what"><b>Tomorrowland</b><span>Shortest lines of the day: use the regular lines, in this order. Ride TRON on the DAS return once it comes up. Long line? Skip ahead and loop back. Carousel of Progress is closed.</span><ul class="ridechk" data-rides="138,1190,131,143,11527"></ul></div></li>
       <li style="--c:var(--am)" data-h="10"><time>10:00</time><span class="rail"></span><div class="what"><b>Storybook Circus and Seven Dwarfs</b><span>Lines are growing. From here on, keep one DAS return going: book the next one 10 min after you use the last.</span><span class="daspick" hidden></span><ul class="ridechk" data-rides="126,129"></ul></div></li>
       <li style="--c:var(--am)" data-h="10"><time>10:00</time><span class="rail"></span><div class="what"><b>🍎 Snack</b><span>Near Seven Dwarfs: <span class="ref">Prince Eric's Village Market<span class="refn">#64</span></span> (fruit, drinks) or <span class="ref">Cheshire Café<span class="refn">#65</span></span> (iced drinks). Refill water.</span></div></li>
@@ -390,8 +390,8 @@ const byQ=new Map(ALL.map(a=>[a.id,a]));
 const INDOOR=[138,131,137,140,136,127,133,142,128,356,1214,334,171,125,457], COVERED=[134,135,161,1190];
 const kindOf=id=>INDOOR.includes(id)?"indoor":COVERED.includes(id)?"covered":"outdoor";
 const KIND_LABEL={indoor:"Indoor",covered:"Covered",outdoor:"Outdoor"};
-const NOTES={138:"Must-do · ride first, regular line · 44 in. to ride",11527:"Must-do · ride on the DAS return booked at 8:05 · 48 in. to ride",
-  129:"Good DAS pick",130:"Ride before 2, before the storms",13630:"You will get wet · ride before 2",334:"Must-do · air-conditioned show, about 15 min",131:"New version",135:"Under a roof"};
+const NOTES={138:"High priority · ride first, regular line · 44 in. to ride",11527:"High priority · ride on the DAS return booked at 8:05 · 48 in. to ride",
+  129:"Good DAS pick",130:"Ride before 2, before the storms",13630:"You will get wet · ride before 2",334:"High priority · air-conditioned show, about 15 min",131:"New version",135:"Under a roof"};
 const DEFAULT_PLAN=[138,1190,131,143,11527,126,129,130,13630,134,334,137,140,136,127,135];
 const DONE_KEY="mk-done-v5";
 const loadJSON=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:d}catch(e){return d}};
@@ -415,19 +415,19 @@ function buildExtras(){
   });
 }
 buildExtras();
-// each ride: Must do / Optional / Won't do, saved per phone. Planned rides start as Must do, the rest as Optional.
-const PRI_KEY="mk-pri-v1", PRI_LABEL={must:"Must do",opt:"Optional",wont:"Won't do"}, PRI_RANK={must:0,opt:1,wont:2};
+// each ride: High / Medium / Low priority, saved per phone. Planned rides start as High, the rest as Medium.
+const PRI_KEY="mk-pri-v1", PRI_LABEL={must:"High priority",opt:"Medium priority",wont:"Low priority"}, PRI_RANK={must:0,opt:1,wont:2};
 let pri={}; try{pri=JSON.parse(localStorage.getItem(PRI_KEY))||{}}catch(e){}
 const priOf=id=>pri[id]||(plan.includes(id)?"must":"opt");
 function renderDay(){
   document.querySelectorAll(".ridechk").forEach(ul=>{
     const ids=ul.dataset.rides.split(",").map(Number);
-    ul.innerHTML=ids.map((id,i)=>({id,i})).sort((p,q)=>PRI_RANK[priOf(p.id)]-PRI_RANK[priOf(q.id)]||p.i-q.i).map(({id})=>{const a=byQ.get(id), pr=priOf(id), note=(NOTES[id]||"").replace(/^Must-do · /,"");
-      return `<li class="${done.has(id)?"done":""} pri-${pr}"><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""} aria-label="${a.name} done"><span class="rn">${a.name}<small>${KIND_LABEL[kindOf(id)]}${note?" · "+note:""}</small></span></label><span class="rs">${pr==="wont"?"":waitChip(id)}<span class="ht">#${a.m}</span></span><select class="pri" data-pri="${id}" aria-label="${a.name}: must do, optional or won't do">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===pr?"selected":""}>${v}</option>`).join("")}</select></li>`}).join("");
+    ul.innerHTML=ids.map((id,i)=>({id,i})).sort((p,q)=>PRI_RANK[priOf(p.id)]-PRI_RANK[priOf(q.id)]||p.i-q.i).map(({id})=>{const a=byQ.get(id), pr=priOf(id), note=(NOTES[id]||"").replace(/^High priority · /,"");
+      return `<li class="${done.has(id)?"done":""} pri-${pr}"><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""} aria-label="${a.name} done"><span class="rn">${a.name}<small>${KIND_LABEL[kindOf(id)]}${note?" · "+note:""}</small></span></label><span class="rs">${pr==="wont"?"":waitChip(id)}<span class="ht">#${a.m}</span></span><select class="pri" data-pri="${id}" aria-label="${a.name}: high, medium or low priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===pr?"selected":""}>${v}</option>`).join("")}</select></li>`}).join("");
   });
   const musts=plan.concat(ALL.filter(a=>!a.meet&&!plan.includes(a.id)).map(a=>a.id)).filter(id=>priOf(id)==="must");
   const n=musts.filter(id=>done.has(id)).length;
-  document.getElementById("count").textContent=`${n} of ${musts.length} must-do rides done`;
+  document.getElementById("count").textContent=`${n} of ${musts.length} high-priority rides done`;
   // best DAS pick right now: the longest open wait among must-do rides we haven't done (optional ones if the musts are all done)
   const pool=ALL.filter(a=>!a.meet).map(a=>a.id).filter(id=>priOf(id)!=="wont"&&!done.has(id)&&lastById&&lastById.get(id)?.open);
   const top=lastById&&(pool.filter(id=>priOf(id)==="must").sort((p,q)=>lastById.get(q).wait-lastById.get(p).wait)[0]||pool.sort((p,q)=>lastById.get(q).wait-lastById.get(p).wait)[0]);
@@ -665,10 +665,11 @@ function markChips(root){ (root||document).querySelectorAll(".refn, .ridechk .ht
 markChips();
 new MutationObserver(()=>markChips()).observe(document.getElementById("day"),{childList:true,subtree:true});
 // ---------- shared sync: ride picks and checkmarks across the group's phones (sync.embry.dev, Cloudflare D1) ----------
-// The trip code comes from the link (?trip=...) and is remembered on the phone. No code = this phone only.
+// The trip code comes from the link (?trip=...) and is remembered on the phone; with no code, the group trip is used.
 const SYNC=["https://sync.embry.dev","https://embry-sync.system-map.workers.dev"], TRIP_KEY="mk-trip", STAMP_KEY="mk-stamps-v1", QUEUE_KEY="mk-queue-v1";
 let trip=new URLSearchParams(location.search).get("trip");
 try{ if(trip) localStorage.setItem(TRIP_KEY,trip); else trip=localStorage.getItem(TRIP_KEY); }catch(e){}
+if(!trip) trip="mk-mqoj1lu";   // our group: the plain embry.dev/disney link syncs too
 if(trip&&!/^[a-z0-9-]{6,40}$/.test(trip)) trip=null;
 const loadObj=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}};
 let stamps=loadObj(STAMP_KEY,{pri:{},done:{}}), queue=loadObj(QUEUE_KEY,[]), lastSync=0, syncing=false;
