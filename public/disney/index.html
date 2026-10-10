@@ -138,11 +138,17 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .side a:focus-visible,.menu-btn:focus-visible,.bar-home:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .side .side-title{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-height:40px}
 .nav-open .side{transform:none}
-.scrim{position:fixed;inset:0;z-index:15;background:rgba(0,0,0,.45)}
+.scrim{position:fixed;inset:0;z-index:15;background:rgba(0,0,0,.45);cursor:pointer}
+.side-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.side-close{width:44px;min-height:44px;padding:0;font-size:18px;flex:none}
 @media (min-width:1100px){
   .side{transform:none;width:240px}
   .menu-btn,.scrim,.bar{display:none!important}
   .wrap{margin-left:max(256px,calc((100vw - 980px)/2))}
+  .side-hidden .side{transform:translateX(-102%)}
+  .side-hidden .wrap{margin-left:auto}
+  .side-hidden .bar{display:flex!important}
+  .side-hidden .menu-btn{display:inline-flex!important}
 }
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .view{display:none!important}
@@ -185,6 +191,25 @@ a.ht{text-decoration:none;color:inherit}
 .wxc-l.hi{background:#4b4aa8;border-color:transparent;color:#fff}
 .wxc-l.zap{background:#e2a01c;border-color:transparent;color:#1d2a26}
 .day-legend .refn{margin-left:0}
+.nowbar{position:sticky;top:var(--barh,0px);z-index:4;width:100%;text-align:left;display:grid;gap:2px;padding:10px 14px;border-radius:12px;border:2px solid var(--am);background:var(--paper);color:var(--ink);font-size:14px;font-weight:400;min-height:44px}
+.nowbar b{font-weight:800}
+.nowbar .nx{color:var(--muted)}
+.tl>li.now .what{border-color:var(--am);box-shadow:0 0 0 2px var(--am) inset}
+.tl>li.now .what>b::after{content:"NOW";margin-left:8px;padding:1px 7px;border-radius:999px;background:var(--am);color:#1d2a26;font-size:11px;font-weight:800;vertical-align:2px}
+.tl>li.soon .what{border-color:var(--mid)}
+.offline{background:var(--paper);border:1px dashed var(--line);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--muted)}
+.calm-btn{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:12;min-height:52px;padding:0 18px;border-radius:999px;border:0;background:#4b4aa8;color:#fff;font-size:17px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.calm-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.calm{position:fixed;left:0;right:0;bottom:0;z-index:30;max-height:85vh;overflow-y:auto;background:var(--paper);border-radius:18px 18px 0 0;padding:16px 16px calc(24px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 24px rgba(0,0,0,.4);display:grid;gap:12px}
+@media (min-width:700px){.calm{left:auto;right:16px;bottom:16px;width:440px;border-radius:18px}}
+.calm-head{display:flex;justify-content:space-between;align-items:center}
+.calm-head h2{font-family:var(--display);font-weight:800;font-size:22px;margin:0}
+.calm-head button{width:44px;padding:0;font-size:18px}
+.calm h3{font-family:var(--display);font-size:16px;margin:4px 0 0}
+.calm ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.calm .here{border:2px solid var(--mid);border-radius:12px;padding:10px 12px;display:grid;gap:6px}
+.calm details summary{min-height:40px;display:flex;align-items:center;font-weight:700;cursor:pointer}
+.wrap{padding-bottom:96px}
 .ridechk{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
 .ridechk li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:6px 8px;border-radius:10px;background:var(--bg)}
 .ridechk label{display:contents;cursor:pointer}
@@ -224,7 +249,7 @@ button{min-height:44px}
 
 
 <nav class="side" id="side" aria-label="Sections">
-  <a class="side-title" href="#day">Magic Kingdom · Sat Oct 10</a>
+  <div class="side-top"><a class="side-title" href="#day">Magic Kingdom · Sat Oct 10</a><button type="button" class="side-close" id="side-close" aria-label="Close menu">✕</button></div>
   <a href="#day">The day</a>
   <a href="#access">Lines &amp; DAS</a>
   <a href="#lost">If someone gets lost</a>
@@ -240,6 +265,8 @@ button{min-height:44px}
 
 
   <section class="part view" id="day" aria-labelledby="day-h">
+    <button type="button" class="nowbar" id="nowbar" hidden></button>
+    <div class="offline" id="offline" hidden>No signal. Showing the plan, waits and forecast saved on this phone.</div>
     <h2 id="day-h">The day</h2>
     <div class="day-legend lg-row" aria-label="Legend">
       <span class="lg"><i class="dl fixed"></i>Planned</span>
@@ -401,6 +428,12 @@ Kevin • 4:30 PM
 
 </div>
 
+<button type="button" class="calm-btn" id="calm-btn" aria-haspopup="dialog" aria-controls="calm">🫧 Calm</button>
+<div class="scrim" id="calm-scrim" hidden></div>
+<section class="calm" id="calm" role="dialog" aria-modal="true" aria-labelledby="calm-h" hidden>
+  <div class="calm-head"><h2 id="calm-h">Find calm</h2><button type="button" id="calm-close" aria-label="Close">✕</button></div>
+  <div id="calm-body"></div>
+</section>
 <script>
 const ALL=[
  [134,"Jungle Cruise",15,590,1222],[137,"Pirates of the Caribbean",17,400,1240],[355,"Swiss Family Treehouse",13,744,1144],
@@ -476,15 +509,23 @@ document.getElementById("reset").addEventListener("click",()=>{done.clear(); sav
 
 // one section at a time: side nav + #hash, The day by default
 const views=[...document.querySelectorAll(".view")], side=document.getElementById("side"), scrim=document.getElementById("scrim"), menuBtn=document.getElementById("menu-btn");
-function setMenu(open){document.body.classList.toggle("nav-open",open);menuBtn.setAttribute("aria-expanded",open);scrim.hidden=!open;}
-menuBtn.addEventListener("click",()=>setMenu(!document.body.classList.contains("nav-open")));
+const wide=matchMedia("(min-width:1100px)");
+function setMenu(open){
+  if(wide.matches){document.body.classList.toggle("side-hidden",!open);document.body.classList.remove("nav-open");scrim.hidden=true;}
+  else{document.body.classList.remove("side-hidden");document.body.classList.toggle("nav-open",open);scrim.hidden=!open;}
+  menuBtn.setAttribute("aria-expanded",open);
+  if(typeof setBarH==="function") setBarH();
+}
+menuBtn.addEventListener("click",()=>setMenu(wide.matches?document.body.classList.contains("side-hidden"):!document.body.classList.contains("nav-open")));
+document.getElementById("side-close").addEventListener("click",()=>setMenu(false));
+wide.addEventListener("change",()=>{document.body.classList.remove("nav-open","side-hidden");scrim.hidden=true;});
 scrim.addEventListener("click",()=>setMenu(false));
-document.addEventListener("keydown",e=>{if(e.key==="Escape")setMenu(false)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.body.classList.contains("nav-open"))setMenu(false)});
 function show(id){
   if(!views.some(v=>v.id===id)) id="day";
   views.forEach(v=>v.classList.toggle("on",v.id===id));
   side.querySelectorAll("a:not(.side-title)").forEach(a=>{a.toggleAttribute("aria-current",a.getAttribute("href")==="#"+id); if(a.getAttribute("href")==="#"+id) a.setAttribute("aria-current","page")});
-  setMenu(false); window.scrollTo(0,0);
+  if(!wide.matches) setMenu(false); window.scrollTo(0,0);
 }
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
 show(location.hash.slice(1));
@@ -572,6 +613,83 @@ renderDay();
 loadWaits();
 setInterval(()=>{if(document.visibilityState==="visible") loadWaits()},120000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible") loadWaits()});
+// ---------- NOW view: highlight the current row by the clock (Eastern time) ----------
+const ETP=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});
+function etNow(){
+  const q=new URLSearchParams(location.search).get("now");   // ?now=14:30 previews the day
+  if(q){const [h,m]=q.split(":").map(Number);return {day:WX_DAY,min:h*60+(m||0)}}
+  const P=Object.fromEntries(ETP.formatToParts(new Date()).map(x=>[x.type,x.value]));
+  return {day:`${P.year}-${P.month}-${P.day}`,min:(+P.hour%24)*60+(+P.minute)};
+}
+const tlRows=[...document.querySelectorAll(".tl>li[data-h]")].map(li=>{
+  const tt=li.querySelector("time").childNodes[0].textContent, m=tt.match(/:(\d\d)/);
+  return {li,t:(+li.dataset.h.split("-")[0])*60+(m?+m[1]:0),time:tt,title:li.querySelector(".what>b").textContent.trim(),maybe:li.classList.contains("maybe"),meal:/^(🍎|🍔|🍍|🍽)/.test(li.querySelector(".what>b").textContent.trim())};
+});
+const nowbar=document.getElementById("nowbar");
+let nowRow=null;
+function paintNow(scroll){
+  const n=etNow();
+  tlRows.forEach(r=>r.li.classList.remove("now","soon"));
+  if(n.day!==WX_DAY){nowbar.hidden=true;nowRow=null;return}
+  const solid=tlRows.filter(r=>!r.maybe);
+  let cur=null; solid.filter(r=>!r.meal).forEach(r=>{if(r.t<=n.min) cur=r});
+  const meal=solid.filter(r=>r.meal&&r.t<=n.min&&n.min<r.t+45).pop();
+  const next=solid.find(r=>r.t>n.min);
+  [cur,meal].forEach(r=>r&&r.li.classList.add("now")); if(next) next.li.classList.add("soon");
+  nowRow=(meal||cur);
+  nowbar.innerHTML=`<span><b>Now:</b> ${meal?meal.title+" · ":""}${cur?cur.title:"Getting ready"}</span>${next?`<span class="nx"><b>Next ${next.time}:</b> ${next.title}</span>`:""}`;
+  nowbar.hidden=false;
+  if(scroll&&nowRow&&location.hash.slice(1)!=="access"&&location.hash.slice(1)!=="lost") nowRow.li.scrollIntoView({block:"center"});
+}
+nowbar.addEventListener("click",()=>nowRow&&nowRow.li.scrollIntoView({block:"center",behavior:"smooth"}));
+function setBarH(){const b=document.querySelector(".bar");document.documentElement.style.setProperty("--barh",(b&&b.offsetParent?b.offsetHeight:0)+"px")}
+setBarH(); addEventListener("resize",setBarH);
+paintNow(true);
+setInterval(()=>paintNow(false),60000);
+
+// ---------- Offline: save everything for no-signal moments ----------
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+function paintOnline(){document.getElementById("offline").hidden=navigator.onLine}
+addEventListener("online",paintOnline); addEventListener("offline",paintOnline); paintOnline();
+
+// ---------- Calm: nearest quiet spots for where we are now ----------
+const AREAS={
+  "Main Street":{quiet:["Center Street, the side street halfway up Main Street"],rest:"Companion restroom by City Hall #1"},
+  "Tomorrowland":{quiet:["The path from TRON #68 toward Fantasyland","Between Space Mountain #70 and the Rockettower Plaza Stage","Near Carousel of Progress #73"],rest:"Companion restroom near Joffrey's #80, by Space Mountain"},
+  "Fantasyland":{quiet:["Near the Wishing Well by Cinderella Castle","Outside Pete's Silly Sideshow in Storybook Circus, by Dumbo #55"],rest:"Companion restrooms by Pinocchio Village Haus #58 and by the Barnstormer #54"},
+  "Liberty Square":{quiet:["Behind Ye Olde Christmas Shoppe #40","Next to The Hall of Presidents #33"],rest:"Nearest companion restroom: by Tiana's #25 or Pinocchio Village Haus #58"},
+  "Frontierland":{quiet:["Near the Tiana's Bayou Adventure #25 restrooms"],rest:"Companion restroom by Tiana's #25"},
+  "Adventureland":{quiet:["Near Swiss Family Treehouse #13","Next to the Pirates #17 restrooms"],rest:"Companion restroom by Pirates #17"}
+};
+function areasNow(){
+  const t=nowRow&&nowRow.title||"";
+  if(/Tomorrowland/.test(t)) return ["Tomorrowland"];
+  if(/Storybook|Seven Dwarfs|Snack/.test(t)&&nowRow.t<700) return ["Fantasyland"];
+  if(/Frontierland|Lunch/.test(t)) return ["Frontierland","Adventureland"];
+  if(/Storm|Snack|Dinner/.test(t)) return ["Adventureland","Liberty Square","Fantasyland"];
+  return ["Main Street"];
+}
+function areaHTML(name){const a=AREAS[name];return `<h3>${name}</h3><ul>${a.quiet.map(q=>`<li>${q}</li>`).join("")}<li>${a.rest}</li></ul>`}
+function openCalm(){
+  const here=areasNow();
+  document.getElementById("calm-body").innerHTML=`
+    <div class="here"><b>Closest to where we are now</b>${here.map(areaHTML).join("")}</div>
+    <h3>Anywhere in the park</h3>
+    <ul>
+      <li><b>First Aid:</b> quiet rooms, cots and roomier restrooms. End of Main Street, next to The Crystal Palace #9.</li>
+      <li><b>Sit in the air-conditioning:</b> Hall of Presidents #33 (about 22 min), Country Bear Jamboree #27, Tiki Room #16, PhilharMagic #45, Laugh Floor #75.</li>
+      <li><b>Stuck in a line?</b> One adult can step out with the kid while the rest hold the place, then rejoin at the front. Tell the Cast Member you're using Queue Re-Entry. No reason needed.</li>
+      <li><b>Any Cast Member</b> can point to the nearest quiet spot.</li>
+    </ul>
+    <details><summary>Other areas</summary>${Object.keys(AREAS).filter(k=>!here.includes(k)).map(areaHTML).join("")}</details>`;
+  document.getElementById("calm").hidden=false; document.getElementById("calm-scrim").hidden=false;
+  document.getElementById("calm-close").focus();
+}
+function closeCalm(){document.getElementById("calm").hidden=true;document.getElementById("calm-scrim").hidden=true;document.getElementById("calm-btn").focus()}
+document.getElementById("calm-btn").addEventListener("click",openCalm);
+document.getElementById("calm-close").addEventListener("click",closeCalm);
+document.getElementById("calm-scrim").addEventListener("click",closeCalm);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!document.getElementById("calm").hidden) closeCalm()});
 </script>
 
 </body>
