@@ -232,6 +232,16 @@ a.ht{text-decoration:none;color:inherit}
 #pm-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .pin2{position:absolute;transform:translate(-50%,-50%);min-height:0;display:inline-flex;align-items:center;gap:3px;height:28px;padding:0 8px;border-radius:999px;border:2px solid #fff;font:800 13px/1 var(--body);color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.45);cursor:pointer}
 .pin2 small{font-weight:700;font-size:11px;opacity:.95}
+.tl .what{min-width:0}
+.meals .mn{min-width:0}
+.fctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:4px}
+.fsel{min-height:34px;font:inherit;font-size:13px;font-weight:700;border-radius:8px;padding:0 8px;border:1px solid #7b8a85;background:#7b8a85;color:#fff}
+.food-on .fsel{background:#c2610f;border-color:#c2610f}
+.meals li label.ate{display:inline-flex;align-items:center;gap:6px;min-height:34px;font-size:13px;font-weight:700;color:var(--ink);background:none;border:0;padding:0;border-radius:0;grid-template-columns:none;cursor:pointer}
+.meals li .ate input{position:static;opacity:1;pointer-events:auto;width:20px;height:20px;margin:0;accent-color:var(--mid)}
+.meals>li:not(.food-on){opacity:.75}
+.pin2.food{background:#c2610f}
+.pp.food{background:#c2610f}
 .pin2.start{background:#4b4aa8;cursor:default}
 .pin2.high{background:#16897a}.pin2.das{background:#1f6fb8}.pin2.done{background:#9aa9a3}
 .pin2.low{background:#9aa9a3;height:14px;min-width:14px;padding:0;border-width:2px;opacity:.85}
@@ -341,7 +351,7 @@ button{min-height:44px}
     <div id="map-warn"></div>
     <div class="map-sum" id="map-sum"></div>
     <div class="map-tools">
-      <div class="map-legend"><span class="lg"><i class="pp start">GR</i>Start: Guest Relations</span><span class="lg"><i class="pp high">3</i>High</span><span class="lg"><i class="pp das">🎟</i>DAS candidate</span><span class="lg"><i class="pp done">✓</i>Done</span><span class="lg"><i class="pp low"></i>Low</span><span class="lg">📍 Last ride ticked</span></div>
+      <div class="map-legend"><span class="lg"><i class="pp start">GR</i>Start: Guest Relations</span><span class="lg"><i class="pp high">3</i>High</span><span class="lg"><i class="pp das">🎟</i>DAS candidate</span><span class="lg"><i class="pp food">🍴</i>Food stop</span><span class="lg"><i class="pp done">✓</i>Done</span><span class="lg"><i class="pp low"></i>Low</span><span class="lg">📍 Last ride ticked</span></div>
       <div class="map-zoom"><button type="button" id="pm-out" aria-label="Zoom out">−</button><button type="button" id="pm-in" aria-label="Zoom in">+</button></div>
     </div>
     <div class="pm-scroll" id="pm-scroll"><div class="pm-inner" id="pm-inner">
@@ -469,6 +479,26 @@ const ZONES=[null,
   {n:"Evening: catch up and re-ride",start:960,end:1380,rides:[13763,1189],cool:null,
    note:"Re-ride favorites. If it's raining, pick indoor rides. Lines shrink in the last two hours and during fireworks."}];
 const zoneOf=new Map(); ZONES.forEach((z,i)=>z&&z.rides.forEach(id=>zoneOf.set(id,i)));
+// ---------- food spots: each meal option can go on the path like a ride (On the path / Skip, synced) ----------
+// id = 9000 + meal×100 + Disney map number; a spot joins the path at its meal's stop
+const FOODPOS={64:[1487,442],65:[1465,712],29:[450,1015],39:[836,673],21:[532,1072],19:[862,1105],58:[1127,531]};
+const MEALS={"10:00":{k:1,zone:2,label:"10:00 snack"},"12:00":{k:2,zone:3,label:"Lunch"},"2:00":{k:3,zone:5,label:"2:00 snack"},"5:00":{k:4,zone:6,label:"Dinner"}};
+const FOOD=[], FOOD_ON=new Set();
+document.querySelectorAll(".tl>li").forEach(li=>{
+  const meal=MEALS[li.querySelector("time").childNodes[0].textContent.trim()], ul=li.querySelector(".meals"); if(!meal||!ul) return;
+  [...ul.children].forEach((row,i)=>{
+    const num=+(row.querySelector(".mnum")?.textContent||"").replace("#",""), pos=FOODPOS[num]; if(!pos) return;
+    const id=9000+meal.k*100+num, name=row.querySelector(".ref").textContent.trim();
+    FOOD.push({id,m:num,name,x:pos[0],y:pos[1],zone:meal.zone,meal:meal.label,food:true}); if(i===0) FOOD_ON.add(id);
+    byQ.set(id,{id,m:num,name,x:pos[0],y:pos[1],food:true,meal:meal.label}); zoneOf.set(id,meal.zone);
+    row.dataset.food=id;
+    row.querySelector(".mn").insertAdjacentHTML("beforeend",`<span class="fctl"><select class="fsel" data-pri="${id}" aria-label="${name} for ${meal.label}"><option value="must">🍴 On the path</option><option value="wont">Skip</option></select><label class="ate"><input type="checkbox" data-done="${id}"> Ate here</label></span>`);
+  });
+});
+const FOOD_IDS=new Set(FOOD.map(f=>f.id)), isFood=id=>FOOD_IDS.has(id);
+function paintFood(){ FOOD.forEach(f=>{ const row=document.querySelector(`[data-food="${f.id}"]`); if(!row) return; const on=priOf(f.id)==="must";
+  row.classList.toggle("food-on",on); row.querySelector(".fsel").value=on?"must":"wont"; row.querySelector('input[type="checkbox"]').checked=done.has(f.id); }); }
+
 function clockZone(min){ if(min<495) return 0; for(let i=ZONES.length-1;i>=1;i--) if(min>=ZONES[i].start) return i; return 0; }
 function currentZone(){
   const n=nowET(); let ev=null;
@@ -487,7 +517,7 @@ let pri={}; try{pri=JSON.parse(localStorage.getItem(PRI_KEY))||{}}catch(e){}
 // Space Mountain stays High: ride it at opening in the regular line.
 const DAS_DEFAULT=new Set([11527,129,136,140,13630,130,134,137]);   // TRON, Seven Dwarfs, Peter Pan, Haunted Mansion, Tiana's, Big Thunder, Jungle Cruise, Pirates
 // Medium was retired: anything still saved as Medium counts as Low
-const priOf=id=>{const p=pri[id]; if(p) return p==="opt"?"wont":p; return DAS_DEFAULT.has(id)?"das":plan.includes(id)?"must":"wont";};
+const priOf=id=>{const p=pri[id]; if(p) return p==="opt"?"wont":p; if(isFood(id)) return FOOD_ON.has(id)?"must":"wont"; return DAS_DEFAULT.has(id)?"das":plan.includes(id)?"must":"wont";};
 const isHigh=id=>{const p=priOf(id);return p==="must"||p==="das"};
 
 // ---------- path: High + DAS rides, stop by stop counterclockwise; inside a stop, the order with the least walking ----------
@@ -507,7 +537,7 @@ function orderStop(ids,from,toward){
 }
 let pathCache={key:"",path:[]};
 function computePath(){
-  const sel=ZONES.map(z=>z?z.rides.filter(isHigh):[]), key=JSON.stringify(sel);
+  const sel=ZONES.map((z,i)=>z?z.rides.filter(isHigh).concat(FOOD.filter(f=>f.zone===i&&isHigh(f.id)).map(f=>f.id)):[]), key=JSON.stringify(sel);
   if(pathCache.key===key) return pathCache.path;
   const out=[]; let from=CITYHALL;
   for(let z=1;z<ZONES.length;z++){
@@ -523,7 +553,7 @@ function stopWindow(z){ const cur=currentZone(), late=z>=cur?lateBy():0; return 
 // big warnings: a High-priority outdoor ride the path reaches during likely storms
 function bigWarnings(){
   const out=[];
-  computePath().filter(id=>priOf(id)==="must"&&!done.has(id)&&kindOf(id)==="outdoor").forEach(id=>{
+  computePath().filter(id=>!isFood(id)&&priOf(id)==="must"&&!done.has(id)&&kindOf(id)==="outdoor").forEach(id=>{
     const z=zoneOf.get(id); if(!z||z===6) return;
     const [a,b]=stopWindow(z); let worst=null;
     for(let h=Math.floor(a/60);h<=Math.floor((b-1)/60);h++){ const w=wxAt(h); if(w&&w[2]&&w[1]>=50&&(!worst||w[1]>worst[1])) worst=w; }
@@ -584,6 +614,7 @@ function renderDay(){
       <ul class="ridechk">${high.concat(low).map(id=>rideLI(id)).join("")}</ul>`;
     el.closest("li").dataset.next=isCur&&nextHigh?nextHigh:"";
   });
+  paintFood();
   const dw=document.getElementById("day-warn"); if(dw) dw.innerHTML=warnHTML();
   if(typeof renderMap==="function") try{renderMap()}catch(e){}
   const musts=ALL.filter(a=>!a.meet).map(a=>a.id).filter(isHigh);
@@ -919,16 +950,19 @@ function renderMap(){
     const n=path.indexOf(a.id)+1, p=priOf(a.id), d=done.has(a.id), w=wait(a.id);
     if(!n) return `<button type="button" class="pin2 low${pmSel===a.id?" sel":""}" style="${pct2(PT(a.id))}" data-pin="${a.id}" aria-label="${a.name}, low priority"></button>`;
     return `<button type="button" class="pin2 ${d?"done":p==="das"?"das":"high"}${a.id===next?" next":""}${pmSel===a.id?" sel":""}" style="${pct2(PT(a.id))}" data-pin="${a.id}" aria-label="Stop ${n}: ${a.name}">${d?"✓":(p==="das"?"🎟":"")+n}${!d&&w!=null?`<small>${w}m</small>`:""}</button>`;
-  }).join("")+`<span class="pin2 start" style="${pct2(CITYHALL)}" title="Start: Guest Relations at City Hall #1">GR</span>`+(here?`<span class="here-pin" style="${pct2(PT(here))}">📍</span>`:"");
+  }).join("")+FOOD.filter(f=>path.includes(f.id)).map(f=>{ const n=path.indexOf(f.id)+1, d=done.has(f.id);
+    return `<button type="button" class="pin2 food${d?" done":""}${f.id===next?" next":""}${pmSel===f.id?" sel":""}" style="${pct2(PT(f.id))}" data-pin="${f.id}" aria-label="Stop ${n}: ${f.meal} at ${f.name}">${d?"✓":"🍴"+n}</button>`; }).join("")+`<span class="pin2 start" style="${pct2(CITYHALL)}" title="Start: Guest Relations at City Hall #1">GR</span>`+(here?`<span class="here-pin" style="${pct2(PT(here))}">📍</span>`:"");
   // summary
   const left=path.filter(id=>!done.has(id)); let px=0, at=here?PT(here):CITYHALL; left.forEach(id=>{px+=dist(at,PT(id)); at=PT(id);});
-  document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name} #${byQ.get(next).m}${wait(next)!=null?`, ${wait(next)} min posted`:""}${priOf(next)==="das"?" (DAS candidate)":""}</span><span>${left.length} stops left on the path · about ${walkMinPx(px)} min of walking</span>${dasHTML()}`:"<span><b>Every High and DAS ride is done.</b> Re-ride favorites or head home.</span>";
+  document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name} #${byQ.get(next).m}${wait(next)!=null?`, ${wait(next)} min posted`:""}${isFood(next)?` (${byQ.get(next).meal})`:priOf(next)==="das"?" (DAS candidate)":""}</span><span>${left.length} stops left on the path · about ${walkMinPx(px)} min of walking</span>${dasHTML()}`:"<span><b>Every High and DAS ride is done.</b> Re-ride favorites or head home.</span>";
   document.getElementById("map-warn").innerHTML=warnHTML();
   if(pmSel) pmCard(pmSel);
   if(!pmCentered&&document.getElementById("map").classList.contains("on")&&next){ pmCentered=true; pmCenter(PT(next)); }
 }
 function pmCenter([x,y]){ pmScroll.scrollTo({left:x/2060*pmInner.offsetWidth-pmScroll.clientWidth/2,top:y/2124*pmInner.offsetHeight-pmScroll.clientHeight/2}); }
 function pmCard(id){
+  if(isFood(id)){ const f=byQ.get(id), n=computePath().indexOf(id)+1, on=priOf(id)==="must";
+    document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${f.name}</b> <span>#${f.m} · ${f.meal} · ${ZONES[zoneOf.get(id)].n}</span><div class="pm-row"><select data-pri="${id}" aria-label="${f.name}: on the path or skip"><option value="must" ${on?"selected":""}>🍴 On the path</option><option value="wont" ${on?"":"selected"}>Skip</option></select><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Ate here</label></div>`; return; }
   const a=byQ.get(id), p=priOf(id), n=computePath().indexOf(id)+1, w=lastById&&lastById.get(id);
   document.getElementById("pm-card").innerHTML=`<b>${n?n+". ":""}${a.name}</b> <span>#${a.m||"–"} · ${ZONES[zoneOf.get(id)].n} · ${KIND_LABEL[kindOf(id)]}${w?` · ${w.open?w.wait+" min posted":"closed"}`:""}</span>
     <div class="pm-row"><select data-pri="${id}" aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===p?"selected":""}>${v}</option>`).join("")}</select><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""}> Done</label></div>`;
