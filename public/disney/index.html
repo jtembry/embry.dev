@@ -718,23 +718,50 @@ function paintOnline(){document.getElementById("offline").hidden=navigator.onLin
 addEventListener("online",paintOnline); addEventListener("offline",paintOnline); paintOnline();
 
 // ---------- Calm: nearest quiet spots for where we are now ----------
+// Coordinates from OpenStreetMap. `at` = the spot itself; `near` = extra points that mark the land
+// (rides and shops) so a GPS fix lands in the right one.
 const AREAS={
-  "Main Street":{quiet:["Center Street, the side street halfway up Main Street"],rest:"Companion restroom by City Hall #1"},
-  "Tomorrowland":{quiet:["The path from TRON #68 toward Fantasyland","Between Space Mountain #70 and the Rockettower Plaza Stage","Near Carousel of Progress #73"],rest:"Companion restroom near Joffrey's #80, by Space Mountain"},
-  "Fantasyland":{quiet:["Near the Wishing Well by Cinderella Castle","Outside Pete's Silly Sideshow in Storybook Circus, by Dumbo #55"],rest:"Companion restrooms by Pinocchio Village Haus #58 and by the Barnstormer #54"},
-  "Liberty Square":{quiet:["Behind Ye Olde Christmas Shoppe #40","Next to The Hall of Presidents #33"],rest:"Nearest companion restroom: by Tiana's #25 or Pinocchio Village Haus #58"},
-  "Frontierland":{quiet:["Near the Tiana's Bayou Adventure #25 restrooms"],rest:"Companion restroom by Tiana's #25"},
-  "Adventureland":{quiet:["Near Swiss Family Treehouse #13","Next to the Pirates #17 restrooms"],rest:"Companion restroom by Pirates #17"}
+  "Main Street":{quiet:[{t:"Center Street, the side street halfway up Main Street",at:[28.41749,-81.58100]}],rest:{t:"Companion restroom by City Hall #1",at:[28.41676,-81.58167]},
+    near:[[28.41794,-81.58133],[28.41778,-81.58120],[28.41809,-81.58199],[28.41723,-81.58102]]},
+  "Tomorrowland":{quiet:[{t:"The path from TRON #68 toward Fantasyland",at:[28.42040,-81.57740]},{t:"Between Space Mountain #70 and the Rockettower Plaza Stage",at:[28.41870,-81.57790]},{t:"Near Carousel of Progress #73",at:[28.41779,-81.57884]}],rest:{t:"Companion restroom near Joffrey's #80, by Space Mountain",at:[28.41850,-81.57848]},
+    near:[[28.41915,-81.57725],[28.42051,-81.57672],[28.41819,-81.57993],[28.41797,-81.58047],[28.41952,-81.57922],[28.41842,-81.57873]]},
+  "Fantasyland":{quiet:[{t:"Near the Wishing Well by Cinderella Castle",at:[28.41960,-81.58075]},{t:"Outside Pete's Silly Sideshow in Storybook Circus, by Dumbo #55",at:[28.42136,-81.57907]}],rest:{t:"Companion restrooms by Pinocchio Village Haus #58 and by the Barnstormer #54",at:[28.42065,-81.58148]},
+    near:[[28.42044,-81.57823],[28.42043,-81.57895],[28.42077,-81.57872],[28.42019,-81.58060],[28.42076,-81.58050],[28.42010,-81.58120]]},
+  "Liberty Square":{quiet:[{t:"Behind Ye Olde Christmas Shoppe #40",at:[28.41913,-81.58223]},{t:"Next to The Hall of Presidents #33",at:[28.41968,-81.58208]}],rest:{t:"Nearest companion restroom: by Tiana's #25 or Pinocchio Village Haus #58"},
+    near:[[28.41999,-81.58254],[28.42045,-81.58300]]},
+  "Frontierland":{quiet:[{t:"Near the Tiana's Bayou Adventure #25 restrooms",at:[28.41935,-81.58440]}],rest:{t:"Companion restroom by Tiana's #25",at:[28.41935,-81.58440]},
+    near:[[28.41910,-81.58460],[28.41873,-81.58382],[28.41965,-81.58509],[28.42000,-81.58400]]},
+  "Adventureland":{quiet:[{t:"Near Swiss Family Treehouse #13",at:[28.41822,-81.58298]},{t:"Next to the Pirates #17 restrooms",at:[28.41804,-81.58423]}],rest:{t:"Companion restroom by Pirates #17",at:[28.41804,-81.58423]},
+    near:[[28.41843,-81.58389],[28.41768,-81.58384]]}
 };
+const CASTLE=[28.4195,-81.58118];
+function metres(a,b){ const k=111320, dx=(a[1]-b[1])*k*Math.cos(a[0]*Math.PI/180), dy=(a[0]-b[0])*k; return Math.hypot(dx,dy); }
+function anchors(name){ const a=AREAS[name]; return [...a.quiet.map(q=>q.at),a.rest.at,...a.near].filter(Boolean); }
+// lands ranked by their closest point to the fix; a second land shows too when we're on the border
+function areasAt(ll){
+  const r=Object.keys(AREAS).map(n=>({n,d:Math.min(...anchors(n).map(p=>metres(ll,p)))})).sort((a,b)=>a.d-b.d);
+  return r.slice(0,1).concat(r[1]&&r[1].d-r[0].d<40?[r[1]]:[]).map(x=>x.n);
+}
 function areasNow(){
   return [null,["Tomorrowland"],["Fantasyland"],["Liberty Square","Frontierland"],["Frontierland","Adventureland"],["Adventureland","Liberty Square"],["Main Street"]][currentZone()]||["Main Street"];
 }
 const chipify=t=>t.replace(/#(\d+)/g,'<span class="refn">#$1</span>');
-function areaHTML(name){const a=AREAS[name];return `<h3>${name}</h3><ul>${a.quiet.map(q=>`<li>${chipify(q)}</li>`).join("")}<li>${chipify(a.rest)}</li></ul>`}
-function openCalm(){
-  const here=areasNow();
+const away=(ll,at)=>ll&&at?` <small>· ~${Math.max(10,Math.round(metres(ll,at)/10)*10)} m</small>`:"";
+function areaHTML(name,ll){
+  const a=AREAS[name], q=ll?[...a.quiet].sort((x,y)=>metres(ll,x.at)-metres(ll,y.at)):a.quiet;
+  return `<h3>${name}</h3><ul>${q.map(x=>`<li>${chipify(x.t)}${away(ll,x.at)}</li>`).join("")}<li>${chipify(a.rest.t)}${away(ll,a.rest.at)}</li></ul>`;
+}
+// GPS: the last good fix, and what the panel says about it
+let calmFix=null, calmGeo="ask";
+function calmLabel(){
+  if(calmGeo==="gps") return `Closest to you <small>(GPS, ±${Math.round(calmFix.acc)} m)</small>`;
+  const why={ask:"Finding where you are…",off:"Location is off, so this follows the plan.",far:"GPS says you're not in the park, so this follows the plan.",fuzzy:"GPS is too rough right now, so this follows the plan.",none:"No GPS fix, so this follows the plan."}[calmGeo]||"";
+  return `Closest to where the plan says we are <small>${why}</small>`;
+}
+function paintCalm(){
+  const ll=calmGeo==="gps"?calmFix.ll:null, here=ll?areasAt(ll):areasNow();
   document.getElementById("calm-body").innerHTML=`
-    <div class="here"><b>Closest to where we are now</b>${here.map(areaHTML).join("")}</div>
+    <div class="here"><b>${calmLabel()}</b>${here.map(n=>areaHTML(n,ll)).join("")}</div>
     <h3>Anywhere in the park</h3>
     <ul>
       <li><b>First Aid:</b> quiet rooms, cots and roomier restrooms. End of Main Street, next to The Crystal Palace #9.</li>
@@ -742,8 +769,24 @@ function openCalm(){
       <li><b>Stuck in a line?</b> One adult can step out with the kid while the rest hold the place, then rejoin at the front. Tell the Cast Member you're using Queue Re-Entry. No reason needed.</li>
       <li><b>Any Cast Member</b> can point to the nearest quiet spot.</li>
     </ul>
-    <details><summary>Other areas</summary>${Object.keys(AREAS).filter(k=>!here.includes(k)).map(areaHTML).join("")}</details>`;
+    <details><summary>Other areas</summary>${Object.keys(AREAS).filter(k=>!here.includes(k)).map(n=>areaHTML(n,ll)).join("")}</details>`;
   const cb=document.getElementById("calm-body"); cb.querySelectorAll("li").forEach(li=>{ if(!li.querySelector(".refn")) li.innerHTML=chipify(li.innerHTML); }); markChips(cb);
+}
+function locateCalm(){
+  if(!("geolocation" in navigator)){ calmGeo="none"; return paintCalm(); }
+  if(!calmFix) calmGeo="ask";
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const ll=[pos.coords.latitude,pos.coords.longitude], acc=pos.coords.accuracy||999;
+    calmFix={ll,acc};
+    calmGeo=metres(ll,CASTLE)>700?"far":acc>120?"fuzzy":"gps";
+    if(!document.getElementById("calm").hidden) paintCalm();
+  },err=>{
+    calmGeo=err.code===1?"off":"none";
+    if(!document.getElementById("calm").hidden) paintCalm();
+  },{enableHighAccuracy:true,timeout:10000,maximumAge:20000});
+}
+function openCalm(){
+  locateCalm(); paintCalm();
   document.getElementById("calm").hidden=false; document.getElementById("calm-scrim").hidden=false;
   document.getElementById("calm-close").focus();
 }
