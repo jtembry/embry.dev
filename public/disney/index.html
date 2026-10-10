@@ -224,7 +224,7 @@ a.ht{text-decoration:none;color:inherit}
 .refn:hover,.ridechk .ht:hover{border-color:var(--ink)}
 .refn:focus-visible,.ridechk .ht:focus-visible{outline:2px solid var(--mid);outline-offset:2px}
 .mapview{position:fixed;inset:0;z-index:40;background:var(--bg);display:grid;grid-template-rows:auto 1fr;padding-top:env(safe-area-inset-top,0px)}
-.mv-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.mv-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line)}
 .mv-tt{min-width:0;display:grid;gap:2px}
 .mv-sub{margin:0;font-size:14px;color:var(--muted)}
 .mv-head h2{font-family:var(--display);font-weight:800;font-size:19px;margin:0;min-width:0}
@@ -266,7 +266,7 @@ a.ht{text-decoration:none;color:inherit}
 .meals .fchk[hidden]{display:inline-block!important;visibility:hidden}
 .meals>li.done .ref{text-decoration:line-through;color:var(--muted)}
 .mzone{font-size:13px}
-.fd-add,.fd-other{min-height:34px;padding:0 10px;margin:4px 4px 0 0;font-size:13px}
+.fd-add{min-height:34px;padding:0 10px;margin:4px 4px 0 0;font-size:13px}
 .fd-add.next{background:#16897a;border-color:#16897a;color:#fff}
 .dasinfo{color:var(--muted)}
 .food-btn{background:#c2610f}
@@ -486,7 +486,7 @@ button{min-height:44px}
   <div id="calm-body"></div>
 </section>
 <section class="mapview" id="mapview" role="dialog" aria-modal="true" aria-labelledby="mv-h" hidden>
-  <div class="mv-head"><div class="mv-tt"><h2 id="mv-h"></h2><p class="mv-sub" id="mv-sub" hidden></p></div><div class="mv-ctl"><button type="button" id="mv-out" aria-label="Zoom out">−</button><button type="button" id="mv-in" aria-label="Zoom in">+</button><button type="button" id="mv-close" aria-label="Close map">✕</button></div></div>
+  <div class="mv-head"><div class="mv-tt"><h2 id="mv-h"></h2><p class="mv-sub" id="mv-sub" hidden></p></div><div class="mv-ctl"><button type="button" id="mv-close" aria-label="Close map">✕</button></div></div>
   <div class="mv-scroll" id="mv-scroll"><div class="mv-inner" id="mv-inner"><img src="MK-live-map.webp" width="1400" height="1443" alt="Magic Kingdom map"><div id="mv-dots"></div><span class="mv-you" id="mv-you" hidden></span><span class="mv-mark" id="mv-mark"></span></div></div>
 </section>
 <script>
@@ -1012,7 +1012,6 @@ const mv=document.getElementById("mapview"), mvScroll=document.getElementById("m
 let mvZoom=matchMedia("(max-width:600px)").matches?2.2:1.4, mvAt=null, mvFrom=null;
 function mvCenter(smooth){ if(!mvAt) return; const x=mvAt[1]/2060*mvInner.offsetWidth, y=mvAt[2]/2124*mvInner.offsetHeight;
   mvScroll.scrollTo({left:x-mvScroll.clientWidth/2,top:y-mvScroll.clientHeight/2,behavior:smooth?"smooth":"auto"}); }
-function mvSetZoom(z){ mvZoom=Math.min(4,Math.max(1,z)); mvInner.style.setProperty("--z",mvZoom); mvCenter(false); }
 function openMap(num,from){
   const spot=SPOTS[num]; if(!spot) return;
   openMapAt({title:`#${num} ${spot[0]}`,x:spot[1],y:spot[2]},from||null);
@@ -1038,8 +1037,6 @@ function openMapAt(o,from){
 document.getElementById("mv-dots").addEventListener("click",e=>{ const b=e.target.closest("[data-dot]"); if(b&&mvPick) mvPick(+b.dataset.dot); });
 function closeMap(){ mv.hidden=true; document.body.style.overflow=""; if(mvFrom&&mvFrom.focus) mvFrom.focus(); }
 document.getElementById("mv-close").addEventListener("click",closeMap);
-document.getElementById("mv-in").addEventListener("click",()=>mvSetZoom(mvZoom+0.6));
-document.getElementById("mv-out").addEventListener("click",()=>mvSetZoom(mvZoom-0.6));
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!mv.hidden) closeMap(); });
 function numOf(el){ const m=el.textContent.match(/#(\d+)/); return m?+m[1]:null; }
 function isNumChip(el){ return el.closest(".refn, .ridechk .ht"); }
@@ -1189,11 +1186,10 @@ function nextMealK(){ const n=nowET(); const ks=[1,2,3,4].filter(k=>!(chosenSpot
 function showFood(){
   const near=byDistance(FOODCAT), list=near.filter(c=>c.type!=="table").concat(near.filter(c=>c.type==="table"));   // walk-up spots first; table service needs a reservation
   const k=fdSel==null?0:list.findIndex(c=>c.i===fdSel), c=list[k], nk=nextMealK();
-  const others=list.filter((x,i)=>i!==k).slice(0,3);
   openMapAt({title:k===0?"🍴 Nearest food":"🍴 Food",
     sub:`<b>${c.name}</b> #${c.m} · ${FOOD_TYPE[c.type]} · ${roundM(c.d)} · <a class="menu" href="${menuURL(c)}" target="_blank" rel="noopener">Menu</a><br>
       Add to the path as: ${[nk,...[1,2,3,4].filter(x=>x!==nk)].map(m=>`<button type="button" class="fd-add${m===nk?" next":""}" data-addmeal="${m}" data-m="${c.m}">${MEALK[m].label}</button>`).join(" ")}
-      ${fdNote?`<br><b>${fdNote}</b>`:""}<br>Also close: ${others.map(o=>`<button type="button" class="fd-other" data-fpick="${o.i}">${o.name} · ${roundM(o.d)}</button>`).join(" ")}<br>${fromLabel()}`,
+      ${fdNote?`<br><b>${fdNote}</b>`:""}<br>${fromLabel()}`,
     x:c.px[0],y:c.px[1],you:gpsOn()?geoPx(fix.ll):null,
     dots:FOODCAT.map(q=>({x:q.px[0],y:q.px[1],icon:q.type==="table"?"🍽":"🍴",cls:"",label:q.name})),
     pick:i=>{ fdSel=i; fdNote=""; showFood(); }});
@@ -1201,9 +1197,8 @@ function showFood(){
 function openFood(from){ fdSel=null; fdNote=""; mvFrom=from; showFood(); locate(()=>{ if(!mv.hidden&&document.getElementById("mv-h").textContent.startsWith("🍴")) showFood(); }); }
 document.getElementById("food-btn").addEventListener("click",e=>openFood(e.currentTarget));
 document.getElementById("mv-sub").addEventListener("click",e=>{
-  const add=e.target.closest("[data-addmeal]"), other=e.target.closest("[data-fpick]");
+  const add=e.target.closest("[data-addmeal]");
   if(add){ const k=+add.dataset.addmeal, m=+add.dataset.m; setMeal(k,m); renderDay(); fdNote=`✓ ${FOODCAT.find(c=>c.m===m).name} is now our ${MEALK[k].label.toLowerCase()} on the path.`; fdSel=FOODCAT.findIndex(c=>c.m===m); showFood(); }
-  else if(other){ fdSel=+other.dataset.fpick; fdNote=""; showFood(); }
 });
 // ---------- floating bubble: tap to show Food / Restroom / Calm, tap again (or anywhere else) to fold ----------
 const fabItems=document.getElementById("fab-items"), fabToggle=document.getElementById("fab-toggle");
