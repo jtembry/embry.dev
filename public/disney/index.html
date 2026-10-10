@@ -196,9 +196,10 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
       <li style="--c:var(--mid)" class="maybe"><time>11:30</time><span class="rail"></span><div class="what"><b>Lunch?</b><span>Mobile order in the app to skip the counter line.</span></div></li>
       <li style="--c:var(--mid)"><time>12:00</time><span class="rail"></span><div class="what"><b>Liberty Square and Fantasyland, stops 5–11</b><span>Busiest part of the day. Keep a DAS return going.</span></div></li>
       <li style="--c:var(--mid)" class="maybe"><time>2:00</time><span class="rail"></span><div class="what"><b>Break?</b><span>Snack and a quiet spot. See Need a break. Afternoon storms are likely in Florida.</span></div></li>
-      <li style="--c:var(--pm)"><time>2:30</time><span class="rail"></span><div class="what"><b>Tomorrowland, stops 12–17</b><span>TRON, Space Mountain, Buzz, PeopleMover. Laugh Floor is air-conditioned.</span></div></li>
+      <li style="--c:var(--pm)"><time>1:30</time><span class="rail"></span><div class="what"><b>Book TRON as our DAS return</b><span>Must-do. Book it from Fantasyland so it's ready when we get there. It stays good until close.</span></div></li>
+      <li style="--c:var(--pm)"><time>2:30</time><span class="rail"></span><div class="what"><b>Tomorrowland, stops 12–17</b><span>Ride TRON, then book Space Mountain as the next DAS return and do Speedway, PeopleMover and Buzz while we wait.</span></div></li>
       <li style="--c:var(--eve)" class="maybe"><time>6:00</time><span class="rail"></span><div class="what"><b>Dinner?</b></div></li>
-      <li style="--c:var(--eve)" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Lines shrink in the last two hours and during fireworks.</span></div></li>
+      <li style="--c:var(--eve)" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Backup time for TRON or Space Mountain if either broke down. Lines shrink in the last two hours and during fireworks.</span></div></li>
       <li style="--c:var(--eve)" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks from Main Street?</b><span>Check the time in the app. Headphones help.</span></div></li>
       <li style="--c:var(--eve)"><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes. Expect a monorail wait after fireworks.</span></div></li>
     </ol>
@@ -269,6 +270,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
         <ul>
           <li><b>8–10am, shortest lines of the day:</b> use the regular lines. Jungle Cruise, Pirates, Tiana's and Big Thunder are often 5–20 min. A DAS return saves little this early.</li>
           <li><b>From about 10am, lines peak until 3:</b> start DAS. Book the top ride in "Longest waits now," ride the short ones nearby while you wait. One return at a time; request the next 10 min after you use it.</li>
+          <li><b>Don't miss: TRON and Space Mountain.</b> Book TRON as a DAS return by 1:30 so it's ready when we reach Tomorrowland. Use it, then book Space Mountain 10 min later. A DAS return stays good until the park or ride closes, so a breakdown doesn't cost us the ride.</li>
           <li><b>Lightning Lane Multi Pass:</b> book Seven Dwarfs, Peter Pan, Tiana's and Jungle Cruise first.</li>
           <li><b>TRON:</b> has a regular line, so DAS works there too. The Single Pass skips it.</li>
           <li><b>Long line?</b> Skip ahead to the next stop and loop back. Nothing in each area is far apart.</li>
@@ -424,9 +426,9 @@ const rides = [
   {id:"r9", q:135,  n:9,  b:"mid", m:56, name:"Mad Tea Party", pins:[[504,217]]},
   {id:"r10", q:127, n:10, b:"mid", m:50, name:"Little Mermaid", pins:[[491,125]]},
   {id:"r11", q:126, n:11, b:"mid", m:54, name:"The Barnstormer", pins:[[624,148]]},
-  {id:"r12", q:11527, n:12, b:"pm",  m:68, name:"TRON Lightcycle Run", note:"DAS or the Lightning Lane Single Pass", pins:[[640,215]]},
+  {id:"r12", q:11527, n:12, b:"pm",  m:68, name:"TRON Lightcycle Run", note:"Must-do · book the DAS return by 1:30 · 48 in. to ride", pins:[[640,215]]},
   {id:"r13", q:143, n:13, b:"pm",  m:69, name:"Tomorrowland Speedway", pins:[[550,287]]},
-  {id:"r14", q:138, n:14, b:"pm",  m:70, name:"Space Mountain", note:"Lightning Lane helps here too", pins:[[642,330]]},
+  {id:"r14", q:138, n:14, b:"pm",  m:70, name:"Space Mountain", note:"Must-do · book DAS right after TRON · 44 in. to ride", pins:[[642,330]]},
   {id:"r15", q:1190, n:15, b:"pm",  m:72, name:"PeopleMover", pins:[[578,382]]},
   {id:"r16", q:131, n:16, b:"pm",  m:74, name:"Buzz Lightyear", note:"New version", pins:[[546,385]]},
   {id:"r17", q:125, n:17, b:"pm",  m:75, name:"Monsters Inc Laugh Floor", note:"Air-conditioned show · closest to the hub", pins:[[500,364]]},
