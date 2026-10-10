@@ -126,6 +126,19 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .tl .what b{display:block}
 .tl .what span{font-size:14px;color:var(--muted)}
 .tl>li.maybe .what{border-style:dashed}
+.tl .what{position:relative}
+.tl .what>b:first-of-type{padding-right:62px}
+.tl-hide{position:absolute;top:6px;right:8px;min-height:30px;padding:0 10px;font-size:12px;font-weight:700;color:var(--muted);background:var(--paper);border:1px solid var(--line);border-radius:999px}
+.tl>li.tl-hidden .what>*:not(b:first-of-type):not(.tl-hide){display:none}
+.tl>li.tl-hidden .what{padding-top:6px;padding-bottom:6px;opacity:.6;cursor:pointer}
+.tl>li.tl-hidden .what>b:first-of-type{font-size:14px;font-weight:700}
+.tl>li.tl-hidden time{font-size:13px;color:var(--muted);padding-top:6px}
+.tl>li.tl-hidden .rail::after{top:9px}
+.tl>li.tl-hidden time>*{display:none}
+.tl>li.tl-hidden .tl-hide{top:50%;transform:translateY(-50%)}
+.tl>li.tl-hidden .what{margin-bottom:6px}
+.tl-hidbar{margin:0 0 10px;display:flex;justify-content:flex-end}
+.tl-hidbar button{min-height:36px;padding:0 14px;font-size:13px;color:var(--muted)}
 .breaks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .breaks li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 .breaks b{display:block}
@@ -814,6 +827,30 @@ async function loadWeather(){
     WX=next; paintWeather();
   }catch(e){}
 }
+// ---------- hide timeline cards as the day goes (this phone only) ----------
+const HIDE_KEY="mk-hidden-v1";
+let hiddenCards=new Set(); try{ hiddenCards=new Set(JSON.parse(localStorage.getItem(HIDE_KEY))||[]); }catch(e){}
+// key = the time and title as written in the page (weather chips get added to <time> later, so only its first text counts)
+document.querySelectorAll(".tl>li").forEach(li=>{ li.dataset.card=(li.querySelector("time").firstChild?.textContent||"").trim()+"|"+li.querySelector(".what>b").textContent.trim().slice(0,40); });
+const cardKey=li=>li.dataset.card;
+const tlList=document.querySelector(".tl"), tlBar=document.createElement("p");
+tlBar.className="tl-hidbar"; tlBar.hidden=true; tlBar.innerHTML=`<button type="button" id="tl-showall"></button>`; tlList.before(tlBar);
+function paintHidden(){
+  let n=0;
+  tlList.querySelectorAll(":scope>li").forEach(li=>{ const h=hiddenCards.has(cardKey(li)); if(h) n++; li.classList.toggle("tl-hidden",h);
+    const b=li.querySelector(".tl-hide"); b.textContent=h?"Show":"Hide"; b.setAttribute("aria-label",(h?"Show ":"Hide ")+li.querySelector(".what>b").textContent.trim()); });
+  tlBar.hidden=!n; document.getElementById("tl-showall").textContent=`Show all ${n} hidden`;
+  try{ localStorage.setItem(HIDE_KEY,JSON.stringify([...hiddenCards])); }catch(e){}
+}
+tlList.querySelectorAll(":scope>li>.what").forEach(w=>w.insertAdjacentHTML("afterbegin",`<button type="button" class="tl-hide"></button>`));
+tlList.addEventListener("click",e=>{
+  const li=e.target.closest(".tl>li"); if(!li) return;
+  const btn=e.target.closest(".tl-hide"), hidden=li.classList.contains("tl-hidden");
+  if(!btn&&!(hidden&&e.target.closest(".what"))) return;
+  const k=cardKey(li); hidden?hiddenCards.delete(k):hiddenCards.add(k); paintHidden();
+});
+document.getElementById("tl-showall").addEventListener("click",()=>{ hiddenCards.clear(); paintHidden(); });
+paintHidden();
 document.querySelectorAll(".tl>li>.rail").forEach(r=>r.title=r.parentElement.classList.contains("maybe")?"Maybe: optional, skip it if running behind":"Planned");
 paintWeather();
 loadWeather();
