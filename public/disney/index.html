@@ -375,10 +375,9 @@ button{min-height:44px}
 
   <section class="part view" id="day" aria-labelledby="day-h">
     <div class="offline" id="offline" hidden>No signal. Showing the plan, waits and forecast saved on this phone.</div>
-    <h2 id="day-h">The day</h2>
+    <h2 id="day-h" class="sr">The day</h2>
     <div id="day-warn"></div>
     <div class="wx-alert" id="wx-alert" role="alert" hidden></div>
-    <small class="wx-src" id="wx-src">Forecast: National Weather Service, Magic Kingdom.</small>
     <ol class="tl">
       <li data-h="6"><time>6:30</time><span class="rail"></span><div class="what"><b>Photo of everyone</b><span>Shows what each kid is wearing today, in case we get separated.</span></div></li>
       <li data-h="6"><time>6:50</time><span class="rail"></span><div class="what"><b>Leave the rental</b><span>15–20 min drive to Magic Kingdom parking (8 miles). Latest safe start: 7:05.</span></div></li>
@@ -790,7 +789,6 @@ async function loadWeather(){
     h.properties.periods.filter(x=>x.startTime.startsWith(WX_DAY)).forEach(x=>{const hr=+x.startTime.slice(11,13);next[hr]=[x.temperature,x.probabilityOfPrecipitation.value||0,/thunder/i.test(x.shortForecast)?1:0,thunder[hr]??(WX[hr]?.[3]||0)]});
     if(!Object.keys(next).length) return;
     WX=next; paintWeather();
-    document.getElementById("wx-src").textContent=`Forecast: National Weather Service, refreshes every 5 min, issued ${new Date(h.properties.updateTime||h.properties.generatedAt).toLocaleString([], {weekday:"short",hour:"numeric",minute:"2-digit"})}.`;
   }catch(e){}
 }
 document.querySelectorAll(".tl>li>.rail").forEach(r=>r.title=r.parentElement.classList.contains("maybe")?"Maybe: optional, skip it if running behind":"Planned");
