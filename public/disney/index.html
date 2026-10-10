@@ -167,10 +167,8 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 a.ht{text-decoration:none;color:inherit}
 .wx-alert{background:#d4573f;color:#fff;border-radius:12px;padding:12px 14px;display:grid;gap:4px}
 .wx-alert b{font-size:17px}
-.radar{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:0 12px}
-.radar summary{min-height:44px;display:flex;align-items:center;font-weight:700;cursor:pointer}
-.radar img{display:block;width:100%;height:auto;border-radius:8px;margin-bottom:6px;background:var(--bg)}
-.radar small{display:block;color:var(--muted);font-size:12px;padding-bottom:10px}
+#radar img{display:block;width:100%;height:auto;border-radius:8px;margin-bottom:6px;background:var(--bg)}
+#radar small{display:block;color:var(--muted);font-size:12px;padding-bottom:10px}
 .wx-src{color:var(--muted);font-size:12px}
 .wxc{display:grid;justify-items:end;gap:3px;margin-top:5px;font-family:var(--body);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
 .wxc span{padding:1px 5px;white-space:nowrap;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
@@ -181,13 +179,6 @@ a.ht{text-decoration:none;color:inherit}
 .wxc .rain.hi{background:#4b4aa8;border-color:transparent;color:#fff}
 .wx-src{color:var(--muted);font-size:12px}
 .view>*,.wrap>*{min-width:0}
-.day-legend{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
-.dl{width:12px;height:12px;border-radius:50%;flex:none;background:var(--mid)}
-.dl.maybe{background:transparent;border:2px dashed var(--mid)}
-.wxc-l{font-size:11px;font-weight:700;padding:1px 6px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-variant-numeric:tabular-nums}
-.wxc-l.hi{background:#4b4aa8;border-color:transparent;color:#fff}
-.wxc-l.zap{background:#e2a01c;border-color:transparent;color:#1d2a26}
-.day-legend .refn{margin-left:0}
 .nowbar{position:sticky;top:var(--barh,0px);z-index:4;width:100%;text-align:left;display:grid;gap:2px;padding:10px 14px;border-radius:12px;border:2px solid var(--am);background:var(--paper);color:var(--ink);font-size:14px;font-weight:400;min-height:44px}
 .nowbar b{font-weight:800}
 .nowbar .nx{color:var(--muted)}
@@ -253,8 +244,6 @@ a.ht{text-decoration:none;color:inherit}
 .tl .what span.wait{color:#fff}
 .tl .what span.wait.mid{color:#1d2a26}
 .tl .what span.wait.closed{color:var(--muted)}
-.lg-row{gap:6px 14px;align-items:center}
-.lg{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap}
 button{min-height:44px}
 @media (max-width:420px){
   .facts{grid-template-columns:1fr}
@@ -280,7 +269,7 @@ button{min-height:44px}
 <div class="wrap">
   <header class="bar">
     <a class="bar-home" href="#day" aria-label="Magic Kingdom Planner"><span class="castle" aria-hidden="true">🏰</span><span class="ttl">Magic Kingdom Planner</span><span class="spark" aria-hidden="true">✨</span></a>
-    <nav class="tabs" aria-label="Sections"><a href="#day">The day</a><a href="#access">DAS</a><a href="#lost">If lost</a></nav>
+    <nav class="tabs" aria-label="Sections"><a href="#day">The day</a><a href="#access">DAS &amp; if lost</a><a href="#radar">Radar</a></nav>
   </header>
 
 
@@ -290,16 +279,7 @@ button{min-height:44px}
     <button type="button" class="nowbar" id="nowbar" hidden></button>
     <div class="offline" id="offline" hidden>No signal. Showing the plan, waits and forecast saved on this phone.</div>
     <h2 id="day-h">The day</h2>
-    <div class="day-legend lg-row" aria-label="Legend">
-      <span class="lg"><i class="dl fixed"></i>Planned</span>
-      <span class="lg"><i class="dl maybe"></i>Maybe</span>
-      <span class="lg"><span class="wxc-l">84°</span>Temp</span>
-      <span class="lg"><span class="wxc-l">☔ 8%</span>Rain</span>
-      <span class="lg"><span class="wxc-l zap">⚡ 50%</span>Lightning</span>
-      <span class="lg" style="white-space:normal"><span class="refn">#48</span>Disney map number: tap it to see the spot on the map 📍</span>
-    </div>
     <div class="wx-alert" id="wx-alert" role="alert" hidden></div>
-    <details class="radar" id="radar"><summary>Live radar</summary><img id="radar-img" alt="Live National Weather Service radar loop around Orlando" width="600" height="550"><small>Radar from the National Weather Service (Melbourne). Magic Kingdom is just southwest of Orlando.</small></details>
     <small class="wx-src" id="wx-src">Forecast: National Weather Service, Magic Kingdom.</small>
     <ol class="tl">
       <li data-h="6"><time>6:30</time><span class="rail"></span><div class="what"><b>Photo of everyone</b><span>Shows what each kid is wearing today, in case we get separated.</span></div></li>
@@ -353,17 +333,22 @@ button{min-height:44px}
         <p>If you click on the return time tile on the My Day page of the My Disney Experience app, you’ll see an option to cancel. From there, you can cancel the return time or remove party members who no longer wish to experience the attraction. Please note that removing the Guest with the DAS accommodation will automatically cancel the return time.</p>
         <p class="from">Kevin • 4:30 PM</p>
       </article>
+      <article class="acard wide" id="lost">
+        <h3>If someone gets lost</h3>
+        <ul class="checks" style="list-style:disc;padding-left:20px">
+          <li><b>Kids:</b> stop and find a Cast Member, anyone in a Disney name tag. Show them your name tag.</li>
+          <li><b>Grown-ups:</b> tell the nearest Cast Member. Show this morning's photo.</li>
+          <li><b>Meeting spot:</b> front of <span class="ref">City Hall<span class="refn">#1</span></span> on Main Street (stop GR).</li>
+          <li>A lost child who isn't found right away is walked to the park's lost-persons spot. Cast Members will know where.</li>
+        </ul>
+      </article>
     </div>
   </section>
 
-  <section class="part view" id="lost" aria-labelledby="lost-h">
-    <h2 id="lost-h">If someone gets lost</h2>
-    <ul class="checks" style="list-style:disc;padding-left:20px">
-      <li><b>Kids:</b> stop and find a Cast Member, anyone in a Disney name tag. Show them your name tag.</li>
-      <li><b>Grown-ups:</b> tell the nearest Cast Member. Show this morning's photo.</li>
-      <li><b>Meeting spot:</b> front of <span class="ref">City Hall<span class="refn">#1</span></span> on Main Street (stop GR).</li>
-      <li>A lost child who isn't found right away is walked to the park's lost-persons spot. Cast Members will know where.</li>
-    </ul>
+  <section class="part view" id="radar" aria-labelledby="radar-h">
+    <h2 id="radar-h">Live radar</h2>
+    <img id="radar-img" alt="Live National Weather Service radar loop around Orlando" width="600" height="550">
+    <small>Radar from the National Weather Service (Melbourne). Magic Kingdom is just southwest of Orlando.</small>
   </section>
 
 </div>
@@ -529,10 +514,12 @@ document.getElementById("reset").addEventListener("click",()=>{[...done].forEach
 // one section at a time: side nav + #hash, The day by default
 const views=[...document.querySelectorAll(".view")], tabs=document.querySelector(".tabs");
 function show(id){
+  const card=id==="lost"; if(card) id="access";
   if(!views.some(v=>v.id===id)) id="day";
   views.forEach(v=>v.classList.toggle("on",v.id===id));
   tabs.querySelectorAll("a").forEach(a=>{a.getAttribute("href")==="#"+id?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
-  window.scrollTo(0,0);
+  card?document.getElementById("lost").scrollIntoView():window.scrollTo(0,0);
+  if(id==="radar") loadRadar();
 }
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
 show(location.hash.slice(1));
@@ -556,8 +543,7 @@ function paintWeather(){
     if(!hrs.length) return;
     const t=Math.max(...hrs.map(x=>x[0])), p=Math.max(...hrs.map(x=>x[1])), storm=hrs.some(x=>x[2]), zap=Math.max(...hrs.map(x=>x[3]||0));
     const c=document.createElement("span"); c.className="wxc";
-    c.innerHTML=`<span>${t}°</span><span class="rain ${p>=50?"hi":p>=20?"md":"lo"}">☔ ${p}%</span>${zap>=15?`<span class="zap ${zap>=40?"hi":"md"}">⚡ ${zap}%</span>`:""}`;
-    c.title=`Forecast: ${t}°, ${p}% chance of ${storm?"thunderstorms":"rain"}${zap>=15?`, ${zap}% chance of lightning. Outdoor rides close when lightning is close by.`:""}`;
+    c.innerHTML=`<span title="Temperature: forecast high for this stretch">${t}°</span><span class="rain ${p>=50?"hi":p>=20?"md":"lo"}" title="Rain: ${p}% chance${storm?" (thunderstorms)":""}">☔ ${p}%</span>${zap>=15?`<span class="zap ${zap>=40?"hi":"md"}" title="Lightning: ${zap}% chance. Outdoor rides close when lightning is close by.">⚡ ${zap}%</span>`:""}`;
     li.querySelector("time").append(c);
   });
 }
@@ -578,6 +564,7 @@ async function loadWeather(){
     document.getElementById("wx-src").textContent=`Forecast: National Weather Service, refreshes every 5 min, issued ${new Date(h.properties.updateTime||h.properties.generatedAt).toLocaleString([], {weekday:"short",hour:"numeric",minute:"2-digit"})}.`;
   }catch(e){}
 }
+document.querySelectorAll(".tl>li>.rail").forEach(r=>r.title=r.parentElement.classList.contains("maybe")?"Maybe: optional, skip it if running behind":"Planned");
 paintWeather();
 loadWeather();
 
@@ -592,9 +579,8 @@ async function loadAlerts(){
     el.hidden=false;
   }catch(e){}
 }
-const RADAR="https://radar.weather.gov/ridge/standard/KMLB_loop.gif";
-document.getElementById("radar").addEventListener("toggle",e=>{if(e.target.open) document.getElementById("radar-img").src=RADAR+"?t="+Date.now()});
-function refreshWeather(){ if(document.visibilityState!=="visible") return; loadWeather(); loadAlerts(); const r=document.getElementById("radar"); if(r.open) document.getElementById("radar-img").src=RADAR+"?t="+Date.now(); }
+function loadRadar(){ document.getElementById("radar-img").src="https://radar.weather.gov/ridge/standard/KMLB_loop.gif?t="+Date.now(); }
+function refreshWeather(){ if(document.visibilityState!=="visible") return; loadWeather(); loadAlerts(); if(document.getElementById("radar").classList.contains("on")) loadRadar(); }
 loadAlerts();
 setInterval(refreshWeather,5*60*1000);
 document.addEventListener("visibilitychange",refreshWeather);
@@ -648,7 +634,7 @@ function paintNow(scroll){
   const hd=heldDAS();
   nowbar.innerHTML=`<span><b>Now:</b> ${meal?meal.title+" · ":""}${main?main.title:"Getting ready"}</span>${nextTxt?`<span class="nx">${nextTxt}</span>`:""}${hd?`<span class="nx">🎟 <b>DAS return:</b> ${byQ.get(hd).name} #${byQ.get(hd).m}</span>`:""}`;
   nowbar.hidden=false;
-  if(scroll&&nowRow&&location.hash.slice(1)!=="access"&&location.hash.slice(1)!=="lost") nowRow.li.scrollIntoView({block:"center"});
+  if(scroll&&nowRow&&location.hash.slice(1)!=="access"&&location.hash.slice(1)!=="lost"&&location.hash.slice(1)!=="radar") nowRow.li.scrollIntoView({block:"center"});
 }
 nowbar.addEventListener("click",()=>nowRow&&nowRow.li.scrollIntoView({block:"center",behavior:"smooth"}));
 function setBarH(){const b=document.querySelector(".bar");document.documentElement.style.setProperty("--barh",(b&&b.offsetParent?b.offsetHeight:0)+"px")}
@@ -737,7 +723,7 @@ document.addEventListener("keydown",e=>{
   const n=numOf(el); if(!n||!SPOTS[n]) return;
   e.preventDefault(); openMap(n,el);
 });
-function markChips(root){ (root||document).querySelectorAll(".refn, .ridechk .ht").forEach(el=>{ const n=numOf(el); if(n&&SPOTS[n]){ el.setAttribute("role","button"); el.tabIndex=0; el.setAttribute("aria-label",`Show #${n} ${SPOTS[n][0]} on the map`);} }); }
+function markChips(root){ (root||document).querySelectorAll(".refn, .ridechk .ht").forEach(el=>{ const n=numOf(el); if(n&&SPOTS[n]){ el.setAttribute("role","button"); el.tabIndex=0; el.title="Disney map number: tap to see the spot on the map"; el.setAttribute("aria-label",`Show #${n} ${SPOTS[n][0]} on the map`);} }); }
 markChips();
 new MutationObserver(()=>markChips()).observe(document.getElementById("day"),{childList:true,subtree:true});
 // ---------- shared sync: ride picks and checkmarks across the group's phones (sync.embry.dev, Cloudflare D1) ----------
