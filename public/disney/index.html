@@ -162,7 +162,15 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .ref{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
 .refn{display:inline-block;margin-left:4px;padding:0 5px;border-radius:999px;border:1px solid var(--line);font-size:11px;font-weight:700;line-height:16px;text-decoration:none;color:var(--muted);vertical-align:1px}
 a.ht{text-decoration:none;color:inherit}
+.wx-alert{background:#d4573f;color:#fff;border-radius:12px;padding:12px 14px;display:grid;gap:4px}
+.wx-alert b{font-size:17px}
+.radar{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:0 12px}
+.radar summary{min-height:44px;display:flex;align-items:center;font-weight:700;cursor:pointer}
+.radar img{display:block;width:100%;height:auto;border-radius:8px;margin-bottom:6px;background:var(--bg)}
+.radar small{display:block;color:var(--muted);font-size:12px;padding-bottom:10px}
 .wx-src{color:var(--muted);font-size:12px}
+.wxc .zap.md{background:rgba(226,160,28,.35);border-color:transparent;color:var(--ink)}
+.wxc .zap.hi{background:#e2a01c;border-color:transparent;color:#1d2a26}
 .wxc{display:grid;justify-items:end;gap:3px;margin-top:5px;font-family:var(--body);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
 .wxc span{padding:1px 5px;white-space:nowrap;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
 .wxc .rain.lo{color:var(--muted)}
@@ -316,7 +324,9 @@ button{min-height:44px}
 
   <section class="part view" id="day" aria-labelledby="day-h">
     <h2 id="day-h">The day</h2>
-    <p class="sub">Solid dots are fixed, dashed ones are maybes. Each row shows the forecast for that hour: temperature and chance of rain (☔) or thunderstorms (⛈️).</p>
+    <p class="sub">Solid dots are fixed, dashed ones are maybes. Each row shows the forecast for that hour: temperature and chance of rain (☔) or thunderstorms (⛈️), and ⚡ chance of lightning when it's 15% or more. Outdoor rides close when lightning is close by.</p>
+    <div class="wx-alert" id="wx-alert" role="alert" hidden></div>
+    <details class="radar" id="radar"><summary>Live radar</summary><img id="radar-img" alt="Live National Weather Service radar loop around Orlando" width="600" height="550"><small>Radar from the National Weather Service (Melbourne). Magic Kingdom is just southwest of Orlando.</small></details>
     <small class="wx-src" id="wx-src">Forecast: National Weather Service, Magic Kingdom.</small>
     <ol class="tl">
       <li data-h="6"><time>6:30</time><span class="rail"></span><div class="what"><b>Photo of everyone</b><span>Shows what each kid is wearing today, in case we get separated.</span></div></li>
@@ -702,32 +712,58 @@ document.addEventListener("click",e=>{
 
 // Saturday's forecast on the timeline, live from the National Weather Service (Magic Kingdom grid point)
 const WX_DAY="2026-10-10";
-let WX={7:[77,4,0],8:[78,3,0],9:[81,6,0],10:[84,7,0],11:[86,8,0],12:[89,10,0],13:[89,14,0],14:[89,47,1],15:[89,59,1],16:[86,70,1],17:[85,68,1],18:[84,69,1],19:[81,49,1],20:[80,31,1],21:[79,27,1],22:[78,11,0],23:[78,10,0]};
+const ET=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit"});
+let WX={7:[77,4,0,4],8:[78,3,0,3],9:[81,6,0,6],10:[84,7,0,7],11:[86,8,0,8],12:[89,10,0,10],13:[89,14,0,14],14:[89,47,1,47],15:[89,59,1,50],16:[86,70,1,50],17:[85,68,1,57],18:[84,69,1,57],19:[81,49,1,49],20:[80,31,1,22],21:[79,27,1,22],22:[78,11,0,11],23:[78,10,0,10]};
 function paintWeather(){
   document.querySelectorAll(".tl li[data-h]").forEach(li=>{
     const [a,b]=li.dataset.h.split("-").map(Number), hrs=[];
     for(let h=a;h<=(b||a);h++) if(WX[h]) hrs.push(WX[h]);
     li.querySelector(".wxc")?.remove();
     if(!hrs.length) return;
-    const t=Math.max(...hrs.map(x=>x[0])), p=Math.max(...hrs.map(x=>x[1])), storm=hrs.some(x=>x[2]);
+    const t=Math.max(...hrs.map(x=>x[0])), p=Math.max(...hrs.map(x=>x[1])), storm=hrs.some(x=>x[2]), zap=Math.max(...hrs.map(x=>x[3]||0));
     const c=document.createElement("span"); c.className="wxc";
-    c.innerHTML=`<span>${t}°</span><span class="rain ${p>=50?"hi":p>=20?"md":"lo"}">${storm?"⛈️":"☔"} ${p}%</span>`;
-    c.title=`Forecast: ${t}°, ${p}% chance of ${storm?"thunderstorms":"rain"}`;
+    c.innerHTML=`<span>${t}°</span><span class="rain ${p>=50?"hi":p>=20?"md":"lo"}">${storm?"⛈️":"☔"} ${p}%</span>${zap>=15?`<span class="zap ${zap>=40?"hi":"md"}">⚡ ${zap}%</span>`:""}`;
+    c.title=`Forecast: ${t}°, ${p}% chance of ${storm?"thunderstorms":"rain"}${zap>=15?`, ${zap}% chance of lightning. Outdoor rides close when lightning is close by.`:""}`;
     li.querySelector("time").append(c);
   });
 }
 async function loadWeather(){
   try{
-    const h=await fetch("https://api.weather.gov/gridpoints/MLB/19,62/forecast/hourly",{headers:{Accept:"application/geo+json"}}).then(r=>{if(!r.ok) throw 0; return r.json()});
+    const get=u=>fetch(u,{headers:{Accept:"application/geo+json"}}).then(r=>{if(!r.ok) throw 0; return r.json()});
+    const [h,g]=await Promise.all([get("https://api.weather.gov/gridpoints/MLB/19,62/forecast/hourly"),get("https://api.weather.gov/gridpoints/MLB/19,62").catch(()=>null)]);
+    const thunder={};
+    (g?.properties?.probabilityOfThunder?.values||[]).forEach(v=>{
+      const [t,d]=v.validTime.split("/"), m=d.match(/P(?:(\d+)D)?T?(?:(\d+)H)?/), n=(+(m[1]||0))*24+(+(m[2]||0)), t0=Date.parse(t);
+      for(let i=0;i<n;i++){const P=Object.fromEntries(ET.formatToParts(new Date(t0+i*3600e3)).map(x=>[x.type,x.value]));
+        if(`${P.year}-${P.month}-${P.day}`===WX_DAY) thunder[+P.hour%24]=v.value;}
+    });
     const next={};
-    h.properties.periods.filter(x=>x.startTime.startsWith(WX_DAY)).forEach(x=>{next[+x.startTime.slice(11,13)]=[x.temperature,x.probabilityOfPrecipitation.value||0,/thunder/i.test(x.shortForecast)?1:0]});
+    h.properties.periods.filter(x=>x.startTime.startsWith(WX_DAY)).forEach(x=>{const hr=+x.startTime.slice(11,13);next[hr]=[x.temperature,x.probabilityOfPrecipitation.value||0,/thunder/i.test(x.shortForecast)?1:0,thunder[hr]??(WX[hr]?.[3]||0)]});
     if(!Object.keys(next).length) return;
     WX=next; paintWeather();
-    document.getElementById("wx-src").textContent=`Forecast: National Weather Service, issued ${new Date(h.properties.updateTime||h.properties.generatedAt).toLocaleString([], {weekday:"short",hour:"numeric",minute:"2-digit"})}.`;
+    document.getElementById("wx-src").textContent=`Forecast: National Weather Service, refreshes every 5 min, issued ${new Date(h.properties.updateTime||h.properties.generatedAt).toLocaleString([], {weekday:"short",hour:"numeric",minute:"2-digit"})}.`;
   }catch(e){}
 }
 paintWeather();
 loadWeather();
+
+// live: weather alerts for Magic Kingdom (banner only while one is active) and radar on demand
+async function loadAlerts(){
+  try{
+    const d=await fetch("https://api.weather.gov/alerts/active?point=28.4177,-81.5812",{headers:{Accept:"application/geo+json"}}).then(r=>{if(!r.ok) throw 0; return r.json()});
+    const el=document.getElementById("wx-alert"), f=d.features.map(x=>x.properties);
+    if(!f.length){el.hidden=true;return}
+    const tm=t=>t?new Date(t).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}):"";
+    el.innerHTML=f.map(a=>`<div><b>${/thunder|lightning/i.test(a.event+a.description)?"⚡ ":"⚠️ "}${a.event}${a.ends||a.expires?` until ${tm(a.ends||a.expires)}`:""}</b><br>${a.headline?a.headline.replace(/\.?\s*$/,". "):""}${/thunder|lightning/i.test(a.event+a.description)?"Head indoors. Outdoor rides close for lightning.":""}</div>`).join("");
+    el.hidden=false;
+  }catch(e){}
+}
+const RADAR="https://radar.weather.gov/ridge/standard/KMLB_loop.gif";
+document.getElementById("radar").addEventListener("toggle",e=>{if(e.target.open) document.getElementById("radar-img").src=RADAR+"?t="+Date.now()});
+function refreshWeather(){ if(document.visibilityState!=="visible") return; loadWeather(); loadAlerts(); const r=document.getElementById("radar"); if(r.open) document.getElementById("radar-img").src=RADAR+"?t="+Date.now(); }
+loadAlerts();
+setInterval(refreshWeather,5*60*1000);
+document.addEventListener("visibilitychange",refreshWeather);
 
 // live waits: Queue-Times.com via the waits.embry.dev relay (Disney's posted times)
 const WAITS=["https://waits.embry.dev","https://embry-waits.system-map.workers.dev"];
