@@ -315,23 +315,22 @@ body:has(#map.on) .pm-wrap .pm-card{right:68px}
 .pm-card input{width:22px;height:22px;accent-color:var(--mid)}
 .ridechk{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
 .ridechk li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:6px 8px;border-radius:10px;background:var(--bg)}
-.ridechk label{display:contents;cursor:pointer}
+.ridechk .rbox{grid-area:box;display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;margin:-6px -6px -6px 0;cursor:pointer;background:none;border:0;padding:0;border-radius:0;box-shadow:none}
 .ridechk input{position:static;opacity:1;pointer-events:auto;width:22px;height:22px;margin:0;accent-color:var(--mid)}
-.ridechk .rn{font-weight:700;color:var(--ink);font-size:15px}
+.ridechk .rn{grid-area:rn;font-weight:700;color:var(--ink);font-size:15px;text-align:left;background:none;border:0;padding:0;border-radius:0;min-height:0;cursor:pointer}
 .ridechk .rn small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
-.ridechk .rs{display:flex;gap:6px;align-items:center}
+.ridechk .rs{grid-area:rs;display:flex;gap:6px;align-items:center}
 .ridechk li.done .rn{text-decoration:line-through;color:var(--muted)}
-.ridechk li{grid-template-columns:auto minmax(0,1fr) auto}
+.ridechk li{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"rn rs box" "pri pri box"}
 .ridechk .rn{min-width:0;overflow-wrap:break-word}
 @media (max-width:480px){
-  .ridechk li{grid-template-columns:auto minmax(0,1fr)}
-  .ridechk .rs{grid-column:2;justify-content:flex-start;flex-wrap:wrap}
-  .ridechk .pri{grid-column:2}
+  .ridechk li{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"rn box" "rs box" "pri box"}
+  .ridechk .rs{justify-content:flex-start;flex-wrap:wrap}
 }
 .tl>li{min-width:0}
 html,body{max-width:100%;overflow-x:hidden}
 .wrap{overflow-x:clip}
-.ridechk .pri{grid-column:2/-1;justify-self:start;min-height:34px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:0 8px}
+.ridechk .pri{grid-area:pri;justify-self:start;min-height:34px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:0 8px}
 .ridechk li.pri-must .pri{background:#16897a;border-color:#16897a;color:#fff}
 .ridechk li.pri-opt .pri{background:#e2a01c;border-color:#e2a01c;color:#1d2a26}
 .ridechk li.pri-wont .pri{background:#7b8a85;border-color:#7b8a85;color:#fff}
@@ -611,11 +610,11 @@ function renderMeals(){
       return list.length?`<optgroup label="${LAND_NAME[l]}">${list.map(c=>`<option value="${c.m}" ${chosen===c?"selected":""}>${c.name} · ${c.type==="table"?"table service":c.type==="quick"?"quick service":"snacks"}</option>`).join("")}</optgroup>`:""; }).join("");
     const lz=zones.filter(z=>z<6).map(z=>LAND_NAME[z]), where=zones.includes(6)&&!lz.length?"anywhere in the park":lz.length>1?lz.slice(0,-1).join(", ")+" or "+lz[lz.length-1]:lz[0];
     li.querySelector(".mzone").textContent=where==="anywhere in the park"?"By then we could be anywhere, so every spot in the park is listed.":`Around then our path should be in ${where}. The list shows spots there.`;
-    ul.innerHTML=`<li class="${chosen?"food-on":""}${d?" done":""}"><span class="fbox">${chosen?`<input type="checkbox" class="fchk" data-done="${ch}" ${d?"checked":""} aria-label="${chosen.name}: ate here">`:""}</span>
+    ul.innerHTML=`<li class="${chosen?"food-on":""}${d?" done":""}">
       <div class="mn"><span class="mline"><span class="ref">${chosen?chosen.name:skipped?"Skipping this meal":"No spot picked yet"}</span></span>
       <small>${chosen?`${LAND_NAME[chosen.land]} · ${FOOD_TYPE[chosen.type]}`:"Pick a spot from the list"}</small>
       <span class="fctl"><select class="fsel" data-meal="${k}" ${d?"disabled":""} aria-label="${MEALK[k].label}: pick a spot">${chosen?"":`<option value="" selected>${skipped?"Skip this meal":"Pick a spot…"}</option>`}${opts}<option value="skip">Skip this meal</option></select></span></div>
-      <span class="mside">${chosen?`<a class="menu" href="${menuURL(chosen)}" target="_blank" rel="noopener" aria-label="${chosen.name} menu">Menu</a><span class="refn mnum">#${chosen.m}</span>`:""}</span></li>`;
+      <span class="mside">${chosen?`<a class="menu" href="${menuURL(chosen)}" target="_blank" rel="noopener" aria-label="${chosen.name} menu">Menu</a><span class="refn mnum">#${chosen.m}</span>`:""}</span><span class="fbox">${chosen?`<input type="checkbox" class="fchk" data-done="${ch}" ${d?"checked":""} aria-label="${chosen.name}: ate here">`:""}</span></li>`;
   });
   if(typeof markChips==="function") try{markChips()}catch(e){}
 }
@@ -703,7 +702,7 @@ document.addEventListener("toggle",e=>{const d=e.target; if(d.dataset&&d.dataset
 function rideLI(id,extra){
   const a=byQ.get(id), pr=priOf(id), note=(NOTES[id]||"").replace(/^High priority · /,"");
   const d=done.has(id), box=pr!=="wont"||d;
-  return `<li class="${d?"done":""} pri-${pr}"><label>${box?`<input type="checkbox" data-done="${id}" ${d?"checked":""} aria-label="${a.name} done">`:`<span class="nobox" aria-hidden="true"></span>`}<span class="rn">${a.name}<small>${extra?extra+" · ":""}${KIND_LABEL[kindOf(id)]}${note?" · "+note:""}</small></span></label><span class="rs">${pr==="wont"?"":waitChip(id)}${a.m?`<span class="ht">#${a.m}</span>`:""}</span><select class="pri" data-pri="${id}" ${d?"disabled":""} aria-label="${a.name}: priority${d?" (locked: done)":""}">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===pr?"selected":""}>${v}</option>`).join("")}</select></li>`;
+  return `<li class="${d?"done":""} pri-${pr}"><button type="button" class="rn" data-onmap="${id}" title="Show on the Map tab">${a.name}<small>${extra?extra+" · ":""}${KIND_LABEL[kindOf(id)]}${note?" · "+note:""}</small></button><span class="rs">${pr==="wont"?"":waitChip(id)}${a.m?`<span class="ht">#${a.m}</span>`:""}</span><select class="pri" data-pri="${id}" ${d?"disabled":""} aria-label="${a.name}: priority${d?" (locked: done)":""}">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===pr?"selected":""}>${v}</option>`).join("")}</select><label class="rbox">${box?`<input type="checkbox" data-done="${id}" ${d?"checked":""} aria-label="${a.name} done">`:`<span class="nobox" aria-hidden="true"></span>`}</label></li>`;
 }
 function wxAt(h){ try{ return WX[h]||null; }catch(e){ return null; } }
 // which stops have their Skipped list open, so the minute redraw keeps it that way
@@ -1127,7 +1126,12 @@ document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==
 addEventListener("online",flushSync); addEventListener("offline",()=>paintSync("offline"));
 // ---------- Map tab: our path drawn live from High + DAS picks ----------
 const pmScroll=document.getElementById("pm-scroll"), pmInner=document.getElementById("pm-inner"), pmPins=document.getElementById("pm-pins"), pmSvg=document.getElementById("pm-svg");
-let pmZoom=matchMedia("(max-width:600px)").matches?1.8:1, pmSel=null, pmCentered=false;
+let pmZoom=matchMedia("(max-width:600px)").matches?1.8:1, pmSel=null, pmCentered=false, pmFocus=null;
+document.getElementById("day").addEventListener("click",e=>{ const b=e.target.closest("[data-onmap]"); if(!b) return;
+  const id=+b.dataset.onmap; pmSel=id; pmFocus=id; pmCentered=false;
+  if(location.hash!=="#map") location.hash="#map"; else renderMap();
+  setTimeout(()=>{ if(location.hash==="#map") pmCenter(PT(id)); },200);   // again after the map is sized
+});
 pmInner.style.setProperty("--z",pmZoom);
 const pct2=([x,y])=>`left:${x/2060*100}%;top:${y/2124*100}%`;
 function lastTicked(){ let best=null; try{ for(const id of done){ const t=stamps.done[id]||0; if(!best||t>best.t) best={id,t}; } }catch(e){} return best&&best.t?best.id:null; }
@@ -1151,7 +1155,7 @@ function renderMap(){
   document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name}${wait(next)!=null?` · ${wait(next)} min`:""}${isFood(next)?` · ${byQ.get(next).meal}`:""} <span class="ms-sub">· ${left.length} stops · ~${walkMinPx(px)} min walk</span></span>${dasHTML()}`:"<span><b>Every ride on the path is done.</b> Re-ride favorites or head home.</span>";
   document.getElementById("map-warn").innerHTML=warnHTML();
   if(pmSel) pmCard(pmSel);
-  if(!pmCentered&&document.getElementById("map").classList.contains("on")&&next){ pmCentered=true; pmCenter(PT(next)); }
+  if(!pmCentered&&document.getElementById("map").classList.contains("on")&&(pmFocus||next)){ pmCentered=true; pmCenter(PT(pmFocus||next)); pmFocus=null; }
 }
 function pmCenter([x,y]){ pmScroll.scrollTo({left:x/2060*pmInner.offsetWidth-pmScroll.clientWidth/2,top:y/2124*pmInner.offsetHeight-pmScroll.clientHeight/2}); }
 function pmCard(id){
