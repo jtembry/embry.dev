@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Saturday Ride Map</title>
+<title>Magic Kingdom Day</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
 <style>
@@ -102,6 +102,32 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .jump{color:var(--eve);font-weight:700}
 .orig summary{cursor:pointer;font-weight:700;color:var(--muted)}
 .orig pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px;max-height:420px;overflow:auto}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.nav a{font-size:14px;font-weight:700;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;background:var(--paper)}
+.nav a:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
+.part{display:grid;gap:12px;padding-top:8px;border-top:1px solid var(--line);scroll-margin-top:12px}
+.part>h2{font-family:var(--display);font-weight:800;font-size:clamp(24px,5vw,32px);margin:0;text-wrap:balance}
+.part .sub{max-width:68ch}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.checks li label{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;cursor:pointer;background:none;border:0;padding:0;border-radius:0}
+.checks li input{position:static;opacity:1;pointer-events:auto;width:20px;height:20px;margin:2px 0 0;accent-color:var(--mid)}
+.checks input:checked+span{text-decoration:line-through;color:var(--muted)}
+.checks small{display:block;color:var(--muted);font-size:13px}
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.tl li{display:grid;grid-template-columns:64px 14px 1fr;gap:10px;align-items:start}
+.tl time{font-family:var(--display);font-weight:800;font-size:15px;text-align:right;font-variant-numeric:tabular-nums;padding-top:9px}
+.tl .rail{position:relative;align-self:stretch}
+.tl .rail::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--line)}
+.tl .rail::after{content:"";position:absolute;left:1px;top:12px;width:12px;height:12px;border-radius:50%;background:var(--c,var(--mid))}
+.tl li.maybe .rail::after{background:var(--paper);border:2px dashed var(--c,var(--mid));box-sizing:border-box}
+.tl .what{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-bottom:8px}
+.tl .what b{display:block}
+.tl .what span{font-size:14px;color:var(--muted)}
+.tl li.maybe .what{border-style:dashed}
+.breaks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.breaks li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.breaks b{display:block}
+.breaks span{font-size:14px;color:var(--muted)}
 .plan{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:10px}
 .plan h2{font-family:var(--display);font-weight:800;font-size:20px;margin:0}
 .plan ul{margin:0;padding-left:18px;display:grid;gap:6px}
@@ -119,10 +145,69 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 <div class="wrap">
   <header>
     <div class="eyebrow">Magic Kingdom · Sat Oct 10 · 8am–11pm · leave 6:50am</div>
-    <h1>Our Saturday ride map</h1>
-    <p class="sub"><a class="jump" href="#access">Accessibility &amp; DAS notes ↓</a></p>
-    <p class="sub">One clockwise loop, no doubling back. Pins sit where each ride is on the official guide map, and the #numbers match it. Tap a pin or ride to find it, tap again to check it off.</p>
+    <h1>Our Magic Kingdom day</h1>
+    <p class="sub">Built on the three steps in Disney's Accessibility Planning Guide: how to prepare, what to bring, and what to expect. Then the ride map, break spots, and line options.</p>
+    <nav class="nav" aria-label="Sections">
+      <a href="#prep">Before we go</a><a href="#day">The day</a><a href="#map">Ride map</a><a href="#breaks">Need a break</a><a href="#access">Lines &amp; DAS</a><a href="#lost">If someone gets lost</a>
+    </nav>
   </header>
+
+  <section class="part" id="prep" aria-labelledby="prep-h">
+    <h2 id="prep-h">Before we go</h2>
+    <div class="access-grid">
+      <article class="acard">
+        <h3>Tonight</h3>
+        <ul class="checks" data-key="mk-prep-v1">
+          <li><label><input type="checkbox"><span>Open the My Disney Experience app and check DAS shows for everyone<small>Showtimes, mobile food orders and live waits live there too.</small></span></label></li>
+          <li><label><input type="checkbox"><span>Walk the kids through the day below<small>Point out what's fixed and what has a "?" so changes aren't a surprise.</small></span></label></li>
+          <li><label><input type="checkbox"><span>Look at the ride map together and pick favorites</span></label></li>
+          <li><label><input type="checkbox"><span>Skim the Sensory Experience Details for loud, dark or flashing rides<small>Link in Lines &amp; DAS below.</small></span></label></li>
+          <li><label><input type="checkbox"><span>Agree on the meeting spot: front of City Hall<small>And the rule: if you're lost, find a Cast Member.</small></span></label></li>
+          <li><label><input type="checkbox"><span>Check the forecast for afternoon storms<small>Some rides close for lightning.</small></span></label></li>
+          <li><label><input type="checkbox"><span>Set a 6:30 alarm and a 6:50 leave time</span></label></li>
+        </ul>
+      </article>
+      <article class="acard">
+        <h3>Pack</h3>
+        <ul class="checks" data-key="mk-pack-v1">
+          <li><label><input type="checkbox"><span>Name tag or bracelet for each kid<small>Their name, our names, and a phone number.</small></span></label></li>
+          <li><label><input type="checkbox"><span>Ear plugs or headphones<small>Fireworks, loudspeakers, and screaming riders.</small></span></label></li>
+          <li><label><input type="checkbox"><span>A favorite device or activity for downtime<small>Tablet, game, book.</small></span></label></li>
+          <li><label><input type="checkbox"><span>A sensory or calming toy</span></label></li>
+          <li><label><input type="checkbox"><span>Comfort gear<small>Sweater, hat, sunscreen, rain ponchos, snacks, any medicine.</small></span></label></li>
+          <li><label><input type="checkbox"><span>Phone chargers or a battery pack<small>DAS, waits and tickets all run on the app.</small></span></label></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="part" id="day" aria-labelledby="day-h">
+    <h2 id="day-h">The day</h2>
+    <p class="sub">Our visual schedule. Solid dots are fixed. Dashed ones are maybes we can swap or skip.</p>
+    <ol class="tl">
+      <li><time>6:30</time><span class="rail"></span><div class="what"><b>Photo of everyone</b><span>Shows what each kid is wearing today, in case we get separated.</span></div></li>
+      <li><time>6:50</time><span class="rail"></span><div class="what"><b>Leave the rental</b><span>15–20 min drive to Magic Kingdom parking (8 miles). Latest safe start: 7:05.</span></div></li>
+      <li><time>7:10</time><span class="rail"></span><div class="what"><b>Park the car</b><span>Photo of the section and row sign. Then the tram to the Ticket Center.</span></div></li>
+      <li><time>7:20</time><span class="rail"></span><div class="what"><b>Security, then monorail or ferry</b><span>Bags open, pockets empty. Monorail 10 min, ferry 12–15. Lines can be long at opening.</span></div></li>
+      <li style="--c:var(--am)"><time>7:50</time><span class="rail"></span><div class="what"><b>Gate</b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
+      <li style="--c:var(--am)"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at City Hall (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
+      <li style="--c:var(--am)"><time>8:15</time><span class="rail"></span><div class="what"><b>Adventureland and Frontierland, stops 1–4</b><span>Shortest lines of the day. Use the regular lines.</span></div></li>
+      <li style="--c:var(--am)"><time>10:00</time><span class="rail"></span><div class="what"><b>Start DAS</b><span>Book the top ride in "Longest waits now," then ride short ones while you wait.</span></div></li>
+      <li style="--c:var(--mid)" class="maybe"><time>11:30</time><span class="rail"></span><div class="what"><b>Lunch?</b><span>Mobile order in the app to skip the counter line.</span></div></li>
+      <li style="--c:var(--mid)"><time>12:00</time><span class="rail"></span><div class="what"><b>Liberty Square and Fantasyland, stops 5–11</b><span>Busiest part of the day. Keep a DAS return going.</span></div></li>
+      <li style="--c:var(--mid)" class="maybe"><time>2:00</time><span class="rail"></span><div class="what"><b>Break?</b><span>Snack and a quiet spot. See Need a break. Afternoon storms are likely in Florida.</span></div></li>
+      <li style="--c:var(--pm)"><time>2:30</time><span class="rail"></span><div class="what"><b>Tomorrowland, stops 12–17</b><span>TRON, Space Mountain, Buzz, PeopleMover. Laugh Floor is air-conditioned.</span></div></li>
+      <li style="--c:var(--eve)" class="maybe"><time>6:00</time><span class="rail"></span><div class="what"><b>Dinner?</b></div></li>
+      <li style="--c:var(--eve)" class="maybe"><time>7:00</time><span class="rail"></span><div class="what"><b>Re-ride favorites and catch skipped rides?</b><span>Lines shrink in the last two hours and during fireworks.</span></div></li>
+      <li style="--c:var(--eve)" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks from Main Street?</b><span>Check the time in the app. Headphones help.</span></div></li>
+      <li style="--c:var(--eve)"><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes. Expect a monorail wait after fireworks.</span></div></li>
+    </ol>
+  </section>
+
+  <section class="part" id="map" aria-labelledby="map-h">
+    <h2 id="map-h">Ride map</h2>
+    <p class="sub">One clockwise loop, no doubling back. Pins sit where each ride is on the official guide map, and the #numbers match it. Tap a pin or ride to find it, tap again to check it off.</p>
+  </section>
 
   <figure class="guidemap">
     <a href="MK-guide-map.webp" target="_blank"><img class="poster" src="MK-guide-map.webp" width="4446" height="2124" alt="Magic Kingdom guide map with Saturday's route, the attraction list, and the legend" fetchpriority="high"></a>
@@ -179,17 +264,6 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
         <ol id="live-top"><li>Loading live waits…</li></ol>
         <small id="live-stamp">Powered by <a href="https://queue-times.com/" target="_blank" rel="noopener">Queue-Times.com</a></small>
       </section>
-      <section class="plan" aria-labelledby="go-h">
-        <h2 id="go-h">Getting there: leave by 6:50</h2>
-        <ul>
-          <li><b>Drive to Magic Kingdom parking:</b> 15–20 min from the rental (8 miles).</li>
-          <li><b>Parking to the gate:</b> 30–45 min, up to an hour at opening. Tram to the Ticket Center, security, then monorail (10 min) or ferry (12–15 min).</li>
-          <li><b>Latest safe start:</b> 7:05. Early is fine: the lot and monorail open well before 8.</li>
-        </ul>
-        <div class="links">
-          <a href="https://maps.apple.com/?daddr=Magic+Kingdom+Parking,+Lake+Buena+Vista,+FL&amp;dirflg=d" target="_blank" rel="noopener">Directions to Magic Kingdom parking ↗</a>
-        </div>
-      </section>
       <section class="plan" aria-labelledby="plan-h">
         <h2 id="plan-h">Game plan</h2>
         <ul>
@@ -208,12 +282,30 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
       <div class="closed">Closed this trip: Carousel of Progress, the riverboat and Tom Sawyer Island. Check live waits in the Disney app.</div>
     </div>
   </div>
+  <div class="foot">
+    <span id="count"></span>
+    <button type="button" id="reset">Uncheck all</button>
+  </div>
+
+  <section class="part" id="breaks" aria-labelledby="breaks-h">
+    <h2 id="breaks-h">Need a break</h2>
+    <p class="sub">Quieter spots Disney lists for Magic Kingdom. Any Cast Member can point to the nearest one. First Aid is quiet too, with roomier restrooms and private space for changing.</p>
+    <ul class="breaks">
+      <li><b>Main Street</b><span>Center Street, the side street off Main Street. Near stop GR.</span></li>
+      <li><b>Adventureland</b><span>Near Swiss Family Treehouse, or next to the Pirates restrooms. Near stops 1–2.</span></li>
+      <li><b>Frontierland</b><span>Near the Tiana's Bayou Adventure restrooms. Stop 3.</span></li>
+      <li><b>Liberty Square</b><span>Behind Ye Olde Christmas Shoppe, or next to The Hall of Presidents. Near stop 5.</span></li>
+      <li><b>Fantasyland</b><span>Near the Wishing Well by the castle, or outside Pete's Silly Sideshow. Near stops 7 and 11.</span></li>
+      <li><b>Tomorrowland</b><span>The path from TRON toward Fantasyland, between Space Mountain and the Rockettower Plaza Stage, or near Carousel of Progress. Near stops 12, 14 and 15.</span></li>
+    </ul>
+    <p class="sub">Companion (family) restrooms are listed in the Disney app.</p>
+  </section>
 
   <section class="access" id="access" aria-labelledby="access-h">
     <div class="access-head">
       <div class="eyebrow">For our crew</div>
-      <h2 id="access-h">Accessibility &amp; DAS</h2>
-      <p class="sub">Notes from Disney Guest Services for planning with our four kids.</p>
+      <h2 id="access-h">Lines &amp; DAS</h2>
+      <p class="sub">Ways to handle lines with our four kids, from Disney's Accessibility Planning Guide and Guest Services.</p>
     </div>
     <div class="access-grid">
       <article class="acard">
@@ -225,6 +317,14 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
         <h3>Sensory details</h3>
         <p>Click here to access the Sensory Experience Details for Guests with Disabilities. This guide will cover the sensory elements that are within our Attractions and shows.</p>
         <a class="btn" href="https://cdn1.parksmedia.wdprapps.disney.com/vision-dam/digital/parks-platform/parks-global-assets/disney-world/guest-services/accessibility/sensory-experience/WDW-Sensory-Experience-Details-FINAL-6-26.pdf?%24web_only=true&amp;_branch_match_id=1623324382433402794&amp;_branch_referrer=H4sIAAAAAAAAAwXByw5AMBAF0D%2FSvUQs8AUWlo3HpRM1be40wca3OyeUkq12bhNTvHdi3Ko55yqKnm7qJz9CLfH1w5NBga7wPcos0dqP2EGKHn5hug1susB04Qc8IljgVQAAAA%3D%3D;" target="_blank" rel="noopener">Sensory Experience Details for Guests with Disabilities (PDF) ↗</a>
+      </article>
+      <article class="acard">
+        <h3>Rider Switch</h3>
+        <p>For when a kid is too short for a ride or doesn't want to go. Tell the Cast Member at the entrance, with everyone there. Group A rides while group B waits outside. Then group B rides without waiting in line again.</p>
+      </article>
+      <article class="acard">
+        <h3>Leave the line and come back</h3>
+        <p>Attraction Queue Re-Entry: a kid who needs out can leave while the rest of us hold our place, then rejoin before boarding. Or they wait outside and meet us at the front. Tell the Cast Member at the front you're using Re-Entry or Meet-Up. No reason needed.</p>
       </article>
       <article class="acard wide das-card">
         <h3>Getting DAS return times in the park</h3>
@@ -292,10 +392,16 @@ Kevin • 4:30 PM
     </details>
   </section>
 
-  <div class="foot">
-    <span id="count"></span>
-    <button type="button" id="reset">Uncheck all</button>
-  </div>
+  <section class="part" id="lost" aria-labelledby="lost-h">
+    <h2 id="lost-h">If someone gets lost</h2>
+    <ul class="checks" style="list-style:disc;padding-left:20px">
+      <li><b>Kids:</b> stop and find a Cast Member, anyone in a Disney name tag. Show them your name tag.</li>
+      <li><b>Grown-ups:</b> tell the nearest Cast Member. Show this morning's photo.</li>
+      <li><b>Meeting spot:</b> front of City Hall on Main Street (stop GR).</li>
+      <li>A lost child who isn't found right away is walked to the park's lost-persons spot. Cast Members will know where.</li>
+    </ul>
+  </section>
+
 </div>
 
 <script>
@@ -402,6 +508,13 @@ function render(){
 }
 document.getElementById("reset").addEventListener("click",()=>{done.clear();save();render()});
 render();
+
+// prep and pack checklists, saved per device
+document.querySelectorAll(".checks[data-key]").forEach(ul=>{
+  const k=ul.dataset.key, boxes=[...ul.querySelectorAll("input")];
+  let on=[]; try{on=JSON.parse(localStorage.getItem(k)||"[]")}catch(e){}
+  boxes.forEach((b,i)=>{b.checked=on.includes(i); b.addEventListener("change",()=>{try{localStorage.setItem(k,JSON.stringify(boxes.flatMap((x,j)=>x.checked?[j]:[])))}catch(e){}})});
+});
 
 // live waits: Queue-Times.com via the waits.embry.dev relay (Disney's posted times)
 const WAITS=["https://waits.embry.dev","https://embry-waits.system-map.workers.dev"];
