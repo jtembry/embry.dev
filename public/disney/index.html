@@ -373,7 +373,7 @@ const ALL=[
  [11527,"TRON Lightcycle Run",68,1913,645],[143,"Tomorrowland Speedway",69,1650,857],[138,"Space Mountain",70,1925,982],
  [248,"Astro Orbiter",71,1754,1098],[1190,"PeopleMover",72,1733,1145],[457,"Carousel of Progress",73,1706,1230],
  [131,"Buzz Lightyear",74,1637,1155],[125,"Monsters Inc Laugh Floor",75,1497,1097],
- [1189,"Railroad · Main Street",2,1160,1656],[1181,"Railroad · Fantasyland",53,1890,395]
+ [1189,"Railroad · Main Street",2,1160,1656],[13763,"Cinderella Castle",0,1170,760],[1181,"Railroad · Fantasyland",53,1890,395]
 ].map(([id,name,m,x,y])=>({id,name,m,x,y}));
 // character meets (star pins on the live map); Pete's Silly Sideshow has no number, only a Mickey-head icon
 [[146,"Meet Mickey at Town Square Theater",3,1268,1590],[6700,"Meet Cinderella and a Visiting Princess",46,1203,647],[6699,"Meet Tiana and a Visiting Princess",46,1263,647],
@@ -381,12 +381,12 @@ const ALL=[
  .forEach(([id,name,m,x,y])=>ALL.push({id,name,m,x,y,meet:true}));
 const byQ=new Map(ALL.map(a=>[a.id,a]));
 // weather exposure: indoor rides and shows, covered (roof or covered boat), the rest outdoor
-const INDOOR=[138,131,137,140,136,127,133,142,128,356,1214,334,171,125,457], COVERED=[134,135,161,1190];
+const INDOOR=[138,131,137,140,136,127,133,142,128,356,1214,334,171,125,457], COVERED=[134,135,161,1190,13763];
 const kindOf=id=>INDOOR.includes(id)?"indoor":COVERED.includes(id)?"covered":"outdoor";
 const KIND_LABEL={indoor:"Indoor",covered:"Covered",outdoor:"Outdoor"};
-const NOTES={138:"High priority · ride first, regular line · 44 in. to ride",11527:"High priority · ride on the DAS return booked at 8:05 · 48 in. to ride",
+const NOTES={13763:"Walk through the castle and take photos in front of it",138:"High priority · ride first, regular line · 44 in. to ride",11527:"High priority · ride on the DAS return booked at 8:05 · 48 in. to ride",
   129:"Good DAS pick",130:"Ride before 2, before the storms",13630:"You will get wet · ride before 2",334:"High priority · air-conditioned show, about 15 min",131:"New version",135:"Under a roof"};
-const DEFAULT_PLAN=[138,1190,131,143,11527,126,129,130,13630,134,334,137,140,136,127,135];
+const DEFAULT_PLAN=[138,1190,131,143,11527,126,129,130,13630,134,334,137,140,136,127,135,13763];
 const DONE_KEY="mk-done-v5";
 const loadJSON=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:d}catch(e){return d}};
 const saveJSON=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
@@ -417,7 +417,7 @@ const ZONES=[null,
    note:"Outdoor coasters: ride them before the storms. The riverboat and Tom Sawyer Island are closed."},
   {n:"Adventureland",start:840,end:960,rides:[137,334,141,134,355],cool:334,
    note:"Mostly indoors or covered, good for storm hours."},
-  {n:"Evening: catch up and re-ride",start:960,end:1380,rides:[1189],cool:null,
+  {n:"Evening: catch up and re-ride",start:960,end:1380,rides:[13763,1189],cool:null,
    note:"Re-ride favorites. If it's raining, pick indoor rides. Lines shrink in the last two hours and during fireworks."}];
 const zoneOf=new Map(); ZONES.forEach((z,i)=>z&&z.rides.forEach(id=>zoneOf.set(id,i)));
 function clockZone(min){ if(min<495) return 0; for(let i=ZONES.length-1;i>=1;i--) if(min>=ZONES[i].start) return i; return 0; }
@@ -443,7 +443,7 @@ const openDet=new Set();
 document.addEventListener("toggle",e=>{const d=e.target; if(d.dataset&&d.dataset.det){d.open?openDet.add(d.dataset.det):openDet.delete(d.dataset.det)}},true);
 function rideLI(id,extra){
   const a=byQ.get(id), pr=priOf(id), note=(NOTES[id]||"").replace(/^High priority · /,"");
-  return `<li class="${done.has(id)?"done":""} pri-${pr}"><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""} aria-label="${a.name} done"><span class="rn">${a.name}<small>${extra?extra+" · ":""}${KIND_LABEL[kindOf(id)]}${note?" · "+note:""}</small></span></label><span class="rs">${pr==="wont"?"":waitChip(id)}<span class="ht">#${a.m}</span></span><select class="pri" data-pri="${id}" aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===pr?"selected":""}>${v}</option>`).join("")}</select></li>`;
+  return `<li class="${done.has(id)?"done":""} pri-${pr}"><label><input type="checkbox" data-done="${id}" ${done.has(id)?"checked":""} aria-label="${a.name} done"><span class="rn">${a.name}<small>${extra?extra+" · ":""}${KIND_LABEL[kindOf(id)]}${note?" · "+note:""}</small></span></label><span class="rs">${pr==="wont"?"":waitChip(id)}${a.m?`<span class="ht">#${a.m}</span>`:""}</span><select class="pri" data-pri="${id}" aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===pr?"selected":""}>${v}</option>`).join("")}</select></li>`;
 }
 function wxAt(h){ try{ return WX[h]||null; }catch(e){ return null; } }
 function renderDay(){
