@@ -152,7 +152,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .tripform .tf-link a{word-break:break-all}
 .tripform .tf-hours{padding:8px 10px;border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px}
 .day-sum{margin:0 0 10px;padding:8px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-size:14px;color:var(--ink)}
-.day-sum .late,.mzone .late{color:#d4573f}
+.day-sum .late,.mzone .late,#home-note .late{color:#d4573f}
 .fin-banner{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#16897a;color:#fff;font-size:14px}
 .fin-banner a{color:#fff;font-weight:800}
 .trip-done #day .ridechk select,.trip-done #day .ridechk input,.trip-done #day .fsel,.trip-done #day .fchk,.trip-done .pm-card select,.trip-done .fd-add{pointer-events:none;opacity:.55}
@@ -485,7 +485,7 @@ button{min-height:44px}
       <li style="--c:var(--eve)" data-h="16-22" data-zone="6"><time>4:00</time><span class="rail"></span><div class="what zone"><b>Evening: catch up and re-ride</b><div class="zbody" data-zbody="6"></div></div></li>
       <li style="--c:var(--pm)" data-h="17" data-meal="4"><time>5:00</time><span class="rail"></span><div class="what"><b>🍽️ Dinner</b><p class="mtip">Mobile order in the app about 45 min ahead.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
       <li style="--c:var(--eve)" data-h="21" class="maybe" data-fw><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
-      <li style="--c:var(--eve)" data-h="23" data-close><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span><span id="home-note"></span> Expect a monorail wait after fireworks.</span></div></li>
+      <li style="--c:var(--eve)" data-h="23" data-close><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span><span id="home-note"></span></span></div></li>
     </ol>
     <div class="foot"><span id="count"></span></div>
     <small class="wx-src" id="sync-status">Saved on this phone only.</small>
@@ -912,6 +912,8 @@ function renderDay(){
     const das=isCur?dasHTML():"";
     const nextHigh=highLeft(i)[0];
     const zw=SCHED.zones[i], idleHere=Math.round(SCHED.items.filter(x=>!isFood(x.id)&&zoneOf.get(x.id)===i).reduce((a,x)=>a+x.idle,0)/5)*5;
+    const cutAt=leaveMin(), cut=SCHED.items.filter(x=>!isFood(x.id)&&zoneOf.get(x.id)===i&&x.end>cutAt+5).map(x=>byQ.get(x.id).name);
+    if(cut.length&&zw&&zw[0]<cutAt) nudges.push(`🏠 Won't fit before we ${cutAt<closeMin()?"leave":"close"} at ${fmtMin(cutAt)}: ${andList(cut)}. Set some to Skip, or switch a long line to DAS candidate.`);
     if(idleHere>=15) nudges.push(`⌛ About ${idleHere} min here waiting for DAS return times. Set a nearby ride to On the path to fill it, or move a DAS ride to a later stop.`);
     el.innerHTML=`<p class="zmeta"><span>Stop ${i} of 6${zw?` · about ${fmtMin(Math.round(zw[0]/5)*5)}–${fmtMin(Math.round(zw[1]/5)*5)}`:" · nothing picked here"}</span></p>
       ${nudges.map(t=>`<p class="znudge">${t}</p>`).join("")}${das}
@@ -1004,13 +1006,16 @@ function paintTimes(){
   const g=hm(TRIP.gate)??470, close=leaveMin(), shut=closeMin(), fw=hm(TRIP.fireworks), s=SCHED, P=PLAN, at=id=>(s.items.find(x=>x.id===id)||P.items.find(x=>x.id===id));
   document.querySelectorAll(".tl>li").forEach(li=>{
     if(li.dataset.off!=null){ setCardTime(li,g+(+li.dataset.off)); return; }
-    if(li.dataset.zone){ const z=+li.dataset.zone, w=s.zones[z]||P.zones[z]; if(w) setCardTime(li,w[0],null,`${Math.floor(w[0]/60)}-${Math.floor(w[1]/60)}`); else { const sw=stopWindow(z); setCardTime(li,sw[0],"—"); } return; }
-    if(li.dataset.meal){ const k=+li.dataset.meal, ch=chosenSpot(k), it=ch&&at(ch); setCardTime(li,it?it.arrive:MEALK[k].t); return; }
-    if(li.hasAttribute("data-fw")){ setCardTime(li,fw!=null?fw:1260,fw!=null?null:"Night"); li.hidden=fw==null&&!!TRIP.date&&TRIP.fireworks===""||fw!=null&&fw>=shut; return; }   // no fireworks card after closing (party nights)
+    // nothing is scheduled after Time to go home: stops, meals and fireworks from then on are hidden
+    if(li.dataset.zone){ const z=+li.dataset.zone, w=s.zones[z]||P.zones[z]; if(w) setCardTime(li,w[0],null,`${Math.floor(w[0]/60)}-${Math.floor(w[1]/60)}`); else { const sw=stopWindow(z); setCardTime(li,sw[0],"—"); } li.hidden=(+li.dataset.min)>=close; return; }
+    if(li.dataset.meal){ const k=+li.dataset.meal, ch=chosenSpot(k), it=ch&&at(ch); setCardTime(li,it?it.arrive:MEALK[k].t); li.hidden=(+li.dataset.min)>=close; return; }
+    if(li.hasAttribute("data-fw")){ setCardTime(li,fw!=null?fw:1260,fw!=null?null:"Night"); li.hidden=fw==null&&!!TRIP.date&&TRIP.fireworks===""||fw!=null&&fw>=close; return; }
     if(li.hasAttribute("data-close")){ setCardTime(li,close); }
   });
   document.querySelectorAll("[data-at]").forEach(e=>e.textContent=fmtMin(g+(+e.dataset.at)));
-  const hn=document.getElementById("home-note"); if(hn) hn.textContent=close<shut?`We head out at ${fmtMin(close)}; the park closes at ${fmtMin(shut)}.`:`Park closes at ${fmtMin(shut)}${parkDay(DAY)?"":" (not posted yet)"}.`;
+  const wontFit=s.items.filter(x=>x.end>close+5).map(x=>itemName(x.id));
+  const hn=document.getElementById("home-note"); if(hn) hn.innerHTML=(close<shut?`We head out at ${fmtMin(close)}; the park closes at ${fmtMin(shut)}.`:`Park closes at ${fmtMin(shut)}${parkDay(DAY)?"":" (not posted yet)"}. Expect a monorail wait at closing.`)
+    +(wontFit.length?` <b class="late">Won't fit before we ${close<shut?"leave":"close"}: ${andList(wontFit)}.</b> Set some to Skip${close<shut?", or leave later in Trip settings":""}.`:"");
   const fd=P.items.find(x=>priOf(x.id)==="das"), fde=document.getElementById("first-das");
   if(fde) fde.innerHTML=fd?`<span class="ref">${byQ.get(fd.id).name}<span class="refn">#${byQ.get(fd.id).m}</span></span>`:"a DAS candidate";
   // keep the cards in time order
