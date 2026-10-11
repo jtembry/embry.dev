@@ -1,6 +1,7 @@
 // Shared state for the Magic Kingdom Planner: per-ride priority and done flags, keyed by trip code.
 // GET  /state?trip=CODE           -> { rides: { [id]: {pri, pt, done, dt} } }
-// POST /state?trip=CODE  {changes:[{id, field:"pri"|"done", value, t}]} -> same as GET, after applying
+// POST /state?trip=CODE  {changes:[{id, field:"pri"|"done", value, t}], meta?:{…}, mt?} -> same as GET, after applying
+// meta = the trip's settings (date, gate, close, fireworks); newest mt wins. GET also returns {meta, mt}.
 const ORIGINS = [/^https:\/\/(www\.)?embry\.dev$/, /^http:\/\/(localhost|127\.0\.0\.1):\d+$/];
 const PRI = new Set(["das", "must", "opt", "wont"]);
 
@@ -40,6 +41,12 @@ export default {
           ).bind(trip, id, c.value ? 1 : 0, t));
         }
       }
+      const mt = Number(body.mt), meta = body.meta && typeof body.meta === "object" ? JSON.stringify(body.meta) : null;
+      if (meta && meta.length <= 2000 && Number.isFinite(mt)) {
+        stmts.push(env.DB.prepare(
+          "INSERT INTO trips (trip,meta,mt) VALUES (?1,?2,?3) ON CONFLICT(trip) DO UPDATE SET meta=excluded.meta, mt=excluded.mt WHERE excluded.mt > trips.mt"
+        ).bind(trip, meta, mt));
+      }
       if (stmts.length) await env.DB.batch(stmts);
     } else if (request.method !== "GET") {
       return new Response(JSON.stringify({ error: "method" }), { status: 405, headers });
@@ -48,6 +55,7 @@ export default {
     const { results } = await env.DB.prepare("SELECT id,pri,pt,done,dt FROM rides WHERE trip=?1").bind(trip).all();
     const rides = {};
     for (const r of results) rides[r.id] = { pri: r.pri, pt: r.pt, done: r.done, dt: r.dt };
-    return new Response(JSON.stringify({ rides }), { headers });
+    const t = await env.DB.prepare("SELECT meta,mt FROM trips WHERE trip=?1").bind(trip).first();
+    return new Response(JSON.stringify({ rides, meta: t ? JSON.parse(t.meta) : null, mt: t ? t.mt : 0 }), { headers });
   },
 };

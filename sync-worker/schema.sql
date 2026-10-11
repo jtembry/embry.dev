@@ -7,3 +7,9 @@ CREATE TABLE IF NOT EXISTS rides (
   dt   INTEGER NOT NULL DEFAULT 0,  -- when done was set (client ms)
   PRIMARY KEY (trip, id)
 );
+
+CREATE TABLE IF NOT EXISTS trips (
+  trip TEXT PRIMARY KEY,
+  meta TEXT NOT NULL,              -- JSON: {date, gate, close, fireworks}
+  mt   INTEGER NOT NULL DEFAULT 0  -- when meta was set (client ms)
+);

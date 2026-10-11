@@ -137,6 +137,18 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .tl>li.tl-hidden time>*{display:none}
 .tl>li.tl-hidden .tl-hide{top:50%;transform:translateY(-50%)}
 .tl>li.tl-hidden .what{margin-bottom:6px}
+.tripbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:0 0 8px;font-size:14px;color:var(--muted)}
+.tripbar b{color:var(--ink)}
+.tripbar button{min-height:36px;padding:0 12px;font-size:13px}
+.tripform{display:grid;gap:10px;margin:0 0 12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.tripform label{display:grid;gap:4px;font-size:13px;font-weight:700;color:var(--ink)}
+.tripform input{min-height:40px;font:inherit;font-size:15px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.tripform .tf-row{display:flex;flex-wrap:wrap;gap:8px}
+.tripform .tf-save{background:#16897a;border-color:#16897a;color:#fff}
+.tripform p{margin:0;font-size:13px;color:var(--muted)}
+.tripform .tf-link a{word-break:break-all}
+.day-sum{margin:0 0 10px;padding:8px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-size:14px;color:var(--ink)}
+.day-sum .late,.mzone .late{color:#d4573f}
 .tl-hidbar{margin:0 0 10px;display:flex;justify-content:flex-end}
 .tl-hidbar button{min-height:36px;padding:0 14px;font-size:13px;color:var(--muted)}
 .breaks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
@@ -408,28 +420,39 @@ button{min-height:44px}
   <section class="part view" id="day" aria-labelledby="day-h">
     <div class="offline" id="offline" hidden>No signal. Showing the plan, waits and forecast saved on this phone.</div>
     <h2 id="day-h" class="sr">The day</h2>
+    <div class="tripbar"><span id="trip-sum"></span><button type="button" id="trip-edit" aria-expanded="false" aria-controls="trip-form">Trip settings</button></div>
+    <form class="tripform" id="trip-form" hidden>
+      <label>Date <input type="date" name="date" required></label>
+      <label>At the gate <input type="time" name="gate" required></label>
+      <label>Park closes <input type="time" name="close" required></label>
+      <label>Fireworks (leave empty if none) <input type="time" name="fireworks"></label>
+      <div class="tf-row"><button type="submit" class="tf-save">Save for everyone on this trip</button><button type="button" id="trip-new">New trip link</button></div>
+      <p>Saved with the trip, so every phone on it gets the same date and times. A new trip gets its own link, with fresh picks and checkmarks; this trip stays as it is.</p>
+      <p class="tf-link" id="trip-link" hidden></p>
+    </form>
+    <p class="day-sum" id="day-sum"></p>
     <div id="day-warn"></div>
     <div class="wx-alert" id="wx-alert" role="alert" hidden></div>
     <ol class="tl">
-      <li data-h="6"><time>6:30</time><span class="rail"></span><div class="what"><b>Photo of everyone</b><span>Shows what each kid is wearing today, in case we get separated.</span></div></li>
-      <li data-h="6"><time>6:50</time><span class="rail"></span><div class="what"><b>Leave the rental</b><span>15–20 min drive to Magic Kingdom parking (8 miles). Latest safe start: 7:05.</span></div></li>
-      <li data-h="7"><time>7:10</time><span class="rail"></span><div class="what"><b>Park the car</b><span>Photo of the section and row sign. Then the tram to the Ticket Center.</span></div></li>
-      <li data-h="7"><time>7:20</time><span class="rail"></span><div class="what"><b>Security, then monorail or ferry</b><span>Bags open, pockets empty. Monorail 10 min, ferry 12–15. Lines can be long at opening.</span></div></li>
-      <li style="--c:var(--am)" data-h="7"><time>7:50</time><span class="rail"></span><div class="what"><b><span class="ref">Gate</span></b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
-      <li style="--c:var(--am)" data-h="8"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at <span class="ref">City Hall<span class="refn">#1</span></span> (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
-      <li style="--c:var(--am)" data-h="8"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <span class="ref">TRON<span class="refn">#68</span></span> as our first DAS return</b><span>Do it right after Guest Relations. It stays good until close.</span></div></li>
+      <li data-h="6" data-off="-80"><time>6:30</time><span class="rail"></span><div class="what"><b>Photo of everyone</b><span>Shows what each kid is wearing today, in case we get separated.</span></div></li>
+      <li data-h="6" data-off="-60"><time>6:50</time><span class="rail"></span><div class="what"><b>Leave the rental</b><span>15–20 min drive to Magic Kingdom parking (8 miles). Latest safe start: <span data-at="-45"></span>.</span></div></li>
+      <li data-h="7" data-off="-40"><time>7:10</time><span class="rail"></span><div class="what"><b>Park the car</b><span>Photo of the section and row sign. Then the tram to the Ticket Center.</span></div></li>
+      <li data-h="7" data-off="-30"><time>7:20</time><span class="rail"></span><div class="what"><b>Security, then monorail or ferry</b><span>Bags open, pockets empty. Monorail 10 min, ferry 12–15. Lines can be long at opening.</span></div></li>
+      <li style="--c:var(--am)" data-h="7" data-off="0"><time>7:50</time><span class="rail"></span><div class="what"><b><span class="ref">Gate</span></b><span>Tap ticket or MagicBand, scan a finger.</span></div></li>
+      <li style="--c:var(--am)" data-h="8" data-off="10"><time>8:00</time><span class="rail"></span><div class="what"><b>Guest Relations at <span class="ref">City Hall<span class="refn">#1</span></span> (stop GR)</b><span>Left side of Main Street. Confirm DAS, ask about a Stroller as a Wheelchair tag if needed.</span></div></li>
+      <li style="--c:var(--am)" data-h="8" data-off="15"><time>8:05</time><span class="rail"></span><div class="what"><b>Book <span id="first-das">TRON</span> as our first DAS return</b><span>Do it right after Guest Relations. It stays good until close.</span></div></li>
       <li style="--c:var(--am)" data-h="8-9" data-zone="1"><time>8:15</time><span class="rail"></span><div class="what zone"><b>Tomorrowland</b><div class="zbody" data-zbody="1"></div></div></li>
       <li style="--c:var(--am)" data-h="10-11" data-zone="2"><time>10:00</time><span class="rail"></span><div class="what zone"><b>Storybook Circus and Fantasyland</b><div class="zbody" data-zbody="2"></div></div></li>
       <li style="--c:var(--am)" data-h="10" data-meal="1"><time>10:00</time><span class="rail"></span><div class="what"><b>🍎 Snack</b><p class="mtip">Near Seven Dwarfs. Refill water.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
       <li style="--c:var(--mid)" data-h="12" data-zone="3"><time>12:00</time><span class="rail"></span><div class="what zone"><b>Liberty Square</b><div class="zbody" data-zbody="3"></div></div></li>
-      <li style="--c:var(--mid)" data-h="12" data-meal="2"><time>12:00</time><span class="rail"></span><div class="what"><b>🍔 Lunch</b><p class="mtip">Mobile order in the app by 11:15. Noon pickups fill up.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
+      <li style="--c:var(--mid)" data-h="12" data-meal="2"><time>12:00</time><span class="rail"></span><div class="what"><b>🍔 Lunch</b><p class="mtip">Mobile order in the app about 45 min ahead. Noon pickups fill up.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
       <li style="--c:var(--mid)" data-h="12-13" data-zone="4"><time>12:30</time><span class="rail"></span><div class="what zone"><b>Frontierland</b><div class="zbody" data-zbody="4"></div></div></li>
       <li style="--c:var(--pm)" data-h="14-15" data-zone="5"><time>2:00</time><span class="rail"></span><div class="what zone"><b>Adventureland</b><div class="zbody" data-zbody="5"></div></div></li>
-      <li style="--c:var(--mid)" data-h="14" data-meal="3"><time>2:00</time><span class="rail"></span><div class="what"><b>🍍 Snack</b><p class="mtip">Right by Pirates, our next stop.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
+      <li style="--c:var(--mid)" data-h="14" data-meal="3"><time>2:00</time><span class="rail"></span><div class="what"><b>🍍 Snack</b><p class="mtip">Refill water.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
       <li style="--c:var(--eve)" data-h="16-22" data-zone="6"><time>4:00</time><span class="rail"></span><div class="what zone"><b>Evening: catch up and re-ride</b><div class="zbody" data-zbody="6"></div></div></li>
-      <li style="--c:var(--pm)" data-h="17" data-meal="4"><time>5:00</time><span class="rail"></span><div class="what"><b>🍽️ Dinner</b><p class="mtip">Indoors, out of the storm. Mobile order in the app by 4:15.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
-      <li style="--c:var(--eve)" data-h="21" class="maybe"><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
-      <li style="--c:var(--eve)" data-h="23"><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes. Expect a monorail wait after fireworks.</span></div></li>
+      <li style="--c:var(--pm)" data-h="17" data-meal="4"><time>5:00</time><span class="rail"></span><div class="what"><b>🍽️ Dinner</b><p class="mtip">Mobile order in the app about 45 min ahead.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
+      <li style="--c:var(--eve)" data-h="21" class="maybe" data-fw><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
+      <li style="--c:var(--eve)" data-h="23" data-close><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes at <span id="close-at"></span>. Expect a monorail wait after fireworks.</span></div></li>
     </ol>
     <div class="foot"><span id="count"></span></div>
     <small class="wx-src" id="sync-status">Saved on this phone only.</small>
@@ -536,10 +559,22 @@ const byQ=new Map(ALL.map(a=>[a.id,a]));
 const INDOOR=[138,131,137,140,136,127,133,142,128,356,1214,334,171,125,457], COVERED=[134,135,161,1190,13763];
 const kindOf=id=>INDOOR.includes(id)?"indoor":COVERED.includes(id)?"covered":"outdoor";
 const KIND_LABEL={indoor:"Indoor",covered:"Covered",outdoor:"Outdoor"};
-const NOTES={13763:"Walk through the castle and take photos in front of it",138:"44 in. to ride",11527:"Ride on the DAS return booked at 8:05 · 48 in. to ride",
-  129:"Good DAS pick",130:"Ride before 2, before the storms",13630:"You will get wet · ride before 2",334:"Air-conditioned show, about 15 min",131:"New version",135:"Under a roof"};
+const NOTES={13763:"Walk through the castle and take photos in front of it",138:"44 in. to ride",11527:"48 in. to ride",
+  129:"Good DAS pick",13630:"You will get wet",334:"Air-conditioned show, about 15 min",131:"New version",135:"Under a roof"};
 const DEFAULT_PLAN=[138,1190,131,143,11527,126,129,130,13630,134,334,137,140,136,127,135,13763];
-const DONE_KEY="mk-done-v5";
+// ---------- trip: which group trip this phone is on, and its settings (date, gate, close, fireworks) ----------
+const GROUP_TRIP="mk-mqoj1lu";
+const TRIP_CODE=(()=>{ let t=new URLSearchParams(location.search).get("trip"); try{ if(t) localStorage.setItem("mk-trip",t); else t=localStorage.getItem("mk-trip"); }catch(e){} if(!t) t=GROUP_TRIP; return /^[a-z0-9-]{6,40}$/.test(t)?t:null; })();
+const TK=!TRIP_CODE||TRIP_CODE===GROUP_TRIP?"":"@"+TRIP_CODE;   // picks, checkmarks and hidden cards are kept per trip; the first group trip keeps its original keys
+const TRIP_DEFAULT={date:"2026-10-10",gate:"07:50",close:"23:00",fireworks:"21:00"}, META_KEY="mk-meta"+TK;
+let TRIP={...TRIP_DEFAULT}, tripMt=0, metaPending=false;
+function saveMeta(){ try{ localStorage.setItem(META_KEY,JSON.stringify({trip:TRIP,mt:tripMt,pending:metaPending})); }catch(e){} }
+try{ const m=JSON.parse(localStorage.getItem(META_KEY)); if(m&&m.trip){ TRIP={...TRIP_DEFAULT,...m.trip}; tripMt=m.mt||0; metaPending=!!m.pending; } }catch(e){}
+(()=>{ const q=new URLSearchParams(location.search); if(!q.get("date")) return;   // a new-trip link carries its settings once
+  TRIP={date:q.get("date"),gate:q.get("gate")||TRIP_DEFAULT.gate,close:q.get("close")||TRIP_DEFAULT.close,fireworks:q.get("fw")||""}; tripMt=Date.now(); metaPending=true; saveMeta();
+  ["date","gate","close","fw"].forEach(k=>q.delete(k)); history.replaceState(null,"",location.pathname+"?"+q.toString()+location.hash); })();
+const hm=v=>{ const m=String(v||"").match(/^(\d{1,2}):(\d{2})/); return m?(+m[1])*60+(+m[2]):null; };
+const DONE_KEY="mk-done-v5"+TK;
 const loadJSON=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:d}catch(e){return d}};
 const saveJSON=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 const plan=DEFAULT_PLAN;
@@ -548,7 +583,7 @@ let stopOf=new Map(plan.map((id,i)=>[id,i+1])), lastById=null, lastStamp="";
 function waitOf(id){const x=lastById&&lastById.get(id);return !x?null:x}
 function waitChip(id){const x=waitOf(id);return !x?"":`<span class="wait ${x.open?waitClass(x.wait):"closed"}">${x.open?x.wait+" min":"Closed"}</span>`}
 // ---------- zone loop: fixed counterclockwise order, flexible contents ----------
-const DAY="2026-10-10";
+let DAY=TRIP.date;
 const ETZ=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});
 function nowET(){
   const q=new URLSearchParams(location.search).get("now");   // ?now=14:30 previews the day
@@ -560,13 +595,13 @@ const fmtMin=m=>{const h=Math.floor(m/60)%24,mm=m%60;return `${h%12||12}${mm?":"
 // rides in walking order inside each zone; start/end = target window in minutes after midnight
 const ZONES=[null,
   {n:"Tomorrowland",start:495,end:600,rides:[138,457,1190,248,131,125,143,11527],cool:125,
-   note:"Shortest lines of the day: use the regular lines. Ride TRON on the DAS return booked at 8:05. Carousel of Progress is closed."},
+   note:"Shortest lines of the day: use the regular lines."},
   {n:"Storybook Circus and Fantasyland",start:600,end:720,rides:[126,1181,132,135,142,127,128,129,171,161,136,133],cool:171,
    note:"Lines are growing. From here on, keep one DAS return going."},
   {n:"Liberty Square",start:720,end:750,rides:[356,140],cool:356,
    note:"Haunted Mansion is indoors. Hall of Presidents is a 22-min air-conditioned show."},
   {n:"Frontierland",start:750,end:840,rides:[130,13630,1214],cool:1214,
-   note:"Outdoor coasters: ride them before the storms. The riverboat and Tom Sawyer Island are closed."},
+   note:"Outdoor coasters: ride them before any afternoon storms."},
   {n:"Adventureland",start:840,end:960,rides:[137,334,141,134,355],cool:334,
    note:"Mostly indoors or covered, good for storm hours."},
   {n:"Evening: catch up and re-ride",start:960,end:1380,rides:[13763,1189],cool:null,
@@ -580,7 +615,9 @@ const LAND_NAME={1:"Tomorrowland",2:"Fantasyland",3:"Liberty Square",4:"Frontier
 const MENUS={19:"sunshine-tree-terrace",21:"aloha-isle",29:"pecos-bill-tall-tale-inn-and-cafe",39:"columbia-harbour-house",58:"pinocchio-village-haus",64:"prince-eric-village-market",65:"cheshire-cafe"};
 const menuURL=c=>MENUS[c.m]?`https://disneyworld.disney.go.com/dining/magic-kingdom/${MENUS[c.m]}/menus/`:`https://www.google.com/search?q=${encodeURIComponent(c.name+" Magic Kingdom menu")}`;
 // meals: k → time (minutes) and label; each meal has an id per spot (9000 + k×100 + #) plus a "skip this meal" id (… + 99)
-const MEALK={1:{t:600,label:"10:00 snack",snack:true},2:{t:720,label:"Lunch"},3:{t:840,label:"2:00 snack",snack:true},4:{t:1020,label:"Dinner"}};
+const MEALK={1:{t:600,label:"Morning snack",snack:true},2:{t:720,label:"Lunch"},3:{t:840,label:"Afternoon snack",snack:true},4:{t:1020,label:"Dinner"}};
+function setMealTargets(){ const g=hm(TRIP.gate)??470; MEALK[1].t=g+130; MEALK[2].t=Math.max(720,g+250); MEALK[3].t=MEALK[2].t+120; MEALK[4].t=Math.max(1020,MEALK[2].t+300); }
+setMealTargets();
 const FOOD_DEFAULT=new Set([9164,9229,9321,9458]);   // Prince Eric's, Pecos Bill, Aloha Isle, Pinocchio Village Haus
 const FOOD=[], FOOD_IDS=new Set();
 Object.entries(MEALK).forEach(([k,mk])=>{ k=+k;
@@ -626,7 +663,9 @@ function renderMeals(){
     const opts=outside+lands.map(l=>{ const list=FOODCAT.filter(c=>c.land===l).sort((a,b)=>order[a.type]-order[b.type]||a.name.localeCompare(b.name));
       return list.length?`<optgroup label="${LAND_NAME[l]}">${list.map(c=>`<option value="${c.m}" ${chosen===c?"selected":""}>${c.name} · ${c.type==="table"?"table service":c.type==="quick"?"quick service":"snacks"}</option>`).join("")}</optgroup>`:""; }).join("");
     const lz=zones.filter(z=>z<6).map(z=>LAND_NAME[z]), where=zones.includes(6)&&!lz.length?"anywhere in the park":lz.length>1?lz.slice(0,-1).join(", ")+" or "+lz[lz.length-1]:lz[0];
-    li.querySelector(".mzone").textContent=where==="anywhere in the park"?"By then we could be anywhere, so every spot in the park is listed.":`Around then our path should be in ${where}. The list shows spots there.`;
+    const away=chosen&&!lands.includes(chosen.land);
+    li.querySelector(".mzone").innerHTML=(where==="anywhere in the park"?"By then we could be anywhere, so every spot in the park is listed.":`Around then our path should be in ${where}. The list shows spots there.`)
+      +(away?` <b class="late">${chosen.name} is in ${LAND_NAME[chosen.land]}, out of the way then: it adds walking.</b>`:"");
     ul.innerHTML=`<li class="${chosen?"food-on":""}${d?" done":""}">
       <div class="mn"><span class="mline"><span class="ref">${chosen?chosen.name:skipped?"Skipping this meal":"No spot picked yet"}</span></span>
       <small>${chosen?`${LAND_NAME[chosen.land]} · ${FOOD_TYPE[chosen.type]}`:"Pick a spot from the list"}</small>
@@ -636,7 +675,7 @@ function renderMeals(){
   if(typeof markChips==="function") try{markChips()}catch(e){}
 }
 
-function clockZone(min){ if(min<495) return 0; for(let i=ZONES.length-1;i>=1;i--) if(min>=ZONES[i].start) return i; return 0; }
+function clockZone(min){ let z=0; for(let i=1;i<ZONES.length;i++){ const w=PLAN&&PLAN.zones[i]; if(w&&min>=w[0]) z=i; } return z; }
 function currentZone(){
   const n=nowET(); let ev=null;
   try{ for(const id of done){ const t=stamps.done[id]||0, z=zoneOf.get(id); if(z&&t&&(!ev||t>ev.t)) ev={z,t}; } }catch(e){}
@@ -648,7 +687,7 @@ function zoneCenter(z){const r=ZONES[z].rides.map(id=>byQ.get(id));return [r.red
 const andList=l=>l.length<2?l.join(""):l.slice(0,-1).join(", ")+" and "+l[l.length-1];
 const walkMin=(a,[x,y])=>Math.max(2,Math.round(Math.hypot(a.x-x,a.y-y)*0.55/55));
 // each ride: DAS candidate / On the path / Skip, synced across phones. Planned rides start as High, the rest as Medium.
-const PRI_KEY="mk-pri-v1", PRI_LABEL={das:"DAS candidate (top)",must:"On the path",wont:"Skip"}, PRI_RANK={das:-1,must:0,opt:1,wont:2};
+const PRI_KEY="mk-pri-v1"+TK, PRI_LABEL={das:"DAS candidate (top)",must:"On the path",wont:"Skip"}, PRI_RANK={das:-1,must:0,opt:1,wont:2};
 let pri={}; try{pri=JSON.parse(localStorage.getItem(PRI_KEY))||{}}catch(e){}
 // DAS candidates: rides worth booking on DAS. Mark as many as you like; these start marked (long lines on our route).
 // Space Mountain stays High: ride it at opening in the regular line.
@@ -674,7 +713,7 @@ function orderStop(ids,from,toward){
 }
 let pathCache={key:"",path:[]};
 function computePath(){
-  const sel=ZONES.map((z,i)=>z?z.rides.filter(isHigh).concat(FOOD.filter(f=>f.zone===i&&isHigh(f.id)).map(f=>f.id)):[]), key=JSON.stringify(sel);
+  const sel=ZONES.map((z,i)=>z?z.rides.filter(isHigh):[]), key=JSON.stringify(sel);   // rides only; meals are slotted in by the clock (planTimes)
   if(pathCache.key===key) return pathCache.path;
   const out=[]; let from=CITYHALL;
   for(let z=1;z<ZONES.length;z++){
@@ -685,8 +724,60 @@ function computePath(){
   pathCache={key,path:out}; return out;
 }
 // how late we're running, and when the path reaches each stop
-function lateBy(){ const n=nowET(), cur=currentZone(); return n.day===DAY&&cur>=1&&cur<=5&&n.min>ZONES[cur].end?n.min-ZONES[cur].end:0; }
-function stopWindow(z){ const cur=currentZone(), late=z>=cur?lateBy():0; return [ZONES[z].start+late,ZONES[z].end+late]; }
+// ---------- time estimates: walk + wait + ride for every stop on the path ----------
+// TYPWAIT: each ride's 2025 average and average daily peak posted wait, minutes (Queue-Times.com stats); RIDE_MIN: ride or show length
+const TYPWAIT={"134":[33,55],"137":[16,33],"355":[5,5],"141":[12,23],"334":[11,12],"13630":[35,59],"130":[53,86],"1214":[11,11],"356":[15,15],"140":[27,46],"133":[10,20],"136":[37,49],"161":[7,10],"171":[13,15],"142":[24,37],"129":[46,59],"128":[19,38],"127":[10,21],"126":[11,19],"132":[9,19],"135":[8,13],"11527":[62,92],"143":[10,18],"138":[28,43],"248":[11,20],"1190":[8,13],"457":[5,5],"131":[15,26],"125":[11,14],"1189":[16,18],"1181":[17,22],"146":[22,49],"6700":[29,47],"6699":[22,40],"147":[29,48],"144":[23,41],"145":[31,49]};
+const RIDE_MIN={"134":10,"137":9,"355":15,"141":2,"334":16,"13630":11,"130":4,"1214":16,"356":23,"140":9,"133":11,"136":3,"161":2,"171":12,"142":4,"129":3,"128":20,"127":7,"126":1,"132":2,"135":2,"11527":2,"143":5,"138":3,"248":2,"1190":10,"457":21,"131":5,"125":15,"1189":20,"13763":10,"1181":10,"146":5,"6700":5,"6699":5,"147":5,"144":5,"145":5};
+const MONTH_CROWD=[49,51,48,43,28,28,25,23,20,31,32,44], DOW_CROWD=[24,39,36,41,33,32,41];   // Queue-Times 2025 crowd level %, Jan… and Sun…
+const WAIT_SHAPE=[[0,.25],[8,.25],[9,.45],[10,.7],[11,.9],[12,1],[14,1],[15,.95],[16,.85],[17,.75],[18,.7],[19,.6],[20,.5],[21,.3],[22,.25],[24,.25]];   // share of the peak, by hour
+const MEAL_MIN={snack:15,quick:35,table:75}, RIDE_EXTRA=3, DAS_LINE=10;   // minutes: eating, getting on and off, the DAS (Lightning Lane) line
+function crowdFactor(){ const d=new Date(DAY+"T12:00:00"); if(isNaN(d)) return 1; return Math.min(1.5,Math.max(.6,(MONTH_CROWD[d.getMonth()]+DOW_CROWD[d.getDay()])/2/35)); }
+function shapeAt(min){ const h=min/60; for(let i=1;i<WAIT_SHAPE.length;i++){ const [h0,v0]=WAIT_SHAPE[i-1], [h1,v1]=WAIT_SHAPE[i]; if(h<=h1) return v0+(v1-v0)*(h-h0)/(h1-h0); } return .25; }
+// typical posted wait at a time of day: between a quiet-morning low and the ride's usual peak, scaled by the trip day's crowd level
+function typWait(id,min){ const w=TYPWAIT[id]; if(!w) return 5; const [avg,max]=w, lo=Math.max(avg*.25,(avg-.67*max)/.33);
+  return Math.max(0,Math.round((lo+(max-lo)*shapeAt(min))*crowdFactor()/5)*5); }
+// on the day, the next hour uses Disney's live posted wait
+function waitAt(id,min){ const n=nowET(), live=lastById&&lastById.get(id); if(n.day===DAY&&live&&live.open&&min<n.min+60) return live.wait; return typWait(id,min); }
+function walkMinBetween(a,b){ let px; try{ px=walkRoute(a,b).len; }catch(e){ px=dist(a,b)*1.3; } return px*0.55/55; }
+// walk the path in order. DAS: one return held at a time; the next is booked on tapping in, for the standby wait less 10 min.
+// meals go in when the clock reaches their time, wherever the path is
+function mealStops(live,now){ return [1,2,3,4].map(k=>{ const ch=chosenSpot(k); if(!ch||foodPri(skipId(k))==="must") return null;
+  if(live&&(done.has(ch)||MEALK[k].t<now-60)) return null; return {id:ch,t:MEALK[k].t}; }).filter(Boolean).sort((a,b)=>a.t-b.t); }
+function estimate(path,t0,from,meals){
+  const items=[], zones={}, rides=path.slice(), ms=(meals||[]).slice(); let t=t0, at=from, dasFree=t0, walk=0, line=0;
+  while(rides.length||ms.length){
+    let id;
+    if(ms.length&&(!rides.length||t>=ms[0].t-10)) id=ms.shift().id;
+    else {
+      // a DAS return still far off: ride an On-the-path ride at the same stop while it comes up (same stop only, so the path never doubles back)
+      const nx=rides[0];
+      if(priOf(nx)==="das"&&dasFree+Math.max(0,waitAt(nx,dasFree)-10)-(t+walkMinBetween(at,PT(nx)))>10){
+        const j=rides.findIndex((x,i)=>i>0&&priOf(x)!=="das"&&zoneOf.get(x)===zoneOf.get(nx)); if(j>0) rides.unshift(rides.splice(j,1)[0]); }
+      id=rides.shift();
+    }
+    const w=walkMinBetween(at,PT(id)); walk+=w; t+=w; const arrive=t; let wait=0, idle=0, dur;
+    if(isFood(id)){ const c=FOODCAT.find(x=>9000+mealOf(id)*100+x.m===id); dur=MEAL_MIN[c&&c.type]||30; }
+    else if(priOf(id)==="das"){ const ret=dasFree+Math.max(0,waitAt(id,dasFree)-10); if(t<ret){ idle=ret-t; t=ret; } wait=DAS_LINE; t+=wait; dasFree=t; dur=(RIDE_MIN[id]||5)+RIDE_EXTRA; }
+    else { wait=waitAt(id,t); t+=wait; dur=(RIDE_MIN[id]||5)+RIDE_EXTRA; }
+    line+=wait+idle; t+=dur;
+    items.push({id,arrive,start:arrive+idle+wait,end:t,wait,idle});
+    const z=!isFood(id)&&zoneOf.get(id); if(z) zones[z]=zones[z]?[zones[z][0],t]:[arrive,t];
+    at=PT(id);
+  }
+  return {items,zones,end:t,walk,line,start:t0};
+}
+let PLAN=null, SCHED=null;
+// PLAN: the whole day from the gate; SCHED: what's left from now on the trip day (else PLAN)
+function planTimes(){
+  const n=nowET(), g=hm(TRIP.gate)??470, start=g+15;   // after the gate, Guest Relations and booking the first DAS ride
+  const rides=computePath(); PLAN=estimate(rides,start,CITYHALL,mealStops(false)); SCHED=PLAN;
+  refreshFoodZones();   // which spots each meal's dropdown lists: where the path is around then
+  const live=n.day===DAY&&n.min>=start;
+  let from=CITYHALL; if(live) try{ from=herePx(); }catch(e){}
+  SCHED=live?estimate(rides.filter(id=>!done.has(id)),n.min,from,mealStops(true,n.min)):PLAN; SCHED.live=live;
+}
+const fullPath=()=>(PLAN?PLAN.items.map(x=>x.id):computePath());   // rides plus meals, in the order we'll do them
+function stopWindow(z){ const s=SCHED||PLAN; if(s&&s.zones[z]) return s.zones[z]; const sh=(hm(TRIP.gate)??470)-470; return [ZONES[z].start+sh,ZONES[z].end+sh]; }
 // big warnings: a High-priority outdoor ride the path reaches during likely storms
 function bigWarnings(){
   const out=[];
@@ -726,7 +817,7 @@ function wxAt(h){ try{ return WX[h]||null; }catch(e){ return null; } }
 const skipOpen=new Set();
 document.addEventListener("toggle",e=>{ const d=e.target; if(d.dataset&&d.dataset.skip){ d.open?skipOpen.add(+d.dataset.skip):skipOpen.delete(+d.dataset.skip); } },true);
 function renderDay(){
-  refreshFoodZones();
+  planTimes();
   const n=nowET(), cur=currentZone(), hr=Math.floor(n.min/60), today=n.day===DAY;
   const open=id=>lastById&&lastById.get(id)?.open, wait=id=>lastById&&lastById.get(id)?.wait||0;
   const highLeft=z=>ZONES[z].rides.filter(id=>isHigh(id)&&!done.has(id));
@@ -735,9 +826,10 @@ function renderDay(){
     const isCur=i===cur, path=computePath(), high=z.rides.filter(isHigh).sort((p,q)=>path.indexOf(p)-path.indexOf(q)), low=z.rides.filter(id=>priOf(id)==="wont");
     const nudges=[];
     if(isCur&&today){
-      if(i<=5&&n.min>z.end+10){
+      const close=hm(TRIP.close);
+      if(SCHED.live&&close!=null&&SCHED.end>close+10){
         const das=highLeft(i).filter(id=>priOf(id)==="must"&&open(id)).sort((p,q)=>wait(q)-wait(p))[0];
-        nudges.push(`⏱ Running ${n.min-z.end} min behind.${das?` Switch ${byQ.get(das).name} to DAS candidate,`:""} or set a ride to Skip to drop it from the path.`);
+        nudges.push(`⏱ At this pace the path ends about ${fmtMin(Math.round(SCHED.end/5)*5)}, after closing at ${fmtMin(close)}.${das?` Switch ${byQ.get(das).name} to DAS candidate,`:""} or set a ride to Skip.`);
       }
       let stormAt=null; for(let h=hr;h<=hr+2;h++){const w=wxAt(h); if(w&&w[2]&&w[1]>=50){stormAt=h;break}}
       if(stormAt!==null){
@@ -750,7 +842,9 @@ function renderDay(){
     }
     const das=isCur?dasHTML():"";
     const nextHigh=highLeft(i)[0];
-    el.innerHTML=`<p class="zmeta"><span>${i<6?`Stop ${i} of 6 · aim to move on by ${fmtMin(z.end)}`:"Stop 6 of 6 · until close"}</span></p>
+    const zw=SCHED.zones[i], idleHere=Math.round(SCHED.items.filter(x=>!isFood(x.id)&&zoneOf.get(x.id)===i).reduce((a,x)=>a+x.idle,0)/5)*5;
+    if(idleHere>=15) nudges.push(`⌛ About ${idleHere} min here waiting for DAS return times. Set a nearby ride to On the path to fill it, or move a DAS ride to a later stop.`);
+    el.innerHTML=`<p class="zmeta"><span>Stop ${i} of 6${zw?` · about ${fmtMin(Math.round(zw[0]/5)*5)}–${fmtMin(Math.round(zw[1]/5)*5)}`:" · nothing picked here"}</span></p>
       ${nudges.map(t=>`<p class="znudge">${t}</p>`).join("")}${das}
       <p class="znote">${z.note}</p>
       <ul class="ridechk">${high.map(id=>rideLI(id)).join("")}</ul>
@@ -758,6 +852,7 @@ function renderDay(){
     el.closest("li").dataset.next=isCur&&nextHigh?nextHigh:"";
   });
   renderMeals();
+  paintTimes();
   const dw=document.getElementById("day-warn"); if(dw) dw.innerHTML=warnHTML();
   if(typeof renderMap==="function") try{renderMap()}catch(e){}
   const musts=ALL.filter(a=>!a.meet).map(a=>a.id).filter(isHigh);
@@ -796,9 +891,8 @@ document.querySelectorAll(".checks[data-key]").forEach(ul=>{
 });
 
 // Saturday's forecast on the timeline, live from the National Weather Service (Magic Kingdom grid point)
-const WX_DAY=DAY;
 const ET=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit"});
-let WX={7:[77,4,0,4],8:[78,3,0,3],9:[81,6,0,6],10:[84,7,0,7],11:[86,8,0,8],12:[89,10,0,10],13:[89,14,0,14],14:[89,47,1,47],15:[89,59,1,50],16:[86,70,1,50],17:[85,68,1,57],18:[84,69,1,57],19:[81,49,1,49],20:[80,31,1,22],21:[79,27,1,22],22:[78,11,0,11],23:[78,10,0,10]};
+let WX={};   // filled from the National Weather Service for the trip date (forecasts reach about a week out)
 function paintWeather(){
   document.querySelectorAll(".tl li[data-h]").forEach(li=>{
     const [a,b]=li.dataset.h.split("-").map(Number), hrs=[];
@@ -819,16 +913,63 @@ async function loadWeather(){
     (g?.properties?.probabilityOfThunder?.values||[]).forEach(v=>{
       const [t,d]=v.validTime.split("/"), m=d.match(/P(?:(\d+)D)?T?(?:(\d+)H)?/), n=(+(m[1]||0))*24+(+(m[2]||0)), t0=Date.parse(t);
       for(let i=0;i<n;i++){const P=Object.fromEntries(ET.formatToParts(new Date(t0+i*3600e3)).map(x=>[x.type,x.value]));
-        if(`${P.year}-${P.month}-${P.day}`===WX_DAY) thunder[+P.hour%24]=v.value;}
+        if(`${P.year}-${P.month}-${P.day}`===DAY) thunder[+P.hour%24]=v.value;}
     });
     const next={};
-    h.properties.periods.filter(x=>x.startTime.startsWith(WX_DAY)).forEach(x=>{const hr=+x.startTime.slice(11,13);next[hr]=[x.temperature,x.probabilityOfPrecipitation.value||0,/thunder/i.test(x.shortForecast)?1:0,thunder[hr]??(WX[hr]?.[3]||0)]});
+    h.properties.periods.filter(x=>x.startTime.startsWith(DAY)).forEach(x=>{const hr=+x.startTime.slice(11,13);next[hr]=[x.temperature,x.probabilityOfPrecipitation.value||0,/thunder/i.test(x.shortForecast)?1:0,thunder[hr]??(WX[hr]?.[3]||0)]});
     if(!Object.keys(next).length) return;
     WX=next; paintWeather();
   }catch(e){}
 }
+// ---------- times on the timeline: pre-park steps from the gate time, stops and meals from the estimate ----------
+const tlClock=m=>{ m=Math.round(m/5)*5; const h=Math.floor(m/60)%24; return `${h%12||12}:${String(m%60).padStart(2,"0")}`; };
+document.querySelectorAll(".tl>li").forEach((li,i)=>li.dataset.ord=i);
+function setCardTime(li,min,text,hrs){
+  const tm=li.querySelector("time"), t=text||(min==null?"—":tlClock(min));
+  if(tm.firstChild&&tm.firstChild.nodeType===3) tm.firstChild.textContent=t; else tm.prepend(document.createTextNode(t));
+  li.dataset.min=min==null?99999:Math.round(min); if(hrs) li.dataset.h=hrs; else if(min!=null) li.dataset.h=String(Math.floor(min/60));
+}
+function paintTimes(){
+  const g=hm(TRIP.gate)??470, close=hm(TRIP.close), fw=hm(TRIP.fireworks), s=SCHED, P=PLAN, at=id=>(s.items.find(x=>x.id===id)||P.items.find(x=>x.id===id));
+  document.querySelectorAll(".tl>li").forEach(li=>{
+    if(li.dataset.off!=null){ setCardTime(li,g+(+li.dataset.off)); return; }
+    if(li.dataset.zone){ const z=+li.dataset.zone, w=s.zones[z]||P.zones[z]; if(w) setCardTime(li,w[0],null,`${Math.floor(w[0]/60)}-${Math.floor(w[1]/60)}`); else { const sw=stopWindow(z); setCardTime(li,sw[0],"—"); } return; }
+    if(li.dataset.meal){ const k=+li.dataset.meal, ch=chosenSpot(k), it=ch&&at(ch); setCardTime(li,it?it.arrive:MEALK[k].t); return; }
+    if(li.hasAttribute("data-fw")){ setCardTime(li,fw!=null?fw:1260,fw!=null?null:"Night"); li.hidden=fw==null&&!!TRIP.date&&TRIP.fireworks===""; return; }
+    if(li.hasAttribute("data-close")){ setCardTime(li,close!=null?close:1380); }
+  });
+  document.querySelectorAll("[data-at]").forEach(e=>e.textContent=fmtMin(g+(+e.dataset.at)));
+  const ca=document.getElementById("close-at"); if(ca) ca.textContent=close!=null?fmtMin(close):"closing";
+  const fd=P.items.find(x=>priOf(x.id)==="das"), fde=document.getElementById("first-das");
+  if(fde) fde.innerHTML=fd?`<span class="ref">${byQ.get(fd.id).name}<span class="refn">#${byQ.get(fd.id).m}</span></span>`:"a DAS candidate";
+  // keep the cards in time order
+  const ol=document.querySelector(".tl"), lis=[...ol.children], want=lis.slice().sort((a,b)=>(+a.dataset.min)-(+b.dataset.min)||(+a.dataset.ord)-(+b.dataset.ord));
+  if(want.some((li,i)=>li!==lis[i])) want.forEach(li=>ol.appendChild(li));
+  // summary: time in the park
+  const rides=s.items.filter(x=>!isFood(x.id)).length, end=Math.round(s.end/5)*5, from=s.live?nowET().min:g, mins=Math.max(0,end-from), late=close!=null&&end>close+10;
+  document.getElementById("day-sum").innerHTML=`⏱ ${s.live?"Rest of the day":"In the park"}: about <b>${fmtMin(Math.round(from/5)*5)} – ${fmtMin(end)}</b> · ${Math.floor(mins/60)} h ${mins%60} m · ${rides} ride${rides===1?"":"s"} · ~${Math.round(s.walk)} min walking · ~${Math.round(s.line)} min in lines${late?` · <b class="late">runs past closing (${fmtMin(close)})</b>`:""}`;
+  if(typeof paintWeather==="function") try{ paintWeather(); }catch(e){}
+  paintTripBar();
+}
+function paintTripBar(){
+  const d=new Date(TRIP.date+"T12:00:00"), g=hm(TRIP.gate), c=hm(TRIP.close), f=hm(TRIP.fireworks);
+  document.getElementById("trip-sum").innerHTML=`📅 <b>${isNaN(d)?"No date set":d.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"})}</b>${g!=null?` · gate ${fmtMin(g)}`:""}${c!=null?` · closes ${fmtMin(c)}`:""}${f!=null?` · fireworks ${fmtMin(f)}`:""}`;
+}
+function applyTrip(render){ DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
+(()=>{
+  const form=document.getElementById("trip-form"), btn=document.getElementById("trip-edit"), link=document.getElementById("trip-link");
+  const fill=()=>{ form.date.value=TRIP.date||""; form.gate.value=TRIP.gate||""; form.close.value=TRIP.close||""; form.fireworks.value=TRIP.fireworks||""; link.hidden=true; };
+  btn.addEventListener("click",()=>{ const open=form.hidden; if(open) fill(); form.hidden=!open; btn.setAttribute("aria-expanded",open); });
+  form.addEventListener("submit",e=>{ e.preventDefault();
+    TRIP={date:form.date.value,gate:form.gate.value,close:form.close.value,fireworks:form.fireworks.value}; tripMt=Date.now(); metaPending=true; saveMeta();
+    form.hidden=true; btn.setAttribute("aria-expanded","false"); applyTrip(); if(typeof flushSync==="function") flushSync(); });
+  document.getElementById("trip-new").addEventListener("click",()=>{
+    const code="mk-"+Math.random().toString(36).slice(2,10), q=new URLSearchParams({trip:code,date:form.date.value,gate:form.gate.value,close:form.close.value,fw:form.fireworks.value});
+    const url=`${location.origin}${location.pathname}?${q}`, share=`${location.origin}${location.pathname}?trip=${code}`;
+    link.innerHTML=`New trip ready (the dates above go with it): <a href="${url}">open it here</a>. Then share this link with the group: <a href="${share}">${share.replace(/^https?:\/\//,"")}</a>`; link.hidden=false; });
+})();
 // ---------- hide timeline cards as the day goes (this phone only) ----------
-const HIDE_KEY="mk-hidden-v1";
+const HIDE_KEY="mk-hidden-v1"+TK;
 let hiddenCards=new Set(); try{ hiddenCards=new Set(JSON.parse(localStorage.getItem(HIDE_KEY))||[]); }catch(e){}
 // key = the time and title as written in the page (weather chips get added to <time> later, so only its first text counts)
 document.querySelectorAll(".tl>li").forEach(li=>{ li.dataset.card=(li.querySelector("time").firstChild?.textContent||"").trim()+"|"+li.querySelector(".what>b").textContent.trim().slice(0,40); });
@@ -901,7 +1042,7 @@ const tlRows=[...document.querySelectorAll(".tl>li[data-h]")].map(li=>{
 function paintNow(scroll){
   if(!scroll) return;
   const n=nowET(), cur=currentZone();
-  const row=cur?tlRows.find(r=>r.zone===cur):(n.day===DAY?tlRows.filter(r=>!r.maybe&&!r.zone&&!r.meal&&r.t<=n.min).pop():null);
+  const row=cur?tlRows.find(r=>r.zone===cur):(n.day===DAY?tlRows.filter(r=>!r.maybe&&!r.zone&&!r.meal&&(+r.li.dataset.min)<=n.min).pop():null);
   if(row&&location.hash.slice(1)!=="access"&&location.hash.slice(1)!=="lost") row.li.scrollIntoView({block:"center"});
 }
 function setBarH(){const b=document.querySelector(".bar");document.documentElement.style.setProperty("--barh",(b&&b.offsetParent?b.offsetHeight:0)+"px")}
@@ -1107,11 +1248,8 @@ markChips();
 new MutationObserver(()=>markChips()).observe(document.getElementById("day"),{childList:true,subtree:true});
 // ---------- shared sync: ride picks and checkmarks across the group's phones (sync.embry.dev, Cloudflare D1) ----------
 // The trip code comes from the link (?trip=...) and is remembered on the phone; with no code, the group trip is used.
-const SYNC=["https://sync.embry.dev","https://embry-sync.system-map.workers.dev"], TRIP_KEY="mk-trip", STAMP_KEY="mk-stamps-v1", QUEUE_KEY="mk-queue-v1";
-let trip=new URLSearchParams(location.search).get("trip");
-try{ if(trip) localStorage.setItem(TRIP_KEY,trip); else trip=localStorage.getItem(TRIP_KEY); }catch(e){}
-if(!trip) trip="mk-mqoj1lu";   // our group: the plain embry.dev/disney link syncs too
-if(trip&&!/^[a-z0-9-]{6,40}$/.test(trip)) trip=null;
+const SYNC=["https://sync.embry.dev","https://embry-sync.system-map.workers.dev"], STAMP_KEY="mk-stamps-v1"+TK, QUEUE_KEY="mk-queue-v1"+TK;
+let trip=TRIP_CODE;   // see the trip block near the top; the plain embry.dev/disney link opens the group trip
 const loadObj=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}};
 let stamps=loadObj(STAMP_KEY,{pri:{},done:{}}), queue=loadObj(QUEUE_KEY,[]), lastSync=0, syncing=false;
 const saveSync=()=>{try{localStorage.setItem(STAMP_KEY,JSON.stringify(stamps));localStorage.setItem(QUEUE_KEY,JSON.stringify(queue))}catch(e){}};
@@ -1127,6 +1265,7 @@ async function syncReq(body){
 }
 function applyServer(st){
   let changed=false;
+  if(st.meta&&st.mt>tripMt&&!metaPending){ TRIP={...TRIP_DEFAULT,...st.meta}; tripMt=st.mt; saveMeta(); applyTrip(false); changed=true; }
   for(const [k,r] of Object.entries(st.rides||{})){
     const id=+k;
     if(r.pri&&r.pt>=(stamps.pri[id]||0)&&!queue.some(c=>c.id===id&&c.field==="pri")){ if(pri[id]!==r.pri){pri[id]=r.pri;changed=true} stamps.pri[id]=r.pt; }
@@ -1143,10 +1282,11 @@ function paintSync(state){
 }
 async function flushSync(){
   if(!trip||syncing) return; syncing=true;
-  const sending=queue.slice();
+  const sending=queue.slice(), meta=metaPending?{meta:TRIP,mt:tripMt}:null;
   try{
-    const st=await syncReq(sending.length?{changes:sending}:null);
-    queue=queue.filter(c=>!sending.includes(c)); saveSync(); applyServer(st); lastSync=Date.now(); paintSync("ok");
+    const st=await syncReq(sending.length||meta?{changes:sending,...(meta||{})}:null);
+    queue=queue.filter(c=>!sending.includes(c)); saveSync();
+    if(meta&&meta.mt===tripMt){ metaPending=false; saveMeta(); } applyServer(st); lastSync=Date.now(); paintSync("ok");
     syncing=false;
     if(queue.length) flushSync();   // changes made while this request was in flight
     return;
@@ -1241,7 +1381,7 @@ pmInner.style.setProperty("--z",pmZoom);
 const pct2=([x,y])=>`left:${x/2060*100}%;top:${y/2124*100}%`;
 function lastTicked(){ let best=null; try{ for(const id of done){ const t=stamps.done[id]||0; if(!best||t>best.t) best={id,t}; } }catch(e){} return best&&best.t?best.id:null; }
 function renderMap(){
-  const path=computePath(), wait=id=>lastById&&lastById.get(id)?.open?lastById.get(id).wait:null;
+  const path=fullPath(), wait=id=>lastById&&lastById.get(id)?.open?lastById.get(id).wait:null;
   const next=path.find(id=>!done.has(id)), here=lastTicked();
   // path: entrance → City Hall → each stop; legs between rides already done turn grey
   const pts=[ENTRANCE,CITYHALL,...path.map(PT)];
@@ -1266,9 +1406,9 @@ function renderMap(){
 function pmCenter([x,y]){ pmScroll.scrollTo({left:x/2060*pmInner.offsetWidth-pmScroll.clientWidth/2,top:y/2124*pmInner.offsetHeight-pmScroll.clientHeight/2}); }
 function pmCard(id){
   document.getElementById("pm-card").hidden=false;
-  if(isFood(id)){ const f=byQ.get(id), n=computePath().indexOf(id)+1, c=FOODCAT.find(x=>x.m===f.m);
+  if(isFood(id)){ const f=byQ.get(id), n=fullPath().indexOf(id)+1, c=FOODCAT.find(x=>x.m===f.m);
     document.getElementById("pm-card").innerHTML=`<button type="button" class="pm-x" data-pmclose aria-label="Close">✕</button><b>${n?n+". ":""}${f.name}</b> <span>#${f.m} · ${f.meal} · ${FOOD_TYPE[c.type]}</span><div class="pm-row"><a class="menu" href="${menuURL(c)}" target="_blank" rel="noopener">Menu</a></div><span>Change the spot in The day.</span>`; return; }
-  const a=byQ.get(id), p=priOf(id), n=computePath().indexOf(id)+1, w=lastById&&lastById.get(id);
+  const a=byQ.get(id), p=priOf(id), n=fullPath().indexOf(id)+1, w=lastById&&lastById.get(id);
   document.getElementById("pm-card").innerHTML=`<button type="button" class="pm-x" data-pmclose aria-label="Close">✕</button><b>${n?n+". ":""}${a.name}</b> <span>#${a.m||"–"} · ${ZONES[zoneOf.get(id)].n} · ${KIND_LABEL[kindOf(id)]}${w?` · ${w.open?w.wait+" min posted":"closed"}`:""}</span>
     <div class="pm-row"><select data-pri="${id}" ${done.has(id)?"disabled":""} aria-label="${a.name}: priority">${Object.entries(PRI_LABEL).map(([k,v])=>`<option value="${k}" ${k===p?"selected":""}>${v}</option>`).join("")}</select></div>`;
 }
@@ -1295,6 +1435,7 @@ pinchZoom(mvScroll,mvInner,()=>mvZoom,z=>{mvZoom=z},1,4);
 addEventListener("hashchange",()=>{ if(location.hash==="#map"){ pmCentered=false; setTimeout(renderMap,30); } });
 document.getElementById("map").addEventListener("change",onRideChange);
 renderMap();
+renderDay();   // again now that walkway routes exist, so stop times use real walking distances
 // ---------- Map tab: GPS you-are-here dot, followed live while the tab is open ----------
 let pmWatch=null;
 function pmPaintYou(center){
