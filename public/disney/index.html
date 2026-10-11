@@ -147,6 +147,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .tripform .tf-save{background:#16897a;border-color:#16897a;color:#fff}
 .tripform p{margin:0;font-size:13px;color:var(--muted)}
 .tripform .tf-link a{word-break:break-all}
+.tripform .tf-hours{padding:8px 10px;border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px}
 .day-sum{margin:0 0 10px;padding:8px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-size:14px;color:var(--ink)}
 .day-sum .late,.mzone .late{color:#d4573f}
 .fin-banner{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#16897a;color:#fff;font-size:14px}
@@ -451,7 +452,8 @@ button{min-height:44px}
     <form class="tripform" id="trip-form" hidden>
       <label>Date <input type="date" name="date" required></label>
       <label>At the gate <input type="time" name="gate" required></label>
-      <label>Park closes <input type="time" name="close" required></label>
+      <p class="tf-hours" id="tf-hours"></p>
+      <label>Leave the park (leave empty to stay until closing) <input type="time" name="leave"></label>
       <label>Fireworks (leave empty if none) <input type="time" name="fireworks"></label>
       <div class="tf-row"><button type="submit" class="tf-save">Save for everyone on this trip</button><button type="button" id="trip-new">New trip link</button><button type="button" id="trip-finish">Finish this trip</button></div>
       <p>Saved with the trip, so every phone on it gets the same date and times. A new trip gets its own link, with fresh picks and checkmarks; this trip stays as it is.</p>
@@ -480,7 +482,7 @@ button{min-height:44px}
       <li style="--c:var(--eve)" data-h="16-22" data-zone="6"><time>4:00</time><span class="rail"></span><div class="what zone"><b>Evening: catch up and re-ride</b><div class="zbody" data-zbody="6"></div></div></li>
       <li style="--c:var(--pm)" data-h="17" data-meal="4"><time>5:00</time><span class="rail"></span><div class="what"><b>🍽️ Dinner</b><p class="mtip">Mobile order in the app about 45 min ahead.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
       <li style="--c:var(--eve)" data-h="21" class="maybe" data-fw><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
-      <li style="--c:var(--eve)" data-h="23" data-close><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span>Park closes at <span id="close-at"></span>. Expect a monorail wait after fireworks.</span></div></li>
+      <li style="--c:var(--eve)" data-h="23" data-close><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span><span id="home-note"></span> Expect a monorail wait after fireworks.</span></div></li>
     </ol>
     <div class="foot"><span id="count"></span></div>
     <small class="wx-src" id="sync-status">Saved on this phone only.</small>
@@ -597,18 +599,18 @@ const KIND_LABEL={indoor:"Indoor",covered:"Covered",outdoor:"Outdoor"};
 const NOTES={13763:"Walk through the castle and take photos in front of it",138:"44 in. to ride",11527:"48 in. to ride",
   129:"Good DAS pick",13630:"You will get wet",334:"Air-conditioned show, about 15 min",131:"New version",135:"Under a roof"};
 const DEFAULT_PLAN=[138,1190,131,143,11527,126,129,130,13630,134,334,137,140,136,127,135,13763];
-// ---------- trip: which group trip this phone is on, and its settings (date, gate, close, fireworks) ----------
+// ---------- trip: which group trip this phone is on, and its settings (date, gate, leave, fireworks); closing time comes from Disney ----------
 const GROUP_TRIP="mk-mqoj1lu";
 const TRIP_CODE=(()=>{ let t=new URLSearchParams(location.search).get("trip"); try{ if(t) localStorage.setItem("mk-trip",t); else t=localStorage.getItem("mk-trip"); }catch(e){} if(!t) t=GROUP_TRIP; return /^[a-z0-9-]{6,40}$/.test(t)?t:null; })();
 const TK=!TRIP_CODE||TRIP_CODE===GROUP_TRIP?"":"@"+TRIP_CODE;   // picks, checkmarks and hidden cards are kept per trip; the first group trip keeps its original keys
-const TRIP_DEFAULT={date:"2026-10-10",gate:"07:50",close:"23:00",fireworks:"21:00"}, META_KEY="mk-meta"+TK;
+const TRIP_DEFAULT={date:"2026-10-10",gate:"07:50",leave:"",fireworks:"21:00"}, META_KEY="mk-meta"+TK;
 let TRIP={...TRIP_DEFAULT}, tripMt=0, metaPending=false;
 function saveMeta(){ try{ localStorage.setItem(META_KEY,JSON.stringify({trip:TRIP,mt:tripMt,pending:metaPending})); }catch(e){} }
 try{ const m=JSON.parse(localStorage.getItem(META_KEY)); if(m&&m.trip){ TRIP={...TRIP_DEFAULT,...m.trip}; tripMt=m.mt||0; metaPending=!!m.pending; } }catch(e){}
 (()=>{ const q=new URLSearchParams(location.search); if(!q.get("date")) return;   // a new-trip link carries its settings once
-  TRIP={date:q.get("date"),gate:q.get("gate")||TRIP_DEFAULT.gate,close:q.get("close")||TRIP_DEFAULT.close,fireworks:q.get("fw")||""}; if(/^[a-z0-9-]{6,40}$/.test(q.get("prev")||"")) TRIP.prev=q.get("prev"); tripMt=Date.now(); metaPending=true; saveMeta();
+  TRIP={date:q.get("date"),gate:q.get("gate")||TRIP_DEFAULT.gate,leave:q.get("leave")||"",fireworks:q.get("fw")||""}; if(/^[a-z0-9-]{6,40}$/.test(q.get("prev")||"")) TRIP.prev=q.get("prev"); tripMt=Date.now(); metaPending=true; saveMeta();
   if(q.get("setup")) try{ sessionStorage.setItem("mk-setup","1"); }catch(e){}   // the URL is cleaned below; remember to open Trip settings
-  ["date","gate","close","fw","prev","setup"].forEach(k=>q.delete(k)); history.replaceState(null,"",location.pathname+"?"+q.toString()+location.hash); })();
+  ["date","gate","leave","close","fw","prev","setup"].forEach(k=>q.delete(k)); history.replaceState(null,"",location.pathname+"?"+q.toString()+location.hash); })();
 const hm=v=>{ const m=String(v||"").match(/^(\d{1,2}):(\d{2})/); return m?(+m[1])*60+(+m[2]):null; };
 const DONE_KEY="mk-done-v5"+TK;
 const loadJSON=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:d}catch(e){return d}};
@@ -761,6 +763,33 @@ function computePath(){
   pathCache={key,path:out}; return out;
 }
 // how late we're running, and when the path reaches each stop
+// ---------- park hours: Disney's official schedule via ThemeParks.wiki, about a month ahead; kept on the phone so past days keep theirs ----------
+const HOURS_URL="https://api.themeparks.wiki/v1/entity/75ea578a-adc8-4116-a54d-dccb60765ef9/schedule", HOURS_KEY="mk-hours";
+let PARK={}; try{ PARK=JSON.parse(localStorage.getItem(HOURS_KEY))||{}; }catch(e){}
+async function loadHours(){
+  try{ const r=await fetch(HOURS_URL,{cache:"no-store"}); if(!r.ok) return; const d=await r.json(), by={};
+    const at=(day,iso)=>{ if(!iso) return null; const m=(+iso.slice(11,13))*60+(+iso.slice(14,16)); return iso.slice(0,10)>day?m+1440:m; };
+    for(const x of d.schedule||[]){ const day=by[x.date]||(by[x.date]={});
+      if(x.type==="OPERATING"){ day.open=at(x.date,x.openingTime); day.close=at(x.date,x.closingTime); }
+      else if(/early entry/i.test(x.description||"")) day.early=at(x.date,x.openingTime);
+      else if(x.type==="TICKETED_EVENT") day.party=at(x.date,x.openingTime);
+      else if(x.type==="EXTRA_HOURS") day.extended=at(x.date,x.closingTime); }
+    PARK={...PARK,...by}; try{ localStorage.setItem(HOURS_KEY,JSON.stringify(PARK)); }catch(e){}
+    if(typeof renderDay==="function") renderDay(); paintHoursLine();
+  }catch(e){}
+}
+const parkDay=d=>PARK[d]&&PARK[d].close!=null?PARK[d]:null;
+// closing time for day guests: Disney's schedule, else what an older trip saved, else 11pm
+function closeFor(date,saved){ const p=parkDay(date); return p?p.close:(hm(saved)??1380); }
+const closeMin=()=>closeFor(DAY,TRIP.close);
+// when we head home: our leave time, never after closing
+function leaveMin(){ const c=closeMin(), l=hm(TRIP.leave); return l!=null&&l<c?l:c; }
+function hoursText(date){
+  const p=parkDay(date); if(!p) return "Disney hasn't posted hours for this date yet (they post about a month ahead). Planning to 11pm until then.";
+  return `Disney hours: ${fmtMin(p.open)} – ${fmtMin(p.close)}${p.early!=null?` · Early Entry from ${fmtMin(p.early)}`:""}${p.party!=null?` · closes at ${fmtMin(p.close)} for a ticketed party that night`:""}${p.extended!=null?` · Extended Evening to ${fmtMin(p.extended)}`:""}`;
+}
+function paintHoursLine(){ const f=document.getElementById("trip-form"), e=document.getElementById("tf-hours"); if(e&&f) e.textContent=hoursText(f.date.value||TRIP.date); }
+loadHours();
 // ---------- time estimates: walk + wait + ride for every stop on the path ----------
 // TYPWAIT: each ride's 2025 average and average daily peak posted wait, minutes (Queue-Times.com stats); RIDE_MIN: ride or show length
 const TYPWAIT={"134":[33,55],"137":[16,33],"355":[5,5],"141":[12,23],"334":[11,12],"13630":[35,59],"130":[53,86],"1214":[11,11],"356":[15,15],"140":[27,46],"133":[10,20],"136":[37,49],"161":[7,10],"171":[13,15],"142":[24,37],"129":[46,59],"128":[19,38],"127":[10,21],"126":[11,19],"132":[9,19],"135":[8,13],"11527":[62,92],"143":[10,18],"138":[28,43],"248":[11,20],"1190":[8,13],"457":[5,5],"131":[15,26],"125":[11,14],"1189":[16,18],"1181":[17,22],"146":[22,49],"6700":[29,47],"6699":[22,40],"147":[29,48],"144":[23,41],"145":[31,49]};
@@ -863,10 +892,10 @@ function renderDay(){
     const isCur=i===cur, path=computePath(), high=z.rides.filter(isHigh).sort((p,q)=>path.indexOf(p)-path.indexOf(q)), low=z.rides.filter(id=>priOf(id)==="wont");
     const nudges=[];
     if(isCur&&today){
-      const close=hm(TRIP.close);
-      if(SCHED.live&&close!=null&&SCHED.end>close+10){
+      const close=leaveMin(), byClose=close===closeMin();
+      if(SCHED.live&&SCHED.end>close+10){
         const das=highLeft(i).filter(id=>priOf(id)==="must"&&open(id)).sort((p,q)=>wait(q)-wait(p))[0];
-        nudges.push(`⏱ At this pace the path ends about ${fmtMin(Math.round(SCHED.end/5)*5)}, after closing at ${fmtMin(close)}.${das?` Switch ${byQ.get(das).name} to DAS candidate,`:""} or set a ride to Skip.`);
+        nudges.push(`⏱ At this pace the path ends about ${fmtMin(Math.round(SCHED.end/5)*5)}, after ${byClose?"closing":"our leave time"} at ${fmtMin(close)}.${das?` Switch ${byQ.get(das).name} to DAS candidate,`:""} or set a ride to Skip.`);
       }
       let stormAt=null; for(let h=hr;h<=hr+2;h++){const w=wxAt(h); if(w&&w[2]&&w[1]>=50){stormAt=h;break}}
       if(stormAt!==null){
@@ -969,31 +998,31 @@ function setCardTime(li,min,text,hrs){
   li.dataset.min=min==null?99999:Math.round(min); if(hrs) li.dataset.h=hrs; else if(min!=null) li.dataset.h=String(Math.floor(min/60));
 }
 function paintTimes(){
-  const g=hm(TRIP.gate)??470, close=hm(TRIP.close), fw=hm(TRIP.fireworks), s=SCHED, P=PLAN, at=id=>(s.items.find(x=>x.id===id)||P.items.find(x=>x.id===id));
+  const g=hm(TRIP.gate)??470, close=leaveMin(), shut=closeMin(), fw=hm(TRIP.fireworks), s=SCHED, P=PLAN, at=id=>(s.items.find(x=>x.id===id)||P.items.find(x=>x.id===id));
   document.querySelectorAll(".tl>li").forEach(li=>{
     if(li.dataset.off!=null){ setCardTime(li,g+(+li.dataset.off)); return; }
     if(li.dataset.zone){ const z=+li.dataset.zone, w=s.zones[z]||P.zones[z]; if(w) setCardTime(li,w[0],null,`${Math.floor(w[0]/60)}-${Math.floor(w[1]/60)}`); else { const sw=stopWindow(z); setCardTime(li,sw[0],"—"); } return; }
     if(li.dataset.meal){ const k=+li.dataset.meal, ch=chosenSpot(k), it=ch&&at(ch); setCardTime(li,it?it.arrive:MEALK[k].t); return; }
-    if(li.hasAttribute("data-fw")){ setCardTime(li,fw!=null?fw:1260,fw!=null?null:"Night"); li.hidden=fw==null&&!!TRIP.date&&TRIP.fireworks===""; return; }
-    if(li.hasAttribute("data-close")){ setCardTime(li,close!=null?close:1380); }
+    if(li.hasAttribute("data-fw")){ setCardTime(li,fw!=null?fw:1260,fw!=null?null:"Night"); li.hidden=fw==null&&!!TRIP.date&&TRIP.fireworks===""||fw!=null&&fw>=shut; return; }   // no fireworks card after closing (party nights)
+    if(li.hasAttribute("data-close")){ setCardTime(li,close); }
   });
   document.querySelectorAll("[data-at]").forEach(e=>e.textContent=fmtMin(g+(+e.dataset.at)));
-  const ca=document.getElementById("close-at"); if(ca) ca.textContent=close!=null?fmtMin(close):"closing";
+  const hn=document.getElementById("home-note"); if(hn) hn.textContent=close<shut?`We head out at ${fmtMin(close)}; the park closes at ${fmtMin(shut)}.`:`Park closes at ${fmtMin(shut)}${parkDay(DAY)?"":" (not posted yet)"}.`;
   const fd=P.items.find(x=>priOf(x.id)==="das"), fde=document.getElementById("first-das");
   if(fde) fde.innerHTML=fd?`<span class="ref">${byQ.get(fd.id).name}<span class="refn">#${byQ.get(fd.id).m}</span></span>`:"a DAS candidate";
   // keep the cards in time order
   const ol=document.querySelector(".tl"), lis=[...ol.children], want=lis.slice().sort((a,b)=>(+a.dataset.min)-(+b.dataset.min)||(+a.dataset.ord)-(+b.dataset.ord));
   if(want.some((li,i)=>li!==lis[i])) want.forEach(li=>ol.appendChild(li));
   // summary: time in the park
-  const rides=s.items.filter(x=>!isFood(x.id)).length, end=Math.round(s.end/5)*5, from=s.live?nowET().min:g, mins=Math.max(0,end-from), late=close!=null&&end>close+10;
-  document.getElementById("day-sum").innerHTML=`⏱ ${s.live?"Rest of the day":"In the park"}: about <b>${fmtMin(Math.round(from/5)*5)} – ${fmtMin(end)}</b> · ${Math.floor(mins/60)} h ${mins%60} m · ${rides} ride${rides===1?"":"s"} · ~${Math.round(s.walk)} min walking · ~${Math.round(s.line)} min in lines${late?` · <b class="late">runs past closing (${fmtMin(close)})</b>`:""}`;
+  const rides=s.items.filter(x=>!isFood(x.id)).length, end=Math.round(s.end/5)*5, from=s.live?nowET().min:g, mins=Math.max(0,end-from), late=end>close+10;
+  document.getElementById("day-sum").innerHTML=`⏱ ${s.live?"Rest of the day":"In the park"}: about <b>${fmtMin(Math.round(from/5)*5)} – ${fmtMin(end)}</b> · ${Math.floor(mins/60)} h ${mins%60} m · ${rides} ride${rides===1?"":"s"} · ~${Math.round(s.walk)} min walking · ~${Math.round(s.line)} min in lines${late?` · <b class="late">runs past ${close<shut?"our leave time":"closing"} (${fmtMin(close)})</b>`:""}`;
   if(typeof paintWeather==="function") try{ paintWeather(); }catch(e){}
   paintTripBar();
 }
 function paintTripBar(){
   paintFinished();
-  const d=new Date(TRIP.date+"T12:00:00"), g=hm(TRIP.gate), c=hm(TRIP.close), f=hm(TRIP.fireworks);
-  document.getElementById("trip-sum").innerHTML=`📅 <b>${isNaN(d)?"No date set":d.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"})}</b>${g!=null?` · gate ${fmtMin(g)}`:""}${c!=null?` · closes ${fmtMin(c)}`:""}${f!=null?` · fireworks ${fmtMin(f)}`:""}`;
+  const d=new Date(TRIP.date+"T12:00:00"), g=hm(TRIP.gate), c=closeMin(), l=hm(TRIP.leave), f=hm(TRIP.fireworks);
+  document.getElementById("trip-sum").innerHTML=`📅 <b>${isNaN(d)?"No date set":d.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"})}</b>${g!=null?` · gate ${fmtMin(g)}`:""}${l!=null&&l<c?` · leave ${fmtMin(l)}`:""} · park closes ${fmtMin(c)}${parkDay(TRIP.date)?"":" (not posted yet)"}${f!=null&&f<c?` · fireworks ${fmtMin(f)}`:""}`;
 }
 function paintFinished(){   // also run from paintTripBar on every redraw
   document.body.classList.toggle("trip-done",!!TRIP.finished);
@@ -1004,7 +1033,7 @@ function paintFinished(){   // also run from paintTripBar on every redraw
 // a new trip starts from the default times, dated today; Trip settings opens so the real date can go in
 function newTripURL(code,prev){
   const today=Object.fromEntries(ETZ.formatToParts(new Date()).map(x=>[x.type,x.value]));
-  const q=new URLSearchParams({trip:code,date:`${today.year}-${today.month}-${today.day}`,gate:TRIP_DEFAULT.gate,close:TRIP_DEFAULT.close,fw:TRIP_DEFAULT.fireworks,setup:"1",...(prev?{prev}:{})});
+  const q=new URLSearchParams({trip:code,date:`${today.year}-${today.month}-${today.day}`,gate:TRIP_DEFAULT.gate,fw:TRIP_DEFAULT.fireworks,setup:"1",...(prev?{prev}:{})});
   return `${location.pathname}?${q}`;
 }
 const newTripCode=()=>"mk-"+Math.random().toString(36).slice(2,10);
@@ -1022,10 +1051,11 @@ function followNext(){
 function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElementById("past").classList.contains("on")) paintPast(); DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
 (()=>{
   const form=document.getElementById("trip-form"), btn=document.getElementById("trip-edit"), link=document.getElementById("trip-link");
-  const fill=()=>{ form.date.value=TRIP.date||""; form.gate.value=TRIP.gate||""; form.close.value=TRIP.close||""; form.fireworks.value=TRIP.fireworks||""; link.hidden=true; };
+  const fill=()=>{ form.date.value=TRIP.date||""; form.gate.value=TRIP.gate||""; form.leave.value=TRIP.leave||""; form.fireworks.value=TRIP.fireworks||""; link.hidden=true; paintHoursLine(); };
+  form.date.addEventListener("input",paintHoursLine);
   btn.addEventListener("click",()=>{ const open=form.hidden; if(open) fill(); form.hidden=!open; btn.setAttribute("aria-expanded",open); });
   form.addEventListener("submit",e=>{ e.preventDefault();
-    TRIP={...TRIP,date:form.date.value,gate:form.gate.value,close:form.close.value,fireworks:form.fireworks.value}; tripMt=Date.now(); metaPending=true; saveMeta();
+    const {close,...keep}=TRIP; TRIP={...keep,date:form.date.value,gate:form.gate.value,leave:form.leave.value,fireworks:form.fireworks.value}; tripMt=Date.now(); metaPending=true; saveMeta();
     form.hidden=true; btn.setAttribute("aria-expanded","false"); applyTrip(); if(typeof flushSync==="function") flushSync(); });
   // finish (two taps, no pop-up); reopening is on Past Trips
   let armed=0; const fin=document.getElementById("trip-finish");
@@ -1122,7 +1152,7 @@ async function loadRecap(){
   const span=last!=null?Math.max(0,last-g):null, planEnd=Math.round(r.plan.end/5)*5;
   const row=(id,t)=>{ const pl=planned.get(id); return `<li><time>${t!=null?fmtMin(t):"—"}</time><span>${itemName(id)}${pl!=null?`<small>planned about ${fmtMin(Math.round(pl/5)*5)}${t!=null?` · ${Math.abs(Math.round((t-pl)/5)*5)<5?"on time":(t>pl?Math.round((t-pl)/5)*5+" min later":Math.round((pl-t)/5)*5+" min earlier")}`:""}</small>`:""}</span></li>`; };
   body.innerHTML=`<div class="recap-sum"><b>${dayName}</b>
-      <span>${T.finished?`✓ Finished ${new Date(T.finished).toLocaleDateString([], {month:"short",day:"numeric"})}`:"Not finished yet"} · gate ${fmtMin(g)}${hm(T.close)!=null?` · closed ${fmtMin(hm(T.close))}`:""}</span>
+      <span>${T.finished?`✓ Finished ${new Date(T.finished).toLocaleDateString([], {month:"short",day:"numeric"})}`:"Not finished yet"} · gate ${fmtMin(g)} · park closed ${fmtMin(closeFor(T.date,T.close))}</span>
       <span><b>${rides.length}</b> of ${r.picked.length} picked rides done${missed.length?` · ${missed.length} missed`:""}</span>
       ${last!=null?`<span>In the park about <b>${fmtMin(g)} – ${fmtMin(last)}</b> (${Math.floor(span/60)} h ${span%60} m, gate to the last check-off) · planned to finish about ${fmtMin(planEnd)}</span>`:`<span>Planned: ${fmtMin(g)} – ${fmtMin(planEnd)}</span>`}
       <small>Times are when someone ticked the box, so they can run a little after the ride.</small></div>
