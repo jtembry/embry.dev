@@ -130,15 +130,18 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .tl .what>b:first-of-type{padding-right:40px}
 .tl-hide{position:absolute;top:4px;right:4px;width:36px;height:36px;min-height:0;padding:0;display:grid;place-items:center;color:var(--muted);background:transparent;border:0;border-radius:50%}
 .tl-hide svg{transition:transform .15s}
+.tl-rm{position:absolute;top:4px;right:40px;width:36px;height:36px;min-height:0;padding:0;display:grid;place-items:center;color:var(--muted);background:transparent;border:0;border-radius:50%}
+.tl>li[data-meal] .what>b:first-of-type{padding-right:76px}
+.tl-hidbar{justify-content:space-between!important;gap:8px}
 .tl>li:not(.tl-hidden) .tl-hide svg{transform:rotate(90deg)}
 @media (prefers-reduced-motion:reduce){.tl-hide svg{transition:none}}
-.tl>li.tl-hidden .what>*:not(b:first-of-type):not(.tl-hide){display:none}
+.tl>li.tl-hidden .what>*:not(b:first-of-type):not(.tl-hide):not(.tl-rm){display:none}
 .tl>li.tl-hidden .what{padding-top:6px;padding-bottom:6px;cursor:pointer}
 .tl>li.tl-hidden .what>b:first-of-type{font-size:14px;font-weight:700}
 .tl>li.tl-hidden time{font-size:13px;color:var(--muted);padding-top:6px}
 .tl>li.tl-hidden .rail::after{top:9px}
 .tl>li.tl-hidden time>*{display:none}
-.tl>li.tl-hidden .tl-hide{top:50%;transform:translateY(-50%)}
+.tl>li.tl-hidden .tl-hide,.tl>li.tl-hidden .tl-rm{top:50%;transform:translateY(-50%)}
 .tl>li.tl-hidden .what{margin-bottom:6px}
 .tripbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:0 0 8px;font-size:14px;color:var(--muted)}
 .tripbar b{color:var(--ink)}
@@ -484,6 +487,7 @@ button{min-height:44px}
       <li style="--c:var(--mid)" data-h="14" data-meal="3"><time>2:00</time><span class="rail"></span><div class="what"><b>🍍 Snack</b><p class="mtip">Refill water.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
       <li style="--c:var(--eve)" data-h="16-22" data-zone="6"><time>4:00</time><span class="rail"></span><div class="what zone"><b>Evening: catch up and re-ride</b><div class="zbody" data-zbody="6"></div></div></li>
       <li style="--c:var(--pm)" data-h="17" data-meal="4"><time>5:00</time><span class="rail"></span><div class="what"><b>🍽️ Dinner</b><p class="mtip">Mobile order in the app about 45 min ahead.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
+      <li style="--c:var(--eve)" data-h="19" data-meal="5"><time>7:30</time><span class="rail"></span><div class="what"><b>🍦 Snack</b><p class="mtip">Refill water before the fireworks.</p><p class="mtip mzone"></p><ul class="meals"></ul></div></li>
       <li style="--c:var(--eve)" data-h="21" class="maybe" data-fw><time>Night</time><span class="rail"></span><div class="what"><b>Fireworks: skippable</b><span>Lines drop while the show runs, so it's a good time to ride instead. Check the time in the app.</span></div></li>
       <li style="--c:var(--eve)" data-h="23" data-close><time>11:00</time><span class="rail"></span><div class="what"><b>Time to go home</b><span><span id="home-note"></span></span></div></li>
     </ol>
@@ -656,10 +660,11 @@ const LAND_NAME={1:"Tomorrowland",2:"Fantasyland",3:"Liberty Square",4:"Frontier
 const MENUS={19:"sunshine-tree-terrace",21:"aloha-isle",29:"pecos-bill-tall-tale-inn-and-cafe",39:"columbia-harbour-house",58:"pinocchio-village-haus",64:"prince-eric-village-market",65:"cheshire-cafe"};
 const menuURL=c=>MENUS[c.m]?`https://disneyworld.disney.go.com/dining/magic-kingdom/${MENUS[c.m]}/menus/`:`https://www.google.com/search?q=${encodeURIComponent(c.name+" Magic Kingdom menu")}`;
 // meals: k → time (minutes) and label; each meal has an id per spot (9000 + k×100 + #) plus a "skip this meal" id (… + 99)
-const MEALK={1:{t:600,label:"Morning snack",snack:true},2:{t:720,label:"Lunch"},3:{t:840,label:"Afternoon snack",snack:true},4:{t:1020,label:"Dinner"}};
-function setMealTargets(){ const g=hm(TRIP.gate)??470; MEALK[1].t=g+130; MEALK[2].t=Math.max(720,g+250); MEALK[3].t=MEALK[2].t+120; MEALK[4].t=Math.max(1020,MEALK[2].t+300); }
+const MEALK={1:{t:600,label:"Morning snack",snack:true},2:{t:720,label:"Lunch"},3:{t:840,label:"Afternoon snack",snack:true},4:{t:1020,label:"Dinner"},5:{t:1170,label:"Evening snack",snack:true}};
+const MEAL_KS=[1,2,3,4,5];
+function setMealTargets(){ const g=hm(TRIP.gate)??470; MEALK[1].t=g+130; MEALK[2].t=Math.max(720,g+250); MEALK[3].t=MEALK[2].t+120; MEALK[4].t=Math.max(1020,MEALK[2].t+300); MEALK[5].t=MEALK[4].t+150; }
 setMealTargets();
-const FOOD_DEFAULT=new Set([9164,9229,9321,9458]);   // Prince Eric's, Pecos Bill, Aloha Isle, Pinocchio Village Haus
+const FOOD_DEFAULT=new Set([9164,9229,9321,9458,9599]);   // Prince Eric's, Pecos Bill, Aloha Isle, Pinocchio Village Haus; the evening snack starts removed (9599 = its skip id)
 const FOOD=[], FOOD_IDS=new Set();
 Object.entries(MEALK).forEach(([k,mk])=>{ k=+k;
   FOODCAT.forEach(c=>{ const id=9000+k*100+c.m; FOOD.push({...c,id,k,meal:mk.label,food:true,zone:6}); FOOD_IDS.add(id);
@@ -689,7 +694,7 @@ function setMeal(k,choice){   // choice: Disney # or "skip"
   if(TRIP.finished) return;
   const ch=[];
   FOOD.filter(f=>f.k===k).forEach(f=>{ const want=(choice!=="skip"&&f.m===+choice)?"must":"wont"; if(foodPri(f.id)!==want||pri[f.id]!==want&&want==="must"){ pri[f.id]=want; ch.push([f.id,want]); } });
-  const sk=choice==="skip"?"must":"wont"; if((pri[skipId(k)]||"wont")!==sk){ pri[skipId(k)]=sk; ch.push([skipId(k),sk]); }
+  const sk=choice==="skip"?"must":"wont"; if(foodPri(skipId(k))!==sk||pri[skipId(k)]!==sk){ pri[skipId(k)]=sk; ch.push([skipId(k),sk]); }   // compare with the default too (the evening snack starts removed)
   try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(e){}
   ch.forEach(([id,v])=>queueChange(id,"pri",v));
 }
@@ -810,7 +815,7 @@ function waitAt(id,min){ const n=nowET(), live=lastById&&lastById.get(id); if(n.
 function walkMinBetween(a,b){ let px; try{ px=walkRoute(a,b).len; }catch(e){ px=dist(a,b)*1.3; } return px*0.55/55; }
 // walk the path in order. DAS: one return held at a time; the next is booked on tapping in, for the standby wait less 10 min.
 // meals go in when the clock reaches their time, wherever the path is
-function mealStops(live,now){ return [1,2,3,4].map(k=>{ const ch=chosenSpot(k); if(!ch||foodPri(skipId(k))==="must") return null;
+function mealStops(live,now){ return MEAL_KS.map(k=>{ const ch=chosenSpot(k); if(!ch||foodPri(skipId(k))==="must") return null;
   if(live&&(done.has(ch)||MEALK[k].t<now-60)) return null; return {id:ch,t:MEALK[k].t}; }).filter(Boolean).sort((a,b)=>a.t-b.t); }
 function estimate(path,t0,from,meals){
   const items=[], zones={}, rides=path.slice(), ms=(meals||[]).slice(); let t=t0, at=from, dasFree=t0, walk=0, line=0;
@@ -841,7 +846,9 @@ function planTimes(){
   const n=nowET(), g=hm(TRIP.gate)??470, start=g+15;   // after the gate, Guest Relations and booking the first DAS ride
   const rides=computePath(); PLAN=estimate(rides,start,CITYHALL,mealStops(false)); SCHED=PLAN;
   refreshFoodZones();   // which spots each meal's dropdown lists: where the path is around then
-  const live=n.day===DAY&&n.min>=start;
+  // count from now only once we are in the park: something checked off, or GPS puts us there; until then, the whole day from the gate
+  let inPark=done.size>0; if(!inPark) try{ inPark=gpsOn(); }catch(e){}
+  const live=n.day===DAY&&n.min>=start&&inPark;
   let from=CITYHALL; if(live) try{ from=herePx(); }catch(e){}
   SCHED=live?estimate(rides.filter(id=>!done.has(id)),n.min,from,mealStops(true,n.min)):PLAN; SCHED.live=live;
   const cut=leaveMin()+5; FIT=new Set([...SCHED.items.filter(x=>x.end<=cut).map(x=>x.id),...done]);
@@ -1009,7 +1016,7 @@ function paintTimes(){
     if(li.dataset.off!=null){ setCardTime(li,g+(+li.dataset.off)); return; }
     // nothing is scheduled after Time to go home: stops, meals and fireworks from then on are hidden
     if(li.dataset.zone){ const z=+li.dataset.zone, w=s.zones[z]||P.zones[z]; if(w) setCardTime(li,w[0],null,`${Math.floor(w[0]/60)}-${Math.floor(w[1]/60)}`); else { const sw=stopWindow(z); setCardTime(li,sw[0],"—"); } li.hidden=(+li.dataset.min)>=close; return; }
-    if(li.dataset.meal){ const k=+li.dataset.meal, ch=chosenSpot(k), it=ch&&at(ch); setCardTime(li,it?it.arrive:MEALK[k].t); li.hidden=(+li.dataset.min)>=close; return; }
+    if(li.dataset.meal){ const k=+li.dataset.meal, ch=chosenSpot(k), it=ch&&at(ch); setCardTime(li,it?it.arrive:MEALK[k].t); li.hidden=foodPri(skipId(k))==="must"||(+li.dataset.min)>=close; return; }
     if(li.hasAttribute("data-fw")){ setCardTime(li,fw!=null?fw:1260,fw!=null?null:"Night"); li.hidden=fw==null&&!!TRIP.date&&TRIP.fireworks===""||fw!=null&&fw>=close; return; }
     if(li.hasAttribute("data-close")){ setCardTime(li,close); }
   });
@@ -1139,7 +1146,7 @@ function planFor(st){
     for(const [k,r] of Object.entries(st.rides||{})){ const id=+k; if(r.pri){ P[id]=r.pri; S.pri[id]=r.pt; } if(r.done){ D.add(id); S.done[id]=r.dt; } }
     pri=P; done=D; stamps=S; TRIP={...TRIP_DEFAULT,...(st.meta||{})}; DAY=TRIP.date; lastById=null; setMealTargets(); pathCache.key="";
     const g=hm(TRIP.gate)??470, plan=estimate(computePath(),g+15,CITYHALL,mealStops(false));
-    const picked=ALL.filter(a=>!a.meet&&isHigh(a.id)).map(a=>a.id), meals=[1,2,3,4].map(k=>chosenSpot(k)).filter(Boolean);
+    const picked=ALL.filter(a=>!a.meet&&isHigh(a.id)).map(a=>a.id), meals=MEAL_KS.map(k=>chosenSpot(k)).filter(Boolean);
     return {plan,picked,meals,done:D,stamps:S,trip:TRIP};
   } finally { ({pri,done,stamps,TRIP,DAY,lastById}=save); setMealTargets(); pathCache.key=""; }
 }
@@ -1187,8 +1194,32 @@ function paintHidden(){
   try{ localStorage.setItem(OPEN_KEY,JSON.stringify([...openCards])); }catch(e){}
 }
 tlList.querySelectorAll(":scope>li>.what").forEach(w=>w.insertAdjacentHTML("afterbegin",`<button type="button" class="tl-hide">${CHEVRON}</button>`));
+// meals and snacks: ✕ removes one from the day (synced, like any pick); + Add puts a removed one back
+const XMARK=`<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`;
+tlList.querySelectorAll(":scope>li[data-meal]>.what").forEach(w=>{ const k=+w.parentElement.dataset.meal; w.insertAdjacentHTML("afterbegin",`<button type="button" class="tl-rm" data-rmmeal="${k}" aria-label="Remove ${MEALK[k].label}">${XMARK}</button>`); });
+tlBar.insertAdjacentHTML("afterbegin",`<button type="button" id="tl-addmeal">＋ Add a meal or snack</button>`);
+// the spot nearest to where the path is at that time: snacks prefer snack stands, meals quick service; no table service
+function bestSpot(k){
+  const t=MEALK[k].t, before=(PLAN?PLAN.items:[]).filter(x=>!isFood(x.id)&&x.end<=t), at=before.length?PT(before[before.length-1].id):CITYHALL;
+  const pref=MEALK[k].snack?{snack:0,quick:1}:{quick:0,snack:1};
+  return FOODCAT.filter(c=>c.type in pref).sort((a,b)=>(pref[a.type]-pref[b.type])*400+dist(at,[a.x,a.y])-dist(at,[b.x,b.y]))[0];
+}
+tlList.addEventListener("click",e=>{
+  const b=e.target.closest("[data-rmmeal]"); if(!b) return; e.stopPropagation();
+  if(TRIP.finished) return; setMeal(+b.dataset.rmmeal,"skip"); renderDay();
+},true);
+document.getElementById("tl-addmeal").addEventListener("click",async()=>{
+  if(TRIP.finished) return;
+  const off=MEAL_KS.filter(k=>foodPri(skipId(k))==="must");
+  if(!off.length){ await askChoice("Add a meal or snack","Every meal and snack is already on the day. Remove one with its ✕.",[["ok","OK","primary"]]); return; }
+  const k=await askChoice("Add a meal or snack","It goes in at about this time, at the spot nearest the path then. Change the spot on its card.",
+    off.map(k=>[String(k),`${MEALK[k].label} · about ${fmtMin(Math.round(MEALK[k].t/5)*5)}`,"primary"]).concat([["cancel","Cancel"]]));
+  if(!k||k==="cancel") return;
+  const c=bestSpot(+k); setMeal(+k,c?c.m:"skip"); openCards.add("m"+k); renderDay(); paintHidden();
+});
 tlList.addEventListener("click",e=>{
   const li=e.target.closest(".tl>li"); if(!li) return;
+  if(e.target.closest(".tl-rm")) return;
   const btn=e.target.closest(".tl-hide"), collapsed=li.classList.contains("tl-hidden");
   if(!btn&&!(collapsed&&e.target.closest(".what"))) return;   // a collapsed card opens from anywhere on it; an open one from the chevron
   const k=cardKey(li); collapsed?openCards.add(k):openCards.delete(k); paintHidden();
@@ -1665,14 +1696,14 @@ addEventListener("hashchange",pmWatchSync); document.addEventListener("visibilit
 document.getElementById("pm-me").addEventListener("click",()=>{ pmWatchStart(); gpsOn()?pmPaintYou(true):locate(()=>pmPaintYou(true)); });
 // ---------- 🍴 Food: nearest food spots (GPS, else from the last ride ticked); add one to a meal ----------
 let fdSel=null, fdNote="", fdMeal=null;
-function nextMealK(){ const n=nowET(); const ks=[1,2,3,4].filter(k=>!(chosenSpot(k)&&done.has(chosenSpot(k)))); return ks.find(k=>n.day!==DAY||MEALK[k].t>=n.min-45)||ks[ks.length-1]||2; }
+function nextMealK(){ const n=nowET(); const ks=MEAL_KS.filter(k=>!(chosenSpot(k)&&done.has(chosenSpot(k)))); return ks.find(k=>n.day!==DAY||MEALK[k].t>=n.min-45)||ks[ks.length-1]||2; }
 function showFood(){
   const near=byDistance(FOODCAT), list=near.filter(c=>c.type!=="table").concat(near.filter(c=>c.type==="table"));   // walk-up spots first; table service needs a reservation
   const k=fdSel==null?0:list.findIndex(c=>c.i===fdSel), c=list[k], nk=nextMealK();
   openMapAt({title:k===0?"🍴 Nearest food":"🍴 Food",
     sub:`<b>${c.name}</b> #${c.m} · ${FOOD_TYPE[c.type]} · ${roundM(c.d)}
       <span class="fd-row"><a class="menu fd-menu" href="${menuURL(c)}" target="_blank" rel="noopener" aria-label="${c.name} menu">Menu</a></span>
-      <span class="fd-row"><select class="fd-meal" id="fd-meal" aria-label="Which meal">${[1,2,3,4].map(m=>{ const cur=chosenSpot(m), on=cur?FOODCAT.find(x=>x.m===cur%100):null;
+      <span class="fd-row"><select class="fd-meal" id="fd-meal" aria-label="Which meal">${MEAL_KS.map(m=>{ const cur=chosenSpot(m), on=cur?FOODCAT.find(x=>x.m===cur%100):null;
         return `<option value="${m}" ${m===(fdMeal||nk)?"selected":""}>${MEALK[m].label}${on?(on.m===c.m?" · already this":` · now ${on.name}`):""}</option>`; }).join("")}</select><button type="button" class="fd-add" data-addmeal data-m="${c.m}">Add to path</button></span>
       ${fdNote?`<b>${fdNote}</b><br>`:""}${fromLabel()}`,
     x:c.px[0],y:c.px[1],you:gpsOn()?geoPx(fix.ll):null,
