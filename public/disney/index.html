@@ -134,6 +134,8 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .tl-rm{position:absolute;top:4px;right:40px;width:36px;height:36px;min-height:0;padding:0;display:grid;place-items:center;color:var(--muted);background:transparent;border:0;border-radius:50%}
 .tl>li[data-meal] .what>b:first-of-type{padding-right:76px}
 .tl-hidbar{justify-content:space-between!important;gap:8px;flex-wrap:wrap}
+.mtime{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px;font-weight:700;color:var(--muted);background:none;border:0;padding:0;min-height:0}
+.mtime input,.fd-time{min-height:40px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);padding:0 8px}
 .tl>li[data-ride] .rail::after{background:var(--lc)}
 .tl>li[data-ride] .what{box-shadow:inset 4px 0 0 var(--lc)}
 .tl>li[data-ride] .what>b:first-of-type{padding-right:112px}
@@ -582,7 +584,7 @@ button{min-height:44px}
 
 </div>
 
-<div class="fab-stack" id="fab-stack"><div class="fab-items" id="fab-items" hidden><button type="button" class="calm-btn" id="tl-addride">🎢 Add a ride</button><button type="button" class="calm-btn" id="tl-addmeal">🍎 Add a meal or snack</button><button type="button" class="calm-btn food-btn" id="food-btn" aria-haspopup="dialog" aria-controls="mapview">🍴 Food</button><button type="button" class="calm-btn rr-btn" id="rr-btn" aria-haspopup="dialog" aria-controls="mapview">🚻 Restroom</button><button type="button" class="calm-btn" id="calm-btn" aria-haspopup="dialog" aria-controls="calm">🫧 Calm</button></div><button type="button" class="fab-toggle" id="fab-toggle" aria-expanded="false" aria-controls="fab-items" aria-label="Show Add, Food, Restroom and Calm"><span class="ft-dots" aria-hidden="true">＋</span></button></div>
+<div class="fab-stack" id="fab-stack"><div class="fab-items" id="fab-items" hidden><button type="button" class="calm-btn" id="tl-addride">🎢 Add a ride</button><button type="button" class="calm-btn food-btn" id="food-btn" aria-haspopup="dialog" aria-controls="mapview">🍴 Food</button><button type="button" class="calm-btn rr-btn" id="rr-btn" aria-haspopup="dialog" aria-controls="mapview">🚻 Restroom</button><button type="button" class="calm-btn" id="calm-btn" aria-haspopup="dialog" aria-controls="calm">🫧 Calm</button></div><button type="button" class="fab-toggle" id="fab-toggle" aria-expanded="false" aria-controls="fab-items" aria-label="Show Add, Food, Restroom and Calm"><span class="ft-dots" aria-hidden="true">＋</span></button></div>
 <div class="scrim" id="calm-scrim" hidden></div>
 <div class="scrim modal-scrim" id="modal-scrim" hidden></div>
 <div class="modal" id="modal" role="alertdialog" aria-modal="true" aria-labelledby="modal-h" aria-describedby="modal-p" hidden><h3 id="modal-h"></h3><p id="modal-p"></p><div class="modal-b" id="modal-b"></div></div>
@@ -677,7 +679,15 @@ const menuURL=c=>MENUS[c.m]?`https://disneyworld.disney.go.com/dining/magic-king
 // meals: k → time (minutes) and label; each meal has an id per spot (9000 + k×100 + #) plus a "skip this meal" id (… + 99)
 const MEALK={1:{t:600,label:"Morning snack",snack:true},2:{t:720,label:"Lunch"},3:{t:840,label:"Afternoon snack",snack:true},4:{t:1020,label:"Dinner"},5:{t:1170,label:"Evening snack",snack:true}};
 const MEAL_KS=[1,2,3,4,5];
-function setMealTargets(){ const g=hm(TRIP.gate)??470; MEALK[1].t=g+130; MEALK[2].t=Math.max(720,g+250); MEALK[3].t=MEALK[2].t+120; MEALK[4].t=Math.max(1020,MEALK[2].t+300); MEALK[5].t=MEALK[4].t+150; }
+const timeId=k=>9000+k*100+98;
+function setMealTargets(){ const g=hm(TRIP.gate)??470; MEALK[1].t=g+130; MEALK[2].t=Math.max(720,g+250); MEALK[3].t=MEALK[2].t+120; MEALK[4].t=Math.max(1020,MEALK[2].t+300); MEALK[5].t=MEALK[4].t+150;
+  try{ MEAL_KS.forEach(k=>{ const v=pri[timeId(k)]; if(/^t\d{1,4}$/.test(v||"")) MEALK[k].t=+v.slice(1); }); }catch(e){} }
+// a meal's name comes from its spot and time: a snack stand is a snack; otherwise breakfast, lunch or dinner by the clock
+function mealLabel(k){ const ch=chosenSpot(k), c=ch&&FOODCAT.find(x=>9000+k*100+x.m===ch), t=MEALK[k].t;
+  if(c?c.type==="snack":MEALK[k].snack) return "Snack"; return t<660?"Breakfast":t<960?"Lunch":"Dinner"; }
+const MEAL_ICON={Snack:"🍎",Breakfast:"🥐",Lunch:"🍔",Dinner:"🍽️"}, MEAL_TIP={snack:"Refill water.",quick:"Mobile order in the app about 45 min ahead.",table:"Table service: check in a few minutes early."};
+const hhmm=m=>String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+function setMealTime(k,min){ if(TRIP.finished) return; const v="t"+min; if(pri[timeId(k)]===v) return; pri[timeId(k)]=v; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(e){} queueChange(timeId(k),"pri",v); setMealTargets(); }
 setMealTargets();
 const FOOD_DEFAULT=new Set([9164,9229,9321,9458,9599]);   // Prince Eric's, Pecos Bill, Aloha Isle, Pinocchio Village Haus; the evening snack starts removed (9599 = its skip id)
 const FOOD=[], FOOD_IDS=new Set();
@@ -731,7 +741,8 @@ function renderMeals(){
     ul.innerHTML=`<li class="${chosen?"food-on":""}${d?" done":""}">
       <div class="mn"><span class="mline"><span class="ref">${chosen?chosen.name:skipped?"Skipping this meal":"No spot picked yet"}</span></span>
       <small>${chosen?`${LAND_NAME[chosen.land]} · ${FOOD_TYPE[chosen.type]}`:"Pick a spot from the list"}</small>
-      <span class="fctl"><select class="fsel" data-meal="${k}" ${d?"disabled":""} aria-label="${MEALK[k].label}: pick a spot">${chosen?"":`<option value="" selected>${skipped?"Skip this meal":"Pick a spot…"}</option>`}${opts}<option value="skip">Skip this meal</option></select></span></div>
+      <label class="mtime">At <input type="time" data-mealtime="${k}" value="${hhmm(MEALK[k].t)}" ${d?"disabled":""} aria-label="${mealLabel(k)} time"></label>
+      <span class="fctl"><select class="fsel" data-meal="${k}" ${d?"disabled":""} aria-label="${mealLabel(k)}: pick a spot">${chosen?"":`<option value="" selected>${skipped?"Skip this meal":"Pick a spot…"}</option>`}${opts}<option value="skip">Skip this meal</option></select></span></div>
       <span class="mside">${chosen?`<a class="menu" href="${menuURL(chosen)}" target="_blank" rel="noopener" aria-label="${chosen.name} menu">Menu</a><span class="refn mnum">#${chosen.m}</span>`:""}</span><span class="fbox">${chosen?`<input type="checkbox" class="fchk" data-done="${ch}" ${d?"checked":""} aria-label="${chosen.name}: ate here">`:""}</span></li>`;
   });
   if(typeof markChips==="function") try{markChips()}catch(e){}
@@ -836,7 +847,9 @@ function estimate(path,t0,from,meals){
   const items=[], zones={}, rides=path.slice(), ms=(meals||[]).slice(); let t=t0, at=from, dasFree=t0, walk=0, line=0;
   while(rides.length||ms.length){
     let id;
-    if(ms.length&&(!rides.length||t>=ms[0].t-10)) id=ms.shift().id;
+    // eat at the set time: go now if it's due, or if the next ride would run more than 10 min past it
+    const nx0=rides[0], cost=nx0?walkMinBetween(at,PT(nx0))+(priOf(nx0)==="das"?DAS_LINE:waitAt(nx0,t))+(RIDE_MIN[nx0]||5)+RIDE_EXTRA:0;
+    if(ms.length&&(!rides.length||t>=ms[0].t-10||t+cost>ms[0].t+10)) id=ms.shift().id;
     else {
       // a DAS return still far off: ride an On-the-path ride at the same stop while it comes up (same stop only, so the path never doubles back)
       const nx=rides[0];
@@ -858,6 +871,7 @@ function estimate(path,t0,from,meals){
 let PLAN=null, SCHED=null, FIT=null;   // FIT: picks that fit between the gate and Time to go home (plus anything already done)
 // PLAN: the whole day from the gate; SCHED: what's left from now on the trip day (else PLAN)
 function planTimes(){
+  setMealTargets();
   const n=nowET(), g=hm(TRIP.gate)??470, start=g+15;   // after the gate, Guest Relations and booking the first DAS ride
   const rides=computePath(); PLAN=estimate(rides,start,CITYHALL,mealStops(false)); SCHED=PLAN;
   refreshFoodZones();   // which spots each meal's dropdown lists: where the path is around then
@@ -965,6 +979,7 @@ function renderDay(){
 }
 function onRideChange(e){
   if(TRIP.finished){ renderDay(); return; }
+  if(e.target.dataset.mealtime){ const t=hm(e.target.value); if(t!=null) setMealTime(+e.target.dataset.mealtime,t); renderDay(); return; }
   if(e.target.dataset.meal){ if(e.target.value) setMeal(+e.target.dataset.meal,e.target.value); renderDay(); return; }
   if(e.target.dataset.pri){const pid=+e.target.dataset.pri;
     pri[pid]=e.target.value; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} queueChange(pid,"pri",e.target.value); renderDay(); return;}
@@ -1041,7 +1056,8 @@ function paintTimes(){
     if(li.dataset.off!=null){ setCardTime(li,g+(+li.dataset.off)); return; }
     // nothing is scheduled after Time to go home: stops, meals and fireworks from then on are hidden
     if(li.dataset.ride){ const it=at(+li.dataset.ride); setCardTime(li,it?it.arrive:null); return; }
-    if(li.dataset.meal){ const k=+li.dataset.meal, ch=chosenSpot(k), it=ch&&at(ch); setCardTime(li,it?it.arrive:MEALK[k].t); li.hidden=foodPri(skipId(k))==="must"||(+li.dataset.min)>=close; return; }
+    if(li.dataset.meal){ const k=+li.dataset.meal, ch=chosenSpot(k), it=ch&&at(ch), lb=mealLabel(k), c=ch&&FOODCAT.find(x=>9000+k*100+x.m===ch);
+      li.querySelector(".what>b").textContent=`${MEAL_ICON[lb]} ${lb}`; const tip=li.querySelector(".mtip:not(.mzone)"); if(tip) tip.textContent=MEAL_TIP[c?c.type:"snack"]; setCardTime(li,it?it.arrive:MEALK[k].t); li.hidden=foodPri(skipId(k))==="must"||(+li.dataset.min)>=close; return; }
     if(li.hasAttribute("data-fw")){ setCardTime(li,fw!=null?fw:1260,fw!=null?null:"Night"); li.hidden=fw==null&&!!TRIP.date&&TRIP.fireworks===""||fw!=null&&fw>=close; return; }
     if(li.hasAttribute("data-close")){ setCardTime(li,close); }
   });
@@ -1176,7 +1192,7 @@ function planFor(st){
   } finally { ({pri,done,stamps,TRIP,DAY,lastById}=save); setMealTargets(); pathCache.key=""; }
 }
 const etMinOf=ms=>{ const P=Object.fromEntries(ETZ.formatToParts(new Date(ms)).map(x=>[x.type,x.value])); return (+P.hour%24)*60+(+P.minute); };
-const itemName=id=>isFood(id)?`${MEALK[mealOf(id)].label}: ${byQ.get(id).name}`:byQ.get(id).name;
+const itemName=id=>isFood(id)?`${mealLabel(mealOf(id))}: ${byQ.get(id).name}`:byQ.get(id).name;
 async function loadRecap(){
   const body=document.getElementById("recap-body"), view=new URLSearchParams(location.search).get("view"), code=view&&/^[a-z0-9-]{6,40}$/.test(view)?view:TRIP_CODE;
   body.innerHTML="<p>Loading…</p>";
@@ -1219,7 +1235,7 @@ function paintHidden(){
 }
 tlList.querySelectorAll(":scope>li:not([data-ride])>.what").forEach(w=>w.insertAdjacentHTML("afterbegin",`<button type="button" class="tl-hide">${CHEVRON}</button>`));
 // meals and snacks: ✕ removes one from the day (synced, like any pick); + Add puts a removed one back
-tlList.querySelectorAll(":scope>li[data-meal]>.what").forEach(w=>{ const k=+w.parentElement.dataset.meal; w.insertAdjacentHTML("afterbegin",`<button type="button" class="tl-rm" data-rmmeal="${k}" aria-label="Remove ${MEALK[k].label}">${XMARK}</button>`); });
+tlList.querySelectorAll(":scope>li[data-meal]>.what").forEach(w=>{ const k=+w.parentElement.dataset.meal; w.insertAdjacentHTML("afterbegin",`<button type="button" class="tl-rm" data-rmmeal="${k}" aria-label="Remove this meal">${XMARK}</button>`); });
 tlBar.insertAdjacentHTML("afterend",`<p class="landkey">${[1,2,3,4,5,6].map(l=>`<span style="--lc:var(--l${l})"><i></i>${LAND_NAME[l]}</span>`).join("")}</p>`);
 function setRide(id,v){ if(TRIP.finished) return; pri[id]=v; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(e){} queueChange(id,"pri",v); }
 document.getElementById("tl-addride").addEventListener("click",async()=>{
@@ -1235,27 +1251,11 @@ document.getElementById("tl-addride").addEventListener("click",async()=>{
   if(li) setTimeout(()=>li.scrollIntoView({block:"center",behavior:"smooth"}),50);
   else await askChoice("It doesn't fit",`${byQ.get(id).name} is on the path now, but the day ends before we reach it. Remove another ride, or leave later in Trip settings.`,[["ok","OK","primary"]]);
 });
-// the spot nearest to where the path is at that time: snacks prefer snack stands, meals quick service; no table service
-function bestSpot(k){
-  const t=MEALK[k].t, before=(PLAN?PLAN.items:[]).filter(x=>!isFood(x.id)&&x.end<=t), at=before.length?PT(before[before.length-1].id):CITYHALL;
-  const pref=MEALK[k].snack?{snack:0,quick:1}:{quick:0,snack:1};
-  return FOODCAT.filter(c=>c.type in pref).sort((a,b)=>(pref[a.type]-pref[b.type])*400+dist(at,[a.x,a.y])-dist(at,[b.x,b.y]))[0];
-}
 tlList.addEventListener("click",e=>{
   const r=e.target.closest("[data-rmride]"); if(r){ e.stopPropagation(); setRide(+r.dataset.rmride,"wont"); renderDay(); return; }
   const b=e.target.closest("[data-rmmeal]"); if(!b) return; e.stopPropagation();
   if(TRIP.finished) return; setMeal(+b.dataset.rmmeal,"skip"); renderDay();
 },true);
-document.getElementById("tl-addmeal").addEventListener("click",async()=>{
-  if(TRIP.finished) return;
-  const off=MEAL_KS.filter(k=>foodPri(skipId(k))==="must");
-  if(!off.length){ await askChoice("Add a meal or snack","Every meal and snack is already on the day. Remove one with its ✕.",[["ok","OK","primary"]]); return; }
-  const k=await askChoice("Add a meal or snack","It goes in at about this time, at the spot nearest the path then. Change the spot on its card.",
-    off.map(k=>[String(k),`${MEALK[k].label} · about ${fmtMin(Math.round(MEALK[k].t/5)*5)}`,"primary"]).concat([["cancel","Cancel"]]));
-  if(!k||k==="cancel") return;
-  const c=bestSpot(+k); setMeal(+k,c?c.m:"skip"); openCards.add("m"+k); if(location.hash!=="#day"&&location.hash!=="") location.hash="#day"; renderDay(); paintHidden();
-  setTimeout(()=>{ const li=tlList.querySelector(`[data-meal="${k}"]`); if(li) li.scrollIntoView({block:"center",behavior:"smooth"}); },50);
-});
 tlList.addEventListener("click",e=>{
   const li=e.target.closest(".tl>li"); if(!li) return;
   if(e.target.closest(".tl-rm,.tl-chk,[data-onmap],select,input,a")) return;
@@ -1730,27 +1730,37 @@ function pmWatchSync(){ location.hash==="#map"&&document.visibilityState==="visi
 addEventListener("hashchange",pmWatchSync); document.addEventListener("visibilitychange",pmWatchSync); pmWatchSync();
 document.getElementById("pm-me").addEventListener("click",()=>{ pmWatchStart(); gpsOn()?pmPaintYou(true):locate(()=>pmPaintYou(true)); });
 // ---------- 🍴 Food: nearest food spots (GPS, else from the last ride ticked); add one to a meal ----------
-let fdSel=null, fdNote="", fdMeal=null;
-function nextMealK(){ const n=nowET(); const ks=MEAL_KS.filter(k=>!(chosenSpot(k)&&done.has(chosenSpot(k)))); return ks.find(k=>n.day!==DAY||MEALK[k].t>=n.min-45)||ks[ks.length-1]||2; }
+let fdSel=null, fdNote="", fdTime=null;
+function fdDefault(){ const n=nowET(); let live=false; try{ live=n.day===DAY&&(done.size>0||gpsOn()); }catch(e){}
+  if(live) return Math.ceil((n.min+10)/5)*5; const free=MEAL_KS.find(k=>foodPri(skipId(k))==="must"); return free?MEALK[free].t:720; }
 function showFood(){
   const near=byDistance(FOODCAT), list=near.filter(c=>c.type!=="table").concat(near.filter(c=>c.type==="table"));   // walk-up spots first; table service needs a reservation
-  const k=fdSel==null?0:list.findIndex(c=>c.i===fdSel), c=list[k], nk=nextMealK();
+  const k=fdSel==null?0:list.findIndex(c=>c.i===fdSel), c=list[k];
   openMapAt({title:k===0?"🍴 Nearest food":"🍴 Food",
     sub:`<b>${c.name}</b> #${c.m} · ${FOOD_TYPE[c.type]} · ${roundM(c.d)}
       <span class="fd-row"><a class="menu fd-menu" href="${menuURL(c)}" target="_blank" rel="noopener" aria-label="${c.name} menu">Menu</a></span>
-      <span class="fd-row"><select class="fd-meal" id="fd-meal" aria-label="Which meal">${MEAL_KS.map(m=>{ const cur=chosenSpot(m), on=cur?FOODCAT.find(x=>x.m===cur%100):null;
-        return `<option value="${m}" ${m===(fdMeal||nk)?"selected":""}>${MEALK[m].label}${on?(on.m===c.m?" · already this":` · now ${on.name}`):""}</option>`; }).join("")}</select><button type="button" class="fd-add" data-addmeal data-m="${c.m}">Add to path</button></span>
+      <span class="fd-row"><input type="time" class="fd-time" id="fd-time" value="${hhmm(fdTime??fdDefault())}" aria-label="What time"><button type="button" class="fd-add" data-addmeal data-m="${c.m}">Add to the day</button></span>
       ${fdNote?`<b>${fdNote}</b><br>`:""}${fromLabel()}`,
     x:c.px[0],y:c.px[1],you:gpsOn()?geoPx(fix.ll):null,
     dots:FOODCAT.map(q=>({x:q.px[0],y:q.px[1],icon:q.type==="table"?"🍽":"🍴",cls:"",label:q.name})),
     pick:i=>{ fdSel=i; fdNote=""; showFood(); }});
 }
-function openFood(from){ fdSel=null; fdNote=""; fdMeal=null; mvFrom=from; showFood(); locate(()=>{ if(!mv.hidden&&document.getElementById("mv-h").textContent.startsWith("🍴")) showFood(); }); }
+function openFood(from){ fdSel=null; fdNote=""; fdTime=null; mvFrom=from; showFood(); locate(()=>{ if(!mv.hidden&&document.getElementById("mv-h").textContent.startsWith("🍴")) showFood(); }); }
 document.getElementById("food-btn").addEventListener("click",e=>openFood(e.currentTarget));
-document.getElementById("mv-sub").addEventListener("change",e=>{ if(e.target.id==="fd-meal") fdMeal=+e.target.value; });
+document.getElementById("mv-sub").addEventListener("change",e=>{ if(e.target.id==="fd-time"){ const t=hm(e.target.value); if(t!=null) fdTime=t; } });
 document.getElementById("mv-sub").addEventListener("click",e=>{
   const add=e.target.closest("[data-addmeal]");
-  if(add){ const k=+document.getElementById("fd-meal").value, m=+add.dataset.m; fdMeal=k; setMeal(k,m); renderDay(); fdNote=`✓ ${FOODCAT.find(c=>c.m===m).name} is now our ${MEALK[k].label.toLowerCase()} on the path.`; fdSel=FOODCAT.findIndex(c=>c.m===m); showFood(); }
+  if(add){ if(TRIP.finished) return;
+    const tm=hm(document.getElementById("fd-time").value), m=+add.dataset.m, name=FOODCAT.find(c=>c.m===m).name; if(tm==null) return; fdTime=tm;
+    // a meal already at about that time gets this spot; else a free slot; with all five in use, the closest one in time
+    const on=MEAL_KS.filter(k=>foodPri(skipId(k))!=="must"&&chosenSpot(k)&&!done.has(chosenSpot(k))), near=k=>Math.abs(MEALK[k].t-tm);
+    let k=on.find(k=>near(k)<=30), was=null;
+    if(!k) k=MEAL_KS.find(k=>foodPri(skipId(k))==="must"||!chosenSpot(k));
+    if(!k) k=on.sort((a,b)=>near(a)-near(b))[0];
+    if(on.includes(k)){ const cur=FOODCAT.find(c=>9000+k*100+c.m===chosenSpot(k)); if(cur&&cur.m!==m) was=cur.name; }
+    setMealTime(k,tm); setMeal(k,m); renderDay();
+    fdNote=`✓ ${name} is on the day at ${fmtMin(tm)}${was?`, in place of ${was}`:""}.${tm>=leaveMin()?" That's after we leave, so it won't show.":""}`;
+    fdSel=FOODCAT.findIndex(c=>c.m===m); showFood(); }
 });
 // ---------- floating bubble: tap to show Food / Restroom / Calm, tap again (or anywhere else) to fold ----------
 const fabItems=document.getElementById("fab-items"), fabToggle=document.getElementById("fab-toggle");

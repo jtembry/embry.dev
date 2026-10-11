@@ -31,7 +31,7 @@ export default {
       for (const c of changes) {
         const id = Number(c.id), t = Number(c.t);
         if (!Number.isInteger(id) || id <= 0 || !Number.isFinite(t)) continue;
-        if (c.field === "pri" && PRI.has(c.value)) {
+        if (c.field === "pri" && (PRI.has(c.value) || /^t\d{1,4}$/.test(c.value || ""))) {   // "t<minutes>": a meal time
           stmts.push(env.DB.prepare(
             "INSERT INTO rides (trip,id,pri,pt) VALUES (?1,?2,?3,?4) ON CONFLICT(trip,id) DO UPDATE SET pri=excluded.pri, pt=excluded.pt WHERE excluded.pt > rides.pt"
           ).bind(trip, id, c.value, t));
