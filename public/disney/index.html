@@ -835,7 +835,7 @@ function estimate(path,t0,from,meals){
   }
   return {items,zones,end:t,walk,line,start:t0};
 }
-let PLAN=null, SCHED=null;
+let PLAN=null, SCHED=null, FIT=null;   // FIT: picks that fit between the gate and Time to go home (plus anything already done)
 // PLAN: the whole day from the gate; SCHED: what's left from now on the trip day (else PLAN)
 function planTimes(){
   const n=nowET(), g=hm(TRIP.gate)??470, start=g+15;   // after the gate, Guest Relations and booking the first DAS ride
@@ -844,13 +844,14 @@ function planTimes(){
   const live=n.day===DAY&&n.min>=start;
   let from=CITYHALL; if(live) try{ from=herePx(); }catch(e){}
   SCHED=live?estimate(rides.filter(id=>!done.has(id)),n.min,from,mealStops(true,n.min)):PLAN; SCHED.live=live;
+  const cut=leaveMin()+5; FIT=new Set([...SCHED.items.filter(x=>x.end<=cut).map(x=>x.id),...done]);
 }
-const fullPath=()=>(PLAN?PLAN.items.map(x=>x.id):computePath());   // rides plus meals, in the order we'll do them
+const fullPath=()=>(PLAN?PLAN.items.map(x=>x.id).filter(id=>!FIT||FIT.has(id)):computePath());   // rides plus meals that fit, in the order we'll do them
 function stopWindow(z){ const s=SCHED||PLAN; if(s&&s.zones[z]) return s.zones[z]; const sh=(hm(TRIP.gate)??470)-470; return [ZONES[z].start+sh,ZONES[z].end+sh]; }
 // big warnings: a High-priority outdoor ride the path reaches during likely storms
 function bigWarnings(){
   const out=[];
-  computePath().filter(id=>!isFood(id)&&priOf(id)==="must"&&!done.has(id)&&kindOf(id)==="outdoor").forEach(id=>{
+  computePath().filter(id=>!isFood(id)&&priOf(id)==="must"&&!done.has(id)&&kindOf(id)==="outdoor"&&(!FIT||FIT.has(id))).forEach(id=>{
     const z=zoneOf.get(id); if(!z||z===6) return;
     const [a,b]=stopWindow(z); let worst=null;
     for(let h=Math.floor(a/60);h<=Math.floor((b-1)/60);h++){ const w=wxAt(h); if(w&&w[2]&&w[1]>=50&&(!worst||w[1]>worst[1])) worst=w; }
@@ -862,12 +863,12 @@ function warnHTML(){ const w=bigWarnings(); return w.length?`<div class="bigwarn
 // DAS: book the next DAS ride on the path whose return time comes up about when we get there
 function dasBooking(){
   const n=nowET(), path=computePath(), wait=id=>lastById&&lastById.get(id)?.open?lastById.get(id).wait:null;
-  const ahead=path.filter(id=>priOf(id)==="das"&&!done.has(id)&&zoneOf.get(id)>=Math.max(1,currentZone()));
+  const ahead=path.filter(id=>priOf(id)==="das"&&!done.has(id)&&zoneOf.get(id)>=Math.max(1,currentZone())&&(!FIT||FIT.has(id))), today=n.day===DAY;
   if(!ahead.length) return null;
   // first DAS ride on the path whose return time comes up before we'd leave its stop
   for(const id of ahead){ const w=wait(id), [a,b]=stopWindow(zoneOf.get(id)); if(w===null) continue;
-    if(n.day!==DAY||b-n.min>=w-10) return {id,w,eta:Math.max(a,n.min)}; }
-  const id=ahead[0]; return {id,w:wait(id),eta:Math.max(stopWindow(zoneOf.get(id))[0],n.min)};
+    if(!today||b-n.min>=w-10) return {id,w,eta:Math.round((today?Math.max(a,n.min):a)/5)*5}; }
+  const id=ahead[0], a0=stopWindow(zoneOf.get(id))[0]; return {id,w:wait(id),eta:Math.round((today?Math.max(a0,n.min):a0)/5)*5};
 }
 function dasHTML(){
   const b=dasBooking(); if(!b) return "";
@@ -926,7 +927,7 @@ function renderDay(){
   paintTimes();
   const dw=document.getElementById("day-warn"); if(dw) dw.innerHTML=warnHTML();
   if(typeof renderMap==="function") try{renderMap()}catch(e){}
-  const musts=ALL.filter(a=>!a.meet).map(a=>a.id).filter(isHigh);
+  const musts=ALL.filter(a=>!a.meet).map(a=>a.id).filter(isHigh).filter(id=>!FIT||FIT.has(id));   // only rides that fit before we leave
   document.getElementById("count").textContent=`${musts.filter(id=>done.has(id)).length} of ${musts.length} rides on the path done`;
   if(typeof paintNow==="function") try{paintNow(false)}catch(e){}
 }
