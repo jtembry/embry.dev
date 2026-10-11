@@ -149,6 +149,20 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .tripform .tf-link a{word-break:break-all}
 .day-sum{margin:0 0 10px;padding:8px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-size:14px;color:var(--ink)}
 .day-sum .late,.mzone .late{color:#d4573f}
+.fin-banner{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#16897a;color:#fff;font-size:14px}
+.fin-banner a{color:#fff;font-weight:800}
+.trip-done #day .ridechk select,.trip-done #day .ridechk input,.trip-done #day .fsel,.trip-done #day .fchk,.trip-done .pm-card select,.trip-done .fd-add{pointer-events:none;opacity:.55}
+.past{display:grid;gap:6px}
+.past h3{margin:6px 0 0;font-size:14px}
+.past a{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none;font-size:14px}
+.past a small{color:var(--muted)}
+#recap{gap:12px}
+.recap-sum{display:grid;gap:4px;padding:10px 12px;border-radius:12px;background:var(--paper);border:1px solid var(--line);font-size:14px}
+.recap-list{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.recap-list li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px;padding:6px 8px;border-radius:10px;background:var(--bg);font-size:14px}
+.recap-list time{font-weight:800;font-variant-numeric:tabular-nums;text-align:right}
+.recap-list small{display:block;color:var(--muted);font-size:12px}
+.recap-list li.miss{opacity:.6}
 .tl-hidbar{margin:0 0 10px;display:flex;justify-content:flex-end}
 .tl-hidbar button{min-height:36px;padding:0 14px;font-size:13px;color:var(--muted)}
 .breaks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
@@ -426,10 +440,12 @@ button{min-height:44px}
       <label>At the gate <input type="time" name="gate" required></label>
       <label>Park closes <input type="time" name="close" required></label>
       <label>Fireworks (leave empty if none) <input type="time" name="fireworks"></label>
-      <div class="tf-row"><button type="submit" class="tf-save">Save for everyone on this trip</button><button type="button" id="trip-new">New trip link</button></div>
+      <div class="tf-row"><button type="submit" class="tf-save">Save for everyone on this trip</button><button type="button" id="trip-new">New trip link</button><button type="button" id="trip-finish">Finish this trip</button></div>
       <p>Saved with the trip, so every phone on it gets the same date and times. A new trip gets its own link, with fresh picks and checkmarks; this trip stays as it is.</p>
       <p class="tf-link" id="trip-link" hidden></p>
+      <div class="past" id="past-trips"></div>
     </form>
+    <p class="fin-banner" id="fin-banner" hidden></p>
     <p class="day-sum" id="day-sum"></p>
     <div id="day-warn"></div>
     <div class="wx-alert" id="wx-alert" role="alert" hidden></div>
@@ -517,6 +533,11 @@ button{min-height:44px}
     </div>
   </section>
 
+  <section class="part view" id="recap" aria-labelledby="recap-h">
+    <h2 id="recap-h">Trip recap</h2>
+    <div id="recap-body"><p>Loading…</p></div>
+  </section>
+
   <section class="part view" id="radar" aria-labelledby="radar-h">
     <h2 id="radar-h">Live radar</h2>
     <img id="radar-img" alt="Live National Weather Service radar loop around Orlando" width="600" height="550">
@@ -571,8 +592,8 @@ let TRIP={...TRIP_DEFAULT}, tripMt=0, metaPending=false;
 function saveMeta(){ try{ localStorage.setItem(META_KEY,JSON.stringify({trip:TRIP,mt:tripMt,pending:metaPending})); }catch(e){} }
 try{ const m=JSON.parse(localStorage.getItem(META_KEY)); if(m&&m.trip){ TRIP={...TRIP_DEFAULT,...m.trip}; tripMt=m.mt||0; metaPending=!!m.pending; } }catch(e){}
 (()=>{ const q=new URLSearchParams(location.search); if(!q.get("date")) return;   // a new-trip link carries its settings once
-  TRIP={date:q.get("date"),gate:q.get("gate")||TRIP_DEFAULT.gate,close:q.get("close")||TRIP_DEFAULT.close,fireworks:q.get("fw")||""}; tripMt=Date.now(); metaPending=true; saveMeta();
-  ["date","gate","close","fw"].forEach(k=>q.delete(k)); history.replaceState(null,"",location.pathname+"?"+q.toString()+location.hash); })();
+  TRIP={date:q.get("date"),gate:q.get("gate")||TRIP_DEFAULT.gate,close:q.get("close")||TRIP_DEFAULT.close,fireworks:q.get("fw")||""}; if(/^[a-z0-9-]{6,40}$/.test(q.get("prev")||"")) TRIP.prev=q.get("prev"); tripMt=Date.now(); metaPending=true; saveMeta();
+  ["date","gate","close","fw","prev"].forEach(k=>q.delete(k)); history.replaceState(null,"",location.pathname+"?"+q.toString()+location.hash); })();
 const hm=v=>{ const m=String(v||"").match(/^(\d{1,2}):(\d{2})/); return m?(+m[1])*60+(+m[2]):null; };
 const DONE_KEY="mk-done-v5"+TK;
 const loadJSON=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:d}catch(e){return d}};
@@ -645,6 +666,7 @@ function mealZones(k){
 function mealZone(k){ const t=MEALK[k].t; return [1,2,3,4,5,6].find(i=>{const [a,b]=stopWindow(i); return a<=t&&t<b;})||mealZones(k)[0]; }
 function refreshFoodZones(){ FOOD.forEach(f=>{ f.zone=mealZone(f.k); zoneOf.set(f.id,f.zone); }); }
 function setMeal(k,choice){   // choice: Disney # or "skip"
+  if(TRIP.finished) return;
   const ch=[];
   FOOD.filter(f=>f.k===k).forEach(f=>{ const want=(choice!=="skip"&&f.m===+choice)?"must":"wont"; if(foodPri(f.id)!==want||pri[f.id]!==want&&want==="must"){ pri[f.id]=want; ch.push([f.id,want]); } });
   const sk=choice==="skip"?"must":"wont"; if((pri[skipId(k)]||"wont")!==sk){ pri[skipId(k)]=sk; ch.push([skipId(k),sk]); }
@@ -860,6 +882,7 @@ function renderDay(){
   if(typeof paintNow==="function") try{paintNow(false)}catch(e){}
 }
 function onRideChange(e){
+  if(TRIP.finished){ renderDay(); return; }
   if(e.target.dataset.meal){ if(e.target.value) setMeal(+e.target.dataset.meal,e.target.value); renderDay(); return; }
   if(e.target.dataset.pri){const pid=+e.target.dataset.pri;
     pri[pid]=e.target.value; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(x){} queueChange(pid,"pri",e.target.value); renderDay(); return;}
@@ -879,6 +902,7 @@ function show(id){
   tabs.querySelectorAll("a").forEach(a=>{a.getAttribute("href")==="#"+id?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
   card?document.getElementById("lost").scrollIntoView():window.scrollTo(0,0);
   if(id==="radar") loadRadar();
+  if(id==="recap") setTimeout(loadRecap,0);   // after the whole script has run (sync, router)
 }
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
 show(location.hash.slice(1));
@@ -952,22 +976,90 @@ function paintTimes(){
   paintTripBar();
 }
 function paintTripBar(){
+  paintFinished();
   const d=new Date(TRIP.date+"T12:00:00"), g=hm(TRIP.gate), c=hm(TRIP.close), f=hm(TRIP.fireworks);
   document.getElementById("trip-sum").innerHTML=`📅 <b>${isNaN(d)?"No date set":d.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"})}</b>${g!=null?` · gate ${fmtMin(g)}`:""}${c!=null?` · closes ${fmtMin(c)}`:""}${f!=null?` · fireworks ${fmtMin(f)}`:""}`;
 }
-function applyTrip(render){ DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
+function paintFinished(){   // also run from paintTripBar on every redraw
+  document.body.classList.toggle("trip-done",!!TRIP.finished);
+  const b=document.getElementById("fin-banner"); b.hidden=!TRIP.finished;
+  if(TRIP.finished) b.innerHTML=`✓ This trip is finished, so picks and checkmarks are locked. <a href="#recap">See the recap</a>. To plan another day, open Trip settings and make a New trip link.`;
+  const f=document.getElementById("trip-finish"); if(f) f.textContent=TRIP.finished?"Reopen this trip":"Finish this trip";
+}
+function applyTrip(render){ paintFinished(); rememberTrip(); DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
 (()=>{
   const form=document.getElementById("trip-form"), btn=document.getElementById("trip-edit"), link=document.getElementById("trip-link");
   const fill=()=>{ form.date.value=TRIP.date||""; form.gate.value=TRIP.gate||""; form.close.value=TRIP.close||""; form.fireworks.value=TRIP.fireworks||""; link.hidden=true; };
-  btn.addEventListener("click",()=>{ const open=form.hidden; if(open) fill(); form.hidden=!open; btn.setAttribute("aria-expanded",open); });
+  btn.addEventListener("click",()=>{ const open=form.hidden; if(open){ fill(); paintPast(); } form.hidden=!open; btn.setAttribute("aria-expanded",open); });
   form.addEventListener("submit",e=>{ e.preventDefault();
-    TRIP={date:form.date.value,gate:form.gate.value,close:form.close.value,fireworks:form.fireworks.value}; tripMt=Date.now(); metaPending=true; saveMeta();
+    TRIP={...TRIP,date:form.date.value,gate:form.gate.value,close:form.close.value,fireworks:form.fireworks.value}; tripMt=Date.now(); metaPending=true; saveMeta();
     form.hidden=true; btn.setAttribute("aria-expanded","false"); applyTrip(); if(typeof flushSync==="function") flushSync(); });
+  // finish (two taps, no pop-up) or reopen
+  let armed=0; const fin=document.getElementById("trip-finish");
+  fin.addEventListener("click",()=>{
+    if(!TRIP.finished&&Date.now()-armed>5000){ armed=Date.now(); fin.textContent="Tap again to finish and lock this trip"; return; }
+    const {finished,...rest}=TRIP; TRIP=TRIP.finished?rest:{...TRIP,finished:Date.now()}; tripMt=Date.now(); metaPending=true; saveMeta();
+    armed=0; form.hidden=true; btn.setAttribute("aria-expanded","false"); applyTrip(); if(typeof flushSync==="function") flushSync();
+    if(TRIP.finished) location.hash="#recap";
+  });
   document.getElementById("trip-new").addEventListener("click",()=>{
-    const code="mk-"+Math.random().toString(36).slice(2,10), q=new URLSearchParams({trip:code,date:form.date.value,gate:form.gate.value,close:form.close.value,fw:form.fireworks.value});
+    const code="mk-"+Math.random().toString(36).slice(2,10), q=new URLSearchParams({trip:code,date:form.date.value,gate:form.gate.value,close:form.close.value,fw:form.fireworks.value,...(TRIP_CODE?{prev:TRIP_CODE}:{})});
     const url=`${location.origin}${location.pathname}?${q}`, share=`${location.origin}${location.pathname}?trip=${code}`;
     link.innerHTML=`New trip ready (the dates above go with it): <a href="${url}">open it here</a>. Then share this link with the group: <a href="${share}">${share.replace(/^https?:\/\//,"")}</a>`; link.hidden=false; });
 })();
+// ---------- past trips: this phone remembers the trips it has been on; a new trip remembers the one it came from ----------
+const PAST_KEY="mk-past";
+function rememberTrip(){ if(!TRIP_CODE) return; try{ const l=JSON.parse(localStorage.getItem(PAST_KEY))||[], i=l.findIndex(x=>x.code===TRIP_CODE), e={code:TRIP_CODE,date:TRIP.date,finished:!!TRIP.finished};
+  if(i>=0) l[i]=e; else l.push(e); localStorage.setItem(PAST_KEY,JSON.stringify(l)); }catch(e){} }
+async function tripState(code){ for(const base of SYNC){ try{ const r=await fetch(`${base}/state?trip=${encodeURIComponent(code)}`,{cache:"no-store"}); if(r.ok) return r.json(); }catch(e){} } return null; }
+async function paintPast(){
+  const box=document.getElementById("past-trips"); let list=[]; try{ list=JSON.parse(localStorage.getItem(PAST_KEY))||[]; }catch(e){}
+  const seen=new Map(list.map(x=>[x.code,x])); let prev=TRIP.prev;
+  for(let i=0;i<10&&prev&&!seen.has(prev);i++){ const st=await tripState(prev); if(!st||!st.meta) break; seen.set(prev,{code:prev,date:st.meta.date,finished:!!st.meta.finished}); prev=st.meta.prev; }
+  const rows=[...seen.values()].filter(x=>x.code!==TRIP_CODE).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+  const day=d=>{ const t=new Date(d+"T12:00:00"); return isNaN(t)?"No date":t.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric",year:"numeric"}); };
+  box.innerHTML=`<h3>Recaps</h3><a href="#recap"><span>This trip · ${day(TRIP.date)}</span><small>${TRIP.finished?"✓ finished":"in progress"}</small></a>`
+    +rows.map(x=>`<a href="?view=${x.code}#recap"><span>${day(x.date)}</span><small>${x.finished?"✓ finished":"not finished"}</small></a>`).join("");
+}
+rememberTrip();
+// the plan a trip had: run the estimate with that trip's picks, then put this phone's trip back
+function planFor(st){
+  const save={pri,done,stamps,TRIP,DAY,lastById};
+  try{
+    const P={}, D=new Set(), S={pri:{},done:{}};
+    for(const [k,r] of Object.entries(st.rides||{})){ const id=+k; if(r.pri){ P[id]=r.pri; S.pri[id]=r.pt; } if(r.done){ D.add(id); S.done[id]=r.dt; } }
+    pri=P; done=D; stamps=S; TRIP={...TRIP_DEFAULT,...(st.meta||{})}; DAY=TRIP.date; lastById=null; setMealTargets(); pathCache.key="";
+    const g=hm(TRIP.gate)??470, plan=estimate(computePath(),g+15,CITYHALL,mealStops(false));
+    const picked=ALL.filter(a=>!a.meet&&isHigh(a.id)).map(a=>a.id), meals=[1,2,3,4].map(k=>chosenSpot(k)).filter(Boolean);
+    return {plan,picked,meals,done:D,stamps:S,trip:TRIP};
+  } finally { ({pri,done,stamps,TRIP,DAY,lastById}=save); setMealTargets(); pathCache.key=""; }
+}
+const etMinOf=ms=>{ const P=Object.fromEntries(ETZ.formatToParts(new Date(ms)).map(x=>[x.type,x.value])); return (+P.hour%24)*60+(+P.minute); };
+const itemName=id=>isFood(id)?`${MEALK[mealOf(id)].label}: ${byQ.get(id).name}`:byQ.get(id).name;
+async function loadRecap(){
+  const body=document.getElementById("recap-body"), view=new URLSearchParams(location.search).get("view"), code=view&&/^[a-z0-9-]{6,40}$/.test(view)?view:TRIP_CODE;
+  body.innerHTML="<p>Loading…</p>";
+  let st=code?await tripState(code):null;
+  if(!st&&code===TRIP_CODE){ st={rides:{},meta:TRIP}; Object.entries(pri).forEach(([id,v])=>{ (st.rides[id]=st.rides[id]||{}).pri=v; st.rides[id].pt=stamps.pri[id]||0; }); done.forEach(id=>{ (st.rides[id]=st.rides[id]||{}).done=1; st.rides[id].dt=stamps.done[id]||0; }); }
+  if(!st){ body.innerHTML="<p>Couldn't load that trip. Check the signal and try again.</p>"; return; }
+  const r=planFor(st), T=r.trip, d=new Date(T.date+"T12:00:00"), dayName=isNaN(d)?"No date":d.toLocaleDateString([], {weekday:"long",month:"long",day:"numeric",year:"numeric"});
+  const planned=new Map(r.plan.items.map(x=>[x.id,x.arrive]));
+  const doneIds=[...r.done].filter(id=>byQ.has(id)&&id%100!==99);
+  const timed=doneIds.filter(id=>(r.stamps.done[id]||0)>1e12).sort((a,b)=>r.stamps.done[a]-r.stamps.done[b]), untimed=doneIds.filter(id=>!((r.stamps.done[id]||0)>1e12));
+  const rides=doneIds.filter(id=>!isFood(id)), missed=r.picked.filter(id=>!r.done.has(id));
+  const g=hm(T.gate)??470, first=timed.length?etMinOf(r.stamps.done[timed[0]]):null, last=timed.length?etMinOf(r.stamps.done[timed[timed.length-1]]):null;
+  const span=last!=null?Math.max(0,last-g):null, planEnd=Math.round(r.plan.end/5)*5;
+  const row=(id,t)=>{ const pl=planned.get(id); return `<li><time>${t!=null?fmtMin(t):"—"}</time><span>${itemName(id)}${pl!=null?`<small>planned about ${fmtMin(Math.round(pl/5)*5)}${t!=null?` · ${Math.abs(Math.round((t-pl)/5)*5)<5?"on time":(t>pl?Math.round((t-pl)/5)*5+" min later":Math.round((pl-t)/5)*5+" min earlier")}`:""}</small>`:""}</span></li>`; };
+  body.innerHTML=`<div class="recap-sum"><b>${dayName}</b>
+      <span>${T.finished?`✓ Finished ${new Date(T.finished).toLocaleDateString([], {month:"short",day:"numeric"})}`:"Not finished yet"} · gate ${fmtMin(g)}${hm(T.close)!=null?` · closed ${fmtMin(hm(T.close))}`:""}</span>
+      <span><b>${rides.length}</b> of ${r.picked.length} picked rides done${missed.length?` · ${missed.length} missed`:""}</span>
+      ${last!=null?`<span>In the park about <b>${fmtMin(g)} – ${fmtMin(last)}</b> (${Math.floor(span/60)} h ${span%60} m, gate to the last check-off) · planned to finish about ${fmtMin(planEnd)}</span>`:`<span>Planned: ${fmtMin(g)} – ${fmtMin(planEnd)}</span>`}
+      <small>Times are when someone ticked the box, so they can run a little after the ride.</small></div>
+    <h3>What we did</h3>
+    <ul class="recap-list">${timed.map(id=>row(id,etMinOf(r.stamps.done[id]))).join("")}${untimed.map(id=>row(id,null)).join("")||(timed.length?"":"<li><time>—</time><span>Nothing checked off yet.</span></li>")}</ul>
+    ${missed.length?`<h3>Picked but not done</h3><ul class="recap-list">${missed.map(id=>`<li class="miss"><time>${planned.has(id)?fmtMin(Math.round(planned.get(id)/5)*5):"—"}</time><span>${byQ.get(id).name}<small>not checked off</small></span></li>`).join("")}</ul>`:""}
+    <p><a href="${location.pathname}#day">← Back to ${view&&view!==TRIP_CODE?"our current trip":"The day"}</a></p>`;
+}
 // ---------- hide timeline cards as the day goes (this phone only) ----------
 const HIDE_KEY="mk-hidden-v1"+TK;
 let hiddenCards=new Set(); try{ hiddenCards=new Set(JSON.parse(localStorage.getItem(HIDE_KEY))||[]); }catch(e){}
@@ -1254,6 +1346,7 @@ const loadObj=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e)
 let stamps=loadObj(STAMP_KEY,{pri:{},done:{}}), queue=loadObj(QUEUE_KEY,[]), lastSync=0, syncing=false;
 const saveSync=()=>{try{localStorage.setItem(STAMP_KEY,JSON.stringify(stamps));localStorage.setItem(QUEUE_KEY,JSON.stringify(queue))}catch(e){}};
 function queueChange(id,field,value){
+  if(TRIP.finished) return;   // a finished trip is read-only
   const t=Date.now(); stamps[field][id]=t;
   queue=queue.filter(c=>!(c.id===id&&c.field===field)); queue.push({id,field,value,t}); saveSync(); flushSync();
 }
