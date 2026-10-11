@@ -221,6 +221,17 @@ a.ht{text-decoration:none;color:inherit}
 .wx-alert b{font-size:17px}
 #past{gap:10px}
 #past .past a{padding:12px}
+.prow{display:flex;gap:8px;align-items:stretch}
+.prow a{flex:1;min-width:0}
+.prow button{flex:none;min-height:44px;padding:0 14px;font-size:14px}
+.modal{position:fixed;left:16px;right:16px;top:50%;transform:translateY(-50%);z-index:50;max-width:440px;margin:0 auto;background:var(--paper);border-radius:16px;padding:18px 16px;box-shadow:0 10px 40px rgba(0,0,0,.45);display:grid;gap:10px}
+.modal h3{margin:0;font-family:var(--display);font-size:19px}
+.modal p{margin:0;font-size:15px;color:var(--muted)}
+.modal .modal-b{display:grid;gap:8px;margin-top:4px}
+.modal .modal-b button{min-height:46px;font-size:15px}
+.modal .modal-b .primary{background:#16897a;border-color:#16897a;color:#fff}
+.modal .modal-b .danger{background:#d4573f;border-color:#d4573f;color:#fff}
+.modal-scrim{z-index:49}
 .wx-src{color:var(--muted);font-size:12px}
 .wxc{display:grid;justify-items:end;gap:3px;margin-top:5px;font-family:var(--body);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
 .wxc span{padding:1px 5px;white-space:nowrap;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
@@ -547,6 +558,8 @@ button{min-height:44px}
 
 <div class="fab-stack" id="fab-stack"><div class="fab-items" id="fab-items" hidden><button type="button" class="calm-btn food-btn" id="food-btn" aria-haspopup="dialog" aria-controls="mapview">🍴 Food</button><button type="button" class="calm-btn rr-btn" id="rr-btn" aria-haspopup="dialog" aria-controls="mapview">🚻 Restroom</button><button type="button" class="calm-btn" id="calm-btn" aria-haspopup="dialog" aria-controls="calm">🫧 Calm</button></div><button type="button" class="fab-toggle" id="fab-toggle" aria-expanded="false" aria-controls="fab-items" aria-label="Show Food, Restroom and Calm"><span class="ft-dots" aria-hidden="true">＋</span></button></div>
 <div class="scrim" id="calm-scrim" hidden></div>
+<div class="scrim modal-scrim" id="modal-scrim" hidden></div>
+<div class="modal" id="modal" role="alertdialog" aria-modal="true" aria-labelledby="modal-h" aria-describedby="modal-p" hidden><h3 id="modal-h"></h3><p id="modal-p"></p><div class="modal-b" id="modal-b"></div></div>
 <section class="calm" id="calm" role="dialog" aria-modal="true" aria-labelledby="calm-h" hidden>
   <div class="calm-head"><h2 id="calm-h">Find calm</h2><button type="button" id="calm-close" aria-label="Close">✕</button></div>
   <div id="calm-body"></div>
@@ -983,8 +996,8 @@ function paintTripBar(){
 function paintFinished(){   // also run from paintTripBar on every redraw
   document.body.classList.toggle("trip-done",!!TRIP.finished);
   const b=document.getElementById("fin-banner"); b.hidden=!TRIP.finished;
-  if(TRIP.finished) b.innerHTML=`✓ This trip is finished, so picks and checkmarks are locked. <a href="#recap">See the recap</a>. To plan another day, open Trip settings and make a New trip link.`;
-  const f=document.getElementById("trip-finish"); if(f) f.textContent=TRIP.finished?"Reopen this trip":"Finish this trip";
+  if(TRIP.finished) b.innerHTML=`✓ This trip is finished, so picks and checkmarks are locked. <a href="#recap">See the recap</a>, or reopen it from <a href="#past">Past Trips</a>.`;
+  const f=document.getElementById("trip-finish"); if(f){ f.hidden=!!TRIP.finished; if(!f.disabled) f.textContent="Finish this trip"; }
 }
 // a new trip starts from the default times, dated today; Trip settings opens so the real date can go in
 function newTripURL(code,prev){
@@ -993,8 +1006,15 @@ function newTripURL(code,prev){
   return `${location.pathname}?${q}`;
 }
 const newTripCode=()=>"mk-"+Math.random().toString(36).slice(2,10);
+function succCode(code,at){ let h=2166136261; for(const ch of `${code}:${at}`){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619)>>>0; } return "mk-"+h.toString(36).padStart(7,"0"); }
+async function pushMeta(){ if(typeof trip==="undefined"||!trip) return; try{ await syncReq({changes:[],meta:TRIP,mt:tripMt}); metaPending=false; saveMeta(); }catch(e){} }
+// a phone still on a finished trip moves on to the next one (unless that trip's link was opened on purpose)
 function followNext(){
-  if(!TRIP.finished||!/^[a-z0-9-]{6,40}$/.test(TRIP.next||"")||new URLSearchParams(location.search).get("trip")) return;
+  if(!TRIP.finished||TRIP_CODE==null||new URLSearchParams(location.search).get("trip")) return;
+  if(!/^[a-z0-9-]{6,40}$/.test(TRIP.next||"")){   // finished before trips had a next one: make it now
+    const code=succCode(TRIP_CODE,TRIP.finished); TRIP={...TRIP,next:code}; tripMt=Date.now(); metaPending=true; saveMeta();
+    (async()=>{ await pushMeta(); location.replace(newTripURL(code,TRIP_CODE)); })(); return;
+  }
   try{ localStorage.setItem("mk-trip",TRIP.next); }catch(e){} location.replace(`${location.pathname}?trip=${TRIP.next}`);
 }
 function applyTrip(render){ paintFinished(); rememberTrip(); DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
@@ -1005,17 +1025,16 @@ function applyTrip(render){ paintFinished(); rememberTrip(); DAY=TRIP.date; setM
   form.addEventListener("submit",e=>{ e.preventDefault();
     TRIP={...TRIP,date:form.date.value,gate:form.gate.value,close:form.close.value,fireworks:form.fireworks.value}; tripMt=Date.now(); metaPending=true; saveMeta();
     form.hidden=true; btn.setAttribute("aria-expanded","false"); applyTrip(); if(typeof flushSync==="function") flushSync(); });
-  // finish (two taps, no pop-up) or reopen
+  // finish (two taps, no pop-up); reopening is on Past Trips
   let armed=0; const fin=document.getElementById("trip-finish");
   fin.addEventListener("click",()=>{
-    if(!TRIP.finished&&Date.now()-armed>5000){ armed=Date.now(); fin.textContent="Tap again to finish and lock this trip"; return; }
-    const reopen=!!TRIP.finished, {finished,next,...rest}=TRIP, code=reopen?null:newTripCode();
-    TRIP=reopen?rest:{...TRIP,finished:Date.now(),next:code}; tripMt=Date.now(); metaPending=true; saveMeta();
-    armed=0; form.hidden=true; btn.setAttribute("aria-expanded","false"); applyTrip();
-    if(reopen){ if(typeof flushSync==="function") flushSync(); return; }
+    if(TRIP.finished) return;
+    if(Date.now()-armed>5000){ armed=Date.now(); fin.textContent="Tap again to finish and lock this trip"; return; }
+    const at=Date.now(), code=succCode(TRIP_CODE,at);
+    TRIP={...TRIP,finished:at,next:code}; tripMt=at; metaPending=true; saveMeta();
+    armed=0; fin.textContent="Saving…"; fin.disabled=true; applyTrip(false);
     // save the finished trip, then open its successor with the default times and picks
-    fin.textContent="Saving…"; fin.disabled=true;
-    (async()=>{ if(trip) try{ await syncReq({changes:[],meta:TRIP,mt:tripMt}); metaPending=false; saveMeta(); }catch(e){} location.href=newTripURL(code,TRIP_CODE); })();
+    (async()=>{ await pushMeta(); location.href=newTripURL(code,TRIP_CODE); })();
   });
   if(new URLSearchParams(location.search).get("setup")||sessionStorage.getItem("mk-setup")){ try{ sessionStorage.removeItem("mk-setup"); }catch(e){} fill(); form.hidden=false; btn.setAttribute("aria-expanded","true"); }
   document.getElementById("trip-new").addEventListener("click",()=>{
@@ -1027,16 +1046,48 @@ const PAST_KEY="mk-past";
 function rememberTrip(){ if(!TRIP_CODE) return; try{ const l=JSON.parse(localStorage.getItem(PAST_KEY))||[], i=l.findIndex(x=>x.code===TRIP_CODE), e={code:TRIP_CODE,date:TRIP.date,finished:!!TRIP.finished};
   if(i>=0) l[i]=e; else l.push(e); localStorage.setItem(PAST_KEY,JSON.stringify(l)); }catch(e){} }
 async function tripState(code){ for(const base of SYNC){ try{ const r=await fetch(`${base}/state?trip=${encodeURIComponent(code)}`,{cache:"no-store"}); if(r.ok) return r.json(); }catch(e){} } return null; }
+const tripDay=d=>{ const t=new Date(d+"T12:00:00"); return isNaN(t)?"No date":t.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric",year:"numeric"}); };
 async function paintPast(){
   const box=document.getElementById("past-list"); let list=[]; try{ list=JSON.parse(localStorage.getItem(PAST_KEY))||[]; }catch(e){}
   const seen=new Map(list.map(x=>[x.code,x])); let prev=TRIP.prev;
   for(let i=0;i<10&&prev&&!seen.has(prev);i++){ const st=await tripState(prev); if(!st||!st.meta) break; seen.set(prev,{code:prev,date:st.meta.date,finished:!!st.meta.finished}); prev=st.meta.prev; }
-  const rows=[...seen.values()].filter(x=>x.code!==TRIP_CODE).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
-  const day=d=>{ const t=new Date(d+"T12:00:00"); return isNaN(t)?"No date":t.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric",year:"numeric"}); };
-  box.innerHTML=`<h3>This trip</h3><a href="#recap"><span>${day(TRIP.date)}</span><small>${TRIP.finished?"✓ finished":"in progress"} · recap ›</small></a>`
-    +`<h3>Past trips</h3>`+(rows.length?rows.map(x=>`<a href="?view=${x.code}#recap"><span>${day(x.date)}</span><small>${x.finished?"✓ finished":"not finished"} · recap ›</small></a>`).join(""):`<p>None yet. When a trip is finished it shows up here.</p>`);
+  seen.delete(TRIP_CODE);
+  // check each trip's status on the server (another phone may have finished, reopened or discarded it)
+  await Promise.all([...seen.keys()].map(async c=>{ const st=await tripState(c); if(st&&st.meta) seen.set(c,{code:c,date:st.meta.date,finished:!!st.meta.finished,discarded:!!st.meta.discarded}); }));
+  const rows=[...seen.values()].filter(x=>!x.discarded).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+  box.innerHTML=`<h3>This trip</h3><div class="prow"><a href="#recap"><span>${tripDay(TRIP.date)}</span><small>${TRIP.finished?"✓ finished":"in progress"} · recap ›</small></a>${TRIP.finished?`<button type="button" data-reopen="${TRIP_CODE}">Reopen</button>`:""}</div>`
+    +`<h3>Past trips</h3>`+(rows.length?rows.map(x=>`<div class="prow"><a href="?view=${x.code}#recap"><span>${tripDay(x.date)}</span><small>${x.finished?"✓ finished":"not finished"} · recap ›</small></a><button type="button" data-reopen="${x.code}">Reopen</button></div>`).join(""):`<p>None yet. When a trip is finished it shows up here.</p>`);
 }
-rememberTrip(); followNext();
+// a pop-up with choices (no browser dialog): resolves to the chosen key, or null
+function askChoice(title,text,choices){
+  const m=document.getElementById("modal"), sc=document.getElementById("modal-scrim"), b=document.getElementById("modal-b");
+  document.getElementById("modal-h").textContent=title; document.getElementById("modal-p").textContent=text;
+  b.innerHTML=choices.map(([k,label,cls])=>`<button type="button" data-k="${k}" class="${cls||""}">${label}</button>`).join("");
+  m.hidden=false; sc.hidden=false; b.querySelector("button").focus();
+  return new Promise(res=>{ const done=k=>{ m.hidden=true; sc.hidden=true; b.onclick=null; sc.onclick=null; document.removeEventListener("keydown",esc); res(k); };
+    const esc=e=>{ if(e.key==="Escape") done(null); };
+    b.onclick=e=>{ const x=e.target.closest("[data-k]"); if(x) done(x.dataset.k); }; sc.onclick=()=>done(null); document.addEventListener("keydown",esc); });
+}
+async function postTrip(code,body){ for(const base of SYNC){ try{ const r=await fetch(`${base}/state?trip=${encodeURIComponent(code)}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),cache:"no-store"}); if(r.ok) return r.json(); }catch(e){} } throw new Error("sync unavailable"); }
+// reopen a trip: unlock it and make it this phone's trip again. A trip in progress here is saved or discarded first.
+async function reopenTrip(code){
+  const st=await tripState(code);
+  if(!st||!st.meta){ await askChoice("Can't reach that trip","Check the signal and try again.",[["ok","OK","primary"]]); return; }
+  if(code!==TRIP_CODE&&!TRIP.finished){
+    const c=await askChoice(`Reopen ${tripDay(st.meta.date)}?`,`This trip (${tripDay(TRIP.date)}) is still in progress. Save it to Past Trips first, or discard it. Discarding loses its picks and checkmarks.`,
+      [["save","Save this trip, then reopen","primary"],["discard","Discard this trip and reopen","danger"],["cancel","Cancel"]]);
+    if(c!=="save"&&c!=="discard") return;
+    // phones still on this trip follow to the reopened one
+    TRIP={...TRIP,finished:Date.now(),next:code,...(c==="discard"?{discarded:true}:{})}; tripMt=Date.now(); metaPending=true; saveMeta(); await pushMeta();
+    try{ const l=(JSON.parse(localStorage.getItem(PAST_KEY))||[]).filter(x=>x.code!==TRIP_CODE); if(c==="save") l.push({code:TRIP_CODE,date:TRIP.date,finished:true}); localStorage.setItem(PAST_KEY,JSON.stringify(l)); }catch(e){}
+  }
+  const {finished,next,discarded,...meta}=st.meta;
+  try{ await postTrip(code,{changes:[],meta,mt:Date.now()}); }catch(e){ await askChoice("Couldn't reopen that trip","Check the signal and try again.",[["ok","OK","primary"]]); return; }
+  try{ localStorage.setItem("mk-trip",code); }catch(e){}
+  location.href=`${location.pathname}?trip=${code}#day`;
+}
+document.getElementById("past-list").addEventListener("click",e=>{ const b=e.target.closest("[data-reopen]"); if(b){ b.disabled=true; b.textContent="Reopening…"; reopenTrip(b.dataset.reopen).finally(()=>{ b.disabled=false; b.textContent="Reopen"; }); } });
+rememberTrip(); setTimeout(followNext,0);   // after the sync code below has loaded
 // the plan a trip had: run the estimate with that trip's picks, then put this phone's trip back
 function planFor(st){
   const save={pri,done,stamps,TRIP,DAY,lastById};
