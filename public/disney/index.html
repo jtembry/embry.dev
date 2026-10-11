@@ -582,7 +582,7 @@ button{min-height:44px}
 
 </div>
 
-<div class="fab-stack" id="fab-stack"><div class="fab-items" id="fab-items" hidden><button type="button" class="calm-btn food-btn" id="food-btn" aria-haspopup="dialog" aria-controls="mapview">🍴 Food</button><button type="button" class="calm-btn rr-btn" id="rr-btn" aria-haspopup="dialog" aria-controls="mapview">🚻 Restroom</button><button type="button" class="calm-btn" id="calm-btn" aria-haspopup="dialog" aria-controls="calm">🫧 Calm</button></div><button type="button" class="fab-toggle" id="fab-toggle" aria-expanded="false" aria-controls="fab-items" aria-label="Show Food, Restroom and Calm"><span class="ft-dots" aria-hidden="true">＋</span></button></div>
+<div class="fab-stack" id="fab-stack"><div class="fab-items" id="fab-items" hidden><button type="button" class="calm-btn" id="tl-addride">🎢 Add a ride</button><button type="button" class="calm-btn" id="tl-addmeal">🍎 Add a meal or snack</button><button type="button" class="calm-btn food-btn" id="food-btn" aria-haspopup="dialog" aria-controls="mapview">🍴 Food</button><button type="button" class="calm-btn rr-btn" id="rr-btn" aria-haspopup="dialog" aria-controls="mapview">🚻 Restroom</button><button type="button" class="calm-btn" id="calm-btn" aria-haspopup="dialog" aria-controls="calm">🫧 Calm</button></div><button type="button" class="fab-toggle" id="fab-toggle" aria-expanded="false" aria-controls="fab-items" aria-label="Show Add, Food, Restroom and Calm"><span class="ft-dots" aria-hidden="true">＋</span></button></div>
 <div class="scrim" id="calm-scrim" hidden></div>
 <div class="scrim modal-scrim" id="modal-scrim" hidden></div>
 <div class="modal" id="modal" role="alertdialog" aria-modal="true" aria-labelledby="modal-h" aria-describedby="modal-p" hidden><h3 id="modal-h"></h3><p id="modal-p"></p><div class="modal-b" id="modal-b"></div></div>
@@ -1220,7 +1220,6 @@ function paintHidden(){
 tlList.querySelectorAll(":scope>li:not([data-ride])>.what").forEach(w=>w.insertAdjacentHTML("afterbegin",`<button type="button" class="tl-hide">${CHEVRON}</button>`));
 // meals and snacks: ✕ removes one from the day (synced, like any pick); + Add puts a removed one back
 tlList.querySelectorAll(":scope>li[data-meal]>.what").forEach(w=>{ const k=+w.parentElement.dataset.meal; w.insertAdjacentHTML("afterbegin",`<button type="button" class="tl-rm" data-rmmeal="${k}" aria-label="Remove ${MEALK[k].label}">${XMARK}</button>`); });
-tlBar.insertAdjacentHTML("afterbegin",`<button type="button" id="tl-addride">＋ Add a ride</button><button type="button" id="tl-addmeal">＋ Add a meal or snack</button>`);
 tlBar.insertAdjacentHTML("afterend",`<p class="landkey">${[1,2,3,4,5,6].map(l=>`<span style="--lc:var(--l${l})"><i></i>${LAND_NAME[l]}</span>`).join("")}</p>`);
 function setRide(id,v){ if(TRIP.finished) return; pri[id]=v; try{localStorage.setItem(PRI_KEY,JSON.stringify(pri))}catch(e){} queueChange(id,"pri",v); }
 document.getElementById("tl-addride").addEventListener("click",async()=>{
@@ -1231,9 +1230,9 @@ document.getElementById("tl-addride").addEventListener("click",async()=>{
   document.getElementById("modal-b").insertAdjacentHTML("afterbegin",`<select class="ar-sel" id="ar-sel" aria-label="Ride">${groups.map(([l,ids])=>`<optgroup label="${LAND_NAME[l]}">${ids.map(id=>`<option value="${id}">${byQ.get(id).name}${TYPWAIT[id]?` · ~${TYPWAIT[id][0]} min typical wait`:""}</option>`).join("")}</optgroup>`).join("")}</select>`);
   const k=await ask, id=+document.getElementById("ar-sel").value; document.getElementById("ar-sel").remove();
   if(!k||k==="cancel"||!id) return;
-  setRide(id,k); renderDay();
+  setRide(id,k); if(location.hash!=="#day"&&location.hash!=="") location.hash="#day"; renderDay();
   const li=tlList.querySelector(`[data-ride="${id}"]`);
-  if(li) li.scrollIntoView({block:"center",behavior:"smooth"});
+  if(li) setTimeout(()=>li.scrollIntoView({block:"center",behavior:"smooth"}),50);
   else await askChoice("It doesn't fit",`${byQ.get(id).name} is on the path now, but the day ends before we reach it. Remove another ride, or leave later in Trip settings.`,[["ok","OK","primary"]]);
 });
 // the spot nearest to where the path is at that time: snacks prefer snack stands, meals quick service; no table service
@@ -1254,7 +1253,8 @@ document.getElementById("tl-addmeal").addEventListener("click",async()=>{
   const k=await askChoice("Add a meal or snack","It goes in at about this time, at the spot nearest the path then. Change the spot on its card.",
     off.map(k=>[String(k),`${MEALK[k].label} · about ${fmtMin(Math.round(MEALK[k].t/5)*5)}`,"primary"]).concat([["cancel","Cancel"]]));
   if(!k||k==="cancel") return;
-  const c=bestSpot(+k); setMeal(+k,c?c.m:"skip"); openCards.add("m"+k); renderDay(); paintHidden();
+  const c=bestSpot(+k); setMeal(+k,c?c.m:"skip"); openCards.add("m"+k); if(location.hash!=="#day"&&location.hash!=="") location.hash="#day"; renderDay(); paintHidden();
+  setTimeout(()=>{ const li=tlList.querySelector(`[data-meal="${k}"]`); if(li) li.scrollIntoView({block:"center",behavior:"smooth"}); },50);
 });
 tlList.addEventListener("click",e=>{
   const li=e.target.closest(".tl>li"); if(!li) return;
@@ -1754,7 +1754,7 @@ document.getElementById("mv-sub").addEventListener("click",e=>{
 });
 // ---------- floating bubble: tap to show Food / Restroom / Calm, tap again (or anywhere else) to fold ----------
 const fabItems=document.getElementById("fab-items"), fabToggle=document.getElementById("fab-toggle");
-function setFab(open){ fabItems.hidden=!open; fabToggle.setAttribute("aria-expanded",open); fabToggle.setAttribute("aria-label",open?"Hide Food, Restroom and Calm":"Show Food, Restroom and Calm"); }
+function setFab(open){ fabItems.hidden=!open; fabToggle.setAttribute("aria-expanded",open); fabToggle.setAttribute("aria-label",open?"Hide Add, Food, Restroom and Calm":"Show Add, Food, Restroom and Calm"); }
 fabToggle.addEventListener("click",e=>{ e.stopPropagation(); setFab(fabItems.hidden); });
 fabItems.addEventListener("click",()=>setFab(false));
 document.addEventListener("click",e=>{ if(!fabItems.hidden&&!e.target.closest("#fab-stack")) setFab(false); });
