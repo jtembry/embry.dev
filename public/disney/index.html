@@ -222,7 +222,9 @@ a.ht{text-decoration:none;color:inherit}
 #past{gap:10px}
 #past .past a{padding:12px}
 .prow{display:flex;gap:8px;align-items:stretch}
-.prow a{flex:1;min-width:0}
+.prow a,.prow .pnolink{flex:1;min-width:0}
+.past .pnolink{display:flex;justify-content:space-between;gap:8px;padding:12px;border:1px dashed var(--line);border-radius:10px;font-size:14px;color:var(--ink)}
+.past .pnolink small{color:var(--muted)}
 .prow button{flex:none;min-height:44px;padding:0 14px;font-size:14px}
 .modal{position:fixed;left:16px;right:16px;top:50%;transform:translateY(-50%);z-index:50;max-width:440px;margin:0 auto;background:var(--paper);border-radius:16px;padding:18px 16px;box-shadow:0 10px 40px rgba(0,0,0,.45);display:grid;gap:10px}
 .modal h3{margin:0;font-family:var(--display);font-size:19px}
@@ -1017,7 +1019,7 @@ function followNext(){
   }
   try{ localStorage.setItem("mk-trip",TRIP.next); }catch(e){} location.replace(`${location.pathname}?trip=${TRIP.next}`);
 }
-function applyTrip(render){ paintFinished(); rememberTrip(); DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
+function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElementById("past").classList.contains("on")) paintPast(); DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
 (()=>{
   const form=document.getElementById("trip-form"), btn=document.getElementById("trip-edit"), link=document.getElementById("trip-link");
   const fill=()=>{ form.date.value=TRIP.date||""; form.gate.value=TRIP.gate||""; form.close.value=TRIP.close||""; form.fireworks.value=TRIP.fireworks||""; link.hidden=true; };
@@ -1055,8 +1057,10 @@ async function paintPast(){
   // check each trip's status on the server (another phone may have finished, reopened or discarded it)
   await Promise.all([...seen.keys()].map(async c=>{ const st=await tripState(c); if(st&&st.meta) seen.set(c,{code:c,date:st.meta.date,finished:!!st.meta.finished,discarded:!!st.meta.discarded}); }));
   const rows=[...seen.values()].filter(x=>!x.discarded).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
-  box.innerHTML=`<h3>This trip</h3><div class="prow"><a href="#recap"><span>${tripDay(TRIP.date)}</span><small>${TRIP.finished?"✓ finished":"in progress"} · recap ›</small></a>${TRIP.finished?`<button type="button" data-reopen="${TRIP_CODE}">Reopen</button>`:""}</div>`
-    +`<h3>Past trips</h3>`+(rows.length?rows.map(x=>`<div class="prow"><a href="?view=${x.code}#recap"><span>${tripDay(x.date)}</span><small>${x.finished?"✓ finished":"not finished"} · recap ›</small></a><button type="button" data-reopen="${x.code}">Reopen</button></div>`).join(""):`<p>None yet. When a trip is finished it shows up here.</p>`);
+  // a recap only exists once a trip is finished
+  const entry=(href,date,finished)=>finished?`<a href="${href}"><span>${tripDay(date)}</span><small>✓ finished · recap ›</small></a>`:`<span class="pnolink"><span>${tripDay(date)}</span><small>in progress</small></span>`;
+  box.innerHTML=`<h3>This trip</h3><div class="prow">${entry("#recap",TRIP.date,TRIP.finished)}${TRIP.finished?`<button type="button" data-reopen="${TRIP_CODE}">Reopen</button>`:""}</div>`
+    +`<h3>Past trips</h3>`+(rows.length?rows.map(x=>`<div class="prow">${entry(`?view=${x.code}#recap`,x.date,x.finished)}<button type="button" data-reopen="${x.code}">Reopen</button></div>`).join(""):`<p>None yet. When a trip is finished it shows up here.</p>`);
 }
 // a pop-up with choices (no browser dialog): resolves to the chosen key, or null
 function askChoice(title,text,choices){
@@ -1108,6 +1112,7 @@ async function loadRecap(){
   let st=code?await tripState(code):null;
   if(!st&&code===TRIP_CODE){ st={rides:{},meta:TRIP}; Object.entries(pri).forEach(([id,v])=>{ (st.rides[id]=st.rides[id]||{}).pri=v; st.rides[id].pt=stamps.pri[id]||0; }); done.forEach(id=>{ (st.rides[id]=st.rides[id]||{}).done=1; st.rides[id].dt=stamps.done[id]||0; }); }
   if(!st){ body.innerHTML="<p>Couldn't load that trip. Check the signal and try again.</p>"; return; }
+  if(!(st.meta&&st.meta.finished)){ body.innerHTML=`<p>The recap is ready once the trip is finished. To finish it, open Trip settings on The day.</p><p><a href="${location.pathname}#past">← Past Trips</a></p>`; return; }
   const r=planFor(st), T=r.trip, d=new Date(T.date+"T12:00:00"), dayName=isNaN(d)?"No date":d.toLocaleDateString([], {weekday:"long",month:"long",day:"numeric",year:"numeric"});
   const planned=new Map(r.plan.items.map(x=>[x.id,x.arrive]));
   const doneIds=[...r.done].filter(id=>byQ.has(id)&&id%100!==99);
