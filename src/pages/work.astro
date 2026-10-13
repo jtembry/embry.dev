@@ -14,7 +14,7 @@ const tag = {
   printing: ['/printing', '3D printing'],
 };
 ---
-<Base title="Work" description="Things I have built or led: an iPhone app for AI assistants, a second brain run by agents, a live printer camera, a small-business site, and platform work in finance and healthcare.">
+<Base title="Work" description="Things I have built or led: an iPhone app for AI assistants, a second brain run by agents, a live printer camera, a Disney trip planner, a small-business site, and platform work in finance and healthcare.">
   <Hero variant="graph" seed={5} eyebrow="Work" title="Proof, not promises.">
     <p class="lede">Here are things I have built or led. Most cross more than one service, so each one is tagged with every service it shows. LinkedIn names the employers and clients; this page names only the work and the result.</p>
   </Hero>
@@ -29,6 +29,12 @@ const tag = {
           <img class="work-shot" src="/work/field-agent.png" alt="Field Agent on an iPhone: a chat with Claude, with a card asking to allow or deny a file edit" width="390" loading="lazy" />
           <p>An iPhone app that reaches the AI assistants on my Mac from anywhere, over a private network. Replies appear as they are written, and photos go along with a message. Before an assistant edits a file or runs a command, the phone buzzes and asks me to allow or deny it. I can change the app from the app: an assistant edits the code, checks it, and installs the new version on the phone. <a href="/systems/#/view/fieldAgentView/">See how it connects</a></p>
           <p class="tags">{[tag.phone, tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
+        </div>
+        <div class="card work-card" id="mk-planner">
+          <p class="eyebrow">Phone app</p>
+          <h3><a href="/disney/">Magic Kingdom Planner</a></h3>
+          <p>A day plan for our family's Disney trip that lives on everyone's phone. It draws our route on the park map and lists the rides and meals in order, colored by time of day. When one of us checks off a ride or moves a meal, the others see it. It pulls the park's hours and weather alerts, uses GPS to know when we are inside, and keeps working with no signal. <a href="/disney/">Open the planner</a></p>
+          <p class="tags">{[tag.phone, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="second-brain">
           <p class="eyebrow">AI systems</p>
