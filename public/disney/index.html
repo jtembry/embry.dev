@@ -180,6 +180,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .day-sum .late,.mzone .late,#home-note .late{color:#d4573f}
 .fin-banner{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#16897a;color:#fff;font-size:14px}
 .fin-banner a{color:#fff;font-weight:800}
+.fin-banner .fin-new{display:block;width:100%;margin-top:10px;min-height:44px;background:#fff;border-color:#fff;color:#16897a;font-weight:800;font-size:15px}
 .trip-done #day .ridechk select,.trip-done #day .ridechk input,.trip-done #day .fsel,.trip-done #day .fchk,.trip-done .pm-card select,.trip-done .fd-add{pointer-events:none;opacity:.55}
 .past{display:grid;gap:6px}
 .past h3{margin:6px 0 0;font-size:14px}
@@ -1084,7 +1085,7 @@ function paintTripBar(){
 function paintFinished(){   // also run from paintTripBar on every redraw
   document.body.classList.toggle("trip-done",!!TRIP.finished);
   const b=document.getElementById("fin-banner"); b.hidden=!TRIP.finished;
-  if(TRIP.finished) b.innerHTML=`✓ This trip is finished, so picks and checkmarks are locked. <a href="#recap">See the recap</a>, or reopen it from <a href="#past">Past Trips</a>.`;
+  if(TRIP.finished) b.innerHTML=`✓ This trip is finished, so picks and checkmarks are locked. <a href="#recap">See the recap</a>, or reopen it from <a href="#past">Past Trips</a>.<button type="button" class="fin-new" id="fin-new">Plan a new trip</button>`;
   const f=document.getElementById("trip-finish"); if(f){ f.hidden=!!TRIP.finished; if(!f.disabled) f.textContent="Finish this trip"; }
 }
 // a new trip starts from the default times, dated today; Trip settings opens so the real date can go in
@@ -1096,15 +1097,17 @@ function newTripURL(code,prev){
 const newTripCode=()=>"mk-"+Math.random().toString(36).slice(2,10);
 function succCode(code,at){ let h=2166136261; for(const ch of `${code}:${at}`){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619)>>>0; } return "mk-"+h.toString(36).padStart(7,"0"); }
 async function pushMeta(){ if(typeof trip==="undefined"||!trip) return; try{ await syncReq({changes:[],meta:TRIP,mt:tripMt}); metaPending=false; saveMeta(); }catch(e){} }
-// a phone still on a finished trip moves on to the next one (unless that trip's link was opened on purpose)
-function followNext(){
-  if(!TRIP.finished||TRIP_CODE==null||new URLSearchParams(location.search).get("trip")) return;
+// a finished trip stays on screen until someone taps Plan a new trip; every phone lands on the same next trip
+async function planNext(){
+  if(!TRIP.finished||TRIP_CODE==null) return;
   if(!/^[a-z0-9-]{6,40}$/.test(TRIP.next||"")){   // finished before trips had a next one: make it now
-    const code=succCode(TRIP_CODE,TRIP.finished); TRIP={...TRIP,next:code}; tripMt=Date.now(); metaPending=true; saveMeta();
-    (async()=>{ await pushMeta(); location.replace(newTripURL(code,TRIP_CODE)); })(); return;
+    TRIP={...TRIP,next:succCode(TRIP_CODE,TRIP.finished)}; tripMt=Date.now(); metaPending=true; saveMeta(); await pushMeta();
   }
-  try{ localStorage.setItem("mk-trip",TRIP.next); }catch(e){} location.replace(`${location.pathname}?trip=${TRIP.next}`);
+  const st=await tripState(TRIP.next);   // another phone may have started it already: join it, don't reset its settings
+  try{ localStorage.setItem("mk-trip",TRIP.next); }catch(e){}
+  location.href=st&&st.meta?`${location.pathname}?trip=${TRIP.next}`:newTripURL(TRIP.next,TRIP_CODE);
 }
+document.getElementById("fin-banner").addEventListener("click",e=>{ const b=e.target.closest("#fin-new"); if(!b) return; b.disabled=true; b.textContent="Opening…"; planNext(); });
 function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElementById("past").classList.contains("on")) paintPast(); DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
 (()=>{
   const form=document.getElementById("trip-form"), btn=document.getElementById("trip-edit"), link=document.getElementById("trip-link");
@@ -1122,8 +1125,8 @@ function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElem
     const at=Date.now(), code=succCode(TRIP_CODE,at);
     TRIP={...TRIP,finished:at,next:code}; tripMt=at; metaPending=true; saveMeta();
     armed=0; fin.textContent="Saving…"; fin.disabled=true; applyTrip(false);
-    // save the finished trip, then open its successor with the default times and picks
-    (async()=>{ await pushMeta(); location.href=newTripURL(code,TRIP_CODE); })();
+    // save the finished trip and stay on it; Plan a new trip in the banner opens its successor
+    (async()=>{ await pushMeta(); fin.disabled=false; document.getElementById("trip-form").hidden=true; document.getElementById("trip-edit").setAttribute("aria-expanded","false"); renderDay(); scrollTo(0,0); })();
   });
   if(new URLSearchParams(location.search).get("setup")||sessionStorage.getItem("mk-setup")){ try{ sessionStorage.removeItem("mk-setup"); }catch(e){} fill(); form.hidden=false; btn.setAttribute("aria-expanded","true"); }
   document.getElementById("trip-new").addEventListener("click",()=>{
@@ -1178,7 +1181,7 @@ async function reopenTrip(code){
   location.href=`${location.pathname}?trip=${code}#day`;
 }
 document.getElementById("past-list").addEventListener("click",e=>{ const b=e.target.closest("[data-reopen]"); if(b){ b.disabled=true; b.textContent="Reopening…"; reopenTrip(b.dataset.reopen).finally(()=>{ b.disabled=false; b.textContent="Reopen"; }); } });
-rememberTrip(); setTimeout(followNext,0);   // after the sync code below has loaded
+rememberTrip();
 // the plan a trip had: run the estimate with that trip's picks, then put this phone's trip back
 function planFor(st){
   const save={pri,done,stamps,TRIP,DAY,lastById};
@@ -1537,7 +1540,7 @@ async function syncReq(body){
 }
 function applyServer(st){
   let changed=false;
-  if(st.meta&&st.mt>tripMt&&!metaPending){ TRIP={...TRIP_DEFAULT,...st.meta}; tripMt=st.mt; saveMeta(); applyTrip(false); changed=true; followNext(); }
+  if(st.meta&&st.mt>tripMt&&!metaPending){ TRIP={...TRIP_DEFAULT,...st.meta}; tripMt=st.mt; saveMeta(); applyTrip(false); changed=true; }
   for(const [k,r] of Object.entries(st.rides||{})){
     const id=+k;
     if(r.pri&&r.pt>=(stamps.pri[id]||0)&&!queue.some(c=>c.id===id&&c.field==="pri")){ if(pri[id]!==r.pri){pri[id]=r.pri;changed=true} stamps.pri[id]=r.pt; }
