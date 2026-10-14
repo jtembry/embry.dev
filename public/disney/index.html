@@ -1076,6 +1076,7 @@ function paintTimes(){
     +(wontFit.length?` <b class="late">Won't fit before we ${close<shut?"leave":"close"}: ${andList(wontFit)}.</b> Set some to Skip${close<shut?", or leave later in Trip settings":""}.`:"");
   const fd=P.items.find(x=>priOf(x.id)==="das"), fde=document.getElementById("first-das");
   if(fde) fde.innerHTML=fd?`<span class="ref">${byQ.get(fd.id).name}<span class="refn">#${byQ.get(fd.id).m}</span></span>`:"a DAS candidate";
+  if(fde) fde.closest("li").hidden=!fd;   // no DAS ride on the day, no booking step
   // keep the cards in time order
   const ol=document.querySelector(".tl"), lis=[...ol.children], last=li=>li.hasAttribute("data-close")?1:0, want=lis.slice().sort((a,b)=>last(a)-last(b)||(+a.dataset.min)-(+b.dataset.min)||(+a.dataset.ord)-(+b.dataset.ord));   // Time to go home always ends the day
   if(want.some((li,i)=>li!==lis[i])) want.forEach(li=>ol.appendChild(li));
