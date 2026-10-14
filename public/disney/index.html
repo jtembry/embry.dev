@@ -488,7 +488,6 @@ button{min-height:44px}
       <label>At the gate <input type="time" name="gate" required></label>
       <p class="tf-hours" id="tf-hours"></p>
       <label>Leave the park (leave empty to stay until closing) <input type="time" name="leave"></label>
-      <label>Fireworks (leave empty if none) <input type="time" name="fireworks"></label>
       <div class="tf-row"><button type="submit" class="tf-save">Save for everyone on this trip</button><button type="button" id="trip-finish">Finish this trip</button><button type="button" id="trip-delete" class="tf-del">Delete this trip</button></div>
       <p>Saved with the trip, so every phone on it gets the same date and times.</p>
     </form>
@@ -806,6 +805,7 @@ function computePath(){
 // how late we're running, and when the path reaches each stop
 // ---------- park hours: Disney's official schedule via ThemeParks.wiki, about a month ahead; kept on the phone so past days keep theirs ----------
 const HOURS_URL="https://api.themeparks.wiki/v1/entity/75ea578a-adc8-4116-a54d-dccb60765ef9/schedule", HOURS_KEY="mk-hours";
+const FW_URL="https://api.themeparks.wiki/v1/entity/22b78ed9-a692-47cb-b6a4-6d1224ff67e3/live";
 let PARK={}; try{ PARK=JSON.parse(localStorage.getItem(HOURS_KEY))||{}; }catch(e){}
 async function loadHours(){
   try{ const r=await fetch(HOURS_URL,{cache:"no-store"}); if(!r.ok) return; const d=await r.json(), by={};
@@ -815,6 +815,8 @@ async function loadHours(){
       else if(/early entry/i.test(x.description||"")) day.early=at(x.date,x.openingTime);
       else if(x.type==="TICKETED_EVENT") day.party=at(x.date,x.openingTime);
       else if(x.type==="EXTRA_HOURS") day.extended=at(x.date,x.closingTime); }
+    // Happily Ever After: Disney posts showtimes for today only
+    try{ const f=await (await fetch(FW_URL,{cache:"no-store"})).json(); for(const x of (f.liveData||[])[0]?.showtimes||[]){ const day=x.startTime.slice(0,10); (by[day]=by[day]||{}).fw=at(day,x.startTime); } }catch(e){}
     PARK={...PARK,...by}; try{ localStorage.setItem(HOURS_KEY,JSON.stringify(PARK)); }catch(e){}
     if(typeof renderDay==="function") renderDay(); paintHoursLine();
   }catch(e){}
@@ -823,12 +825,19 @@ const parkDay=d=>PARK[d]&&PARK[d].close!=null?PARK[d]:null;
 // closing time for day guests: Disney's schedule, else what an older trip saved, else 11pm
 function closeFor(date,saved){ const p=parkDay(date); return p?p.close:(hm(saved)??1380); }
 const closeMin=()=>closeFor(DAY,TRIP.close);
+// fireworks: Disney's posted showtime (on the day), else an hour before closing and no later than 9pm; none when the park closes early for a party
+function fwFor(date){ const p=PARK[date]||{};
+  if(p.fw!=null) return {min:p.fw,posted:true};
+  if(p.close!=null&&p.close<1200) return null;
+  return {min:p.close!=null?Math.min(1260,p.close-60):1260,posted:false}; }
+const fwMin=()=>{ const f=fwFor(DAY); return f?f.min:null; };
 // when we head home: our leave time, never after closing
 function leaveMin(){ const c=closeMin(), l=hm(TRIP.leave); return l!=null&&l<c?l:c; }
 function hoursText(date){
-  const p=parkDay(date); if(!p) return "Disney hasn't posted hours for this date yet (they post about a month ahead). Planning to 11pm until then.";
-  return `Disney hours: ${fmtMin(p.open)} – ${fmtMin(p.close)}${p.early!=null?` · Early Entry from ${fmtMin(p.early)}`:""}${p.party!=null?` · closes at ${fmtMin(p.close)} for a ticketed party that night`:""}${p.extended!=null?` · Extended Evening to ${fmtMin(p.extended)}`:""}`;
+  const p=parkDay(date); if(!p) return "Disney hasn't posted hours for this date yet (they post about a month ahead). Planning to 11pm and fireworks about 9pm until then.";
+  return `Disney hours: ${fmtMin(p.open)} – ${fmtMin(p.close)}${p.early!=null?` · Early Entry from ${fmtMin(p.early)}`:""}${p.party!=null?` · closes at ${fmtMin(p.close)} for a ticketed party that night`:""}${p.extended!=null?` · Extended Evening to ${fmtMin(p.extended)}`:""}`+fwText(date);
 }
+function fwText(date){ const f=fwFor(date); return f?` · fireworks ${f.posted?"at":"about"} ${fmtMin(f.min)}${f.posted?"":" (Disney posts the exact time on the day)"}`:" · no fireworks for day guests (the park closes early for a party)"; }
 function paintHoursLine(){ const f=document.getElementById("trip-form"), e=document.getElementById("tf-hours"); if(e&&f) e.textContent=hoursText(f.date.value||TRIP.date); }
 loadHours();
 // ---------- time estimates: walk + wait + ride for every stop on the path ----------
@@ -1058,14 +1067,14 @@ function setCardTime(li,min,text,hrs){
   li.dataset.min=min==null?99999:Math.round(min); if(hrs) li.dataset.h=hrs; else if(min!=null) li.dataset.h=String(Math.floor(min/60));
 }
 function paintTimes(){
-  const g=hm(TRIP.gate)??470, close=leaveMin(), shut=closeMin(), fw=hm(TRIP.fireworks), s=SCHED, P=PLAN, at=id=>(s.items.find(x=>x.id===id)||P.items.find(x=>x.id===id));
+  const g=hm(TRIP.gate)??470, close=leaveMin(), shut=closeMin(), fw=fwMin(), s=SCHED, P=PLAN, at=id=>(s.items.find(x=>x.id===id)||P.items.find(x=>x.id===id));
   document.querySelectorAll(".tl>li").forEach(li=>{
     if(li.dataset.off!=null){ setCardTime(li,g+(+li.dataset.off)); return; }
     // nothing is scheduled after Time to go home: stops, meals and fireworks from then on are hidden
     if(li.dataset.ride){ const it=at(+li.dataset.ride); setCardTime(li,it?it.arrive:null); return; }
     if(li.dataset.meal){ const k=+li.dataset.meal, ch=chosenSpot(k), it=ch&&at(ch), lb=mealLabel(k), c=ch&&FOODCAT.find(x=>9000+k*100+x.m===ch);
       li.querySelector(".what>b").textContent=`${MEAL_ICON[lb]} ${lb}`; const tip=li.querySelector(".mtip:not(.mzone)"); if(tip) tip.textContent=MEAL_TIP[c?c.type:"snack"]; setCardTime(li,it?it.arrive:MEALK[k].t); li.hidden=foodPri(skipId(k))==="must"||(+li.dataset.min)>=close; return; }
-    if(li.hasAttribute("data-fw")){ setCardTime(li,fw!=null?fw:1260,fw!=null?null:"Night"); li.hidden=fw==null&&!!TRIP.date&&TRIP.fireworks===""||fw!=null&&fw>=close; return; }
+    if(li.hasAttribute("data-fw")){ setCardTime(li,fw!=null?fw:1260,fw!=null?null:"Night"); li.hidden=fw==null||fw>=close; return; }
     if(li.hasAttribute("data-close")){ setCardTime(li,close); }
   });
   document.querySelectorAll("[data-at]").forEach(e=>e.textContent=fmtMin(g+(+e.dataset.at)));
@@ -1086,8 +1095,8 @@ function paintTimes(){
 }
 function paintTripBar(){
   paintFinished();
-  const d=new Date(TRIP.date+"T12:00:00"), g=hm(TRIP.gate), c=closeMin(), l=hm(TRIP.leave), f=hm(TRIP.fireworks);
-  document.getElementById("trip-sum").innerHTML=`📅 <b>${isNaN(d)?"No date set":d.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"})}</b>${g!=null?` · gate ${fmtMin(g)}`:""}${l!=null&&l<c?` · leave ${fmtMin(l)}`:""} · park closes ${fmtMin(c)}${parkDay(TRIP.date)?"":" (not posted yet)"}${f!=null&&f<c?` · fireworks ${fmtMin(f)}`:""}`;
+  const d=new Date(TRIP.date+"T12:00:00"), g=hm(TRIP.gate), c=closeMin(), l=hm(TRIP.leave), f=fwMin();
+  document.getElementById("trip-sum").innerHTML=`📅 <b>${isNaN(d)?"No date set":d.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"})}</b>${g!=null?` · gate ${fmtMin(g)}`:""}${l!=null&&l<c?` · leave ${fmtMin(l)}`:""} · park closes ${fmtMin(c)}${parkDay(TRIP.date)?"":" (not posted yet)"}${f!=null&&f<c?` · fireworks ${fwFor(TRIP.date)?.posted?"":"about "}${fmtMin(f)}`:""}`;
 }
 function paintFinished(){   // also run from paintTripBar on every redraw
   const unset=!TRIP.finished&&(!TRIP.date||!TRIP.gate);
@@ -1119,11 +1128,11 @@ document.getElementById("fin-banner").addEventListener("click",e=>{ const b=e.ta
 function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElementById("past").classList.contains("on")) paintPast(); DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
 (()=>{
   const form=document.getElementById("trip-form"), btn=document.getElementById("trip-edit");
-  const fill=()=>{ form.date.value=TRIP.date||""; form.gate.value=TRIP.gate||""; form.leave.value=TRIP.leave||""; form.fireworks.value=TRIP.fireworks||""; paintHoursLine(); };
+  const fill=()=>{ form.date.value=TRIP.date||""; form.gate.value=TRIP.gate||""; form.leave.value=TRIP.leave||""; paintHoursLine(); };
   form.date.addEventListener("input",paintHoursLine);
   btn.addEventListener("click",()=>{ const open=form.hidden; if(open) fill(); form.hidden=!open; btn.setAttribute("aria-expanded",open); });
   form.addEventListener("submit",e=>{ e.preventDefault();
-    const {close,...keep}=TRIP; TRIP={...keep,date:form.date.value,gate:form.gate.value,leave:form.leave.value,fireworks:form.fireworks.value}; tripMt=Date.now(); metaPending=true; saveMeta();
+    const {close,...keep}=TRIP; TRIP={...keep,date:form.date.value,gate:form.gate.value,leave:form.leave.value}; tripMt=Date.now(); metaPending=true; saveMeta();
     form.hidden=true; btn.setAttribute("aria-expanded","false"); applyTrip(); if(typeof flushSync==="function") flushSync(); });
   // finish (two taps, no pop-up); reopening is on Past Trips
   let armed=0; const fin=document.getElementById("trip-finish");
