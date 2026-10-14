@@ -183,6 +183,8 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .fin-banner a{color:#fff;font-weight:800}
 .fin-banner b{display:block;font-size:18px;margin-bottom:4px}
 .trip-done #day>:not(.fin-banner):not(.offline),.trip-done #fab-stack,
+.trip-unset #day>:not(.fin-banner):not(.offline):not(.tripbar):not(.tripform),.trip-unset #fab-stack,
+.trip-unset #map-warn,.trip-unset #map-sum,.trip-unset #pm-svg,.trip-unset #pm-pins,.trip-unset #pm-card,.trip-unset #pm-key-btn,.trip-unset #pm-key,
 .trip-done #map-warn,.trip-done #map-sum,.trip-done #pm-svg,.trip-done #pm-pins,.trip-done #pm-card,.trip-done #pm-key-btn,.trip-done #pm-key{display:none!important}   /* no trip in progress: no itinerary, only the way to start one */
 .fin-banner .fin-new{display:block;width:100%;margin-top:10px;min-height:44px;background:#fff;border-color:#fff;color:#16897a;font-weight:800;font-size:15px}
 .trip-done #day .ridechk select,.trip-done #day .ridechk input,.trip-done #day .fsel,.trip-done #day .fchk,.trip-done .pm-card select,.trip-done .fd-add{pointer-events:none;opacity:.55}
@@ -636,10 +638,11 @@ const TRIP_DEFAULT={date:"2026-10-10",gate:"07:50",leave:"",fireworks:"21:00"}, 
 let TRIP={...TRIP_DEFAULT}, tripMt=0, metaPending=false;
 function saveMeta(){ try{ localStorage.setItem(META_KEY,JSON.stringify({trip:TRIP,mt:tripMt,pending:metaPending})); }catch(e){} }
 try{ const m=JSON.parse(localStorage.getItem(META_KEY)); if(m&&m.trip){ TRIP={...TRIP_DEFAULT,...m.trip}; tripMt=m.mt||0; metaPending=!!m.pending; } }catch(e){}
-(()=>{ const q=new URLSearchParams(location.search); if(!q.get("date")) return;   // a new-trip link carries its settings once
-  TRIP={date:q.get("date"),gate:q.get("gate")||TRIP_DEFAULT.gate,leave:q.get("leave")||"",fireworks:q.get("fw")||""}; if(/^[a-z0-9-]{6,40}$/.test(q.get("prev")||"")) TRIP.prev=q.get("prev"); tripMt=Date.now(); metaPending=true; saveMeta();
+(()=>{ const q=new URLSearchParams(location.search); if(!q.get("date")&&!q.get("new")) return;   // a new-trip link carries its settings once
+  // new=1: a blank trip, with no date, times, rides or meals until someone sets them
+  TRIP=q.get("new")?{date:"",gate:"",leave:"",fireworks:"",blank:1}:{date:q.get("date"),gate:q.get("gate")||TRIP_DEFAULT.gate,leave:q.get("leave")||"",fireworks:q.get("fw")||""}; if(/^[a-z0-9-]{6,40}$/.test(q.get("prev")||"")) TRIP.prev=q.get("prev"); tripMt=Date.now(); metaPending=true; saveMeta();
   if(q.get("setup")) try{ sessionStorage.setItem("mk-setup","1"); }catch(e){}   // the URL is cleaned below; remember to open Trip settings
-  ["date","gate","leave","close","fw","prev","setup"].forEach(k=>q.delete(k)); history.replaceState(null,"",location.pathname+"?"+q.toString()+location.hash); })();
+  ["date","gate","leave","close","fw","prev","setup","new"].forEach(k=>q.delete(k)); history.replaceState(null,"",location.pathname+"?"+q.toString()+location.hash); })();
 const hm=v=>{ const m=String(v||"").match(/^(\d{1,2}):(\d{2})/); return m?(+m[1])*60+(+m[2]):null; };
 const DONE_KEY="mk-done-v5"+TK;
 const loadJSON=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:d}catch(e){return d}};
@@ -706,6 +709,7 @@ const skipId=k=>9000+k*100+99, mealOf=id=>Math.floor((id-9000)/100);
 function foodPri(id){
   const raw=pri[id]; if(id%100!==99&&(pri[skipId(mealOf(id))]==="must")) return "wont";
   if(raw) return raw==="opt"?"wont":raw;
+  if(TRIP.blank) return id%100===99?"must":"wont";   // a blank trip starts with every meal skipped
   return FOOD_DEFAULT.has(id)?"must":"wont";
 }
 function chosenSpot(k){
@@ -771,7 +775,7 @@ let pri={}; try{pri=JSON.parse(localStorage.getItem(PRI_KEY))||{}}catch(e){}
 // Space Mountain stays High: ride it at opening in the regular line.
 const DAS_DEFAULT=new Set([11527,129,136,140,13630,130,134,137]);   // TRON, Seven Dwarfs, Peter Pan, Haunted Mansion, Tiana's, Big Thunder, Jungle Cruise, Pirates
 // Medium was retired: anything still saved as Medium counts as Low
-const priOf=id=>{const p=pri[id]; if(p) return p==="opt"?"wont":p; if(isFood(id)) return foodPri(id); return DAS_DEFAULT.has(id)?"das":plan.includes(id)?"must":"wont";};
+const priOf=id=>{const p=pri[id]; if(p) return p==="opt"?"wont":p; if(isFood(id)) return foodPri(id); return TRIP.blank?"wont":DAS_DEFAULT.has(id)?"das":plan.includes(id)?"must":"wont";};
 const isHigh=id=>{const p=priOf(id);return p==="must"||p==="das"};
 
 // ---------- path: High + DAS rides, stop by stop counterclockwise; inside a stop, the order with the least walking ----------
@@ -1087,16 +1091,17 @@ function paintTripBar(){
   document.getElementById("trip-sum").innerHTML=`📅 <b>${isNaN(d)?"No date set":d.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"})}</b>${g!=null?` · gate ${fmtMin(g)}`:""}${l!=null&&l<c?` · leave ${fmtMin(l)}`:""} · park closes ${fmtMin(c)}${parkDay(TRIP.date)?"":" (not posted yet)"}${f!=null&&f<c?` · fireworks ${fmtMin(f)}`:""}`;
 }
 function paintFinished(){   // also run from paintTripBar on every redraw
-  document.body.classList.toggle("trip-done",!!TRIP.finished);
-  const b=document.getElementById("fin-banner"); b.hidden=!TRIP.finished;
+  const unset=!TRIP.finished&&(!TRIP.date||!TRIP.gate);
+  document.body.classList.toggle("trip-done",!!TRIP.finished); document.body.classList.toggle("trip-unset",unset);
+  const b=document.getElementById("fin-banner"); b.hidden=!TRIP.finished&&!unset;
+  if(unset) b.innerHTML=`<b>New trip</b>Set the date and the gate time in Trip settings, then save. After that, add rides and meals with the ＋ button.`;
   if(TRIP.finished) b.innerHTML=`<b>No trip in progress</b>`+(TRIP.discarded?`The last trip was deleted. Older trips are in <a href="#past">Past Trips</a>.`:`✓ The last trip (${new Date(TRIP.date+"T12:00:00").toLocaleDateString([], {month:"short",day:"numeric",year:"numeric"})}) is finished. <a href="#recap">See the recap</a>, or reopen it from <a href="#past">Past Trips</a>.`)+`<button type="button" class="fin-new" id="fin-new">Plan a new trip</button>`;
   const f=document.getElementById("trip-finish"); if(f){ f.hidden=!!TRIP.finished; if(!f.disabled) f.textContent="Finish this trip"; }
   const d=document.getElementById("trip-delete"); if(d) d.hidden=!!TRIP.finished;
 }
-// a new trip starts from the default times, dated today; Trip settings opens so the real date can go in
+// a new trip starts blank; Trip settings opens so the date and times can go in
 function newTripURL(code,prev){
-  const today=Object.fromEntries(ETZ.formatToParts(new Date()).map(x=>[x.type,x.value]));
-  const q=new URLSearchParams({trip:code,date:`${today.year}-${today.month}-${today.day}`,gate:TRIP_DEFAULT.gate,fw:TRIP_DEFAULT.fireworks,setup:"1",...(prev?{prev}:{})});
+  const q=new URLSearchParams({trip:code,new:"1",setup:"1",...(prev?{prev}:{})});
   return `${location.pathname}?${q}`;
 }
 const newTripCode=()=>"mk-"+Math.random().toString(36).slice(2,10);
@@ -1146,7 +1151,7 @@ function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElem
   if(new URLSearchParams(location.search).get("setup")||sessionStorage.getItem("mk-setup")){ try{ sessionStorage.removeItem("mk-setup"); }catch(e){} fill(); form.hidden=false; btn.setAttribute("aria-expanded","true"); }
   document.getElementById("trip-new").addEventListener("click",()=>{
     const code=newTripCode(), url=location.origin+newTripURL(code,TRIP_CODE), share=`${location.origin}${location.pathname}?trip=${code}`;
-    link.innerHTML=`New trip ready, starting from the default times and picks: <a href="${url}">open it here</a>. Then share this link with the group: <a href="${share}">${share.replace(/^https?:\/\//,"")}</a>`; link.hidden=false; });
+    link.innerHTML=`New trip ready, blank until you set its date, times, rides and meals: <a href="${url}">open it here</a>. Then share this link with the group: <a href="${share}">${share.replace(/^https?:\/\//,"")}</a>`; link.hidden=false; });
 })();
 // ---------- past trips: this phone remembers the trips it has been on; a new trip remembers the one it came from ----------
 const PAST_KEY="mk-past";
