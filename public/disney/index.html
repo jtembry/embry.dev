@@ -173,6 +173,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .tripform input{min-height:40px;font:inherit;font-size:15px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
 .tripform .tf-row{display:flex;flex-wrap:wrap;gap:8px}
 .tripform .tf-save{background:#16897a;border-color:#16897a;color:#fff}
+.tripform .tf-del{color:#d4573f;border-color:#d4573f}
 .tripform p{margin:0;font-size:13px;color:var(--muted)}
 .tripform .tf-link a{word-break:break-all}
 .tripform .tf-hours{padding:8px 10px;border-radius:8px;background:var(--bg);color:var(--ink);font-size:14px}
@@ -484,7 +485,7 @@ button{min-height:44px}
       <p class="tf-hours" id="tf-hours"></p>
       <label>Leave the park (leave empty to stay until closing) <input type="time" name="leave"></label>
       <label>Fireworks (leave empty if none) <input type="time" name="fireworks"></label>
-      <div class="tf-row"><button type="submit" class="tf-save">Save for everyone on this trip</button><button type="button" id="trip-new">New trip link</button><button type="button" id="trip-finish">Finish this trip</button></div>
+      <div class="tf-row"><button type="submit" class="tf-save">Save for everyone on this trip</button><button type="button" id="trip-new">New trip link</button><button type="button" id="trip-finish">Finish this trip</button><button type="button" id="trip-delete" class="tf-del">Delete this trip</button></div>
       <p>Saved with the trip, so every phone on it gets the same date and times. A new trip gets its own link, with fresh picks and checkmarks; this trip stays as it is.</p>
       <p class="tf-link" id="trip-link" hidden></p>
     </form>
@@ -1085,8 +1086,9 @@ function paintTripBar(){
 function paintFinished(){   // also run from paintTripBar on every redraw
   document.body.classList.toggle("trip-done",!!TRIP.finished);
   const b=document.getElementById("fin-banner"); b.hidden=!TRIP.finished;
-  if(TRIP.finished) b.innerHTML=`✓ This trip is finished, so picks and checkmarks are locked. <a href="#recap">See the recap</a>, or reopen it from <a href="#past">Past Trips</a>.<button type="button" class="fin-new" id="fin-new">Plan a new trip</button>`;
+  if(TRIP.finished) b.innerHTML=(TRIP.discarded?`This trip was deleted.`:`✓ This trip is finished, so picks and checkmarks are locked. <a href="#recap">See the recap</a>, or reopen it from <a href="#past">Past Trips</a>.`)+`<button type="button" class="fin-new" id="fin-new">Plan a new trip</button>`;
   const f=document.getElementById("trip-finish"); if(f){ f.hidden=!!TRIP.finished; if(!f.disabled) f.textContent="Finish this trip"; }
+  const d=document.getElementById("trip-delete"); if(d) d.hidden=!!TRIP.finished;
 }
 // a new trip starts from the default times, dated today; Trip settings opens so the real date can go in
 function newTripURL(code,prev){
@@ -1128,6 +1130,16 @@ function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElem
     // save the finished trip and stay on it; Plan a new trip in the banner opens its successor
     (async()=>{ await pushMeta(); fin.disabled=false; document.getElementById("trip-form").hidden=true; document.getElementById("trip-edit").setAttribute("aria-expanded","false"); renderDay(); scrollTo(0,0); })();
   });
+  // delete (in progress only): locks it for every phone and drops it from Past Trips
+  const del=document.getElementById("trip-delete");
+  del.addEventListener("click",async()=>{
+    if(TRIP.finished) return;
+    const c=await askChoice(`Delete ${tripDay(TRIP.date)}?`,"Every phone on this trip loses its picks and checkmarks. This can't be undone.",[["del","Delete this trip","danger"],["cancel","Cancel"]]);
+    if(c!=="del") return;
+    const at=Date.now(); TRIP={...TRIP,finished:at,next:succCode(TRIP_CODE,at),discarded:true}; tripMt=at; metaPending=true; saveMeta();
+    del.disabled=true; del.textContent="Deleting…"; applyTrip(false); await pushMeta(); del.disabled=false; del.textContent="Delete this trip";
+    form.hidden=true; btn.setAttribute("aria-expanded","false"); renderDay(); scrollTo(0,0);
+  });
   if(new URLSearchParams(location.search).get("setup")||sessionStorage.getItem("mk-setup")){ try{ sessionStorage.removeItem("mk-setup"); }catch(e){} fill(); form.hidden=false; btn.setAttribute("aria-expanded","true"); }
   document.getElementById("trip-new").addEventListener("click",()=>{
     const code=newTripCode(), url=location.origin+newTripURL(code,TRIP_CODE), share=`${location.origin}${location.pathname}?trip=${code}`;
@@ -1136,7 +1148,7 @@ function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElem
 // ---------- past trips: this phone remembers the trips it has been on; a new trip remembers the one it came from ----------
 const PAST_KEY="mk-past";
 function rememberTrip(){ if(!TRIP_CODE) return; try{ const l=JSON.parse(localStorage.getItem(PAST_KEY))||[], i=l.findIndex(x=>x.code===TRIP_CODE), e={code:TRIP_CODE,date:TRIP.date,finished:!!TRIP.finished};
-  if(i>=0) l[i]=e; else l.push(e); localStorage.setItem(PAST_KEY,JSON.stringify(l)); }catch(e){} }
+  if(TRIP.discarded){ if(i>=0) l.splice(i,1); } else if(i>=0) l[i]=e; else l.push(e); localStorage.setItem(PAST_KEY,JSON.stringify(l)); }catch(e){} }
 async function tripState(code){ for(const base of SYNC){ try{ const r=await fetch(`${base}/state?trip=${encodeURIComponent(code)}`,{cache:"no-store"}); if(r.ok) return r.json(); }catch(e){} } return null; }
 const tripDay=d=>{ const t=new Date(d+"T12:00:00"); return isNaN(t)?"No date":t.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric",year:"numeric"}); };
 async function paintPast(){
@@ -1149,7 +1161,7 @@ async function paintPast(){
   const rows=[...seen.values()].filter(x=>!x.discarded).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
   // a recap only exists once a trip is finished
   const entry=(href,date,finished)=>finished?`<a href="${href}"><span>${tripDay(date)}</span><small>✓ finished · recap ›</small></a>`:`<span class="pnolink"><span>${tripDay(date)}</span><small>in progress</small></span>`;
-  box.innerHTML=`<h3>This trip</h3><div class="prow">${entry("#recap",TRIP.date,TRIP.finished)}${TRIP.finished?`<button type="button" data-reopen="${TRIP_CODE}">Reopen</button>`:""}</div>`
+  box.innerHTML=(TRIP.discarded?"":`<h3>This trip</h3><div class="prow">${entry("#recap",TRIP.date,TRIP.finished)}${TRIP.finished?`<button type="button" data-reopen="${TRIP_CODE}">Reopen</button>`:""}</div>`)
     +`<h3>Past trips</h3>`+(rows.length?rows.map(x=>`<div class="prow">${entry(`?view=${x.code}#recap`,x.date,x.finished)}<button type="button" data-reopen="${x.code}">Reopen</button></div>`).join(""):`<p>None yet. When a trip is finished it shows up here.</p>`);
 }
 // a pop-up with choices (no browser dialog): resolves to the chosen key, or null
