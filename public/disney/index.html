@@ -181,6 +181,8 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .day-sum .late,.mzone .late,#home-note .late{color:#d4573f}
 .fin-banner{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#16897a;color:#fff;font-size:14px}
 .fin-banner a{color:#fff;font-weight:800}
+.fin-banner b{display:block;font-size:18px;margin-bottom:4px}
+.trip-done #day>:not(.fin-banner):not(.offline),.trip-done #fab-stack{display:none!important}   /* no trip in progress: no itinerary, only the way to start one */
 .fin-banner .fin-new{display:block;width:100%;margin-top:10px;min-height:44px;background:#fff;border-color:#fff;color:#16897a;font-weight:800;font-size:15px}
 .trip-done #day .ridechk select,.trip-done #day .ridechk input,.trip-done #day .fsel,.trip-done #day .fchk,.trip-done .pm-card select,.trip-done .fd-add{pointer-events:none;opacity:.55}
 .past{display:grid;gap:6px}
@@ -1086,7 +1088,7 @@ function paintTripBar(){
 function paintFinished(){   // also run from paintTripBar on every redraw
   document.body.classList.toggle("trip-done",!!TRIP.finished);
   const b=document.getElementById("fin-banner"); b.hidden=!TRIP.finished;
-  if(TRIP.finished) b.innerHTML=(TRIP.discarded?`This trip was deleted.`:`✓ This trip is finished, so picks and checkmarks are locked. <a href="#recap">See the recap</a>, or reopen it from <a href="#past">Past Trips</a>.`)+`<button type="button" class="fin-new" id="fin-new">Plan a new trip</button>`;
+  if(TRIP.finished) b.innerHTML=`<b>No trip in progress</b>`+(TRIP.discarded?`The last trip was deleted. Older trips are in <a href="#past">Past Trips</a>.`:`✓ The last trip (${new Date(TRIP.date+"T12:00:00").toLocaleDateString([], {month:"short",day:"numeric",year:"numeric"})}) is finished. <a href="#recap">See the recap</a>, or reopen it from <a href="#past">Past Trips</a>.`)+`<button type="button" class="fin-new" id="fin-new">Plan a new trip</button>`;
   const f=document.getElementById("trip-finish"); if(f){ f.hidden=!!TRIP.finished; if(!f.disabled) f.textContent="Finish this trip"; }
   const d=document.getElementById("trip-delete"); if(d) d.hidden=!!TRIP.finished;
 }
