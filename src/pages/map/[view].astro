@@ -1,0 +1,101 @@
+---
+// Plain map of the system: one page per LikeC4 view, drawn at build time from
+// src/data/system-map.json. No map app to load, so it opens on any phone; the interactive
+// LikeC4 build at /systems/ crashed iPhone Safari ("A problem repeatedly occurred").
+import Base from '../../layouts/Base.astro';
+import map from '../../data/system-map.json';
+import { systemsHref } from '../../lib/systems.js';
+
+export function getStaticPaths() {
+  return Object.keys(map).map((view) => ({ params: { view } }));
+}
+
+const v = map[Astro.params.view];
+// LikeC4 units to CSS pixels. Wide enough to read on a phone; the map scrolls sideways.
+const S = 0.5;
+const pad = 20;
+const { x: bx, y: by, width: bw, height: bh } = v.bounds;
+const W = Math.round(bw * S + pad * 2);
+const H = Math.round(bh * S + pad * 2);
+const px = (val, origin) => Math.round((val - origin) * S + pad);
+const path = (pts) => {
+  const [p0, ...rest] = pts.map(([x, y]) => [px(x, bx), px(y, by)]);
+  let d = `M${p0[0]},${p0[1]}`;
+  for (let i = 0; i + 2 < rest.length; i += 3) d += ` C${rest[i]} ${rest[i + 1]} ${rest[i + 2]}`;
+  return d;
+};
+const groups = v.nodes.filter((n) => n.group);
+const boxes = v.nodes.filter((n) => !n.group);
+const box = (n) => `left:${px(n.x, bx)}px;top:${px(n.y, by)}px;width:${Math.round(n.width * S)}px;height:${Math.round(n.height * S)}px`;
+const others = Object.values(map).filter((o) => o.id !== v.id);
+---
+<Base title={`${v.title} · System map`} description={v.description || 'How the systems behind Embry Development connect.'}>
+  <section class="section map-page">
+    <div class="wrap">
+      <p class="eyebrow">System map{v.id !== 'index' && <> · <a href={systemsHref('index')}>Overview</a></>}</p>
+      <h1>{v.title}</h1>
+      {v.description && <p class="lede">{v.description.replace('Click an engine', 'Tap a box')}</p>}
+    </div>
+    <div class="map-scroll">
+      <div class="map-canvas" style={`width:${W}px;height:${H}px`}>
+        <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
+          <defs>
+            <marker id="map-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" />
+            </marker>
+          </defs>
+          {groups.map((n) => <rect class="map-group" x={px(n.x, bx)} y={px(n.y, by)} width={Math.round(n.width * S)} height={Math.round(n.height * S)} rx="10" />)}
+          {v.edges.map((e) => <path class="map-edge" d={path(e.points)} marker-end="url(#map-arrow)" />)}
+        </svg>
+        {groups.map((n) => <span class="map-group-title" style={`left:${px(n.x, bx) + 12}px;top:${px(n.y, by) + 8}px`}>{n.title}</span>)}
+        {v.edges.filter((e) => e.label && e.labelBBox).map((e) => (
+          <span class="map-label" style={`left:${px(e.labelBBox.x, bx)}px;top:${px(e.labelBBox.y, by)}px`}>{e.label}</span>
+        ))}
+        {boxes.map((n) => {
+          const inner = <>
+            <strong>{n.title}</strong>
+            {n.technology && <small>{n.technology}</small>}
+            {n.description && <span class="map-desc">{n.description}</span>}
+          </>;
+          return n.navigateTo && n.navigateTo !== v.id
+            ? <a class:list={['map-node', `k-${n.kind}`, 'map-link']} style={box(n)} href={systemsHref(n.navigateTo)} title={n.description}>{inner}</a>
+            : <div class:list={['map-node', `k-${n.kind}`]} style={box(n)} title={n.description}>{inner}</div>;
+        })}
+      </div>
+    </div>
+    <div class="wrap">
+      <h2>Other views</h2>
+      <p class="map-views">{others.map((o) => <a class="tag" href={systemsHref(o.id)}>{o.title}</a>)}</p>
+      <p class="map-interactive">On a computer: <a href={`/systems/#/view/${v.id}/`}>open the interactive version</a> (zoom, search, and drag).</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .map-page { padding-top: calc(var(--header-h) + 1.5rem); }
+  .map-page h1 { margin: 0 0 .5rem; }
+  .map-scroll { overflow: auto; -webkit-overflow-scrolling: touch; margin-block: 1.5rem; padding-inline: clamp(1rem, 4vw, 2rem); }
+  .map-canvas { position: relative; margin-inline: auto; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); }
+  .map-canvas svg { position: absolute; inset: 0; }
+  .map-group { fill: var(--accent-tint); fill-opacity: .45; stroke: var(--accent-bright); stroke-opacity: .5; stroke-width: 1.5; stroke-dasharray: 6 5; }
+  .map-edge { fill: none; stroke: var(--muted); stroke-opacity: .55; stroke-width: 1.4; }
+  #map-arrow path { fill: var(--muted); }
+  .map-group-title { position: absolute; font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .map-label { position: absolute; font-size: .66rem; line-height: 1.2; color: var(--ink-2); background: rgba(255,255,255,.85); padding: 0 .2rem; border-radius: 3px; white-space: nowrap; }
+  .map-node { position: absolute; display: flex; flex-direction: column; justify-content: center; gap: .1rem; padding: .35rem .5rem; overflow: hidden;
+    background: var(--band-2); color: #e6e8ec; border-radius: 8px; text-align: center; text-decoration: none; line-height: 1.2; }
+  .map-node strong { font-size: .85rem; }
+  .map-node small { font-family: var(--mono); font-size: .6rem; color: #ffb187; }
+  .map-desc { font-size: .66rem; color: rgba(230,232,236,.8); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .map-node.k-person { background: var(--accent); color: var(--white); border-radius: 40px; }
+  .map-node.k-person small, .map-node.k-person .map-desc { color: rgba(255,255,255,.85); }
+  .map-node.k-device { background: #3b3f47; }
+  .map-node.k-service { background: var(--white); color: var(--ink); border: 1.5px dashed var(--muted); }
+  .map-node.k-service small { color: var(--accent); }
+  .map-node.k-service .map-desc { color: var(--muted); }
+  .map-link { box-shadow: 0 0 0 2px var(--accent-bright); }
+  .map-link:hover, .map-link:focus-visible { box-shadow: 0 0 0 3px var(--accent-bright), 0 6px 18px rgba(0,0,0,.2); }
+  .map-views { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .map-views .tag { text-decoration: none; }
+  .map-interactive { color: var(--muted); font-size: .95rem; }
+</style>

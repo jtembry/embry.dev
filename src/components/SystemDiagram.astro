@@ -1,7 +1,7 @@
 ---
 // One view of the system map, drawn as a quiet blueprint behind a hero. Layout comes from
 // LikeC4 (src/data/system-map.json, written by ~/Projects/system-map's build:public).
-// The "Explore the map" button opens the full interactive map in a dialog; the map app only loads then.
+// The "Explore the map" link opens the plain /map page for this view.
 import map from '../data/system-map.json';
 import { systemsHref } from '../lib/systems.js';
 const { view = 'index' } = Astro.props;
@@ -53,24 +53,6 @@ const markerId = `arrow-${v.id}`;
         </g>
       ))}
   </svg>
-  <figcaption><button type="button" class="sysmap-open" data-map-src={href} aria-label={`Open the interactive map: ${v.title}`}>Explore the map <span aria-hidden="true">⤢</span></button></figcaption>
+  <figcaption><a class="sysmap-open" href={href} aria-label={`Open the map: ${v.title}`}>Explore the map <span aria-hidden="true">⤢</span></a></figcaption>
 </figure>
 
-<dialog class="sysmap-dialog" aria-label="Interactive system map">
-  <form method="dialog" class="sysmap-close-row"><button class="btn btn-secondary" value="close">Close</button></form>
-  <iframe title="Interactive system map" loading="lazy"></iframe>
-</dialog>
-
-<script>
-  // One dialog serves every diagram on the page; the iframe loads the map app on first open.
-  const dialog = document.querySelector<HTMLDialogElement>('dialog.sysmap-dialog');
-  const frame = dialog?.querySelector('iframe');
-  document.querySelectorAll<HTMLButtonElement>('.sysmap-open').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      if (!dialog || !frame) { location.href = btn.dataset.mapSrc!; return; }
-      if (frame.getAttribute('src') !== btn.dataset.mapSrc) frame.setAttribute('src', btn.dataset.mapSrc!);
-      dialog.showModal();
-    });
-  });
-  dialog?.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
-</script>

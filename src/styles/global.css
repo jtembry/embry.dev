@@ -195,7 +195,7 @@ footer.site .social a { display: inline-flex; color: #cfd3da; transition: color 
 footer.site .social a:hover, footer.site .social a:focus-visible { color: #ffb187; }
 
 /* Hero diagram: the page's view of the system map fills the hero behind the text, dimmed;
-   the "Explore the map" button opens the live map. */
+   the "Explore the map" link opens the plain /map page. */
 .hero-with-diagram { min-height: min(100svh, 60rem); display: flex; align-items: center; }
 .hero-with-diagram .hero-content { pointer-events: none; width: 100%; }
 .hero-with-diagram .hero-text { pointer-events: auto; max-width: 40rem; }
@@ -208,7 +208,7 @@ footer.site .social a:hover, footer.site .social a:focus-visible { color: #ffb18
     linear-gradient(180deg, rgba(28,31,38,.6) 0%, transparent 22%, transparent 78%, rgba(28,31,38,.8) 100%); }
 .sysmap svg { display: block; width: 100%; height: 100%; opacity: .6; filter: saturate(.8); }
 .sysmap figcaption { position: absolute; right: 1.25rem; bottom: 1.25rem; z-index: 1; margin: 0; }
-.sysmap-open { padding: .35rem .75rem; border-radius: 999px; cursor: pointer;
+.sysmap-open { display: inline-block; padding: .35rem .75rem; border-radius: 999px; text-decoration: none;
   font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; color: #ffb187;
   background: rgba(22,24,29,.6); border: 1px solid rgba(255,177,135,.3); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: border-color .2s, background .2s; }
 .sysmap-open:hover, .sysmap-open:focus-visible { border-color: rgba(232,112,42,.8); background: rgba(22,24,29,.85); }
@@ -222,14 +222,8 @@ footer.site .social a:hover, footer.site .social a:focus-visible { color: #ffb18
 .sysmap-node.k-service rect { fill: transparent; stroke-dasharray: 10 8; }
 .sysmap-node.k-store rect { stroke: rgba(255,177,135,.55); }
 .sysmap-node.k-device rect { fill: rgba(232,112,42,.1); }
-.sysmap-dialog { width: min(96vw, 90rem); height: 90vh; max-width: none; max-height: none; padding: 0; border: 1px solid rgba(255,255,255,.14); border-radius: 16px; background: var(--band); overflow: hidden; }
-.sysmap-dialog::backdrop { background: rgba(8,9,12,.7); }
-.sysmap-dialog[open] { display: flex; flex-direction: column; }
-.sysmap-close-row { display: flex; justify-content: flex-end; padding: .6rem; margin: 0; }
-.sysmap-dialog iframe { flex: 1; width: 100%; border: 0; background: #fff; }
 @media (max-width: 40rem) {
-  .sysmap::after { background: linear-gradient(180deg, rgba(28,31,38,.75) 0%, rgba(28,31,38,.85) 60%, rgba(28,31,38,.6) 100%); }
-  .sysmap-dialog { width: 100vw; height: 100dvh; border-radius: 0; } }
+  .sysmap::after { background: linear-gradient(180deg, rgba(28,31,38,.75) 0%, rgba(28,31,38,.85) 60%, rgba(28,31,38,.6) 100%); } }
 
 /* Contact form dialog: opened by any mailto link (Base.astro). */
 .contact-dialog { width: min(94vw, 34rem); max-height: 92dvh; padding: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--white, #fff); color: var(--ink); box-shadow: 0 30px 80px rgba(8,9,12,.45); }
