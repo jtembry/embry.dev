@@ -2,16 +2,25 @@
 // Plain map of the system: one page per LikeC4 view, drawn at build time from
 // src/data/system-map.json. No map app to load, so it opens on any phone; the interactive
 // LikeC4 build at /systems/ crashed iPhone Safari ("A problem repeatedly occurred").
+// Wide screens get the diagram. Narrow screens get the same boxes as a single column
+// (src/lib/map-layout.js) — the canvas is wider than a phone and its type is too small.
 import Base from '../../layouts/Base.astro';
+import MapCard from '../../components/MapCard.astro';
 import map from '../../data/system-map.json';
 import { systemsHref } from '../../lib/systems.js';
+import { mobileBlocks } from '../../lib/map-layout.js';
 
 export function getStaticPaths() {
   return Object.keys(map).map((view) => ({ params: { view } }));
 }
 
 const v = map[Astro.params.view];
-// LikeC4 units to CSS pixels. Wide enough to read on a phone; the map scrolls sideways.
+const blocks = mobileBlocks(v, map);
+const lede = (v.description || '').replace(
+  'Click an engine to open its own view.',
+  'Open an engine to see its own view.',
+);
+// LikeC4 units to CSS pixels. The diagram is for a wide window; phones use the column of cards.
 const S = 0.5;
 const pad = 20;
 const { x: bx, y: by, width: bw, height: bh } = v.bounds;
@@ -34,7 +43,27 @@ const others = Object.values(map).filter((o) => o.id !== v.id);
     <div class="wrap">
       <p class="eyebrow">System map{v.id !== 'index' && <> · <a href={systemsHref('index')}>Overview</a></>}</p>
       <h1>{v.title}</h1>
-      {v.description && <p class="lede">{v.description.replace('Click an engine', 'Tap a box')}</p>}
+      {lede && <p class="lede">{lede}</p>}
+    </div>
+    <div class="wrap map-list">
+      {blocks.map((block) => block.kind === 'group' ? (
+        <section class="map-group-block" aria-labelledby={block.id}>
+          <h2 class="map-group-name" id={block.id}>{block.title}</h2>
+          {block.relations.length > 0 && (
+            <ul class="map-group-rels">
+              {block.relations.map((rel) => (
+                <li>
+                  <span>{rel.label}</span>
+                  <a href={rel.href}><span aria-hidden="true">→ </span>{rel.title}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+          {block.cards.map((card) => <MapCard card={card} />)}
+        </section>
+      ) : (
+        <MapCard card={block.card} />
+      ))}
     </div>
     <div class="map-scroll">
       <div class="map-canvas" style={`width:${W}px;height:${H}px`}>
@@ -74,6 +103,12 @@ const others = Object.values(map).filter((o) => o.id !== v.id);
 <style>
   .map-page { padding-top: calc(var(--header-h) + 1.5rem); }
   .map-page h1 { margin: 0 0 .5rem; }
+  .map-list { display: none; }
+  .map-group-block { display: flex; flex-direction: column; gap: .65rem; padding: .85rem; border: 1px dashed rgba(232, 112, 42, .55); border-radius: var(--radius); background: var(--accent-tint); }
+  .map-group-name { margin: 0; scroll-margin-top: 5.5rem; font-family: var(--mono); font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .map-group-rels { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .35rem; }
+  .map-group-rels li { display: flex; flex-wrap: wrap; gap: .15rem .4rem; align-items: baseline; margin: 0; color: var(--ink-2); }
+  .map-group-rels a { font-weight: 600; white-space: nowrap; }
   .map-scroll { overflow: auto; -webkit-overflow-scrolling: touch; margin-block: 1.5rem; padding-inline: clamp(1rem, 4vw, 2rem); }
   .map-canvas { position: relative; margin-inline: auto; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); }
   .map-canvas svg { position: absolute; inset: 0; }
@@ -98,4 +133,12 @@ const others = Object.values(map).filter((o) => o.id !== v.id);
   .map-views { display: flex; flex-wrap: wrap; gap: .5rem; }
   .map-views .tag { text-decoration: none; }
   .map-interactive { color: var(--muted); font-size: .95rem; }
+  @media (max-width: 65.99rem) {
+    .map-scroll { display: none; }
+    .map-list { display: flex; flex-direction: column; gap: .85rem; margin-top: 1.25rem; }
+    .map-views .tag { padding: .55rem .9rem; font-size: .85rem; }
+  }
+  @media (pointer: coarse) {
+    .map-interactive { display: none; }
+  }
 </style>
