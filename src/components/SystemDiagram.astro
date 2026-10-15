@@ -3,6 +3,7 @@
 // LikeC4 (src/data/system-map.json, written by ~/Projects/system-map's build:public).
 // The "Explore the map" button opens the full interactive map in a dialog; the map app only loads then.
 import map from '../data/system-map.json';
+import { systemsHref } from '../lib/systems.js';
 const { view = 'index' } = Astro.props;
 const v = map[view] ?? map.index;
 // Crop to a window around the boxes' centre so a big map still draws its labels large
@@ -28,7 +29,7 @@ const path = (pts) => {
 };
 const groups = v.nodes.filter((n) => n.group);
 const boxes = v.nodes.filter((n) => !n.group);
-const href = `/systems/#/view/${v.id}/`;
+const href = systemsHref(v.id);
 const markerId = `arrow-${v.id}`;
 ---
 <figure class="sysmap" data-parallax="0.3">

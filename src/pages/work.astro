@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { dots } from '../lib/patterns.js';
+import { systemsHref } from '../lib/systems.js';
 const cardsBg = dots();
 
 // Most builds span more than one service, so each card carries every tag that fits,
@@ -27,7 +28,7 @@ const tag = {
           <p class="eyebrow">Phone app</p>
           <h3>Field Agent</h3>
           <img class="work-shot" src="/work/field-agent.png" alt="Field Agent on an iPhone: a chat with Claude, with a card asking to allow or deny a file edit" width="390" loading="lazy" />
-          <p>An iPhone app that reaches the AI assistants on my Mac from anywhere, over a private network. Replies appear as they are written, and photos go along with a message. Before an assistant edits a file or runs a command, the phone buzzes and asks me to allow or deny it. I can change the app from the app: an assistant edits the code, checks it, and installs the new version on the phone. <a href="/systems/#/view/fieldAgentView/">See how it connects</a></p>
+          <p>An iPhone app that reaches the AI assistants on my Mac from anywhere, over a private network. Replies appear as they are written, and photos go along with a message. Before an assistant edits a file or runs a command, the phone buzzes and asks me to allow or deny it. I can change the app from the app: an assistant edits the code, checks it, and installs the new version on the phone. <a href={systemsHref('fieldAgentView')}>See how it connects</a></p>
           <p class="tags">{[tag.phone, tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="mk-planner">
@@ -39,7 +40,7 @@ const tag = {
         <div class="card work-card" id="second-brain">
           <p class="eyebrow">AI systems</p>
           <h3>A second brain that runs itself</h3>
-          <p>Agents sort my email, texts, scans, and notes into a searchable vault every day, and one dashboard shows what needs me. It is the working prototype for the knowledge-assistant offer. <a href="/systems/">See the system map</a></p>
+          <p>Agents sort my email, texts, scans, and notes into a searchable vault every day, and one dashboard shows what needs me. It is the working prototype for the knowledge-assistant offer. <a href={systemsHref()}>See the system map</a></p>
           <p class="tags">{[tag.assistants, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="print-camera">
