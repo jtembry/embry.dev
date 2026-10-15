@@ -33,25 +33,10 @@ skinparam person<<Jt>>{
   FontColor #f8fafc
   BorderColor #2d5d39
 }
-skinparam rectangle<<FieldAgent>>{
-  BackgroundColor #3b82f6
-  FontColor #eff6ff
-  BorderColor #2563eb
-}
-skinparam rectangle<<Mail>>{
-  BackgroundColor #3b82f6
-  FontColor #eff6ff
-  BorderColor #2563eb
-}
 skinparam rectangle<<Assistants>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
   BorderColor #2563eb
-}
-skinparam rectangle<<Gmail>>{
-  BackgroundColor #64748b
-  FontColor #f8fafc
-  BorderColor #475569
 }
 skinparam rectangle<<Vault>>{
   BackgroundColor #3b82f6
@@ -63,7 +48,17 @@ skinparam rectangle<<Capture>>{
   FontColor #eff6ff
   BorderColor #2563eb
 }
+skinparam rectangle<<FieldAgent>>{
+  BackgroundColor #3b82f6
+  FontColor #eff6ff
+  BorderColor #2563eb
+}
 skinparam rectangle<<Scan>>{
+  BackgroundColor #3b82f6
+  FontColor #eff6ff
+  BorderColor #2563eb
+}
+skinparam rectangle<<Mail>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
   BorderColor #2563eb
@@ -77,6 +72,11 @@ skinparam rectangle<<Pi>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
   BorderColor #2563eb
+}
+skinparam rectangle<<Gmail>>{
+  BackgroundColor #64748b
+  FontColor #f8fafc
+  BorderColor #475569
 }
 skinparam rectangle<<Printing>>{
   BackgroundColor #3b82f6
@@ -102,34 +102,36 @@ rectangle "==iPhone\\n\\nObsidian, Reminders, the Field Agent app." <<Iphone>> a
 rectangle "==Backups\\n<size:10>[GitHub · Time Machine]</size>\\n\\nHourly copy of the vault and machine setup to GitHub; Time Machine for everything else." <<Backups>> as Backups
 rectangle "==iCloud Mail\\n\\nSecond mailbox." <<IcloudMail>> as IcloudMail
 person "==JT\\n\\nCaptures things, makes the calls, presses the buttons." <<Jt>> as Jt
-rectangle "==Field Agent\\n<size:10>[iPhone app · Swift · Node]</size>\\n\\nA custom iPhone app for talking to Claude and Grok on the Mac from anywhere." <<FieldAgent>> as FieldAgent
-rectangle "==Email & Texts\\n\\nTurns two inboxes and iMessage into one short list of what needs action." <<Mail>> as Mail
 rectangle "==AI assistants\\n<size:10>[Claude Code · Grok]</size>\\n\\nTwo assistants share one vault, one set of skills, and one memory." <<Assistants>> as Assistants
-rectangle "==Gmail\\n\\nMain mailbox." <<Gmail>> as Gmail
-rectangle "==Second Brain\\n<size:10>[Obsidian vault]</size>\\n\\nWhere everything ends up: notes, projects, ideas, and the dashboard." <<Vault>> as Vault
+rectangle "==Second Brain\\n<size:10>[Obsidian vault]</size>\\n\\nWhere everything ends up: notes, projects, ideas, and the lists the dashboard reads." <<Vault>> as Vault
 rectangle "==Capture\\n\\nEvery way a thought gets into the in-tray." <<Capture>> as Capture
+rectangle "==Field Agent\\n<size:10>[iPhone app · Swift · Node]</size>\\n\\nA custom iPhone app: the daily dashboard, plus chats with Claude and Grok on the Mac from anywhere." <<FieldAgent>> as FieldAgent
 rectangle "==Scanner\\n\\nPaper in the scanner becomes a searchable PDF and a note to file." <<Scan>> as Scan
+rectangle "==Email & Texts\\n\\nTurns two inboxes and iMessage into one short list of what needs action." <<Mail>> as Mail
 rectangle "==Find Anything\\n<size:10>[Mac · hourly · free]</size>\\n\\nCopies the text of every document in Documents into the vault so one search finds it." <<Docs>> as Docs
 rectangle "==brainpi\\n<size:10>[Raspberry Pi]</size>\\n\\nSmall always-on box: runs the scanner, holds Time Machine, streams the printer camera." <<Pi>> as Pi
+rectangle "==Gmail\\n\\nMain mailbox." <<Gmail>> as Gmail
 rectangle "==3D printing\\n<size:10>[Bambu Lab P2S]</size>\\n\\nLogs every print, streams the camera, and posts finished prints to the site." <<Printing>> as Printing
 rectangle "==Cloudflare\\n\\nCarries the printer camera from home to the public site without opening the home network." <<Cloudflare>> as Cloudflare
 rectangle "==embry.dev\\n<size:10>[Astro site on GitHub Pages]</size>\\n\\nPublic site: the studio, the live printer camera, and the print gallery." <<Site>> as Site
 rectangle "==GitHub\\n\\nHolds the vault backup and the website code; builds and hosts embry.dev." <<Github>> as Github
 
 Iphone .[#8D8D8D,thickness=2].> Jt : <color:#8D8D8D>in his pocket
-Jt .[#8D8D8D,thickness=2].> Vault : <color:#8D8D8D>checks
 Jt .[#8D8D8D,thickness=2].> Capture : <color:#8D8D8D>jots things down
 Vault .[#8D8D8D,thickness=2].> Capture : <color:#8D8D8D>open to-dos
 Capture .[#8D8D8D,thickness=2].> Vault : <color:#8D8D8D>[...]
 Jt .[#8D8D8D,thickness=2].> Assistants : <color:#8D8D8D>asks
 Assistants .[#8D8D8D,thickness=2].> Vault : <color:#8D8D8D>[...]
 Assistants .[#8D8D8D,thickness=2].> Capture : <color:#8D8D8D>runs
-Jt .[#8D8D8D,thickness=2].> FieldAgent : <color:#8D8D8D>taps
+Jt .[#8D8D8D,thickness=2].> FieldAgent : <color:#8D8D8D>[...]
 Iphone .[#8D8D8D,thickness=2].> FieldAgent : <color:#8D8D8D>runs
+Vault .[#8D8D8D,thickness=2].> FieldAgent : <color:#8D8D8D>next actions
 FieldAgent .[#8D8D8D,thickness=2].> Assistants : <color:#8D8D8D>one turn per message
 Jt .[#8D8D8D,thickness=2].> Mail : <color:#8D8D8D>presses buttons
+FieldAgent .[#8D8D8D,thickness=2].> Mail : <color:#8D8D8D>phone attaches, 3 h apart
 Mail .[#8D8D8D,thickness=2].> Jt : <color:#8D8D8D>what needs action
 Mail .[#8D8D8D,thickness=2].> Vault : <color:#8D8D8D>triage button: note with full text
+Mail .[#8D8D8D,thickness=2].> FieldAgent : <color:#8D8D8D>Email and Texts tabs
 Jt .[#8D8D8D,thickness=2].> Scan : <color:#8D8D8D>loads paper
 Vault .[#8D8D8D,thickness=2].> Scan : <color:#8D8D8D>asks JT
 Scan .[#8D8D8D,thickness=2].> Vault : <color:#8D8D8D>one note per scan
@@ -236,7 +238,7 @@ skinparam database<<VaultMemory>>{
   FontColor #eef2ff
   BorderColor #4f46e5
 }
-skinparam rectangle<<VaultHome>>{
+skinparam rectangle<<FieldAgentMission>>{
   BackgroundColor #0284c7
   FontColor #f0f9ff
   BorderColor #0369a1
@@ -260,20 +262,23 @@ rectangle "Second Brain" <<Vault>> as Vault {
   database "==Projects & Areas\\n\\nLife admin: things with a finish line and ongoing duties." <<VaultPara>> as VaultPara
   database "==Concepts & Quotes\\n\\nIdeas worth keeping, one per note, linked together." <<VaultZettel>> as VaultZettel
   database "==System memory\\n\\nWhat the assistants need to remember between sessions." <<VaultMemory>> as VaultMemory
-  rectangle "==Home dashboard\\n\\nThe front door. Shows today, mail, texts, and what each project needs next." <<VaultHome>> as VaultHome
+}
+rectangle "Field Agent" <<FieldAgent>> as FieldAgent {
+  skinparam RectangleBorderColor<<FieldAgent>> #3b82f6
+  skinparam RectangleFontColor<<FieldAgent>> #3b82f6
+  skinparam RectangleBorderStyle<<FieldAgent>> dashed
+
+  rectangle "==Mission Control\\n<size:10>[dashboard screen in the app]</size>\\n\\nThe front door. Shows today, mail, texts, calendar, and what each project needs next, updated live." <<FieldAgentMission>> as FieldAgentMission
 }
 
-Jt .[#8D8D8D,thickness=2].> VaultHome : <color:#8D8D8D>checks
 Capture .[#8D8D8D,thickness=2].> VaultIngest : <color:#8D8D8D>[...]
 Capture .[#8D8D8D,thickness=2].> VaultTriage : <color:#8D8D8D>swept by
 Assistants .[#8D8D8D,thickness=2].> VaultTriage : <color:#8D8D8D>runs
 Assistants .[#8D8D8D,thickness=2].> VaultMemory : <color:#8D8D8D>remembers in
-Schedulers .[#8D8D8D,thickness=2].> VaultHome : <color:#8D8D8D>[...]
 Mail .[#8D8D8D,thickness=2].> VaultIngest : <color:#8D8D8D>triage button: note with full text
 Scan .[#8D8D8D,thickness=2].> VaultIngest : <color:#8D8D8D>one note per scan
 Docs .[#8D8D8D,thickness=2].> VaultPdfText : <color:#8D8D8D>full text
 Backups .[#8D8D8D,thickness=2].> VaultMemory : <color:#8D8D8D>writes setup into
-VaultPara .[#8D8D8D,thickness=2].> VaultHome : <color:#8D8D8D>next actions
 VaultIngest .[#8D8D8D,thickness=2].> VaultTriage : <color:#8D8D8D>read by
 VaultTriage .[#8D8D8D,thickness=2].> VaultPara : <color:#8D8D8D>files to-dos
 VaultTriage .[#8D8D8D,thickness=2].> VaultZettel : <color:#8D8D8D>files ideas
@@ -286,11 +291,15 @@ Jt .[#8D8D8D,thickness=2].> Assistants : <color:#8D8D8D>asks
 Jt .[#8D8D8D,thickness=2].> Mail : <color:#8D8D8D>presses buttons
 Jt .[#8D8D8D,thickness=2].> Scan : <color:#8D8D8D>loads paper
 Assistants .[#8D8D8D,thickness=2].> Capture : <color:#8D8D8D>runs
+Scan .[#8D8D8D,thickness=2].> Docs : <color:#8D8D8D>indexed
 Schedulers .[#8D8D8D,thickness=2].> Mail : <color:#8D8D8D>[...]
 Schedulers .[#8D8D8D,thickness=2].> Scan : <color:#8D8D8D>every minute
-Scan .[#8D8D8D,thickness=2].> Docs : <color:#8D8D8D>indexed
 Schedulers .[#8D8D8D,thickness=2].> Docs : <color:#8D8D8D>hourly
 Schedulers .[#8D8D8D,thickness=2].> Backups : <color:#8D8D8D>hourly
+Mail .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>Email and Texts tabs
+VaultPara .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>next actions
+Jt .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>checks
+Schedulers .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>[...]
 @enduml
 `;case`captureView`:return`@startuml
 title "Capture"
@@ -487,7 +496,7 @@ rectangle "Field Agent" <<FieldAgent>> as FieldAgent {
   skinparam RectangleFontColor<<FieldAgent>> #3b82f6
   skinparam RectangleBorderStyle<<FieldAgent>> dashed
 
-  rectangle "==Home base\\n<size:10>[Node service on the Mac]</size>\\n\\nPasses each phone message to Claude or Grok and streams the answer back." <<FieldAgentRelay>> as FieldAgentRelay
+  rectangle "==Home base\\n<size:10>[Node service on the Mac]</size>\\n\\nPasses each phone message to Claude or Grok, streams the answer back, and keeps Mission Control live from the vault." <<FieldAgentRelay>> as FieldAgentRelay
 }
 person "==JT\\n\\nCaptures things, makes the calls, presses the buttons." <<Jt>> as Jt
 rectangle "AI assistants" <<Assistants>> as Assistants {
@@ -553,6 +562,21 @@ skinparam person<<Jt>>{
   FontColor #f8fafc
   BorderColor #2d5d39
 }
+skinparam database<<VaultPara>>{
+  BackgroundColor #6366f1
+  FontColor #eef2ff
+  BorderColor #4f46e5
+}
+skinparam rectangle<<SchedulersCalendar>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
+skinparam rectangle<<FieldAgentMission>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
 skinparam rectangle<<FieldAgentApp>>{
   BackgroundColor #0284c7
   FontColor #f0f9ff
@@ -583,16 +607,41 @@ skinparam rectangle<<AssistantsGrok>>{
   FontColor #f0f9ff
   BorderColor #0369a1
 }
+skinparam rectangle<<MailMailTriage>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
+skinparam rectangle<<MailFold>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
 rectangle "==iPhone\\n\\nObsidian, Reminders, the Field Agent app." <<Iphone>> as Iphone
+rectangle "Second Brain" <<Vault>> as Vault {
+  skinparam RectangleBorderColor<<Vault>> #3b82f6
+  skinparam RectangleFontColor<<Vault>> #3b82f6
+  skinparam RectangleBorderStyle<<Vault>> dashed
+
+  database "==Projects & Areas\\n\\nLife admin: things with a finish line and ongoing duties." <<VaultPara>> as VaultPara
+}
+rectangle "Schedulers" <<Schedulers>> as Schedulers {
+  skinparam RectangleBorderColor<<Schedulers>> #3b82f6
+  skinparam RectangleFontColor<<Schedulers>> #3b82f6
+  skinparam RectangleBorderStyle<<Schedulers>> dashed
+
+  rectangle "==Calendar mirror\\n<size:10>[hourly · free]</size>\\n\\nCopies the calendar into the vault for Mission Control." <<SchedulersCalendar>> as SchedulersCalendar
+}
 person "==JT\\n\\nCaptures things, makes the calls, presses the buttons." <<Jt>> as Jt
 rectangle "Field Agent" <<FieldAgent>> as FieldAgent {
   skinparam RectangleBorderColor<<FieldAgent>> #3b82f6
   skinparam RectangleFontColor<<FieldAgent>> #3b82f6
   skinparam RectangleBorderStyle<<FieldAgent>> dashed
 
+  rectangle "==Mission Control\\n<size:10>[dashboard screen in the app]</size>\\n\\nThe front door. Shows today, mail, texts, calendar, and what each project needs next, updated live." <<FieldAgentMission>> as FieldAgentMission
   rectangle "==Field Agent app\\n<size:10>[SwiftUI · iPhone]</size>\\n\\nTwo chats, Claude and Grok. Replies fill in as they are written." <<FieldAgentApp>> as FieldAgentApp
   rectangle "==Private network\\n<size:10>[Tailscale]</size>\\n\\nLinks the phone to the Mac without opening the home network to the internet." <<FieldAgentTailnet>> as FieldAgentTailnet
-  rectangle "==Home base\\n<size:10>[Node service on the Mac]</size>\\n\\nPasses each phone message to Claude or Grok and streams the answer back." <<FieldAgentRelay>> as FieldAgentRelay
+  rectangle "==Home base\\n<size:10>[Node service on the Mac]</size>\\n\\nPasses each phone message to Claude or Grok, streams the answer back, and keeps Mission Control live from the vault." <<FieldAgentRelay>> as FieldAgentRelay
   rectangle "==Allow / Deny card\\n<size:10>[in the app]</size>\\n\\nBefore Claude edits a file or runs a command, the phone buzzes and asks." <<FieldAgentApproval>> as FieldAgentApproval
 }
 rectangle "AI assistants" <<Assistants>> as Assistants {
@@ -603,16 +652,34 @@ rectangle "AI assistants" <<Assistants>> as Assistants {
   rectangle "==Claude Code\\n<size:10>[terminal tabs inside Obsidian]</size>\\n\\nMain assistant. Builds and fixes the machinery, runs the skills." <<AssistantsClaude>> as AssistantsClaude
   rectangle "==Grok\\n<size:10>[terminal tabs inside Obsidian]</size>\\n\\nSecond assistant. Same vault, same skills, same rules." <<AssistantsGrok>> as AssistantsGrok
 }
+rectangle "Email & Texts" <<Mail>> as Mail {
+  skinparam RectangleBorderColor<<Mail>> #3b82f6
+  skinparam RectangleFontColor<<Mail>> #3b82f6
+  skinparam RectangleBorderStyle<<Mail>> dashed
 
+  rectangle "==Mail & text triage\\n<size:10>[AI · once per Obsidian launch and when the phone opens Mission Control, 3 h apart]</size>\\n\\nArchives the noise and lists everything else under Needs action." <<MailMailTriage>> as MailMailTriage
+  rectangle "==Needs action list\\n<size:10>[Mission Control]</size>\\n\\nOne list per inbox. Tap a row to read it; swipe or press to open, archive, delete, triage, add to calendar, or respond." <<MailFold>> as MailFold
+}
+
+Jt .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>checks
 Jt .[#8D8D8D,thickness=2].> FieldAgentApproval : <color:#8D8D8D>taps
 Iphone .[#8D8D8D,thickness=2].> FieldAgentApp : <color:#8D8D8D>runs
 FieldAgentApp .[#8D8D8D,thickness=2].> FieldAgentTailnet : <color:#8D8D8D>messages
+FieldAgentMission .[#8D8D8D,thickness=2].> FieldAgentRelay : <color:#8D8D8D>button taps
+FieldAgentRelay .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>live updates
 FieldAgentRelay .[#8D8D8D,thickness=2].> FieldAgentApproval : <color:#8D8D8D>asks first
 FieldAgentApproval .[#8D8D8D,thickness=2].> FieldAgentRelay : <color:#8D8D8D>Allow or Deny
 FieldAgentTailnet .[#8D8D8D,thickness=2].> FieldAgentRelay : <color:#8D8D8D>carries
 Iphone .[#8D8D8D,thickness=2].> Jt : <color:#8D8D8D>in his pocket
 FieldAgentRelay .[#8D8D8D,thickness=2].> AssistantsClaude : <color:#8D8D8D>one turn per message
 FieldAgentRelay .[#8D8D8D,thickness=2].> AssistantsGrok : <color:#8D8D8D>one turn per message
+FieldAgentRelay .[#8D8D8D,thickness=2].> MailMailTriage : <color:#8D8D8D>phone attaches, 3 h apart
+Jt .[#8D8D8D,thickness=2].> MailFold : <color:#8D8D8D>presses buttons
+MailMailTriage .[#8D8D8D,thickness=2].> MailFold : <color:#8D8D8D>what needs action
+MailFold .[#8D8D8D,thickness=2].> Jt : <color:#8D8D8D>what needs action
+MailFold .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>Email and Texts tabs
+VaultPara .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>next actions
+SchedulersCalendar .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>today’s events
 Jt .[#8D8D8D,thickness=2].> Assistants : <color:#8D8D8D>asks
 @enduml
 `;case`schedulersView`:return`@startuml
@@ -655,7 +722,7 @@ skinparam rectangle<<SchedulersLaunchd>>{
   FontColor #f0f9ff
   BorderColor #0369a1
 }
-skinparam rectangle<<SchedulersHomePlugin>>{
+skinparam rectangle<<SchedulersBrainEngine>>{
   BackgroundColor #0284c7
   FontColor #f0f9ff
   BorderColor #0369a1
@@ -705,7 +772,7 @@ skinparam rectangle<<PrintingPublish>>{
   FontColor #f0f9ff
   BorderColor #0369a1
 }
-skinparam rectangle<<VaultHome>>{
+skinparam rectangle<<FieldAgentMission>>{
   BackgroundColor #0284c7
   FontColor #f0f9ff
   BorderColor #0369a1
@@ -731,8 +798,8 @@ rectangle "Schedulers" <<Schedulers>> as Schedulers {
 
   rectangle "==Phone button relay\\n<size:10>[iCloud · every 15 s]</size>\\n\\nA button tapped on the phone is carried to the Mac and run there." <<SchedulersChipRelay>> as SchedulersChipRelay
   rectangle "==Mac background agents\\n<size:10>[launchd · 2 agents]</size>\\n\\nThe unread mail list, and a doorbell that wakes Obsidian when the phone asks." <<SchedulersLaunchd>> as SchedulersLaunchd
-  rectangle "==Home Button plugin\\n<size:10>[inside Obsidian]</size>\\n\\nRuns most timers: every minute, every 5 minutes, hourly, and daily." <<SchedulersHomePlugin>> as SchedulersHomePlugin
-  rectangle "==Calendar mirror\\n<size:10>[hourly · free]</size>\\n\\nCopies the calendar onto the Home dashboard." <<SchedulersCalendar>> as SchedulersCalendar
+  rectangle "==Brain Engine\\n<size:10>[Obsidian plugin]</size>\\n\\nRuns most timers: every minute, every 5 minutes, hourly, and daily." <<SchedulersBrainEngine>> as SchedulersBrainEngine
+  rectangle "==Calendar mirror\\n<size:10>[hourly · free]</size>\\n\\nCopies the calendar into the vault for Mission Control." <<SchedulersCalendar>> as SchedulersCalendar
   rectangle "==Health check\\n<size:10>[daily · free]</size>\\n\\nLooks for broken links, stale projects, and quiet machines; writes the Health Report." <<SchedulersHealth>> as SchedulersHealth
 }
 rectangle "==Find Anything\\n<size:10>[Mac · hourly · free]</size>\\n\\nCopies the text of every document in Documents into the vault so one search finds it." <<Docs>> as Docs
@@ -743,7 +810,7 @@ rectangle "Email & Texts" <<Mail>> as Mail {
 
   rectangle "==Unread list\\n<size:10>[Mac · every 5 min · free]</size>\\n\\nReads new mail straight from the mail servers." <<MailUnread>> as MailUnread
   rectangle "==Texts mirror\\n<size:10>[Mac · every 5 min · free]</size>\\n\\nCopies new iMessages into the vault. Login codes are skipped." <<MailTexts>> as MailTexts
-  rectangle "==Mail & text triage\\n<size:10>[AI · at Obsidian launch and on opening Home, 3 h apart]</size>\\n\\nArchives the noise and lists everything else under Needs action." <<MailMailTriage>> as MailMailTriage
+  rectangle "==Mail & text triage\\n<size:10>[AI · once per Obsidian launch and when the phone opens Mission Control, 3 h apart]</size>\\n\\nArchives the noise and lists everything else under Needs action." <<MailMailTriage>> as MailMailTriage
 }
 rectangle "Scanner" <<Scan>> as Scan {
   skinparam RectangleBorderColor<<Scan>> #3b82f6
@@ -767,32 +834,32 @@ rectangle "3D printing" <<Printing>> as Printing {
   rectangle "==Print log\\n<size:10>[Mac · every minute · free]</size>\\n\\nNotes each start and finish in the model’s folder, the print log, and a notification." <<PrintingPrintLog>> as PrintingPrintLog
   rectangle "==Gallery publish\\n<size:10>[Mac · every 5 min and right after a finish]</size>\\n\\nPulls the drafted card, fills in the details, and pushes it to the site." <<PrintingPublish>> as PrintingPublish
 }
-rectangle "Second Brain" <<Vault>> as Vault {
-  skinparam RectangleBorderColor<<Vault>> #3b82f6
-  skinparam RectangleFontColor<<Vault>> #3b82f6
-  skinparam RectangleBorderStyle<<Vault>> dashed
+rectangle "Field Agent" <<FieldAgent>> as FieldAgent {
+  skinparam RectangleBorderColor<<FieldAgent>> #3b82f6
+  skinparam RectangleFontColor<<FieldAgent>> #3b82f6
+  skinparam RectangleBorderStyle<<FieldAgent>> dashed
 
-  rectangle "==Home dashboard\\n\\nThe front door. Shows today, mail, texts, and what each project needs next." <<VaultHome>> as VaultHome
+  rectangle "==Mission Control\\n<size:10>[dashboard screen in the app]</size>\\n\\nThe front door. Shows today, mail, texts, calendar, and what each project needs next, updated live." <<FieldAgentMission>> as FieldAgentMission
 }
 
 AppleApps .[#8D8D8D,thickness=2].> SchedulersCalendar : <color:#8D8D8D>events
 Iphone .[#8D8D8D,thickness=2].> SchedulersChipRelay : <color:#8D8D8D>button taps
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> SchedulersCalendar : <color:#8D8D8D>hourly
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> SchedulersHealth : <color:#8D8D8D>daily
-SchedulersChipRelay .[#8D8D8D,thickness=2].> SchedulersHomePlugin : <color:#8D8D8D>queues a button
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> Docs : <color:#8D8D8D>hourly
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> SchedulersCalendar : <color:#8D8D8D>hourly
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> SchedulersHealth : <color:#8D8D8D>daily
+SchedulersChipRelay .[#8D8D8D,thickness=2].> SchedulersBrainEngine : <color:#8D8D8D>queues a button
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> Docs : <color:#8D8D8D>hourly
 AppleApps .[#8D8D8D,thickness=2].> Iphone : <color:#8D8D8D>on
 SchedulersLaunchd .[#8D8D8D,thickness=2].> MailUnread : <color:#8D8D8D>every 5 min
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> MailTexts : <color:#8D8D8D>every 5 min
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> MailMailTriage : <color:#8D8D8D>launch and Home
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> MailTexts : <color:#8D8D8D>every 5 min
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> MailMailTriage : <color:#8D8D8D>once per launch
 MailUnread .[#8D8D8D,thickness=2].> MailMailTriage : <color:#8D8D8D>new mail
 MailTexts .[#8D8D8D,thickness=2].> MailMailTriage : <color:#8D8D8D>new texts
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> ScanOcr : <color:#8D8D8D>every minute
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> BackupsMachine : <color:#8D8D8D>hourly
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> PrintingPrintLog : <color:#8D8D8D>every minute
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> PrintingPublish : <color:#8D8D8D>every 5 min
-SchedulersCalendar .[#8D8D8D,thickness=2].> VaultHome : <color:#8D8D8D>today’s events
-SchedulersHealth .[#8D8D8D,thickness=2].> VaultHome : <color:#8D8D8D>Health Report
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> ScanOcr : <color:#8D8D8D>every minute
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> BackupsMachine : <color:#8D8D8D>hourly
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> PrintingPrintLog : <color:#8D8D8D>every minute
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> PrintingPublish : <color:#8D8D8D>every 5 min
+SchedulersCalendar .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>today’s events
+SchedulersHealth .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>Health Report
 PiHeartbeat .[#8D8D8D,thickness=2].> SchedulersHealth : <color:#8D8D8D>disk and drive health
 @enduml
 `;case`email`:return`@startuml
@@ -830,7 +897,7 @@ skinparam rectangle<<SchedulersLaunchd>>{
   FontColor #f0f9ff
   BorderColor #0369a1
 }
-skinparam rectangle<<SchedulersHomePlugin>>{
+skinparam rectangle<<SchedulersBrainEngine>>{
   BackgroundColor #0284c7
   FontColor #f0f9ff
   BorderColor #0369a1
@@ -860,10 +927,20 @@ skinparam database<<MailMailArchive>>{
   FontColor #eef2ff
   BorderColor #4f46e5
 }
+skinparam rectangle<<FieldAgentMission>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
 skinparam database<<VaultIngest>>{
   BackgroundColor #6366f1
   FontColor #eef2ff
   BorderColor #4f46e5
+}
+skinparam rectangle<<FieldAgentRelay>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
 }
 person "==JT\\n\\nCaptures things, makes the calls, presses the buttons." <<Jt>> as Jt
 rectangle "==Gmail\\n\\nMain mailbox." <<Gmail>> as Gmail
@@ -874,7 +951,7 @@ rectangle "Schedulers" <<Schedulers>> as Schedulers {
   skinparam RectangleBorderStyle<<Schedulers>> dashed
 
   rectangle "==Mac background agents\\n<size:10>[launchd · 2 agents]</size>\\n\\nThe unread mail list, and a doorbell that wakes Obsidian when the phone asks." <<SchedulersLaunchd>> as SchedulersLaunchd
-  rectangle "==Home Button plugin\\n<size:10>[inside Obsidian]</size>\\n\\nRuns most timers: every minute, every 5 minutes, hourly, and daily." <<SchedulersHomePlugin>> as SchedulersHomePlugin
+  rectangle "==Brain Engine\\n<size:10>[Obsidian plugin]</size>\\n\\nRuns most timers: every minute, every 5 minutes, hourly, and daily." <<SchedulersBrainEngine>> as SchedulersBrainEngine
 }
 rectangle "Email & Texts" <<Mail>> as Mail {
   skinparam RectangleBorderColor<<Mail>> #3b82f6
@@ -883,9 +960,17 @@ rectangle "Email & Texts" <<Mail>> as Mail {
 
   rectangle "==Unread list\\n<size:10>[Mac · every 5 min · free]</size>\\n\\nReads new mail straight from the mail servers." <<MailUnread>> as MailUnread
   rectangle "==Texts mirror\\n<size:10>[Mac · every 5 min · free]</size>\\n\\nCopies new iMessages into the vault. Login codes are skipped." <<MailTexts>> as MailTexts
-  rectangle "==Mail & text triage\\n<size:10>[AI · at Obsidian launch and on opening Home, 3 h apart]</size>\\n\\nArchives the noise and lists everything else under Needs action." <<MailMailTriage>> as MailMailTriage
-  rectangle "==Needs action list\\n<size:10>[Home dashboard]</size>\\n\\nOne list per inbox. Every row has the same buttons: open, archive, delete, triage, add to calendar, respond." <<MailFold>> as MailFold
+  rectangle "==Mail & text triage\\n<size:10>[AI · once per Obsidian launch and when the phone opens Mission Control, 3 h apart]</size>\\n\\nArchives the noise and lists everything else under Needs action." <<MailMailTriage>> as MailMailTriage
+  rectangle "==Needs action list\\n<size:10>[Mission Control]</size>\\n\\nOne list per inbox. Tap a row to read it; swipe or press to open, archive, delete, triage, add to calendar, or respond." <<MailFold>> as MailFold
   database "==Mail archive\\n<size:10>[Documents/mail-archive]</size>\\n\\nThe raw copy of every thread JT chose to keep." <<MailMailArchive>> as MailMailArchive
+}
+rectangle "Field Agent" <<FieldAgent>> as FieldAgent {
+  skinparam RectangleBorderColor<<FieldAgent>> #3b82f6
+  skinparam RectangleFontColor<<FieldAgent>> #3b82f6
+  skinparam RectangleBorderStyle<<FieldAgent>> dashed
+
+  rectangle "==Mission Control\\n<size:10>[dashboard screen in the app]</size>\\n\\nThe front door. Shows today, mail, texts, calendar, and what each project needs next, updated live." <<FieldAgentMission>> as FieldAgentMission
+  rectangle "==Home base\\n<size:10>[Node service on the Mac]</size>\\n\\nPasses each phone message to Claude or Grok, streams the answer back, and keeps Mission Control live from the vault." <<FieldAgentRelay>> as FieldAgentRelay
 }
 rectangle "Second Brain" <<Vault>> as Vault {
   skinparam RectangleBorderColor<<Vault>> #3b82f6
@@ -905,8 +990,13 @@ MailFold .[#8D8D8D,thickness=2].> MailMailArchive : <color:#8D8D8D>triage button
 MailFold .[#8D8D8D,thickness=2].> Jt : <color:#8D8D8D>what needs action
 MailFold .[#8D8D8D,thickness=2].> Gmail : <color:#8D8D8D>archive, delete
 SchedulersLaunchd .[#8D8D8D,thickness=2].> MailUnread : <color:#8D8D8D>every 5 min
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> MailTexts : <color:#8D8D8D>every 5 min
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> MailMailTriage : <color:#8D8D8D>launch and Home
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> MailMailTriage : <color:#8D8D8D>once per launch
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> MailTexts : <color:#8D8D8D>every 5 min
+Jt .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>checks
+MailFold .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>Email and Texts tabs
+FieldAgentMission .[#8D8D8D,thickness=2].> FieldAgentRelay : <color:#8D8D8D>button taps
+FieldAgentRelay .[#8D8D8D,thickness=2].> MailMailTriage : <color:#8D8D8D>phone attaches, 3 h apart
+FieldAgentRelay .[#8D8D8D,thickness=2].> FieldAgentMission : <color:#8D8D8D>live updates
 MailFold .[#8D8D8D,thickness=2].> VaultIngest : <color:#8D8D8D>triage button: note with full text
 @enduml
 `;case`scanner`:return`@startuml
@@ -929,7 +1019,7 @@ skinparam person<<Jt>>{
   FontColor #f8fafc
   BorderColor #2d5d39
 }
-skinparam rectangle<<SchedulersHomePlugin>>{
+skinparam rectangle<<SchedulersBrainEngine>>{
   BackgroundColor #0284c7
   FontColor #f0f9ff
   BorderColor #0369a1
@@ -995,7 +1085,7 @@ rectangle "Schedulers" <<Schedulers>> as Schedulers {
   skinparam RectangleFontColor<<Schedulers>> #3b82f6
   skinparam RectangleBorderStyle<<Schedulers>> dashed
 
-  rectangle "==Home Button plugin\\n<size:10>[inside Obsidian]</size>\\n\\nRuns most timers: every minute, every 5 minutes, hourly, and daily." <<SchedulersHomePlugin>> as SchedulersHomePlugin
+  rectangle "==Brain Engine\\n<size:10>[Obsidian plugin]</size>\\n\\nRuns most timers: every minute, every 5 minutes, hourly, and daily." <<SchedulersBrainEngine>> as SchedulersBrainEngine
 }
 rectangle "Scanner" <<Scan>> as Scan {
   skinparam RectangleBorderColor<<Scan>> #3b82f6
@@ -1036,8 +1126,8 @@ ScanPdf .[#8D8D8D,thickness=2].> Docs : <color:#8D8D8D>indexed
 ScanScanner .[#8D8D8D,thickness=2].> PiScanWatch : <color:#8D8D8D>paper detected
 PiScanWatch .[#8D8D8D,thickness=2].> ScanRaw : <color:#8D8D8D>saves pages
 ScanRaw .[#8D8D8D,thickness=2].> PiOcrFallback : <color:#8D8D8D>left an hour
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> ScanOcr : <color:#8D8D8D>every minute
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> Docs : <color:#8D8D8D>hourly
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> ScanOcr : <color:#8D8D8D>every minute
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> Docs : <color:#8D8D8D>hourly
 ScanOcr .[#8D8D8D,thickness=2].> VaultIngest : <color:#8D8D8D>one note per scan
 VaultIngest .[#8D8D8D,thickness=2].> VaultTriage : <color:#8D8D8D>read by
 VaultTriage .[#8D8D8D,thickness=2].> ScanRename : <color:#8D8D8D>asks JT
@@ -1214,7 +1304,7 @@ skinparam {
   shadowing false
 }
 
-skinparam rectangle<<SchedulersHomePlugin>>{
+skinparam rectangle<<SchedulersBrainEngine>>{
   BackgroundColor #0284c7
   FontColor #f0f9ff
   BorderColor #0369a1
@@ -1274,7 +1364,7 @@ rectangle "Schedulers" <<Schedulers>> as Schedulers {
   skinparam RectangleFontColor<<Schedulers>> #3b82f6
   skinparam RectangleBorderStyle<<Schedulers>> dashed
 
-  rectangle "==Home Button plugin\\n<size:10>[inside Obsidian]</size>\\n\\nRuns most timers: every minute, every 5 minutes, hourly, and daily." <<SchedulersHomePlugin>> as SchedulersHomePlugin
+  rectangle "==Brain Engine\\n<size:10>[Obsidian plugin]</size>\\n\\nRuns most timers: every minute, every 5 minutes, hourly, and daily." <<SchedulersBrainEngine>> as SchedulersBrainEngine
 }
 rectangle "3D printing" <<Printing>> as Printing {
   skinparam RectangleBorderColor<<Printing>> #3b82f6
@@ -1307,8 +1397,8 @@ rectangle "embry.dev" <<Site>> as Site {
 
 PrintingPrinter .[#8D8D8D,thickness=2].> PrintingPrintLog : <color:#8D8D8D>start and finish
 PrintingPrintLog .[#8D8D8D,thickness=2].> PrintingLibrary : <color:#8D8D8D>writes history
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> PrintingPrintLog : <color:#8D8D8D>every minute
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> PrintingPublish : <color:#8D8D8D>every 5 min
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> PrintingPrintLog : <color:#8D8D8D>every minute
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> PrintingPublish : <color:#8D8D8D>every 5 min
 PrintingPrinter .[#8D8D8D,thickness=2].> PiCamera : <color:#8D8D8D>camera feed
 PrintingPrinter .[#8D8D8D,thickness=2].> PiPrintWatch : <color:#8D8D8D>finished
 PiCamera .[#8D8D8D,thickness=2].> PiPrintWatch : <color:#8D8D8D>bed photo
@@ -1423,7 +1513,7 @@ skinparam {
   shadowing false
 }
 
-skinparam rectangle<<SchedulersHomePlugin>>{
+skinparam rectangle<<SchedulersBrainEngine>>{
   BackgroundColor #0284c7
   FontColor #f0f9ff
   BorderColor #0369a1
@@ -1473,7 +1563,7 @@ rectangle "Schedulers" <<Schedulers>> as Schedulers {
   skinparam RectangleFontColor<<Schedulers>> #3b82f6
   skinparam RectangleBorderStyle<<Schedulers>> dashed
 
-  rectangle "==Home Button plugin\\n<size:10>[inside Obsidian]</size>\\n\\nRuns most timers: every minute, every 5 minutes, hourly, and daily." <<SchedulersHomePlugin>> as SchedulersHomePlugin
+  rectangle "==Brain Engine\\n<size:10>[Obsidian plugin]</size>\\n\\nRuns most timers: every minute, every 5 minutes, hourly, and daily." <<SchedulersBrainEngine>> as SchedulersBrainEngine
 }
 rectangle "Backups" <<Backups>> as Backups {
   skinparam RectangleBorderColor<<Backups>> #3b82f6
@@ -1505,8 +1595,8 @@ rectangle "==GitHub\\n\\nHolds the vault backup and the website code; builds and
 BackupsMachine .[#8D8D8D,thickness=2].> BackupsVaultPush : <color:#8D8D8D>one minute before
 BackupsTimeMachine .[#8D8D8D,thickness=2].> BackupsUsb : <color:#8D8D8D>second copy
 BackupsVaultPush .[#8D8D8D,thickness=2].> Github : <color:#8D8D8D>private repo
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> BackupsMachine : <color:#8D8D8D>hourly
-SchedulersHomePlugin .[#8D8D8D,thickness=2].> BackupsVaultPush : <color:#8D8D8D>hourly
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> BackupsMachine : <color:#8D8D8D>hourly
+SchedulersBrainEngine .[#8D8D8D,thickness=2].> BackupsVaultPush : <color:#8D8D8D>hourly
 BackupsMachine .[#8D8D8D,thickness=2].> VaultMemory : <color:#8D8D8D>writes setup into
 BackupsTimeMachine .[#8D8D8D,thickness=2].> PiTmShare : <color:#8D8D8D>backs up to
 @enduml

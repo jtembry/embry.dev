@@ -55,7 +55,7 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_id=jh8v29,
         style=dashed];
     fieldagent [height=2.5,
-        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Field Agent</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#bfdbfe">iPhone app · Swift · Node</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#bfdbfe">A custom iPhone app for talking to Claude and<BR/>Grok on the Mac from anywhere.</FONT></TD></TR></TABLE>>,
+        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Field Agent</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#bfdbfe">iPhone app · Swift · Node</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#bfdbfe">A custom iPhone app: the daily dashboard,<BR/>plus chats with Claude and Grok on the Mac<BR/>from anywhere.</FONT></TD></TR></TABLE>>,
         likec4_id=fieldAgent,
         likec4_level=0,
         margin="0.223,0.223",
@@ -71,7 +71,7 @@ var e=e=>{switch(e){case`index`:return`digraph {
         margin="0.223,0.223",
         width=4.445];
     vault [height=2.5,
-        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Second Brain</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#bfdbfe">Obsidian vault</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#bfdbfe">Where everything ends up: notes, projects,<BR/>ideas, and the dashboard.</FONT></TD></TR></TABLE>>,
+        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Second Brain</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#bfdbfe">Obsidian vault</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#bfdbfe">Where everything ends up: notes, projects,<BR/>ideas, and the lists the dashboard reads.</FONT></TD></TR></TABLE>>,
         likec4_id=vault,
         likec4_level=0,
         margin="0.223,0.223",
@@ -123,14 +123,6 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_id=dvb0eq,
         minlen=1,
         style=dashed];
-    jt -> fieldagent [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">taps</FONT></TD></TR></TABLE>>,
-        likec4_id="1271r5b",
-        style=dashed];
-    jt -> mail [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">presses buttons</FONT></TD></TR></TABLE>>,
-        likec4_id=qoob6l,
-        style=dashed];
     assistants [height=2.5,
         label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">AI assistants</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#bfdbfe">Claude Code · Grok</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#bfdbfe">Two assistants share one vault, one set of<BR/>skills, and one memory.</FONT></TD></TR></TABLE>>,
         likec4_id=assistants,
@@ -140,10 +132,6 @@ var e=e=>{switch(e){case`index`:return`digraph {
     jt -> assistants [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">asks</FONT></TD></TR></TABLE>>,
         likec4_id=kw6wlv,
-        style=dashed];
-    jt -> vault [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">checks</FONT></TD></TR></TABLE>>,
-        likec4_id=rravbi,
         style=dashed];
     capture [height=2.5,
         label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Capture</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#bfdbfe">Every way a thought gets into the in-tray.</FONT></TD></TR></TABLE>>,
@@ -155,6 +143,10 @@ var e=e=>{switch(e){case`index`:return`digraph {
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">jots things down</FONT></TD></TR></TABLE>>,
         likec4_id="19ws780",
         style=dashed];
+    jt -> fieldagent [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14"><B>[...]</B></FONT></TD></TR></TABLE>>,
+        likec4_id="1271r5b",
+        style=dashed];
     scan [height=2.5,
         label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Scanner</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#bfdbfe">Paper in the scanner becomes a searchable PDF<BR/>and a note to file.</FONT></TD></TR></TABLE>>,
         likec4_id=scan,
@@ -165,30 +157,9 @@ var e=e=>{switch(e){case`index`:return`digraph {
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">loads paper</FONT></TD></TR></TABLE>>,
         likec4_id=qodayz,
         style=dashed];
-    fieldagent -> assistants [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">one turn per message</FONT></TD></TR></TABLE>>,
-        likec4_id=biflw6,
-        style=dashed];
-    mail -> jt [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">what needs action</FONT></TD></TR></TABLE>>,
-        likec4_id="1w0mhfh",
-        style=dashed];
-    gmail [color="#475569",
-        fillcolor="#64748b",
-        fontcolor="#f8fafc",
-        height=2.5,
-        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Gmail</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#cbd5e1">Main mailbox.</FONT></TD></TR></TABLE>>,
-        likec4_id=gmail,
-        likec4_level=0,
-        margin="0.278,0.306",
-        width=4.445];
-    mail -> gmail [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">archive, delete</FONT></TD></TR></TABLE>>,
-        likec4_id=nu9k31,
-        style=dashed];
-    mail -> vault [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">triage button: note with full text</FONT></TD></TR></TABLE>>,
-        likec4_id=o4u72x,
+    jt -> mail [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">presses buttons</FONT></TD></TR></TABLE>>,
+        likec4_id=qoob6l,
         style=dashed];
     assistants -> vault [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14"><B>[...]</B></FONT></TD></TR></TABLE>>,
@@ -198,13 +169,13 @@ var e=e=>{switch(e){case`index`:return`digraph {
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">runs</FONT></TD></TR></TABLE>>,
         likec4_id=nbegqx,
         style=dashed];
-    gmail -> mail [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">new mail</FONT></TD></TR></TABLE>>,
-        likec4_id="75n7fx",
-        style=dashed];
     vault -> capture [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">open to-dos</FONT></TD></TR></TABLE>>,
         likec4_id="1ph5ro4",
+        style=dashed];
+    vault -> fieldagent [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">next actions</FONT></TD></TR></TABLE>>,
+        likec4_id="1klyicr",
         style=dashed];
     vault -> scan [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">asks JT</FONT></TD></TR></TABLE>>,
@@ -217,6 +188,14 @@ var e=e=>{switch(e){case`index`:return`digraph {
     capture -> github [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">via the vault copy</FONT></TD></TR></TABLE>>,
         likec4_id=erp4jv,
+        style=dashed];
+    fieldagent -> assistants [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">one turn per message</FONT></TD></TR></TABLE>>,
+        likec4_id=biflw6,
+        style=dashed];
+    fieldagent -> mail [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">phone attaches, 3 h apart</FONT></TD></TR></TABLE>>,
+        likec4_id=yxvrmg,
         style=dashed];
     scan -> vault [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">one note per scan</FONT></TD></TR></TABLE>>,
@@ -235,6 +214,31 @@ var e=e=>{switch(e){case`index`:return`digraph {
     scan -> pi [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14"><B>[...]</B></FONT></TD></TR></TABLE>>,
         likec4_id="1yl1awc",
+        style=dashed];
+    mail -> jt [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">what needs action</FONT></TD></TR></TABLE>>,
+        likec4_id="1w0mhfh",
+        style=dashed];
+    mail -> vault [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">triage button: note with full text</FONT></TD></TR></TABLE>>,
+        likec4_id=o4u72x,
+        style=dashed];
+    mail -> fieldagent [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">Email and Texts tabs</FONT></TD></TR></TABLE>>,
+        likec4_id="1ny0f88",
+        style=dashed];
+    gmail [color="#475569",
+        fillcolor="#64748b",
+        fontcolor="#f8fafc",
+        height=2.5,
+        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Gmail</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#cbd5e1">Main mailbox.</FONT></TD></TR></TABLE>>,
+        likec4_id=gmail,
+        likec4_level=0,
+        margin="0.278,0.306",
+        width=4.445];
+    mail -> gmail [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">archive, delete</FONT></TD></TR></TABLE>>,
+        likec4_id=nu9k31,
         style=dashed];
     docs -> vault [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">full text</FONT></TD></TR></TABLE>>,
@@ -266,6 +270,10 @@ var e=e=>{switch(e){case`index`:return`digraph {
     pi -> cloudflare [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">camera stream</FONT></TD></TR></TABLE>>,
         likec4_id="10p0igu",
+        style=dashed];
+    gmail -> mail [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">new mail</FONT></TD></TR></TABLE>>,
+        likec4_id="75n7fx",
         style=dashed];
     printing -> pi [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14"><B>[...]</B></FONT></TD></TR></TABLE>>,
@@ -403,13 +411,23 @@ var e=e=>{switch(e){case`index`:return`digraph {
             penwidth=2,
             shape=cylinder,
             width=4.445];
-        home [color="#0369a1",
+    }
+    subgraph cluster_fieldagent {
+        graph [color="#1b3d88",
+            fillcolor="#194b9e",
+            label=<<FONT POINT-SIZE="11" COLOR="#bfdbfeb3"><B>FIELD AGENT</B></FONT>>,
+            likec4_depth=1,
+            likec4_id=fieldAgent,
+            likec4_level=0,
+            margin=32,
+            style=filled
+        ];
+        mission [color="#0369a1",
             fillcolor="#0284c7",
             fontcolor="#f0f9ff",
-            group=vault,
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home dashboard</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">The front door. Shows today, mail, texts, and<BR/>what each project needs next.</FONT></TD></TR></TABLE>>,
-            likec4_id="vault.home",
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Mission Control</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">dashboard screen in the app</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">The front door. Shows today, mail, texts,<BR/>calendar, and what each project needs next,<BR/>updated live.</FONT></TD></TR></TABLE>>,
+            likec4_id="fieldAgent.mission",
             likec4_level=1,
             margin="0.223,0.223",
             width=4.445];
@@ -464,10 +482,11 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_id="17f4m6t",
         style=dashed,
         weight=2];
-    schedulers -> home [arrowhead=normal,
+    schedulers -> mission [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14"><B>[...]</B></FONT></TD></TR></TABLE>>,
-        likec4_id="1fkz6t1",
-        style=dashed];
+        likec4_id="1lfith3",
+        style=dashed,
+        weight=2];
     jt [color="#2d5d39",
         fillcolor="#428a4f",
         fontcolor="#f8fafc",
@@ -485,6 +504,11 @@ var e=e=>{switch(e){case`index`:return`digraph {
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">triage button: note with full text</FONT></TD></TR></TABLE>>,
         likec4_id="3xdrxx",
         style=dashed];
+    mail -> mission [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">Email and Texts tabs</FONT></TD></TR></TABLE>>,
+        likec4_id="1i76456",
+        style=dashed,
+        weight=2];
     backups -> memory [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">writes setup into</FONT></TD></TR></TABLE>>,
         likec4_id="10bynaa",
@@ -520,10 +544,11 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_id="19ws780",
         style=dashed,
         weight=2];
-    jt -> home [arrowhead=normal,
+    jt -> mission [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">checks</FONT></TD></TR></TABLE>>,
-        likec4_id="70pojz",
-        style=dashed];
+        likec4_id=kyv4r1,
+        style=dashed,
+        weight=2];
     assistants -> capture [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">runs</FONT></TD></TR></TABLE>>,
         likec4_id=nbegqx,
@@ -572,7 +597,7 @@ var e=e=>{switch(e){case`index`:return`digraph {
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">files to-dos</FONT></TD></TR></TABLE>>,
         likec4_id="1s5a7pg",
         style=dashed,
-        weight=2];
+        weight=3];
     triage -> zettel [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">files ideas</FONT></TD></TR></TABLE>>,
         likec4_id=xqzr8w,
@@ -587,12 +612,12 @@ var e=e=>{switch(e){case`index`:return`digraph {
     para -> capture [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">open to-dos</FONT></TD></TR></TABLE>>,
         likec4_id=o59ans,
-        style=dashed];
-    para -> home [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">next actions</FONT></TD></TR></TABLE>>,
-        likec4_id=mmisx3,
         style=dashed,
         weight=2];
+    para -> mission [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">next actions</FONT></TD></TR></TABLE>>,
+        likec4_id="4dett1",
+        style=dashed];
 }
 `;case`captureView`:return`digraph {
     graph [TBbalance=min,
@@ -908,7 +933,7 @@ var e=e=>{switch(e){case`index`:return`digraph {
             fillcolor="#0284c7",
             fontcolor="#f0f9ff",
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home base</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Node service on the Mac</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Passes each phone message to Claude or Grok<BR/>and streams the answer back.</FONT></TD></TR></TABLE>>,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home base</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Node service on the Mac</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Passes each phone message to Claude or Grok,<BR/>streams the answer back, and keeps Mission<BR/>Control live from the vault.</FONT></TD></TR></TABLE>>,
             likec4_id="fieldAgent.relay",
             likec4_level=1,
             margin="0.223,0.223",
@@ -1118,6 +1143,48 @@ var e=e=>{switch(e){case`index`:return`digraph {
         penwidth=2,
         style=""
     ];
+    subgraph cluster_vault {
+        graph [color="#1b3d88",
+            fillcolor="#194b9e",
+            label=<<FONT POINT-SIZE="11" COLOR="#bfdbfeb3"><B>SECOND BRAIN</B></FONT>>,
+            likec4_depth=1,
+            likec4_id=vault,
+            likec4_level=0,
+            margin=32,
+            style=filled
+        ];
+        para [color="#4f46e5",
+            fillcolor="#6366f1",
+            fontcolor="#eef2ff",
+            height=2.5,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Projects &amp; Areas</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#c7d2fe">Life admin: things with a finish line and<BR/>ongoing duties.</FONT></TD></TR></TABLE>>,
+            likec4_id="vault.para",
+            likec4_level=1,
+            margin="0.223,0",
+            penwidth=2,
+            shape=cylinder,
+            width=4.445];
+    }
+    subgraph cluster_schedulers {
+        graph [color="#1b3d88",
+            fillcolor="#194b9e",
+            label=<<FONT POINT-SIZE="11" COLOR="#bfdbfeb3"><B>SCHEDULERS</B></FONT>>,
+            likec4_depth=1,
+            likec4_id=schedulers,
+            likec4_level=0,
+            margin=32,
+            style=filled
+        ];
+        calendar [color="#0369a1",
+            fillcolor="#0284c7",
+            fontcolor="#f0f9ff",
+            height=2.5,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Calendar mirror</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">hourly · free</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Copies the calendar into the vault for<BR/>Mission Control.</FONT></TD></TR></TABLE>>,
+            likec4_id="schedulers.calendar",
+            likec4_level=1,
+            margin="0.223,0.223",
+            width=4.445];
+    }
     subgraph cluster_fieldagent {
         graph [color="#1b3d88",
             fillcolor="#194b9e",
@@ -1128,6 +1195,16 @@ var e=e=>{switch(e){case`index`:return`digraph {
             margin=40,
             style=filled
         ];
+        mission [color="#0369a1",
+            fillcolor="#0284c7",
+            fontcolor="#f0f9ff",
+            group=fieldAgent,
+            height=2.5,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Mission Control</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">dashboard screen in the app</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">The front door. Shows today, mail, texts,<BR/>calendar, and what each project needs next,<BR/>updated live.</FONT></TD></TR></TABLE>>,
+            likec4_id="fieldAgent.mission",
+            likec4_level=1,
+            margin="0.223,0.223",
+            width=4.445];
         app [color="#0369a1",
             fillcolor="#0284c7",
             fontcolor="#f0f9ff",
@@ -1153,7 +1230,7 @@ var e=e=>{switch(e){case`index`:return`digraph {
             fontcolor="#f0f9ff",
             group=fieldAgent,
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home base</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Node service on the Mac</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Passes each phone message to Claude or Grok<BR/>and streams the answer back.</FONT></TD></TR></TABLE>>,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home base</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Node service on the Mac</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Passes each phone message to Claude or Grok,<BR/>streams the answer back, and keeps Mission<BR/>Control live from the vault.</FONT></TD></TR></TABLE>>,
             likec4_id="fieldAgent.relay",
             likec4_level=1,
             margin="0.223,0.223",
@@ -1198,6 +1275,35 @@ var e=e=>{switch(e){case`index`:return`digraph {
             margin="0.223,0.223",
             width=4.445];
     }
+    subgraph cluster_mail {
+        graph [color="#1b3d88",
+            fillcolor="#194b9e",
+            label=<<FONT POINT-SIZE="11" COLOR="#bfdbfeb3"><B>EMAIL &amp; TEXTS</B></FONT>>,
+            likec4_depth=1,
+            likec4_id=mail,
+            likec4_level=0,
+            margin=40,
+            style=filled
+        ];
+        mailtriage [color="#0369a1",
+            fillcolor="#0284c7",
+            fontcolor="#f0f9ff",
+            height=2.5,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Mail &amp; text triage</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">AI · once per Obsidian launch and when the</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Archives the noise and lists everything else<BR/>under Needs action.</FONT></TD></TR></TABLE>>,
+            likec4_id="mail.mailTriage",
+            likec4_level=1,
+            margin="0.223,0.223",
+            width=4.445];
+        fold [color="#0369a1",
+            fillcolor="#0284c7",
+            fontcolor="#f0f9ff",
+            height=2.5,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Needs action list</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Mission Control</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">One list per inbox. Tap a row to read it;<BR/>swipe or press to open, archive, delete,<BR/>triage, add to calendar, or respond.</FONT></TD></TR></TABLE>>,
+            likec4_id="mail.fold",
+            likec4_level=1,
+            margin="0.223,0.223",
+            width=4.445];
+    }
     iphone [color="#7E451D",
         fillcolor="#A35829",
         fontcolor="#FFE0C2",
@@ -1226,6 +1332,11 @@ var e=e=>{switch(e){case`index`:return`digraph {
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">runs</FONT></TD></TR></TABLE>>,
         likec4_id=gm29nv,
         style=dashed];
+    jt -> mission [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">checks</FONT></TD></TR></TABLE>>,
+        likec4_id=kyv4r1,
+        style=dashed,
+        weight=2];
     jt -> approval [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">taps</FONT></TD></TR></TABLE>>,
         likec4_id="1ri0eiu",
@@ -1236,6 +1347,24 @@ var e=e=>{switch(e){case`index`:return`digraph {
         style=dashed,
         weight=2,
         xlabel=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">asks</FONT></TD></TR></TABLE>>];
+    jt -> fold [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">presses buttons</FONT></TD></TR></TABLE>>,
+        likec4_id="1623q6q",
+        style=dashed];
+    para -> mission [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">next actions</FONT></TD></TR></TABLE>>,
+        likec4_id="4dett1",
+        minlen=1,
+        style=dashed];
+    calendar -> mission [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">today’s events</FONT></TD></TR></TABLE>>,
+        likec4_id="175c8gb",
+        minlen=1,
+        style=dashed];
+    mission -> relay [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">button taps</FONT></TD></TR></TABLE>>,
+        likec4_id=ul1urp,
+        style=dashed];
     app -> tailnet [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">messages</FONT></TD></TR></TABLE>>,
         likec4_id=egnqis,
@@ -1246,6 +1375,10 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_id="1oda6km",
         style=dashed,
         weight=3];
+    relay -> mission [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">live updates</FONT></TD></TR></TABLE>>,
+        likec4_id=rsth,
+        style=dashed];
     relay -> approval [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">asks first</FONT></TD></TR></TABLE>>,
         likec4_id="1jq5o6m",
@@ -1259,9 +1392,27 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_id=g9mjl0,
         minlen=1,
         style=dashed];
+    relay -> mailtriage [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">phone attaches, 3 h apart</FONT></TD></TR></TABLE>>,
+        likec4_id="1e84vby",
+        style=dashed];
     approval -> relay [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">Allow or Deny</FONT></TD></TR></TABLE>>,
         likec4_id="1r3tmem",
+        style=dashed];
+    mailtriage -> fold [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">what needs action</FONT></TD></TR></TABLE>>,
+        likec4_id="1a803vy",
+        minlen=0,
+        style=dashed,
+        weight=3];
+    fold -> jt [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">what needs action</FONT></TD></TR></TABLE>>,
+        likec4_id=ortmoi,
+        style=dashed];
+    fold -> mission [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">Email and Texts tabs</FONT></TD></TR></TABLE>>,
+        likec4_id=g7iuol,
         style=dashed];
 }
 `;case`schedulersView`:return`digraph {
@@ -1347,13 +1498,13 @@ var e=e=>{switch(e){case`index`:return`digraph {
             likec4_level=1,
             margin="0.223,0.223",
             width=4.445];
-        homeplugin [color="#0369a1",
+        brainengine [color="#0369a1",
             fillcolor="#0284c7",
             fontcolor="#f0f9ff",
             group=schedulers,
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home Button plugin</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">inside Obsidian</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Runs most timers: every minute, every 5<BR/>minutes, hourly, and daily.</FONT></TD></TR></TABLE>>,
-            likec4_id="schedulers.homePlugin",
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Brain Engine</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Obsidian plugin</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Runs most timers: every minute, every 5<BR/>minutes, hourly, and daily.</FONT></TD></TR></TABLE>>,
+            likec4_id="schedulers.brainEngine",
             likec4_level=1,
             margin="0.223,0.223",
             width=4.445];
@@ -1362,7 +1513,7 @@ var e=e=>{switch(e){case`index`:return`digraph {
             fontcolor="#f0f9ff",
             group=schedulers,
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Calendar mirror</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">hourly · free</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Copies the calendar onto the Home dashboard.</FONT></TD></TR></TABLE>>,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Calendar mirror</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">hourly · free</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Copies the calendar into the vault for<BR/>Mission Control.</FONT></TD></TR></TABLE>>,
             likec4_id="schedulers.calendar",
             likec4_level=1,
             margin="0.223,0.223",
@@ -1413,7 +1564,7 @@ var e=e=>{switch(e){case`index`:return`digraph {
             fontcolor="#f0f9ff",
             group=mail,
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Mail &amp; text triage</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">AI · at Obsidian launch and on opening Home,</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Archives the noise and lists everything else<BR/>under Needs action.</FONT></TD></TR></TABLE>>,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Mail &amp; text triage</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">AI · once per Obsidian launch and when the</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Archives the noise and lists everything else<BR/>under Needs action.</FONT></TD></TR></TABLE>>,
             likec4_id="mail.mailTriage",
             likec4_level=1,
             margin="0.223,0.223",
@@ -1488,22 +1639,22 @@ var e=e=>{switch(e){case`index`:return`digraph {
             margin="0.223,0.223",
             width=4.445];
     }
-    subgraph cluster_vault {
+    subgraph cluster_fieldagent {
         graph [color="#1b3d88",
             fillcolor="#194b9e",
-            label=<<FONT POINT-SIZE="11" COLOR="#bfdbfeb3"><B>SECOND BRAIN</B></FONT>>,
+            label=<<FONT POINT-SIZE="11" COLOR="#bfdbfeb3"><B>FIELD AGENT</B></FONT>>,
             likec4_depth=1,
-            likec4_id=vault,
+            likec4_id=fieldAgent,
             likec4_level=0,
             margin=32,
             style=filled
         ];
-        home [color="#0369a1",
+        mission [color="#0369a1",
             fillcolor="#0284c7",
             fontcolor="#f0f9ff",
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home dashboard</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">The front door. Shows today, mail, texts, and<BR/>what each project needs next.</FONT></TD></TR></TABLE>>,
-            likec4_id="vault.home",
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Mission Control</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">dashboard screen in the app</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">The front door. Shows today, mail, texts,<BR/>calendar, and what each project needs next,<BR/>updated live.</FONT></TD></TR></TABLE>>,
+            likec4_id="fieldAgent.mission",
             likec4_level=1,
             margin="0.223,0.223",
             width=4.445];
@@ -1546,9 +1697,9 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_id="1icdhpv",
         minlen=1,
         style=dashed];
-    chiprelay -> homeplugin [arrowhead=normal,
+    chiprelay -> brainengine [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">queues a button</FONT></TD></TR></TABLE>>,
-        likec4_id=alanfh,
+        likec4_id=tluksj,
         style=dashed,
         weight=3];
     launchd -> unread [arrowhead=normal,
@@ -1556,14 +1707,14 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_id=x53wgn,
         minlen=1,
         style=dashed];
-    homeplugin -> calendar [arrowhead=normal,
+    brainengine -> calendar [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">hourly</FONT></TD></TR></TABLE>>,
-        likec4_id="1gj982m",
+        likec4_id="158w68",
         style=dashed,
         weight=3];
-    homeplugin -> health [arrowhead=normal,
+    brainengine -> health [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">daily</FONT></TD></TR></TABLE>>,
-        likec4_id="1y49ghc",
+        likec4_id="1mex0um",
         style=dashed,
         weight=3];
     docs [height=2.5,
@@ -1572,47 +1723,47 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_level=0,
         margin="0.223,0.223",
         width=4.445];
-    homeplugin -> docs [arrowhead=normal,
+    brainengine -> docs [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">hourly</FONT></TD></TR></TABLE>>,
-        likec4_id=ebaw3h,
+        likec4_id="1ajlr5v",
         minlen=1,
         style=dashed,
         weight=2];
-    homeplugin -> texts [arrowhead=normal,
+    brainengine -> texts [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">every 5 min</FONT></TD></TR></TABLE>>,
-        likec4_id="143xwq7",
+        likec4_id="17cuvyp",
         style=dashed];
-    homeplugin -> ocr [arrowhead=normal,
+    brainengine -> ocr [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">every minute</FONT></TD></TR></TABLE>>,
-        likec4_id=e1d0a1,
+        likec4_id=u18t93,
         minlen=1,
         style=dashed];
-    homeplugin -> machine [arrowhead=normal,
+    brainengine -> machine [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">hourly</FONT></TD></TR></TABLE>>,
-        likec4_id=f3g6vk,
+        likec4_id="1sm9pym",
         minlen=1,
         style=dashed];
-    homeplugin -> printlog [arrowhead=normal,
+    brainengine -> printlog [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">every minute</FONT></TD></TR></TABLE>>,
-        likec4_id=h301ak,
+        likec4_id="1glf9gy",
         minlen=1,
         style=dashed];
-    homeplugin -> publish [arrowhead=normal,
+    brainengine -> publish [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">every 5 min</FONT></TD></TR></TABLE>>,
-        likec4_id="1dnpb8g",
+        likec4_id="1kdzbby",
         minlen=1,
         style=dashed];
-    homeplugin -> mailtriage [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">launch and Home</FONT></TD></TR></TABLE>>,
-        likec4_id="1dl6quc",
+    brainengine -> mailtriage [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">once per launch</FONT></TD></TR></TABLE>>,
+        likec4_id=pf0ska,
         style=dashed];
-    calendar -> home [arrowhead=normal,
+    calendar -> mission [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">today’s events</FONT></TD></TR></TABLE>>,
-        likec4_id=yar4w9,
+        likec4_id="175c8gb",
         style=dashed];
-    health -> home [arrowhead=normal,
+    health -> mission [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">Health Report</FONT></TD></TR></TABLE>>,
-        likec4_id="1nir6ef",
+        likec4_id="1rlxt45",
         style=dashed];
     unread -> mailtriage [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">new mail</FONT></TD></TR></TABLE>>,
@@ -1678,12 +1829,12 @@ var e=e=>{switch(e){case`index`:return`digraph {
             likec4_level=1,
             margin="0.223,0.223",
             width=4.445];
-        homeplugin [color="#0369a1",
+        brainengine [color="#0369a1",
             fillcolor="#0284c7",
             fontcolor="#f0f9ff",
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home Button plugin</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">inside Obsidian</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Runs most timers: every minute, every 5<BR/>minutes, hourly, and daily.</FONT></TD></TR></TABLE>>,
-            likec4_id="schedulers.homePlugin",
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Brain Engine</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Obsidian plugin</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Runs most timers: every minute, every 5<BR/>minutes, hourly, and daily.</FONT></TD></TR></TABLE>>,
+            likec4_id="schedulers.brainEngine",
             likec4_level=1,
             margin="0.223,0.223",
             width=4.445];
@@ -1723,7 +1874,7 @@ var e=e=>{switch(e){case`index`:return`digraph {
             fontcolor="#f0f9ff",
             group=mail,
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Mail &amp; text triage</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">AI · at Obsidian launch and on opening Home,</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Archives the noise and lists everything else<BR/>under Needs action.</FONT></TD></TR></TABLE>>,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Mail &amp; text triage</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">AI · once per Obsidian launch and when the</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Archives the noise and lists everything else<BR/>under Needs action.</FONT></TD></TR></TABLE>>,
             likec4_id="mail.mailTriage",
             likec4_level=1,
             margin="0.223,0.223",
@@ -1733,7 +1884,7 @@ var e=e=>{switch(e){case`index`:return`digraph {
             fontcolor="#f0f9ff",
             group=mail,
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Needs action list</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Home dashboard</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">One list per inbox. Every row has the same<BR/>buttons: open, archive, delete, triage, add<BR/>to calendar, respond.</FONT></TD></TR></TABLE>>,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Needs action list</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Mission Control</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">One list per inbox. Tap a row to read it;<BR/>swipe or press to open, archive, delete,<BR/>triage, add to calendar, or respond.</FONT></TD></TR></TABLE>>,
             likec4_id="mail.fold",
             likec4_level=1,
             margin="0.223,0.223",
@@ -1749,6 +1900,37 @@ var e=e=>{switch(e){case`index`:return`digraph {
             margin="0.223,0",
             penwidth=2,
             shape=cylinder,
+            width=4.445];
+    }
+    subgraph cluster_fieldagent {
+        graph [color="#1b3d88",
+            fillcolor="#194b9e",
+            label=<<FONT POINT-SIZE="11" COLOR="#bfdbfeb3"><B>FIELD AGENT</B></FONT>>,
+            likec4_depth=1,
+            likec4_id=fieldAgent,
+            likec4_level=0,
+            margin=40,
+            style=filled
+        ];
+        mission [color="#0369a1",
+            fillcolor="#0284c7",
+            fontcolor="#f0f9ff",
+            group=fieldAgent,
+            height=2.5,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Mission Control</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">dashboard screen in the app</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">The front door. Shows today, mail, texts,<BR/>calendar, and what each project needs next,<BR/>updated live.</FONT></TD></TR></TABLE>>,
+            likec4_id="fieldAgent.mission",
+            likec4_level=1,
+            margin="0.223,0.223",
+            width=4.445];
+        relay [color="#0369a1",
+            fillcolor="#0284c7",
+            fontcolor="#f0f9ff",
+            group=fieldAgent,
+            height=2.5,
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home base</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Node service on the Mac</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Passes each phone message to Claude or Grok,<BR/>streams the answer back, and keeps Mission<BR/>Control live from the vault.</FONT></TD></TR></TABLE>>,
+            likec4_id="fieldAgent.relay",
+            likec4_level=1,
+            margin="0.223,0.223",
             width=4.445];
     }
     subgraph cluster_vault {
@@ -1786,6 +1968,11 @@ var e=e=>{switch(e){case`index`:return`digraph {
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">presses buttons</FONT></TD></TR></TABLE>>,
         likec4_id="1623q6q",
         style=dashed];
+    jt -> mission [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">checks</FONT></TD></TR></TABLE>>,
+        likec4_id=kyv4r1,
+        style=dashed,
+        weight=2];
     gmail [color="#475569",
         fillcolor="#64748b",
         fontcolor="#f8fafc",
@@ -1820,13 +2007,13 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_id=x53wgn,
         minlen=1,
         style=dashed];
-    homeplugin -> texts [arrowhead=normal,
+    brainengine -> texts [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">every 5 min</FONT></TD></TR></TABLE>>,
-        likec4_id="143xwq7",
+        likec4_id="17cuvyp",
         style=dashed];
-    homeplugin -> mailtriage [arrowhead=normal,
-        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">launch and Home</FONT></TD></TR></TABLE>>,
-        likec4_id="1dl6quc",
+    brainengine -> mailtriage [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">once per launch</FONT></TD></TR></TABLE>>,
+        likec4_id=pf0ska,
         style=dashed];
     unread -> mailtriage [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">new mail</FONT></TD></TR></TABLE>>,
@@ -1858,10 +2045,28 @@ var e=e=>{switch(e){case`index`:return`digraph {
         minlen=1,
         style=dashed,
         weight=3];
+    fold -> mission [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">Email and Texts tabs</FONT></TD></TR></TABLE>>,
+        likec4_id=g7iuol,
+        style=dashed];
     fold -> ingest [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">triage button: note with full text</FONT></TD></TR></TABLE>>,
         likec4_id="7smwey",
         minlen=1,
+        style=dashed];
+    mission -> relay [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">button taps</FONT></TD></TR></TABLE>>,
+        likec4_id=ul1urp,
+        minlen=0,
+        style=dashed];
+    relay -> mailtriage [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">phone attaches, 3 h apart</FONT></TD></TR></TABLE>>,
+        likec4_id="1e84vby",
+        style=dashed];
+    relay -> mission [arrowhead=normal,
+        label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">live updates</FONT></TD></TR></TABLE>>,
+        likec4_id=rsth,
+        minlen=0,
         style=dashed];
 }
 `;case`scanner`:return`digraph {
@@ -1908,12 +2113,12 @@ var e=e=>{switch(e){case`index`:return`digraph {
             margin=32,
             style=filled
         ];
-        homeplugin [color="#0369a1",
+        brainengine [color="#0369a1",
             fillcolor="#0284c7",
             fontcolor="#f0f9ff",
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home Button plugin</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">inside Obsidian</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Runs most timers: every minute, every 5<BR/>minutes, hourly, and daily.</FONT></TD></TR></TABLE>>,
-            likec4_id="schedulers.homePlugin",
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Brain Engine</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Obsidian plugin</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Runs most timers: every minute, every 5<BR/>minutes, hourly, and daily.</FONT></TD></TR></TABLE>>,
+            likec4_id="schedulers.brainEngine",
             likec4_level=1,
             margin="0.223,0.223",
             width=4.445];
@@ -2069,9 +2274,9 @@ var e=e=>{switch(e){case`index`:return`digraph {
         minlen=1,
         style=dashed,
         weight=2];
-    homeplugin -> ocr [arrowhead=normal,
+    brainengine -> ocr [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">every minute</FONT></TD></TR></TABLE>>,
-        likec4_id=e1d0a1,
+        likec4_id=u18t93,
         style=dashed];
     docs [height=2.5,
         label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Find Anything</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#bfdbfe">Mac · hourly · free</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#bfdbfe">Copies the text of every document in<BR/>Documents into the vault so one search finds<BR/>it.</FONT></TD></TR></TABLE>>,
@@ -2079,9 +2284,9 @@ var e=e=>{switch(e){case`index`:return`digraph {
         likec4_level=0,
         margin="0.223,0.223",
         width=4.445];
-    homeplugin -> docs [arrowhead=normal,
+    brainengine -> docs [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">hourly</FONT></TD></TR></TABLE>>,
-        likec4_id=ebaw3h,
+        likec4_id="1ajlr5v",
         style=dashed,
         weight=2];
     scanner -> scanwatch [arrowhead=normal,
@@ -2487,12 +2692,12 @@ var e=e=>{switch(e){case`index`:return`digraph {
             margin=32,
             style=filled
         ];
-        homeplugin [color="#0369a1",
+        brainengine [color="#0369a1",
             fillcolor="#0284c7",
             fontcolor="#f0f9ff",
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home Button plugin</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">inside Obsidian</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Runs most timers: every minute, every 5<BR/>minutes, hourly, and daily.</FONT></TD></TR></TABLE>>,
-            likec4_id="schedulers.homePlugin",
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Brain Engine</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Obsidian plugin</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Runs most timers: every minute, every 5<BR/>minutes, hourly, and daily.</FONT></TD></TR></TABLE>>,
+            likec4_id="schedulers.brainEngine",
             likec4_level=1,
             margin="0.223,0.223",
             width=4.445];
@@ -2621,13 +2826,13 @@ var e=e=>{switch(e){case`index`:return`digraph {
             margin="0.223,0.223",
             width=4.445];
     }
-    homeplugin -> printlog [arrowhead=normal,
+    brainengine -> printlog [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">every minute</FONT></TD></TR></TABLE>>,
-        likec4_id=h301ak,
+        likec4_id="1glf9gy",
         style=dashed];
-    homeplugin -> publish [arrowhead=normal,
+    brainengine -> publish [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">every 5 min</FONT></TD></TR></TABLE>>,
-        likec4_id="1dnpb8g",
+        likec4_id="1kdzbby",
         style=dashed];
     printer -> printlog [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">start and finish</FONT></TD></TR></TABLE>>,
@@ -2908,12 +3113,12 @@ var e=e=>{switch(e){case`index`:return`digraph {
             margin=32,
             style=filled
         ];
-        homeplugin [color="#0369a1",
+        brainengine [color="#0369a1",
             fillcolor="#0284c7",
             fontcolor="#f0f9ff",
             height=2.5,
-            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Home Button plugin</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">inside Obsidian</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Runs most timers: every minute, every 5<BR/>minutes, hourly, and daily.</FONT></TD></TR></TABLE>>,
-            likec4_id="schedulers.homePlugin",
+            label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD><FONT POINT-SIZE="20">Brain Engine</FONT></TD></TR><TR><TD><FONT POINT-SIZE="13" COLOR="#B6ECF7">Obsidian plugin</FONT></TD></TR><TR><TD><FONT POINT-SIZE="15" COLOR="#B6ECF7">Runs most timers: every minute, every 5<BR/>minutes, hourly, and daily.</FONT></TD></TR></TABLE>>,
+            likec4_id="schedulers.brainEngine",
             likec4_level=1,
             margin="0.223,0.223",
             width=4.445];
@@ -3022,13 +3227,13 @@ var e=e=>{switch(e){case`index`:return`digraph {
             margin="0.223,0.223",
             width=4.445];
     }
-    homeplugin -> machine [arrowhead=normal,
+    brainengine -> machine [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">hourly</FONT></TD></TR></TABLE>>,
-        likec4_id=f3g6vk,
+        likec4_id="1sm9pym",
         style=dashed];
-    homeplugin -> vaultpush [arrowhead=normal,
+    brainengine -> vaultpush [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">hourly</FONT></TD></TR></TABLE>>,
-        likec4_id=ncevgx,
+        likec4_id="10qskq7",
         style=dashed];
     machine -> vaultpush [arrowhead=normal,
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">one minute before</FONT></TD></TR></TABLE>>,
@@ -3073,421 +3278,438 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <!-- Generated by graphviz version 15.0.0 (0)
  -->
 <!-- Pages: 1 -->
-<svg width="2949pt" height="3115pt"
- viewBox="0.00 0.00 2949.00 3115.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="3172pt" height="3115pt"
+ viewBox="0.00 0.00 3172.00 3115.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(15.05 3100.25)">
 <!-- iphone -->
 <g id="node1" class="node">
 <title>iphone</title>
-<polygon fill="#a35829" stroke="#7e451d" stroke-width="0" points="470.38,-3085.2 147.62,-3085.2 147.62,-2905.2 470.38,-2905.2 470.38,-3085.2"/>
-<text xml:space="preserve" text-anchor="start" x="277.86" y="-2998.2" font-family="Arial" font-size="20.00" fill="#ffe0c2">iPhone</text>
-<text xml:space="preserve" text-anchor="start" x="167.67" y="-2975.2" font-family="Arial" font-size="15.00" fill="#f9b27c">Obsidian, Reminders, the Field Agent app.</text>
+<polygon fill="#a35829" stroke="#7e451d" stroke-width="0" points="1298.38,-3085.2 975.62,-3085.2 975.62,-2905.2 1298.38,-2905.2 1298.38,-3085.2"/>
+<text xml:space="preserve" text-anchor="start" x="1105.86" y="-2998.2" font-family="Arial" font-size="20.00" fill="#ffe0c2">iPhone</text>
+<text xml:space="preserve" text-anchor="start" x="995.67" y="-2975.2" font-family="Arial" font-size="15.00" fill="#f9b27c">Obsidian, Reminders, the Field Agent app.</text>
 </g>
 <!-- jt -->
 <g id="node2" class="node">
 <title>jt</title>
-<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="1007.38,-2762.4 664.62,-2762.4 664.62,-2582.4 1007.38,-2582.4 1007.38,-2762.4"/>
-<text xml:space="preserve" text-anchor="start" x="824.89" y="-2684.4" font-family="Arial" font-size="20.00" fill="#f8fafc">JT</text>
-<text xml:space="preserve" text-anchor="start" x="684.68" y="-2661.4" font-family="Arial" font-size="15.00" fill="#c2f0c2">Captures things, makes the calls, presses the</text>
-<text xml:space="preserve" text-anchor="start" x="809.31" y="-2643.4" font-family="Arial" font-size="15.00" fill="#c2f0c2">buttons.</text>
+<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="2066.38,-2762.4 1723.62,-2762.4 1723.62,-2582.4 2066.38,-2582.4 2066.38,-2762.4"/>
+<text xml:space="preserve" text-anchor="start" x="1883.89" y="-2684.4" font-family="Arial" font-size="20.00" fill="#f8fafc">JT</text>
+<text xml:space="preserve" text-anchor="start" x="1743.68" y="-2661.4" font-family="Arial" font-size="15.00" fill="#c2f0c2">Captures things, makes the calls, presses the</text>
+<text xml:space="preserve" text-anchor="start" x="1868.31" y="-2643.4" font-family="Arial" font-size="15.00" fill="#c2f0c2">buttons.</text>
 </g>
 <!-- fieldagent -->
 <g id="node3" class="node">
 <title>fieldagent</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="515.74,-2439.6 166.26,-2439.6 166.26,-2259.6 515.74,-2259.6 515.74,-2439.6"/>
-<text xml:space="preserve" text-anchor="start" x="290.41" y="-2371.4" font-family="Arial" font-size="20.00" fill="#eff6ff">Field Agent</text>
-<text xml:space="preserve" text-anchor="start" x="264.04" y="-2350.4" font-family="Arial" font-size="13.00" fill="#bfdbfe">iPhone app · Swift · Node</text>
-<text xml:space="preserve" text-anchor="start" x="186.32" y="-2328.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">A custom iPhone app for talking to Claude and</text>
-<text xml:space="preserve" text-anchor="start" x="231.79" y="-2310.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">Grok on the Mac from anywhere.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1570.22,-2439.6 1235.78,-2439.6 1235.78,-2259.6 1570.22,-2259.6 1570.22,-2439.6"/>
+<text xml:space="preserve" text-anchor="start" x="1352.41" y="-2380.4" font-family="Arial" font-size="20.00" fill="#eff6ff">Field Agent</text>
+<text xml:space="preserve" text-anchor="start" x="1326.04" y="-2359.4" font-family="Arial" font-size="13.00" fill="#bfdbfe">iPhone app · Swift · Node</text>
+<text xml:space="preserve" text-anchor="start" x="1259.99" y="-2337.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">A custom iPhone app: the daily dashboard,</text>
+<text xml:space="preserve" text-anchor="start" x="1255.84" y="-2319.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">plus chats with Claude and Grok on the Mac</text>
+<text xml:space="preserve" text-anchor="start" x="1351.31" y="-2301.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">from anywhere.</text>
 </g>
 <!-- backups -->
 <g id="node4" class="node">
 <title>backups</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2767.23,-3085.2 2422.77,-3085.2 2422.77,-2905.2 2767.23,-2905.2 2767.23,-3085.2"/>
-<text xml:space="preserve" text-anchor="start" x="2556.65" y="-3017" font-family="Arial" font-size="20.00" fill="#eff6ff">Backups</text>
-<text xml:space="preserve" text-anchor="start" x="2526.73" y="-2996" font-family="Arial" font-size="13.00" fill="#bfdbfe">GitHub · Time Machine</text>
-<text xml:space="preserve" text-anchor="start" x="2442.83" y="-2974.4" font-family="Arial" font-size="15.00" fill="#bfdbfe">Hourly copy of the vault and machine setup to</text>
-<text xml:space="preserve" text-anchor="start" x="2454.94" y="-2956.4" font-family="Arial" font-size="15.00" fill="#bfdbfe">GitHub; Time Machine for everything else.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="448.23,-3085.2 103.77,-3085.2 103.77,-2905.2 448.23,-2905.2 448.23,-3085.2"/>
+<text xml:space="preserve" text-anchor="start" x="237.65" y="-3017" font-family="Arial" font-size="20.00" fill="#eff6ff">Backups</text>
+<text xml:space="preserve" text-anchor="start" x="207.73" y="-2996" font-family="Arial" font-size="13.00" fill="#bfdbfe">GitHub · Time Machine</text>
+<text xml:space="preserve" text-anchor="start" x="123.83" y="-2974.4" font-family="Arial" font-size="15.00" fill="#bfdbfe">Hourly copy of the vault and machine setup to</text>
+<text xml:space="preserve" text-anchor="start" x="135.94" y="-2956.4" font-family="Arial" font-size="15.00" fill="#bfdbfe">GitHub; Time Machine for everything else.</text>
 </g>
 <!-- vault -->
 <g id="node5" class="node">
 <title>vault</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1375.63,-1794 1050.37,-1794 1050.37,-1614 1375.63,-1614 1375.63,-1794"/>
-<text xml:space="preserve" text-anchor="start" x="1152.96" y="-1725.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Second Brain</text>
-<text xml:space="preserve" text-anchor="start" x="1171.81" y="-1704.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">Obsidian vault</text>
-<text xml:space="preserve" text-anchor="start" x="1070.42" y="-1683.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Where everything ends up: notes, projects,</text>
-<text xml:space="preserve" text-anchor="start" x="1126.27" y="-1665.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">ideas, and the dashboard.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1426.63,-1794 1101.37,-1794 1101.37,-1614 1426.63,-1614 1426.63,-1794"/>
+<text xml:space="preserve" text-anchor="start" x="1203.96" y="-1725.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Second Brain</text>
+<text xml:space="preserve" text-anchor="start" x="1222.81" y="-1704.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">Obsidian vault</text>
+<text xml:space="preserve" text-anchor="start" x="1121.42" y="-1683.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Where everything ends up: notes, projects,</text>
+<text xml:space="preserve" text-anchor="start" x="1128.91" y="-1665.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">ideas, and the lists the dashboard reads.</text>
 </g>
 <!-- pi -->
 <g id="node6" class="node">
 <title>pi</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1984.96,-1148.4 1643.04,-1148.4 1643.04,-968.4 1984.96,-968.4 1984.96,-1148.4"/>
-<text xml:space="preserve" text-anchor="start" x="1783.98" y="-1080.2" font-family="Arial" font-size="20.00" fill="#eff6ff">brainpi</text>
-<text xml:space="preserve" text-anchor="start" x="1776.43" y="-1059.2" font-family="Arial" font-size="13.00" fill="#bfdbfe">Raspberry Pi</text>
-<text xml:space="preserve" text-anchor="start" x="1663.09" y="-1037.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">Small always&#45;on box: runs the scanner, holds</text>
-<text xml:space="preserve" text-anchor="start" x="1671.03" y="-1019.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">Time Machine, streams the printer camera.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="888.96,-1148.4 547.04,-1148.4 547.04,-968.4 888.96,-968.4 888.96,-1148.4"/>
+<text xml:space="preserve" text-anchor="start" x="687.98" y="-1080.2" font-family="Arial" font-size="20.00" fill="#eff6ff">brainpi</text>
+<text xml:space="preserve" text-anchor="start" x="680.43" y="-1059.2" font-family="Arial" font-size="13.00" fill="#bfdbfe">Raspberry Pi</text>
+<text xml:space="preserve" text-anchor="start" x="567.09" y="-1037.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">Small always&#45;on box: runs the scanner, holds</text>
+<text xml:space="preserve" text-anchor="start" x="575.03" y="-1019.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">Time Machine, streams the printer camera.</text>
 </g>
 <!-- github -->
 <g id="node7" class="node">
 <title>github</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="1907.95,-180 1558.05,-180 1558.05,0 1907.95,0 1907.95,-180"/>
-<text xml:space="preserve" text-anchor="start" x="1701.88" y="-102" font-family="Arial" font-size="20.00" fill="#f8fafc">GitHub</text>
-<text xml:space="preserve" text-anchor="start" x="1582.07" y="-79" font-family="Arial" font-size="15.00" fill="#cbd5e1">Holds the vault backup and the website code;</text>
-<text xml:space="preserve" text-anchor="start" x="1639.62" y="-61" font-family="Arial" font-size="15.00" fill="#cbd5e1">builds and hosts embry.dev.</text>
+<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="921.95,-180 572.05,-180 572.05,0 921.95,0 921.95,-180"/>
+<text xml:space="preserve" text-anchor="start" x="715.88" y="-102" font-family="Arial" font-size="20.00" fill="#f8fafc">GitHub</text>
+<text xml:space="preserve" text-anchor="start" x="596.07" y="-79" font-family="Arial" font-size="15.00" fill="#cbd5e1">Holds the vault backup and the website code;</text>
+<text xml:space="preserve" text-anchor="start" x="653.62" y="-61" font-family="Arial" font-size="15.00" fill="#cbd5e1">builds and hosts embry.dev.</text>
 </g>
 <!-- icloudmail -->
 <g id="node8" class="node">
 <title>icloudmail</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="1668.02,-3085.2 1347.98,-3085.2 1347.98,-2905.2 1668.02,-2905.2 1668.02,-3085.2"/>
-<text xml:space="preserve" text-anchor="start" x="1458.54" y="-2998.2" font-family="Arial" font-size="20.00" fill="#f8fafc">iCloud Mail</text>
-<text xml:space="preserve" text-anchor="start" x="1452.55" y="-2975.2" font-family="Arial" font-size="15.00" fill="#cbd5e1">Second mailbox.</text>
+<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="3142.02,-3085.2 2821.98,-3085.2 2821.98,-2905.2 3142.02,-2905.2 3142.02,-3085.2"/>
+<text xml:space="preserve" text-anchor="start" x="2932.54" y="-2998.2" font-family="Arial" font-size="20.00" fill="#f8fafc">iCloud Mail</text>
+<text xml:space="preserve" text-anchor="start" x="2926.55" y="-2975.2" font-family="Arial" font-size="15.00" fill="#cbd5e1">Second mailbox.</text>
 </g>
 <!-- mail -->
 <g id="node9" class="node">
 <title>mail</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1555.23,-2439.6 1200.77,-2439.6 1200.77,-2259.6 1555.23,-2259.6 1555.23,-2439.6"/>
-<text xml:space="preserve" text-anchor="start" x="1316.32" y="-2361.6" font-family="Arial" font-size="20.00" fill="#eff6ff">Email &amp; Texts</text>
-<text xml:space="preserve" text-anchor="start" x="1220.83" y="-2338.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">Turns two inboxes and iMessage into one short</text>
-<text xml:space="preserve" text-anchor="start" x="1295.87" y="-2320.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">list of what needs action.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2360.23,-2116.8 2005.77,-2116.8 2005.77,-1936.8 2360.23,-1936.8 2360.23,-2116.8"/>
+<text xml:space="preserve" text-anchor="start" x="2121.32" y="-2038.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Email &amp; Texts</text>
+<text xml:space="preserve" text-anchor="start" x="2025.83" y="-2015.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">Turns two inboxes and iMessage into one short</text>
+<text xml:space="preserve" text-anchor="start" x="2100.87" y="-1997.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">list of what needs action.</text>
 </g>
 <!-- assistants -->
 <g id="node10" class="node">
 <title>assistants</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="771.13,-2116.8 450.87,-2116.8 450.87,-1936.8 771.13,-1936.8 771.13,-2116.8"/>
-<text xml:space="preserve" text-anchor="start" x="554.31" y="-2048.6" font-family="Arial" font-size="20.00" fill="#eff6ff">AI assistants</text>
-<text xml:space="preserve" text-anchor="start" x="551.75" y="-2027.6" font-family="Arial" font-size="13.00" fill="#bfdbfe">Claude Code · Grok</text>
-<text xml:space="preserve" text-anchor="start" x="470.92" y="-2006" font-family="Arial" font-size="15.00" fill="#bfdbfe">Two assistants share one vault, one set of</text>
-<text xml:space="preserve" text-anchor="start" x="532.22" y="-1988" font-family="Arial" font-size="15.00" fill="#bfdbfe">skills, and one memory.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1764.13,-2116.8 1443.87,-2116.8 1443.87,-1936.8 1764.13,-1936.8 1764.13,-2116.8"/>
+<text xml:space="preserve" text-anchor="start" x="1547.31" y="-2048.6" font-family="Arial" font-size="20.00" fill="#eff6ff">AI assistants</text>
+<text xml:space="preserve" text-anchor="start" x="1544.75" y="-2027.6" font-family="Arial" font-size="13.00" fill="#bfdbfe">Claude Code · Grok</text>
+<text xml:space="preserve" text-anchor="start" x="1463.92" y="-2006" font-family="Arial" font-size="15.00" fill="#bfdbfe">Two assistants share one vault, one set of</text>
+<text xml:space="preserve" text-anchor="start" x="1525.22" y="-1988" font-family="Arial" font-size="15.00" fill="#bfdbfe">skills, and one memory.</text>
 </g>
 <!-- capture -->
 <g id="node11" class="node">
 <title>capture</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1050.02,-1471.2 729.98,-1471.2 729.98,-1291.2 1050.02,-1291.2 1050.02,-1471.2"/>
-<text xml:space="preserve" text-anchor="start" x="854.42" y="-1384.2" font-family="Arial" font-size="20.00" fill="#eff6ff">Capture</text>
-<text xml:space="preserve" text-anchor="start" x="754.1" y="-1361.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Every way a thought gets into the in&#45;tray.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1744.02,-1471.2 1423.98,-1471.2 1423.98,-1291.2 1744.02,-1291.2 1744.02,-1471.2"/>
+<text xml:space="preserve" text-anchor="start" x="1548.42" y="-1384.2" font-family="Arial" font-size="20.00" fill="#eff6ff">Capture</text>
+<text xml:space="preserve" text-anchor="start" x="1448.1" y="-1361.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Every way a thought gets into the in&#45;tray.</text>
 </g>
 <!-- scan -->
 <g id="node12" class="node">
 <title>scan</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1797.9,-1471.2 1430.1,-1471.2 1430.1,-1291.2 1797.9,-1291.2 1797.9,-1471.2"/>
-<text xml:space="preserve" text-anchor="start" x="1576.75" y="-1393.2" font-family="Arial" font-size="20.00" fill="#eff6ff">Scanner</text>
-<text xml:space="preserve" text-anchor="start" x="1450.16" y="-1370.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Paper in the scanner becomes a searchable PDF</text>
-<text xml:space="preserve" text-anchor="start" x="1556.46" y="-1352.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">and a note to file.</text>
-</g>
-<!-- gmail -->
-<g id="node13" class="node">
-<title>gmail</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="1839.02,-2116.8 1518.98,-2116.8 1518.98,-1936.8 1839.02,-1936.8 1839.02,-2116.8"/>
-<text xml:space="preserve" text-anchor="start" x="1652.89" y="-2029.8" font-family="Arial" font-size="20.00" fill="#f8fafc">Gmail</text>
-<text xml:space="preserve" text-anchor="start" x="1632.73" y="-2006.8" font-family="Arial" font-size="15.00" fill="#cbd5e1">Main mailbox.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1043.9,-1471.2 676.1,-1471.2 676.1,-1291.2 1043.9,-1291.2 1043.9,-1471.2"/>
+<text xml:space="preserve" text-anchor="start" x="822.75" y="-1393.2" font-family="Arial" font-size="20.00" fill="#eff6ff">Scanner</text>
+<text xml:space="preserve" text-anchor="start" x="696.16" y="-1370.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Paper in the scanner becomes a searchable PDF</text>
+<text xml:space="preserve" text-anchor="start" x="802.46" y="-1352.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">and a note to file.</text>
 </g>
 <!-- docs -->
-<g id="node14" class="node">
+<g id="node13" class="node">
 <title>docs</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1498.72,-1148.4 1159.28,-1148.4 1159.28,-968.4 1498.72,-968.4 1498.72,-1148.4"/>
-<text xml:space="preserve" text-anchor="start" x="1267.85" y="-1089.2" font-family="Arial" font-size="20.00" fill="#eff6ff">Find Anything</text>
-<text xml:space="preserve" text-anchor="start" x="1273.37" y="-1068.2" font-family="Arial" font-size="13.00" fill="#bfdbfe">Mac · hourly · free</text>
-<text xml:space="preserve" text-anchor="start" x="1207.27" y="-1046.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">Copies the text of every document in</text>
-<text xml:space="preserve" text-anchor="start" x="1179.33" y="-1028.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">Documents into the vault so one search finds</text>
-<text xml:space="preserve" text-anchor="start" x="1323.17" y="-1010.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">it.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1377.72,-1148.4 1038.28,-1148.4 1038.28,-968.4 1377.72,-968.4 1377.72,-1148.4"/>
+<text xml:space="preserve" text-anchor="start" x="1146.85" y="-1089.2" font-family="Arial" font-size="20.00" fill="#eff6ff">Find Anything</text>
+<text xml:space="preserve" text-anchor="start" x="1152.37" y="-1068.2" font-family="Arial" font-size="13.00" fill="#bfdbfe">Mac · hourly · free</text>
+<text xml:space="preserve" text-anchor="start" x="1086.27" y="-1046.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">Copies the text of every document in</text>
+<text xml:space="preserve" text-anchor="start" x="1058.33" y="-1028.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">Documents into the vault so one search finds</text>
+<text xml:space="preserve" text-anchor="start" x="1202.17" y="-1010.6" font-family="Arial" font-size="15.00" fill="#bfdbfe">it.</text>
+</g>
+<!-- gmail -->
+<g id="node14" class="node">
+<title>gmail</title>
+<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="2448.02,-1794 2127.98,-1794 2127.98,-1614 2448.02,-1614 2448.02,-1794"/>
+<text xml:space="preserve" text-anchor="start" x="2261.89" y="-1707" font-family="Arial" font-size="20.00" fill="#f8fafc">Gmail</text>
+<text xml:space="preserve" text-anchor="start" x="2241.73" y="-1684" font-family="Arial" font-size="15.00" fill="#cbd5e1">Main mailbox.</text>
 </g>
 <!-- printing -->
 <g id="node15" class="node">
 <title>printing</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2116.54,-825.6 1795.46,-825.6 1795.46,-645.6 2116.54,-645.6 2116.54,-825.6"/>
-<text xml:space="preserve" text-anchor="start" x="1907.64" y="-757.4" font-family="Arial" font-size="20.00" fill="#eff6ff">3D printing</text>
-<text xml:space="preserve" text-anchor="start" x="1908.66" y="-736.4" font-family="Arial" font-size="13.00" fill="#bfdbfe">Bambu Lab P2S</text>
-<text xml:space="preserve" text-anchor="start" x="1815.52" y="-714.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">Logs every print, streams the camera, and</text>
-<text xml:space="preserve" text-anchor="start" x="1853.03" y="-696.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">posts finished prints to the site.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1074.54,-825.6 753.46,-825.6 753.46,-645.6 1074.54,-645.6 1074.54,-825.6"/>
+<text xml:space="preserve" text-anchor="start" x="865.64" y="-757.4" font-family="Arial" font-size="20.00" fill="#eff6ff">3D printing</text>
+<text xml:space="preserve" text-anchor="start" x="866.66" y="-736.4" font-family="Arial" font-size="13.00" fill="#bfdbfe">Bambu Lab P2S</text>
+<text xml:space="preserve" text-anchor="start" x="773.52" y="-714.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">Logs every print, streams the camera, and</text>
+<text xml:space="preserve" text-anchor="start" x="811.03" y="-696.8" font-family="Arial" font-size="15.00" fill="#bfdbfe">posts finished prints to the site.</text>
 </g>
 <!-- cloudflare -->
 <g id="node16" class="node">
 <title>cloudflare</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="1685.77,-825.6 1334.23,-825.6 1334.23,-645.6 1685.77,-645.6 1685.77,-825.6"/>
-<text xml:space="preserve" text-anchor="start" x="1464.42" y="-747.6" font-family="Arial" font-size="20.00" fill="#f8fafc">Cloudflare</text>
-<text xml:space="preserve" text-anchor="start" x="1364.11" y="-724.6" font-family="Arial" font-size="15.00" fill="#cbd5e1">Carries the printer camera from home to the</text>
-<text xml:space="preserve" text-anchor="start" x="1358.24" y="-706.6" font-family="Arial" font-size="15.00" fill="#cbd5e1">public site without opening the home network.</text>
+<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="643.77,-825.6 292.23,-825.6 292.23,-645.6 643.77,-645.6 643.77,-825.6"/>
+<text xml:space="preserve" text-anchor="start" x="422.42" y="-747.6" font-family="Arial" font-size="20.00" fill="#f8fafc">Cloudflare</text>
+<text xml:space="preserve" text-anchor="start" x="322.11" y="-724.6" font-family="Arial" font-size="15.00" fill="#cbd5e1">Carries the printer camera from home to the</text>
+<text xml:space="preserve" text-anchor="start" x="316.24" y="-706.6" font-family="Arial" font-size="15.00" fill="#cbd5e1">public site without opening the home network.</text>
 </g>
 <!-- site -->
 <g id="node17" class="node">
 <title>site</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1893.02,-502.8 1572.98,-502.8 1572.98,-322.8 1893.02,-322.8 1893.02,-502.8"/>
-<text xml:space="preserve" text-anchor="start" x="1686.32" y="-434.6" font-family="Arial" font-size="20.00" fill="#eff6ff">embry.dev</text>
-<text xml:space="preserve" text-anchor="start" x="1654.6" y="-413.6" font-family="Arial" font-size="13.00" fill="#bfdbfe">Astro site on GitHub Pages</text>
-<text xml:space="preserve" text-anchor="start" x="1610.85" y="-392" font-family="Arial" font-size="15.00" fill="#bfdbfe">Public site: the studio, the live printer</text>
-<text xml:space="preserve" text-anchor="start" x="1635.87" y="-374" font-family="Arial" font-size="15.00" fill="#bfdbfe">camera, and the print gallery.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="907.02,-502.8 586.98,-502.8 586.98,-322.8 907.02,-322.8 907.02,-502.8"/>
+<text xml:space="preserve" text-anchor="start" x="700.32" y="-434.6" font-family="Arial" font-size="20.00" fill="#eff6ff">embry.dev</text>
+<text xml:space="preserve" text-anchor="start" x="668.6" y="-413.6" font-family="Arial" font-size="13.00" fill="#bfdbfe">Astro site on GitHub Pages</text>
+<text xml:space="preserve" text-anchor="start" x="624.85" y="-392" font-family="Arial" font-size="15.00" fill="#bfdbfe">Public site: the studio, the live printer</text>
+<text xml:space="preserve" text-anchor="start" x="649.87" y="-374" font-family="Arial" font-size="15.00" fill="#bfdbfe">camera, and the print gallery.</text>
 </g>
 <!-- iphone&#45;&gt;jt -->
 <g id="edge1" class="edge">
 <title>iphone&#45;&gt;jt</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M455.1,-2905.27C525.5,-2862.41 609.95,-2811 681.42,-2767.5"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="682.45,-2769.95 687.49,-2763.8 679.72,-2765.46 682.45,-2769.95"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="588.3,-2822.4 588.3,-2845.2 672.12,-2845.2 672.12,-2822.4 588.3,-2822.4"/>
-<text xml:space="preserve" text-anchor="start" x="591.3" y="-2828.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">in his pocket</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1298.22,-2925.97C1420.24,-2874.33 1587.87,-2803.39 1714.4,-2749.83"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1715.15,-2752.37 1721.03,-2747.03 1713.1,-2747.53 1715.15,-2752.37"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1538.73,-2822.4 1538.73,-2845.2 1622.55,-2845.2 1622.55,-2822.4 1538.73,-2822.4"/>
+<text xml:space="preserve" text-anchor="start" x="1541.73" y="-2828.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">in his pocket</text>
 </g>
 <!-- iphone&#45;&gt;fieldagent -->
 <g id="edge2" class="edge">
 <title>iphone&#45;&gt;fieldagent</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M313.42,-2905.39C319.35,-2785.98 329.88,-2574.33 336.07,-2449.83"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="338.68,-2450.18 336.43,-2442.56 333.43,-2449.92 338.68,-2450.18"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="329.22,-2661 329.22,-2683.8 362.46,-2683.8 362.46,-2661 329.22,-2661"/>
-<text xml:space="preserve" text-anchor="start" x="332.22" y="-2666.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1173.71,-2905.39C1223.16,-2785.74 1310.88,-2573.48 1362.3,-2449.08"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1364.65,-2450.27 1365.09,-2442.33 1359.8,-2448.26 1364.65,-2450.27"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1305.09,-2661 1305.09,-2683.8 1338.33,-2683.8 1338.33,-2661 1305.09,-2661"/>
+<text xml:space="preserve" text-anchor="start" x="1308.09" y="-2666.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
 </g>
 <!-- jt&#45;&gt;fieldagent -->
-<g id="edge7" class="edge">
+<g id="edge9" class="edge">
 <title>jt&#45;&gt;fieldagent</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M698.77,-2582.47C632.78,-2539.7 553.65,-2488.41 486.6,-2444.96"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="488.33,-2442.95 480.61,-2441.08 485.47,-2447.36 488.33,-2442.95"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="603.34,-2499.6 603.34,-2522.4 635.8,-2522.4 635.8,-2499.6 603.34,-2499.6"/>
-<text xml:space="preserve" text-anchor="start" x="606.34" y="-2505.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">taps</text>
-</g>
-<!-- jt&#45;&gt;vault -->
-<g id="edge10" class="edge">
-<title>jt&#45;&gt;vault</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M870.62,-2582.65C941.16,-2401.83 1101.05,-1991.97 1174.63,-1803.35"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1177.01,-1804.48 1177.29,-1796.54 1172.12,-1802.57 1177.01,-1804.48"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1028.85,-2176.8 1028.85,-2199.6 1078.42,-2199.6 1078.42,-2176.8 1028.85,-2176.8"/>
-<text xml:space="preserve" text-anchor="start" x="1031.85" y="-2182.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">checks</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1758.6,-2582.47C1693.01,-2539.7 1614.36,-2488.41 1547.72,-2444.96"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1549.49,-2442.98 1541.77,-2441.08 1546.62,-2447.38 1549.49,-2442.98"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1663.75,-2499.6 1663.75,-2522.4 1690.75,-2522.4 1690.75,-2499.6 1663.75,-2499.6"/>
+<text xml:space="preserve" text-anchor="start" x="1666.75" y="-2507.8" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
 </g>
 <!-- jt&#45;&gt;mail -->
-<g id="edge8" class="edge">
+<g id="edge11" class="edge">
 <title>jt&#45;&gt;mail</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1006.98,-2626.58C1079.17,-2602.72 1161.67,-2568.57 1228,-2522.4 1257.43,-2501.91 1284.81,-2474.42 1307.9,-2447.45"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1309.84,-2449.22 1312.67,-2441.79 1305.83,-2445.84 1309.84,-2449.22"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1252.42,-2499.6 1252.42,-2522.4 1357.25,-2522.4 1357.25,-2499.6 1252.42,-2499.6"/>
-<text xml:space="preserve" text-anchor="start" x="1255.42" y="-2505.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">presses buttons</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2066.26,-2630.3C2159.52,-2597 2262.57,-2538.75 2296,-2439.6 2321.56,-2363.79 2313.99,-2337.55 2296,-2259.6 2285.35,-2213.46 2264.22,-2165.88 2243.08,-2125.93"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2245.43,-2124.77 2239.57,-2119.4 2240.81,-2127.25 2245.43,-2124.77"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2312.45,-2338.2 2312.45,-2361 2417.29,-2361 2417.29,-2338.2 2312.45,-2338.2"/>
+<text xml:space="preserve" text-anchor="start" x="2315.45" y="-2344" font-family="Arial" font-size="14.00" fill="#c9c9c9">presses buttons</text>
 </g>
 <!-- jt&#45;&gt;assistants -->
-<g id="edge9" class="edge">
+<g id="edge7" class="edge">
 <title>jt&#45;&gt;assistants</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M804.95,-2582.59C763.17,-2463.06 689.07,-2251.11 645.56,-2126.65"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="648.04,-2125.81 643.09,-2119.59 643.09,-2127.54 648.04,-2125.81"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="753.18,-2338.2 753.18,-2361 787.97,-2361 787.97,-2338.2 753.18,-2338.2"/>
-<text xml:space="preserve" text-anchor="start" x="756.18" y="-2344" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1905.62,-2582.55C1916.29,-2498.82 1934.41,-2370.06 1957.21,-2259.6 1964.79,-2222.91 1993.95,-2207.86 1973,-2176.8 1928.07,-2110.2 1847.83,-2073.37 1773.62,-2052.99"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1774.51,-2050.51 1766.59,-2051.12 1773.16,-2055.59 1774.51,-2050.51"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1957.21,-2338.2 1957.21,-2361 1992,-2361 1992,-2338.2 1957.21,-2338.2"/>
+<text xml:space="preserve" text-anchor="start" x="1960.21" y="-2344" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks</text>
 </g>
 <!-- jt&#45;&gt;capture -->
-<g id="edge11" class="edge">
+<g id="edge8" class="edge">
 <title>jt&#45;&gt;capture</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M664.81,-2641.55C420.22,-2593.96 0,-2491.68 0,-2350.6 0,-2350.6 0,-2350.6 0,-1703 0,-1551.61 461.52,-1451.9 719.87,-1407.94"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="720.17,-1410.56 727.13,-1406.72 719.3,-1405.38 720.17,-1410.56"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="0,-2015.4 0,-2038.2 106.39,-2038.2 106.39,-2015.4 0,-2015.4"/>
-<text xml:space="preserve" text-anchor="start" x="3" y="-2021.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">jots things down</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2066.15,-2643.72C2318.29,-2598.04 2760,-2497.1 2760,-2350.6 2760,-2350.6 2760,-2350.6 2760,-1703 2760,-1497.05 2080.21,-1418.83 1754.31,-1393.16"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1754.52,-1390.54 1746.84,-1392.58 1754.12,-1395.78 1754.52,-1390.54"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2760,-2015.4 2760,-2038.2 2866.39,-2038.2 2866.39,-2015.4 2760,-2015.4"/>
+<text xml:space="preserve" text-anchor="start" x="2763" y="-2021.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">jots things down</text>
 </g>
 <!-- jt&#45;&gt;scan -->
-<g id="edge12" class="edge">
+<g id="edge10" class="edge">
 <title>jt&#45;&gt;scan</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1007.06,-2650.85C1173.15,-2624.2 1426.39,-2565.28 1610,-2439.6 1767.69,-2331.67 1826.55,-2295.59 1894,-2116.8 1980.35,-1887.92 1808.53,-1619.44 1697.72,-1479"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1700.11,-1477.79 1693.39,-1473.55 1696,-1481.05 1700.11,-1477.79"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1917.44,-2015.4 1917.44,-2038.2 1996.61,-2038.2 1996.61,-2015.4 1917.44,-2015.4"/>
-<text xml:space="preserve" text-anchor="start" x="1920.44" y="-2021.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">loads paper</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1723.82,-2657.87C1564.03,-2636.53 1328.65,-2581.49 1181,-2439.6 878.47,-2148.88 927.82,-1967.03 854,-1554 849.84,-1530.71 848.83,-1505.37 849.42,-1481.49"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="852.04,-1481.6 849.68,-1474.01 846.79,-1481.42 852.04,-1481.6"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="954.77,-2015.4 954.77,-2038.2 1033.93,-2038.2 1033.93,-2015.4 954.77,-2015.4"/>
+<text xml:space="preserve" text-anchor="start" x="957.77" y="-2021.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">loads paper</text>
+</g>
+<!-- fieldagent&#45;&gt;mail -->
+<g id="edge20" class="edge">
+<title>fieldagent&#45;&gt;mail</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1452.04,-2259.96C1473.21,-2229.27 1500.65,-2197.43 1533.21,-2176.8 1642.86,-2107.36 1692.44,-2145.55 1819,-2116.8 1876.6,-2103.71 1939.13,-2088.72 1995.85,-2074.81"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1996.41,-2077.37 2003.06,-2073.04 1995.15,-2072.28 1996.41,-2077.37"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1533.21,-2176.8 1533.21,-2199.6 1698,-2199.6 1698,-2176.8 1533.21,-2176.8"/>
+<text xml:space="preserve" text-anchor="start" x="1536.21" y="-2182.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">phone attaches, 3 h apart</text>
 </g>
 <!-- fieldagent&#45;&gt;assistants -->
-<g id="edge13" class="edge">
+<g id="edge19" class="edge">
 <title>fieldagent&#45;&gt;assistants</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M415.85,-2259.67C451.19,-2217.68 493.43,-2167.49 529.56,-2124.56"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="531.47,-2126.37 534.29,-2118.95 527.45,-2122.99 531.47,-2126.37"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="484.1,-2176.8 484.1,-2199.6 626.29,-2199.6 626.29,-2176.8 484.1,-2176.8"/>
-<text xml:space="preserve" text-anchor="start" x="487.1" y="-2182.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">one turn per message</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1288.06,-2259.66C1267.73,-2233.46 1258.02,-2204.41 1275.81,-2176.8 1311.59,-2121.25 1373.7,-2086.18 1434.33,-2064.14"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1434.98,-2066.69 1441.18,-2061.72 1433.24,-2061.74 1434.98,-2066.69"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1275.81,-2176.8 1275.81,-2199.6 1418,-2199.6 1418,-2176.8 1275.81,-2176.8"/>
+<text xml:space="preserve" text-anchor="start" x="1278.81" y="-2182.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">one turn per message</text>
 </g>
 <!-- backups&#45;&gt;vault -->
 <g id="edge3" class="edge">
 <title>backups&#45;&gt;vault</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2545.18,-2905.29C2534.2,-2885.54 2522.66,-2864.68 2512,-2845.2 2292.04,-2443.13 2380.91,-2224.3 2024,-1936.8 1839.14,-1787.89 1563.21,-1734.62 1385.67,-1715.58"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1386.19,-1712.99 1378.45,-1714.82 1385.64,-1718.21 1386.19,-1712.99"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2347.99,-2338.2 2347.99,-2361 2455.15,-2361 2455.15,-2338.2 2347.99,-2338.2"/>
-<text xml:space="preserve" text-anchor="start" x="2350.99" y="-2344" font-family="Arial" font-size="14.00" fill="#c9c9c9">writes setup into</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M412.79,-2905.33C482.19,-2848.58 552,-2767.99 552,-2673.4 552,-2673.4 552,-2673.4 552,-2025.8 552,-1790.03 880.56,-1726.54 1091.29,-1710.07"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1091.24,-1712.71 1098.53,-1709.53 1090.85,-1707.47 1091.24,-1712.71"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="552,-2338.2 552,-2361 659.16,-2361 659.16,-2338.2 552,-2338.2"/>
+<text xml:space="preserve" text-anchor="start" x="555" y="-2344" font-family="Arial" font-size="14.00" fill="#c9c9c9">writes setup into</text>
 </g>
 <!-- backups&#45;&gt;pi -->
 <g id="edge4" class="edge">
 <title>backups&#45;&gt;pi</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2595,-2905.35C2595,-2840.95 2595,-2751.79 2595,-2673.4 2595,-2673.4 2595,-2673.4 2595,-1380.2 2595,-1251.2 2225.82,-1147.94 1995.11,-1096.01"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1995.76,-1093.46 1987.86,-1094.38 1994.61,-1098.58 1995.76,-1093.46"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2595,-2015.4 2595,-2038.2 2672.6,-2038.2 2672.6,-2015.4 2595,-2015.4"/>
-<text xml:space="preserve" text-anchor="start" x="2598" y="-2021.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">backs up to</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M276,-2905.35C276,-2840.95 276,-2751.79 276,-2673.4 276,-2673.4 276,-2673.4 276,-1380.2 276,-1243.9 415.38,-1159.51 537.6,-1111.72"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="538.23,-1114.29 544.29,-1109.15 536.34,-1109.39 538.23,-1114.29"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="276,-2015.4 276,-2038.2 353.6,-2038.2 353.6,-2015.4 276,-2015.4"/>
+<text xml:space="preserve" text-anchor="start" x="279" y="-2021.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">backs up to</text>
 </g>
 <!-- backups&#45;&gt;github -->
 <g id="edge5" class="edge">
 <title>backups&#45;&gt;github</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2712.35,-2905.33C2774.86,-2847.23 2839,-2765.24 2839,-2673.4 2839,-2673.4 2839,-2673.4 2839,-411.8 2839,-222.36 2232.94,-137.6 1918.1,-106.34"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1918.68,-103.76 1910.96,-105.64 1918.16,-108.99 1918.68,-103.76"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2839,-1531.2 2839,-1554 2918.93,-1554 2918.93,-1531.2 2839,-1531.2"/>
-<text xml:space="preserve" text-anchor="start" x="2842" y="-1537" font-family="Arial" font-size="14.00" fill="#c9c9c9">private repo</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M139.21,-2905.33C69.81,-2848.58 0,-2767.99 0,-2673.4 0,-2673.4 0,-2673.4 0,-411.8 0,-289.74 341.01,-186.17 562.22,-131.83"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="562.73,-134.41 569.39,-130.08 561.48,-129.31 562.73,-134.41"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="0,-1531.2 0,-1554 79.93,-1554 79.93,-1531.2 0,-1531.2"/>
+<text xml:space="preserve" text-anchor="start" x="3" y="-1537" font-family="Arial" font-size="14.00" fill="#c9c9c9">private repo</text>
+</g>
+<!-- vault&#45;&gt;fieldagent -->
+<g id="edge15" class="edge">
+<title>vault&#45;&gt;fieldagent</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1237.02,-1793.73C1210.92,-1896.19 1183.05,-2067.56 1241,-2199.6 1249.31,-2218.54 1261.36,-2236.14 1275.18,-2252.11"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1273.12,-2253.74 1280.08,-2257.57 1277.02,-2250.23 1273.12,-2253.74"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1215.55,-2015.4 1215.55,-2038.2 1296.26,-2038.2 1296.26,-2015.4 1215.55,-2015.4"/>
+<text xml:space="preserve" text-anchor="start" x="1218.55" y="-2021.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">next actions</text>
 </g>
 <!-- vault&#45;&gt;capture -->
-<g id="edge20" class="edge">
+<g id="edge14" class="edge">
 <title>vault&#45;&gt;capture</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1050.62,-1641.21C1009.74,-1619.03 969.24,-1590.29 940.06,-1554 923.22,-1533.07 912.05,-1506.68 904.64,-1480.91"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="907.26,-1480.55 902.76,-1474 902.19,-1481.92 907.26,-1480.55"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="940.06,-1531.2 940.06,-1554 1020,-1554 1020,-1531.2 940.06,-1531.2"/>
-<text xml:space="preserve" text-anchor="start" x="943.06" y="-1537" font-family="Arial" font-size="14.00" fill="#c9c9c9">open to&#45;dos</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1395.25,-1614.01C1418.93,-1595.43 1442.55,-1575.05 1463,-1554 1484.7,-1531.66 1505.37,-1505.13 1523.3,-1479.67"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1525.42,-1481.23 1527.55,-1473.57 1521.11,-1478.23 1525.42,-1481.23"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1482.2,-1531.2 1482.2,-1554 1562.14,-1554 1562.14,-1531.2 1482.2,-1531.2"/>
+<text xml:space="preserve" text-anchor="start" x="1485.2" y="-1537" font-family="Arial" font-size="14.00" fill="#c9c9c9">open to&#45;dos</text>
 </g>
 <!-- vault&#45;&gt;scan -->
-<g id="edge21" class="edge">
+<g id="edge16" class="edge">
 <title>vault&#45;&gt;scan</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1319.2,-1614.02C1351.62,-1587.17 1387.49,-1557.78 1420.77,-1531.2 1442.76,-1513.64 1466.34,-1495.17 1489.22,-1477.43"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1490.56,-1479.71 1494.88,-1473.04 1487.34,-1475.56 1490.56,-1479.71"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1420.77,-1531.2 1420.77,-1554 1475,-1554 1475,-1531.2 1420.77,-1531.2"/>
-<text xml:space="preserve" text-anchor="start" x="1423.77" y="-1537" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks JT</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1101.73,-1674.44C1027.92,-1653.26 945.66,-1616.73 893.77,-1554 876.92,-1533.63 867.62,-1507.28 862.69,-1481.36"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="865.29,-1481.01 861.45,-1474.06 860.12,-1481.89 865.29,-1481.01"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="893.77,-1531.2 893.77,-1554 948,-1554 948,-1531.2 893.77,-1531.2"/>
+<text xml:space="preserve" text-anchor="start" x="896.77" y="-1537" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks JT</text>
 </g>
 <!-- pi&#45;&gt;scan -->
-<g id="edge28" class="edge">
+<g id="edge29" class="edge">
 <title>pi&#45;&gt;scan</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1645.23,-1148.37C1625.64,-1165.65 1608.41,-1185.62 1596.39,-1208.4 1584.78,-1230.43 1582.55,-1256.25 1584.85,-1281.08"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1582.21,-1281.12 1585.69,-1288.27 1587.43,-1280.51 1582.21,-1281.12"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1596.39,-1208.4 1596.39,-1231.2 1681,-1231.2 1681,-1208.4 1596.39,-1208.4"/>
-<text xml:space="preserve" text-anchor="start" x="1599.39" y="-1214.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">saves pages</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M757.32,-1148.23C775.67,-1189.68 797.56,-1239.14 816.41,-1281.73"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="813.97,-1282.7 819.41,-1288.5 818.77,-1280.58 813.97,-1282.7"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="793.26,-1208.4 793.26,-1231.2 877.86,-1231.2 877.86,-1208.4 793.26,-1208.4"/>
+<text xml:space="preserve" text-anchor="start" x="796.26" y="-1214.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">saves pages</text>
 </g>
 <!-- pi&#45;&gt;printing -->
-<g id="edge29" class="edge">
+<g id="edge30" class="edge">
 <title>pi&#45;&gt;printing</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1853.37,-968.47C1871.72,-927.01 1893.61,-877.54 1912.46,-834.96"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1914.82,-836.12 1915.45,-828.2 1910.02,-833.99 1914.82,-836.12"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1889.26,-885.6 1889.26,-908.4 1969.97,-908.4 1969.97,-885.6 1889.26,-885.6"/>
-<text xml:space="preserve" text-anchor="start" x="1892.26" y="-891.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">drafted card</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M687.16,-968.55C682.53,-940.72 683.04,-910.73 696.29,-885.6 708.41,-862.62 725.84,-842.51 745.65,-825.12"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="747.32,-827.15 751.34,-820.3 743.92,-823.15 747.32,-827.15"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="696.29,-885.6 696.29,-908.4 777,-908.4 777,-885.6 696.29,-885.6"/>
+<text xml:space="preserve" text-anchor="start" x="699.29" y="-891.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">drafted card</text>
 </g>
 <!-- pi&#45;&gt;cloudflare -->
-<g id="edge30" class="edge">
+<g id="edge31" class="edge">
 <title>pi&#45;&gt;cloudflare</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1729.72,-968.47C1689.77,-926.31 1641.98,-875.87 1601.18,-832.82"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1603.32,-831.27 1596.26,-827.63 1599.51,-834.88 1603.32,-831.27"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1671.12,-885.6 1671.12,-908.4 1770.47,-908.4 1770.47,-885.6 1671.12,-885.6"/>
-<text xml:space="preserve" text-anchor="start" x="1674.12" y="-891.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">camera stream</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M615.62,-968.71C596.54,-949.81 577.62,-929.23 561.64,-908.4 544.33,-885.83 528.33,-859.65 514.63,-834.64"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="517,-833.5 511.13,-828.15 512.38,-835.99 517,-833.5"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="561.64,-885.6 561.64,-908.4 661,-908.4 661,-885.6 561.64,-885.6"/>
+<text xml:space="preserve" text-anchor="start" x="564.64" y="-891.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">camera stream</text>
 </g>
 <!-- icloudmail&#45;&gt;mail -->
 <g id="edge6" class="edge">
 <title>icloudmail&#45;&gt;mail</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1490.06,-2905.39C1465.94,-2785.98 1423.19,-2574.33 1398.04,-2449.83"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1400.62,-2449.33 1396.56,-2442.5 1395.48,-2450.37 1400.62,-2449.33"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1460.15,-2661 1460.15,-2683.8 1521.39,-2683.8 1521.39,-2661 1460.15,-2661"/>
-<text xml:space="preserve" text-anchor="start" x="1463.15" y="-2666.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2974.87,-2905.34C2962.64,-2800.05 2929.87,-2623.34 2843,-2499.6 2722.29,-2327.66 2518.2,-2195.92 2368.86,-2115.9"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2370.53,-2113.81 2362.67,-2112.6 2368.06,-2118.44 2370.53,-2113.81"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2857.6,-2499.6 2857.6,-2522.4 2918.84,-2522.4 2918.84,-2499.6 2857.6,-2499.6"/>
+<text xml:space="preserve" text-anchor="start" x="2860.6" y="-2505.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
 </g>
 <!-- mail&#45;&gt;jt -->
-<g id="edge14" class="edge">
+<g id="edge24" class="edge">
 <title>mail&#45;&gt;jt</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1200.95,-2434.59C1161.28,-2454.83 1119.8,-2477.13 1082.15,-2499.6 1042.93,-2523 1001.73,-2550.5 964.48,-2576.57"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="963.21,-2574.25 958.58,-2580.71 966.23,-2578.55 963.21,-2574.25"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1082.15,-2499.6 1082.15,-2522.4 1201,-2522.4 1201,-2499.6 1082.15,-2499.6"/>
-<text xml:space="preserve" text-anchor="start" x="1085.15" y="-2505.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">what needs action</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2149.72,-2116.71C2111.44,-2216.77 2045.2,-2383.5 1978,-2522.4 1969.87,-2539.2 1960.72,-2556.75 1951.53,-2573.68"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1949.48,-2571.96 1948.19,-2579.8 1954.09,-2574.48 1949.48,-2571.96"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2092.05,-2338.2 2092.05,-2361 2210.9,-2361 2210.9,-2338.2 2092.05,-2338.2"/>
+<text xml:space="preserve" text-anchor="start" x="2095.05" y="-2344" font-family="Arial" font-size="14.00" fill="#c9c9c9">what needs action</text>
+</g>
+<!-- mail&#45;&gt;fieldagent -->
+<g id="edge26" class="edge">
+<title>mail&#45;&gt;fieldagent</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2005.91,-2100.63C1878.28,-2153.12 1706.79,-2223.66 1579.34,-2276.08"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1578.59,-2273.55 1572.65,-2278.83 1580.59,-2278.4 1578.59,-2273.55"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1816.39,-2176.8 1816.39,-2199.6 1953.11,-2199.6 1953.11,-2176.8 1816.39,-2176.8"/>
+<text xml:space="preserve" text-anchor="start" x="1819.39" y="-2182.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">Email and Texts tabs</text>
 </g>
 <!-- mail&#45;&gt;vault -->
-<g id="edge16" class="edge">
+<g id="edge25" class="edge">
 <title>mail&#45;&gt;vault</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1327.95,-2259.8C1306.3,-2217.67 1282.65,-2165.91 1268.11,-2116.8 1237.3,-2012.73 1223.67,-1888.73 1217.67,-1804.18"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1220.29,-1804.13 1217.16,-1796.83 1215.06,-1804.49 1220.29,-1804.13"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1268.11,-2015.4 1268.11,-2038.2 1464,-2038.2 1464,-2015.4 1268.11,-2015.4"/>
-<text xml:space="preserve" text-anchor="start" x="1271.11" y="-2021.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">triage button: note with full text</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2005.81,-1963.95C1841.52,-1906.6 1598.63,-1821.81 1436.02,-1765.05"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1437.2,-1762.68 1429.26,-1762.69 1435.47,-1767.64 1437.2,-1762.68"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1751.06,-1854 1751.06,-1876.8 1946.94,-1876.8 1946.94,-1854 1751.06,-1854"/>
+<text xml:space="preserve" text-anchor="start" x="1754.06" y="-1859.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">triage button: note with full text</text>
 </g>
 <!-- mail&#45;&gt;gmail -->
-<g id="edge15" class="edge">
+<g id="edge27" class="edge">
 <title>mail&#45;&gt;gmail</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1461.45,-2259.67C1500.92,-2217.6 1548.13,-2167.28 1588.46,-2124.29"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1590.36,-2126.1 1593.58,-2118.84 1586.54,-2122.51 1590.36,-2126.1"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1537.53,-2176.8 1537.53,-2199.6 1634.58,-2199.6 1634.58,-2176.8 1537.53,-2176.8"/>
-<text xml:space="preserve" text-anchor="start" x="1540.53" y="-2182.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">archive, delete</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2236.32,-1936.95C2246.12,-1917.65 2255.35,-1896.96 2262,-1876.8 2269.61,-1853.74 2275.01,-1828.2 2278.83,-1804.01"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2281.4,-1804.54 2279.92,-1796.73 2276.21,-1803.76 2281.4,-1804.54"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2268.61,-1854 2268.61,-1876.8 2365.67,-1876.8 2365.67,-1854 2268.61,-1854"/>
+<text xml:space="preserve" text-anchor="start" x="2271.61" y="-1859.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">archive, delete</text>
 </g>
 <!-- assistants&#45;&gt;vault -->
-<g id="edge17" class="edge">
+<g id="edge12" class="edge">
 <title>assistants&#45;&gt;vault</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M709.71,-1936.92C745.05,-1907.98 786.26,-1877.34 827.01,-1854 893.83,-1815.73 972.38,-1783.38 1041.11,-1758.7"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1041.71,-1761.28 1047.89,-1756.29 1039.95,-1756.33 1041.71,-1761.28"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="827.01,-1854 827.01,-1876.8 854,-1876.8 854,-1854 827.01,-1854"/>
-<text xml:space="preserve" text-anchor="start" x="830.01" y="-1862.2" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1509.74,-1936.87C1464.97,-1894.62 1411.39,-1844.07 1365.7,-1800.96"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1367.6,-1799.14 1360.35,-1795.91 1364,-1802.96 1367.6,-1799.14"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1444.19,-1854 1444.19,-1876.8 1471.19,-1876.8 1471.19,-1854 1444.19,-1854"/>
+<text xml:space="preserve" text-anchor="start" x="1447.19" y="-1862.2" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
 </g>
 <!-- assistants&#45;&gt;capture -->
-<g id="edge18" class="edge">
+<g id="edge13" class="edge">
 <title>assistants&#45;&gt;capture</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M649.5,-1936.99C701.37,-1817.34 793.38,-1605.08 847.31,-1480.68"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="849.67,-1481.84 850.24,-1473.91 844.85,-1479.75 849.67,-1481.84"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="787.31,-1692.6 787.31,-1715.4 820.54,-1715.4 820.54,-1692.6 787.31,-1692.6"/>
-<text xml:space="preserve" text-anchor="start" x="790.31" y="-1698.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1601.39,-1936.9C1598.46,-1837.89 1593.53,-1673.09 1589,-1531.2 1588.48,-1515.03 1587.92,-1497.86 1587.37,-1481.16"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1590,-1481.27 1587.12,-1473.86 1584.75,-1481.44 1590,-1481.27"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1597.1,-1692.6 1597.1,-1715.4 1630.33,-1715.4 1630.33,-1692.6 1597.1,-1692.6"/>
+<text xml:space="preserve" text-anchor="start" x="1600.1" y="-1698.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
 </g>
 <!-- capture&#45;&gt;vault -->
-<g id="edge22" class="edge">
+<g id="edge17" class="edge">
 <title>capture&#45;&gt;vault</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M981.69,-1470.96C1001.95,-1490.72 1023.26,-1511.62 1043,-1531.2 1067.67,-1555.68 1094.17,-1582.3 1118.74,-1607.11"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1116.68,-1608.77 1123.83,-1612.25 1120.42,-1605.08 1116.68,-1608.77"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1061.58,-1531.2 1061.58,-1554 1088.57,-1554 1088.57,-1531.2 1061.58,-1531.2"/>
-<text xml:space="preserve" text-anchor="start" x="1064.58" y="-1539.4" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1481.44,-1471.11C1460.07,-1490.5 1437.99,-1511.2 1418.01,-1531.2 1394.27,-1554.95 1369.57,-1581.57 1347.07,-1606.63"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1345.23,-1604.76 1342.18,-1612.1 1349.14,-1608.25 1345.23,-1604.76"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1418.01,-1531.2 1418.01,-1554 1445,-1554 1445,-1531.2 1418.01,-1531.2"/>
+<text xml:space="preserve" text-anchor="start" x="1421.01" y="-1539.4" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
 </g>
 <!-- capture&#45;&gt;github -->
-<g id="edge23" class="edge">
+<g id="edge18" class="edge">
 <title>capture&#45;&gt;github</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M904.94,-1291.29C914.46,-1227.06 925,-1138.12 925,-1059.4 925,-1059.4 925,-1059.4 925,-411.8 925,-278.54 1309.46,-176.48 1547.99,-125.99"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1548.41,-128.58 1555.21,-124.47 1547.33,-123.44 1548.41,-128.58"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="925,-724.2 925,-747 1039.17,-747 1039.17,-724.2 925,-724.2"/>
-<text xml:space="preserve" text-anchor="start" x="928" y="-730" font-family="Arial" font-size="14.00" fill="#c9c9c9">via the vault copy</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1575.49,-1291.44C1570.05,-1227.09 1564,-1137.94 1564,-1059.4 1564,-1059.4 1564,-1059.4 1564,-411.8 1564,-276.88 1173.08,-175.12 932.06,-125.2"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="932.61,-122.63 924.73,-123.69 931.55,-127.77 932.61,-122.63"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1564,-724.2 1564,-747 1678.17,-747 1678.17,-724.2 1564,-724.2"/>
+<text xml:space="preserve" text-anchor="start" x="1567" y="-730" font-family="Arial" font-size="14.00" fill="#c9c9c9">via the vault copy</text>
 </g>
 <!-- scan&#45;&gt;vault -->
-<g id="edge24" class="edge">
+<g id="edge21" class="edge">
 <title>scan&#45;&gt;vault</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1566.03,-1470.89C1547.46,-1499.81 1524.3,-1530.5 1498,-1554 1464.69,-1583.77 1424.36,-1609.49 1384.65,-1630.78"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1383.47,-1628.43 1378.06,-1634.26 1385.92,-1633.07 1383.47,-1628.43"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1517.94,-1531.2 1517.94,-1554 1636.02,-1554 1636.02,-1531.2 1517.94,-1531.2"/>
-<text xml:space="preserve" text-anchor="start" x="1520.94" y="-1537" font-family="Arial" font-size="14.00" fill="#c9c9c9">one note per scan</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M962.42,-1471.13C994.26,-1498.18 1029.73,-1527.7 1062.92,-1554 1085.31,-1571.74 1109.46,-1590.2 1132.99,-1607.83"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1131.28,-1609.83 1138.86,-1612.22 1134.43,-1605.63 1131.28,-1609.83"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1062.92,-1531.2 1062.92,-1554 1181,-1554 1181,-1531.2 1062.92,-1531.2"/>
+<text xml:space="preserve" text-anchor="start" x="1065.92" y="-1537" font-family="Arial" font-size="14.00" fill="#c9c9c9">one note per scan</text>
 </g>
 <!-- scan&#45;&gt;pi -->
-<g id="edge26" class="edge">
+<g id="edge23" class="edge">
 <title>scan&#45;&gt;pi</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1669.45,-1291.27C1695.46,-1249.54 1726.52,-1199.71 1753.18,-1156.96"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1755.28,-1158.55 1757.02,-1150.8 1750.82,-1155.77 1755.28,-1158.55"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1720,-1208.4 1720,-1231.2 1746.99,-1231.2 1746.99,-1208.4 1720,-1208.4"/>
-<text xml:space="preserve" text-anchor="start" x="1723" y="-1216.6" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M741.7,-1291.54C725.15,-1273.52 710.56,-1253.24 701.01,-1231.2 691.26,-1208.7 689.47,-1183.04 691.56,-1158.53"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="694.17,-1158.85 692.36,-1151.12 688.95,-1158.29 694.17,-1158.85"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="701.01,-1208.4 701.01,-1231.2 728,-1231.2 728,-1208.4 701.01,-1208.4"/>
+<text xml:space="preserve" text-anchor="start" x="704.01" y="-1216.6" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
 </g>
 <!-- scan&#45;&gt;docs -->
-<g id="edge25" class="edge">
+<g id="edge22" class="edge">
 <title>scan&#45;&gt;docs</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1534.99,-1291.27C1497.62,-1249.2 1452.92,-1198.88 1414.72,-1155.89"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1416.87,-1154.36 1409.93,-1150.49 1412.95,-1157.84 1416.87,-1154.36"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1480.05,-1208.4 1480.05,-1231.2 1535.09,-1231.2 1535.09,-1208.4 1480.05,-1208.4"/>
-<text xml:space="preserve" text-anchor="start" x="1483.05" y="-1214.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">indexed</text>
-</g>
-<!-- gmail&#45;&gt;mail -->
-<g id="edge19" class="edge">
-<title>gmail&#45;&gt;mail</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1519.29,-2099.97C1486.37,-2120.86 1454.54,-2146.42 1430.76,-2176.8 1414.22,-2197.93 1402.84,-2224.26 1395.01,-2249.9"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1392.59,-2248.84 1393.03,-2256.78 1397.63,-2250.3 1392.59,-2248.84"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1430.76,-2176.8 1430.76,-2199.6 1492,-2199.6 1492,-2176.8 1430.76,-2176.8"/>
-<text xml:space="preserve" text-anchor="start" x="1433.76" y="-2182.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M956.48,-1291.27C1002.3,-1249.02 1057.14,-1198.47 1103.91,-1155.36"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1105.68,-1157.29 1109.41,-1150.28 1102.12,-1153.43 1105.68,-1157.29"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1044.43,-1208.4 1044.43,-1231.2 1099.48,-1231.2 1099.48,-1208.4 1044.43,-1208.4"/>
+<text xml:space="preserve" text-anchor="start" x="1047.43" y="-1214.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">indexed</text>
 </g>
 <!-- docs&#45;&gt;vault -->
-<g id="edge27" class="edge">
+<g id="edge28" class="edge">
 <title>docs&#45;&gt;vault</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1312.97,-1148.34C1291.44,-1267.8 1253.29,-1479.45 1230.86,-1603.9"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1228.29,-1603.36 1229.54,-1611.21 1233.46,-1604.29 1228.29,-1603.36"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1286.3,-1369.8 1286.3,-1392.6 1336.66,-1392.6 1336.66,-1369.8 1286.3,-1369.8"/>
-<text xml:space="preserve" text-anchor="start" x="1289.3" y="-1375.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">full text</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1215.74,-1148.34C1226.13,-1267.8 1244.55,-1479.45 1255.38,-1603.9"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1252.74,-1603.93 1256.01,-1611.17 1257.97,-1603.47 1252.74,-1603.93"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1243.39,-1369.8 1243.39,-1392.6 1293.74,-1392.6 1293.74,-1369.8 1243.39,-1369.8"/>
+<text xml:space="preserve" text-anchor="start" x="1246.39" y="-1375.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">full text</text>
+</g>
+<!-- gmail&#45;&gt;mail -->
+<g id="edge32" class="edge">
+<title>gmail&#45;&gt;mail</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2205.46,-1793.68C2192.45,-1812.36 2180.93,-1832.86 2173.76,-1854 2165.99,-1876.89 2164.06,-1902.48 2165.05,-1926.78"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2162.42,-1926.74 2165.47,-1934.08 2167.66,-1926.44 2162.42,-1926.74"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2173.76,-1854 2173.76,-1876.8 2235,-1876.8 2235,-1854 2173.76,-1854"/>
+<text xml:space="preserve" text-anchor="start" x="2176.76" y="-1859.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
 </g>
 <!-- printing&#45;&gt;pi -->
-<g id="edge31" class="edge">
+<g id="edge33" class="edge">
 <title>printing&#45;&gt;pi</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1863.62,-825.31C1849.05,-843.84 1835.88,-864.28 1827.01,-885.6 1817.6,-908.19 1812.88,-933.89 1810.81,-958.4"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1808.19,-958.14 1810.29,-965.8 1813.43,-958.5 1808.19,-958.14"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1827.01,-885.6 1827.01,-908.4 1854,-908.4 1854,-885.6 1827.01,-885.6"/>
-<text xml:space="preserve" text-anchor="start" x="1830.01" y="-893.8" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M859.73,-825.43C834.25,-867.14 803.8,-916.97 777.67,-959.73"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="775.59,-958.11 773.91,-965.88 780.07,-960.85 775.59,-958.11"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="821.88,-885.6 821.88,-908.4 848.87,-908.4 848.87,-885.6 821.88,-885.6"/>
+<text xml:space="preserve" text-anchor="start" x="824.88" y="-893.8" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
 </g>
 <!-- printing&#45;&gt;site -->
-<g id="edge32" class="edge">
+<g id="edge34" class="edge">
 <title>printing&#45;&gt;site</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1894.18,-645.67C1865.12,-603.86 1830.39,-553.91 1800.63,-511.09"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1802.91,-509.78 1796.48,-505.12 1798.6,-512.77 1802.91,-509.78"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1851.19,-562.8 1851.19,-585.6 1929.55,-585.6 1929.55,-562.8 1851.19,-562.8"/>
-<text xml:space="preserve" text-anchor="start" x="1854.19" y="-568.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">gallery card</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M867.7,-645.67C846.07,-604.12 820.26,-554.53 798.07,-511.9"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="800.43,-510.76 794.64,-505.31 795.77,-513.18 800.43,-510.76"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="835.51,-562.8 835.51,-585.6 913.87,-585.6 913.87,-562.8 835.51,-562.8"/>
+<text xml:space="preserve" text-anchor="start" x="838.51" y="-568.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">gallery card</text>
 </g>
 <!-- cloudflare&#45;&gt;site -->
-<g id="edge33" class="edge">
+<g id="edge35" class="edge">
 <title>cloudflare&#45;&gt;site</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1571.82,-645.67C1600.88,-603.86 1635.61,-553.91 1665.37,-511.09"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1667.4,-512.77 1669.52,-505.12 1663.09,-509.78 1667.4,-512.77"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1628.19,-562.8 1628.19,-585.6 1675.42,-585.6 1675.42,-562.8 1628.19,-562.8"/>
-<text xml:space="preserve" text-anchor="start" x="1631.19" y="-568.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">serves</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M545.35,-645.67C581.86,-603.68 625.51,-553.49 662.85,-510.56"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="664.82,-512.3 667.76,-504.91 660.86,-508.85 664.82,-512.3"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="615.87,-562.8 615.87,-585.6 663.1,-585.6 663.1,-562.8 615.87,-562.8"/>
+<text xml:space="preserve" text-anchor="start" x="618.87" y="-568.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">serves</text>
 </g>
 <!-- site&#45;&gt;github -->
-<g id="edge34" class="edge">
+<g id="edge36" class="edge">
 <title>site&#45;&gt;github</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1733,-322.87C1733,-281.67 1733,-232.56 1733,-190.17"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1735.63,-190.36 1733,-182.86 1730.38,-190.36 1735.63,-190.36"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1733,-240 1733,-262.8 1785.7,-262.8 1785.7,-240 1733,-240"/>
-<text xml:space="preserve" text-anchor="start" x="1736" y="-245.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs on</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M747,-322.87C747,-281.67 747,-232.56 747,-190.17"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="749.63,-190.36 747,-182.86 744.38,-190.36 749.63,-190.36"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="747,-240 747,-262.8 799.7,-262.8 799.7,-240 747,-240"/>
+<text xml:space="preserve" text-anchor="start" x="750" y="-245.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs on</text>
 </g>
 </g>
 </svg>
@@ -3497,367 +3719,382 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <!-- Generated by graphviz version 15.0.0 (0)
  -->
 <!-- Pages: 1 -->
-<svg width="4419pt" height="2646pt"
- viewBox="0.00 0.00 4419.00 2646.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(15.05 2630.85)">
+<svg width="3807pt" height="2816pt"
+ viewBox="0.00 0.00 3807.00 2816.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(15.05 2800.85)">
 <g id="clust1" class="cluster">
 <title>cluster_vault</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="2323.05,-126 2323.05,-987 4380.55,-987 4380.55,-126 2323.05,-126"/>
-<text xml:space="preserve" text-anchor="start" x="2331.05" y="-974.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SECOND BRAIN</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="1652.72,-478 1652.72,-1339 3241.89,-1339 3241.89,-478 1652.72,-478"/>
+<text xml:space="preserve" text-anchor="start" x="1660.72" y="-1326.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SECOND BRAIN</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_fieldagent</title>
+<polygon fill="#194b9e" stroke="#1b3d88" points="3370.6,-2122 3370.6,-2387 3769.07,-2387 3769.07,-2122 3370.6,-2122"/>
+<text xml:space="preserve" text-anchor="start" x="3378.6" y="-2374.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">FIELD AGENT</text>
 </g>
 <!-- ingest -->
 <g id="node1" class="node">
 <title>ingest</title>
-<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M2693.62,-619.64C2693.62,-628.67 2621.89,-636 2533.6,-636 2445.3,-636 2373.58,-628.67 2373.58,-619.64 2373.58,-619.64 2373.58,-472.36 2373.58,-472.36 2373.58,-463.33 2445.3,-456 2533.6,-456 2621.89,-456 2693.62,-463.33 2693.62,-472.36 2693.62,-472.36 2693.62,-619.64 2693.62,-619.64"/>
-<path fill="none" stroke="#4f46e5" stroke-width="2" d="M2693.62,-619.64C2693.62,-610.61 2621.89,-603.27 2533.6,-603.27 2445.3,-603.27 2373.58,-610.61 2373.58,-619.64"/>
-<text xml:space="preserve" text-anchor="start" x="2498.01" y="-549" font-family="Arial" font-size="20.00" fill="#eef2ff">0 Ingest</text>
-<text xml:space="preserve" text-anchor="start" x="2393.96" y="-526" font-family="Arial" font-size="15.00" fill="#c7d2fe">The in&#45;tray. Every capture lands here first.</text>
+<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M2023.28,-971.64C2023.28,-980.67 1951.56,-988 1863.26,-988 1774.97,-988 1703.24,-980.67 1703.24,-971.64 1703.24,-971.64 1703.24,-824.36 1703.24,-824.36 1703.24,-815.33 1774.97,-808 1863.26,-808 1951.56,-808 2023.28,-815.33 2023.28,-824.36 2023.28,-824.36 2023.28,-971.64 2023.28,-971.64"/>
+<path fill="none" stroke="#4f46e5" stroke-width="2" d="M2023.28,-971.64C2023.28,-962.61 1951.56,-955.27 1863.26,-955.27 1774.97,-955.27 1703.24,-962.61 1703.24,-971.64"/>
+<text xml:space="preserve" text-anchor="start" x="1827.68" y="-901" font-family="Arial" font-size="20.00" fill="#eef2ff">0 Ingest</text>
+<text xml:space="preserve" text-anchor="start" x="1723.62" y="-878" font-family="Arial" font-size="15.00" fill="#c7d2fe">The in&#45;tray. Every capture lands here first.</text>
 </g>
 <!-- pdftext -->
 <g id="node2" class="node">
 <title>pdftext</title>
-<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M2704.14,-329.64C2704.14,-338.67 2627.7,-346 2533.6,-346 2439.49,-346 2363.05,-338.67 2363.05,-329.64 2363.05,-329.64 2363.05,-182.36 2363.05,-182.36 2363.05,-173.33 2439.49,-166 2533.6,-166 2627.7,-166 2704.14,-173.33 2704.14,-182.36 2704.14,-182.36 2704.14,-329.64 2704.14,-329.64"/>
-<path fill="none" stroke="#4f46e5" stroke-width="2" d="M2704.14,-329.64C2704.14,-320.61 2627.7,-313.27 2533.6,-313.27 2439.49,-313.27 2363.05,-320.61 2363.05,-329.64"/>
-<text xml:space="preserve" text-anchor="start" x="2469.12" y="-277.8" font-family="Arial" font-size="20.00" fill="#eef2ff">Document text</text>
-<text xml:space="preserve" text-anchor="start" x="2467.85" y="-256.8" font-family="Arial" font-size="13.00" fill="#c7d2fe">3 Resources/PDF Text</text>
-<text xml:space="preserve" text-anchor="start" x="2383.1" y="-235.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">Searchable text of every document, with links</text>
-<text xml:space="preserve" text-anchor="start" x="2461.46" y="-217.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">that open the original.</text>
+<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M2033.81,-681.64C2033.81,-690.67 1957.37,-698 1863.26,-698 1769.16,-698 1692.72,-690.67 1692.72,-681.64 1692.72,-681.64 1692.72,-534.36 1692.72,-534.36 1692.72,-525.33 1769.16,-518 1863.26,-518 1957.37,-518 2033.81,-525.33 2033.81,-534.36 2033.81,-534.36 2033.81,-681.64 2033.81,-681.64"/>
+<path fill="none" stroke="#4f46e5" stroke-width="2" d="M2033.81,-681.64C2033.81,-672.61 1957.37,-665.27 1863.26,-665.27 1769.16,-665.27 1692.72,-672.61 1692.72,-681.64"/>
+<text xml:space="preserve" text-anchor="start" x="1798.79" y="-629.8" font-family="Arial" font-size="20.00" fill="#eef2ff">Document text</text>
+<text xml:space="preserve" text-anchor="start" x="1797.52" y="-608.8" font-family="Arial" font-size="13.00" fill="#c7d2fe">3 Resources/PDF Text</text>
+<text xml:space="preserve" text-anchor="start" x="1712.77" y="-587.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">Searchable text of every document, with links</text>
+<text xml:space="preserve" text-anchor="start" x="1791.13" y="-569.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">that open the original.</text>
 </g>
 <!-- triage -->
 <g id="node3" class="node">
 <title>triage</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="3244.31,-636 2915.72,-636 2915.72,-456 3244.31,-456 3244.31,-636"/>
-<text xml:space="preserve" text-anchor="start" x="3029.43" y="-567.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Vault triage</text>
-<text xml:space="preserve" text-anchor="start" x="3023.3" y="-546.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Claude or Grok skill</text>
-<text xml:space="preserve" text-anchor="start" x="2935.78" y="-525.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Reads the in&#45;tray and files each item where</text>
-<text xml:space="preserve" text-anchor="start" x="3045.83" y="-507.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">it belongs.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2637.9,-988 2309.31,-988 2309.31,-808 2637.9,-808 2637.9,-988"/>
+<text xml:space="preserve" text-anchor="start" x="2423.02" y="-919.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Vault triage</text>
+<text xml:space="preserve" text-anchor="start" x="2416.89" y="-898.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Claude or Grok skill</text>
+<text xml:space="preserve" text-anchor="start" x="2329.37" y="-877.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Reads the in&#45;tray and files each item where</text>
+<text xml:space="preserve" text-anchor="start" x="2439.42" y="-859.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">it belongs.</text>
 </g>
 <!-- para -->
 <g id="node4" class="node">
 <title>para</title>
-<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M3782.8,-619.64C3782.8,-628.67 3711.07,-636 3622.78,-636 3534.48,-636 3462.76,-628.67 3462.76,-619.64 3462.76,-619.64 3462.76,-472.36 3462.76,-472.36 3462.76,-463.33 3534.48,-456 3622.78,-456 3711.07,-456 3782.8,-463.33 3782.8,-472.36 3782.8,-472.36 3782.8,-619.64 3782.8,-619.64"/>
-<path fill="none" stroke="#4f46e5" stroke-width="2" d="M3782.8,-619.64C3782.8,-610.61 3711.07,-603.27 3622.78,-603.27 3534.48,-603.27 3462.76,-610.61 3462.76,-619.64"/>
-<text xml:space="preserve" text-anchor="start" x="3548.3" y="-558" font-family="Arial" font-size="20.00" fill="#eef2ff">Projects &amp; Areas</text>
-<text xml:space="preserve" text-anchor="start" x="3494.37" y="-535" font-family="Arial" font-size="15.00" fill="#c7d2fe">Life admin: things with a finish line and</text>
-<text xml:space="preserve" text-anchor="start" x="3571.9" y="-517" font-family="Arial" font-size="15.00" fill="#c7d2fe">ongoing duties.</text>
+<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M3182.6,-971.64C3182.6,-980.67 3110.88,-988 3022.58,-988 2934.28,-988 2862.56,-980.67 2862.56,-971.64 2862.56,-971.64 2862.56,-824.36 2862.56,-824.36 2862.56,-815.33 2934.28,-808 3022.58,-808 3110.88,-808 3182.6,-815.33 3182.6,-824.36 3182.6,-824.36 3182.6,-971.64 3182.6,-971.64"/>
+<path fill="none" stroke="#4f46e5" stroke-width="2" d="M3182.6,-971.64C3182.6,-962.61 3110.88,-955.27 3022.58,-955.27 2934.28,-955.27 2862.56,-962.61 2862.56,-971.64"/>
+<text xml:space="preserve" text-anchor="start" x="2948.11" y="-910" font-family="Arial" font-size="20.00" fill="#eef2ff">Projects &amp; Areas</text>
+<text xml:space="preserve" text-anchor="start" x="2894.17" y="-887" font-family="Arial" font-size="15.00" fill="#c7d2fe">Life admin: things with a finish line and</text>
+<text xml:space="preserve" text-anchor="start" x="2971.71" y="-869" font-family="Arial" font-size="15.00" fill="#c7d2fe">ongoing duties.</text>
 </g>
 <!-- zettel -->
 <g id="node5" class="node">
 <title>zettel</title>
-<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M3782.8,-329.64C3782.8,-338.67 3711.07,-346 3622.78,-346 3534.48,-346 3462.76,-338.67 3462.76,-329.64 3462.76,-329.64 3462.76,-182.36 3462.76,-182.36 3462.76,-173.33 3534.48,-166 3622.78,-166 3711.07,-166 3782.8,-173.33 3782.8,-182.36 3782.8,-182.36 3782.8,-329.64 3782.8,-329.64"/>
-<path fill="none" stroke="#4f46e5" stroke-width="2" d="M3782.8,-329.64C3782.8,-320.61 3711.07,-313.27 3622.78,-313.27 3534.48,-313.27 3462.76,-320.61 3462.76,-329.64"/>
-<text xml:space="preserve" text-anchor="start" x="3536.06" y="-268" font-family="Arial" font-size="20.00" fill="#eef2ff">Concepts &amp; Quotes</text>
-<text xml:space="preserve" text-anchor="start" x="3485.6" y="-245" font-family="Arial" font-size="15.00" fill="#c7d2fe">Ideas worth keeping, one per note, linked</text>
-<text xml:space="preserve" text-anchor="start" x="3593.17" y="-227" font-family="Arial" font-size="15.00" fill="#c7d2fe">together.</text>
+<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M3182.6,-681.64C3182.6,-690.67 3110.88,-698 3022.58,-698 2934.28,-698 2862.56,-690.67 2862.56,-681.64 2862.56,-681.64 2862.56,-534.36 2862.56,-534.36 2862.56,-525.33 2934.28,-518 3022.58,-518 3110.88,-518 3182.6,-525.33 3182.6,-534.36 3182.6,-534.36 3182.6,-681.64 3182.6,-681.64"/>
+<path fill="none" stroke="#4f46e5" stroke-width="2" d="M3182.6,-681.64C3182.6,-672.61 3110.88,-665.27 3022.58,-665.27 2934.28,-665.27 2862.56,-672.61 2862.56,-681.64"/>
+<text xml:space="preserve" text-anchor="start" x="2935.87" y="-620" font-family="Arial" font-size="20.00" fill="#eef2ff">Concepts &amp; Quotes</text>
+<text xml:space="preserve" text-anchor="start" x="2885.4" y="-597" font-family="Arial" font-size="15.00" fill="#c7d2fe">Ideas worth keeping, one per note, linked</text>
+<text xml:space="preserve" text-anchor="start" x="2992.98" y="-579" font-family="Arial" font-size="15.00" fill="#c7d2fe">together.</text>
 </g>
 <!-- memory -->
 <g id="node6" class="node">
 <title>memory</title>
-<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M3802.08,-909.64C3802.08,-918.67 3721.72,-926 3622.78,-926 3523.84,-926 3443.47,-918.67 3443.47,-909.64 3443.47,-909.64 3443.47,-762.36 3443.47,-762.36 3443.47,-753.33 3523.84,-746 3622.78,-746 3721.72,-746 3802.08,-753.33 3802.08,-762.36 3802.08,-762.36 3802.08,-909.64 3802.08,-909.64"/>
-<path fill="none" stroke="#4f46e5" stroke-width="2" d="M3802.08,-909.64C3802.08,-900.61 3721.72,-893.27 3622.78,-893.27 3523.84,-893.27 3443.47,-900.61 3443.47,-909.64"/>
-<text xml:space="preserve" text-anchor="start" x="3550.55" y="-848" font-family="Arial" font-size="20.00" fill="#eef2ff">System memory</text>
-<text xml:space="preserve" text-anchor="start" x="3463.53" y="-825" font-family="Arial" font-size="15.00" fill="#c7d2fe">What the assistants need to remember between</text>
-<text xml:space="preserve" text-anchor="start" x="3591.51" y="-807" font-family="Arial" font-size="15.00" fill="#c7d2fe">sessions.</text>
+<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M3201.89,-1261.64C3201.89,-1270.67 3121.52,-1278 3022.58,-1278 2923.64,-1278 2843.27,-1270.67 2843.27,-1261.64 2843.27,-1261.64 2843.27,-1114.36 2843.27,-1114.36 2843.27,-1105.33 2923.64,-1098 3022.58,-1098 3121.52,-1098 3201.89,-1105.33 3201.89,-1114.36 3201.89,-1114.36 3201.89,-1261.64 3201.89,-1261.64"/>
+<path fill="none" stroke="#4f46e5" stroke-width="2" d="M3201.89,-1261.64C3201.89,-1252.61 3121.52,-1245.27 3022.58,-1245.27 2923.64,-1245.27 2843.27,-1252.61 2843.27,-1261.64"/>
+<text xml:space="preserve" text-anchor="start" x="2950.35" y="-1200" font-family="Arial" font-size="20.00" fill="#eef2ff">System memory</text>
+<text xml:space="preserve" text-anchor="start" x="2863.33" y="-1177" font-family="Arial" font-size="15.00" fill="#c7d2fe">What the assistants need to remember between</text>
+<text xml:space="preserve" text-anchor="start" x="2991.32" y="-1159" font-family="Arial" font-size="15.00" fill="#c7d2fe">sessions.</text>
 </g>
-<!-- home -->
+<!-- mission -->
 <g id="node7" class="node">
-<title>home</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="4340.55,-636 4002.79,-636 4002.79,-456 4340.55,-456 4340.55,-636"/>
-<text xml:space="preserve" text-anchor="start" x="4094.96" y="-558" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home dashboard</text>
-<text xml:space="preserve" text-anchor="start" x="4022.85" y="-535" font-family="Arial" font-size="15.00" fill="#b6ecf7">The front door. Shows today, mail, texts, and</text>
-<text xml:space="preserve" text-anchor="start" x="4072.03" y="-517" font-family="Arial" font-size="15.00" fill="#b6ecf7">what each project needs next.</text>
+<title>mission</title>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="3737.07,-2334 3402.6,-2334 3402.6,-2154 3737.07,-2154 3737.07,-2334"/>
+<text xml:space="preserve" text-anchor="start" x="3500.92" y="-2274.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mission Control</text>
+<text xml:space="preserve" text-anchor="start" x="3487.44" y="-2253.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">dashboard screen in the app</text>
+<text xml:space="preserve" text-anchor="start" x="3435.61" y="-2232.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">The front door. Shows today, mail, texts,</text>
+<text xml:space="preserve" text-anchor="start" x="3422.65" y="-2214.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">calendar, and what each project needs next,</text>
+<text xml:space="preserve" text-anchor="start" x="3527.3" y="-2196.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">updated live.</text>
 </g>
 <!-- schedulers -->
 <g id="node8" class="node">
 <title>schedulers</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="341.09,-1329 0,-1329 0,-1149 341.09,-1149 341.09,-1329"/>
-<text xml:space="preserve" text-anchor="start" x="120.52" y="-1260.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Schedulers</text>
-<text xml:space="preserve" text-anchor="start" x="95.75" y="-1239.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">Obsidian plugin · launchd</text>
-<text xml:space="preserve" text-anchor="start" x="20.06" y="-1218.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Timers that refresh everything so nobody has</text>
-<text xml:space="preserve" text-anchor="start" x="116.36" y="-1200.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">to press refresh.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="341.09,-1383 0,-1383 0,-1203 341.09,-1203 341.09,-1383"/>
+<text xml:space="preserve" text-anchor="start" x="120.52" y="-1314.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Schedulers</text>
+<text xml:space="preserve" text-anchor="start" x="95.75" y="-1293.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">Obsidian plugin · launchd</text>
+<text xml:space="preserve" text-anchor="start" x="20.06" y="-1272.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Timers that refresh everything so nobody has</text>
+<text xml:space="preserve" text-anchor="start" x="116.36" y="-1254.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">to press refresh.</text>
 </g>
 <!-- mail -->
 <g id="node9" class="node">
 <title>mail</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="859.68,-1585 505.22,-1585 505.22,-1405 859.68,-1405 859.68,-1585"/>
-<text xml:space="preserve" text-anchor="start" x="620.77" y="-1507" font-family="Arial" font-size="20.00" fill="#eff6ff">Email &amp; Texts</text>
-<text xml:space="preserve" text-anchor="start" x="525.28" y="-1484" font-family="Arial" font-size="15.00" fill="#bfdbfe">Turns two inboxes and iMessage into one short</text>
-<text xml:space="preserve" text-anchor="start" x="600.32" y="-1466" font-family="Arial" font-size="15.00" fill="#bfdbfe">list of what needs action.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="859.68,-1383 505.22,-1383 505.22,-1203 859.68,-1203 859.68,-1383"/>
+<text xml:space="preserve" text-anchor="start" x="620.77" y="-1305" font-family="Arial" font-size="20.00" fill="#eff6ff">Email &amp; Texts</text>
+<text xml:space="preserve" text-anchor="start" x="525.28" y="-1282" font-family="Arial" font-size="15.00" fill="#bfdbfe">Turns two inboxes and iMessage into one short</text>
+<text xml:space="preserve" text-anchor="start" x="600.32" y="-1264" font-family="Arial" font-size="15.00" fill="#bfdbfe">list of what needs action.</text>
 </g>
 <!-- backups -->
 <g id="node10" class="node">
 <title>backups</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="854.68,-1875 510.22,-1875 510.22,-1695 854.68,-1695 854.68,-1875"/>
-<text xml:space="preserve" text-anchor="start" x="644.1" y="-1806.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Backups</text>
-<text xml:space="preserve" text-anchor="start" x="614.18" y="-1785.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">GitHub · Time Machine</text>
-<text xml:space="preserve" text-anchor="start" x="530.28" y="-1764.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Hourly copy of the vault and machine setup to</text>
-<text xml:space="preserve" text-anchor="start" x="542.39" y="-1746.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">GitHub; Time Machine for everything else.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="854.68,-1673 510.22,-1673 510.22,-1493 854.68,-1493 854.68,-1673"/>
+<text xml:space="preserve" text-anchor="start" x="644.1" y="-1604.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Backups</text>
+<text xml:space="preserve" text-anchor="start" x="614.18" y="-1583.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">GitHub · Time Machine</text>
+<text xml:space="preserve" text-anchor="start" x="530.28" y="-1562.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Hourly copy of the vault and machine setup to</text>
+<text xml:space="preserve" text-anchor="start" x="542.39" y="-1544.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">GitHub; Time Machine for everything else.</text>
 </g>
 <!-- scan -->
 <g id="node11" class="node">
 <title>scan</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2124.97,-1330 1757.18,-1330 1757.18,-1150 2124.97,-1150 2124.97,-1330"/>
-<text xml:space="preserve" text-anchor="start" x="1903.83" y="-1252" font-family="Arial" font-size="20.00" fill="#eff6ff">Scanner</text>
-<text xml:space="preserve" text-anchor="start" x="1777.23" y="-1229" font-family="Arial" font-size="15.00" fill="#bfdbfe">Paper in the scanner becomes a searchable PDF</text>
-<text xml:space="preserve" text-anchor="start" x="1883.53" y="-1211" font-family="Arial" font-size="15.00" fill="#bfdbfe">and a note to file.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2047.16,-408 1679.37,-408 1679.37,-228 2047.16,-228 2047.16,-408"/>
+<text xml:space="preserve" text-anchor="start" x="1826.02" y="-330" font-family="Arial" font-size="20.00" fill="#eff6ff">Scanner</text>
+<text xml:space="preserve" text-anchor="start" x="1699.43" y="-307" font-family="Arial" font-size="15.00" fill="#bfdbfe">Paper in the scanner becomes a searchable PDF</text>
+<text xml:space="preserve" text-anchor="start" x="1805.72" y="-289" font-family="Arial" font-size="15.00" fill="#bfdbfe">and a note to file.</text>
 </g>
 <!-- docs -->
 <g id="node12" class="node">
 <title>docs</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2703.32,-1207 2363.87,-1207 2363.87,-1027 2703.32,-1027 2703.32,-1207"/>
-<text xml:space="preserve" text-anchor="start" x="2472.45" y="-1147.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Find Anything</text>
-<text xml:space="preserve" text-anchor="start" x="2477.96" y="-1126.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">Mac · hourly · free</text>
-<text xml:space="preserve" text-anchor="start" x="2411.86" y="-1105.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Copies the text of every document in</text>
-<text xml:space="preserve" text-anchor="start" x="2383.93" y="-1087.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Documents into the vault so one search finds</text>
-<text xml:space="preserve" text-anchor="start" x="2527.76" y="-1069.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">it.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2643.33,-408 2303.88,-408 2303.88,-228 2643.33,-228 2643.33,-408"/>
+<text xml:space="preserve" text-anchor="start" x="2412.46" y="-348.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Find Anything</text>
+<text xml:space="preserve" text-anchor="start" x="2417.98" y="-327.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">Mac · hourly · free</text>
+<text xml:space="preserve" text-anchor="start" x="2351.87" y="-306.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Copies the text of every document in</text>
+<text xml:space="preserve" text-anchor="start" x="2323.94" y="-288.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Documents into the vault so one search finds</text>
+<text xml:space="preserve" text-anchor="start" x="2467.77" y="-270.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">it.</text>
 </g>
 <!-- jt -->
 <g id="node13" class="node">
 <title>jt</title>
-<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="1441.29,-1877 1098.53,-1877 1098.53,-1697 1441.29,-1697 1441.29,-1877"/>
-<text xml:space="preserve" text-anchor="start" x="1258.8" y="-1799" font-family="Arial" font-size="20.00" fill="#f8fafc">JT</text>
-<text xml:space="preserve" text-anchor="start" x="1118.59" y="-1776" font-family="Arial" font-size="15.00" fill="#c2f0c2">Captures things, makes the calls, presses the</text>
-<text xml:space="preserve" text-anchor="start" x="1243.22" y="-1758" font-family="Arial" font-size="15.00" fill="#c2f0c2">buttons.</text>
+<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="1441.29,-1383 1098.53,-1383 1098.53,-1203 1441.29,-1203 1441.29,-1383"/>
+<text xml:space="preserve" text-anchor="start" x="1258.8" y="-1305" font-family="Arial" font-size="20.00" fill="#f8fafc">JT</text>
+<text xml:space="preserve" text-anchor="start" x="1118.59" y="-1282" font-family="Arial" font-size="15.00" fill="#c2f0c2">Captures things, makes the calls, presses the</text>
+<text xml:space="preserve" text-anchor="start" x="1243.22" y="-1264" font-family="Arial" font-size="15.00" fill="#c2f0c2">buttons.</text>
 </g>
 <!-- assistants -->
 <g id="node14" class="node">
 <title>assistants</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2101.2,-2100 1780.94,-2100 1780.94,-1920 2101.2,-1920 2101.2,-2100"/>
-<text xml:space="preserve" text-anchor="start" x="1884.38" y="-2031.8" font-family="Arial" font-size="20.00" fill="#eff6ff">AI assistants</text>
-<text xml:space="preserve" text-anchor="start" x="1881.82" y="-2010.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">Claude Code · Grok</text>
-<text xml:space="preserve" text-anchor="start" x="1801" y="-1989.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Two assistants share one vault, one set of</text>
-<text xml:space="preserve" text-anchor="start" x="1862.29" y="-1971.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">skills, and one memory.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2023.4,-1559 1703.13,-1559 1703.13,-1379 2023.4,-1379 2023.4,-1559"/>
+<text xml:space="preserve" text-anchor="start" x="1806.58" y="-1490.8" font-family="Arial" font-size="20.00" fill="#eff6ff">AI assistants</text>
+<text xml:space="preserve" text-anchor="start" x="1804.01" y="-1469.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">Claude Code · Grok</text>
+<text xml:space="preserve" text-anchor="start" x="1723.19" y="-1448.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Two assistants share one vault, one set of</text>
+<text xml:space="preserve" text-anchor="start" x="1784.49" y="-1430.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">skills, and one memory.</text>
 </g>
 <!-- capture -->
 <g id="node15" class="node">
 <title>capture</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2693.62,-1983 2373.58,-1983 2373.58,-1803 2693.62,-1803 2693.62,-1983"/>
-<text xml:space="preserve" text-anchor="start" x="2498.02" y="-1896" font-family="Arial" font-size="20.00" fill="#eff6ff">Capture</text>
-<text xml:space="preserve" text-anchor="start" x="2397.69" y="-1873" font-family="Arial" font-size="15.00" fill="#bfdbfe">Every way a thought gets into the in&#45;tray.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="2633.63,-1559 2313.59,-1559 2313.59,-1379 2633.63,-1379 2633.63,-1559"/>
+<text xml:space="preserve" text-anchor="start" x="2438.03" y="-1472" font-family="Arial" font-size="20.00" fill="#eff6ff">Capture</text>
+<text xml:space="preserve" text-anchor="start" x="2337.7" y="-1449" font-family="Arial" font-size="15.00" fill="#bfdbfe">Every way a thought gets into the in&#45;tray.</text>
 </g>
 <!-- ingest&#45;&gt;triage -->
-<g id="edge22" class="edge">
+<g id="edge23" class="edge">
 <title>ingest&#45;&gt;triage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2694.26,-546C2760.66,-546 2837.91,-546 2905.69,-546"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2905.52,-548.63 2913.02,-546 2905.52,-543.38 2905.52,-548.63"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2783.58,-546 2783.58,-568.8 2836.28,-568.8 2836.28,-546 2783.58,-546"/>
-<text xml:space="preserve" text-anchor="start" x="2786.58" y="-551.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">read by</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2024.1,-898C2108.59,-898 2212.41,-898 2298.88,-898"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2298.81,-900.63 2306.31,-898 2298.81,-895.38 2298.81,-900.63"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2149.17,-898 2149.17,-920.8 2201.87,-920.8 2201.87,-898 2149.17,-898"/>
+<text xml:space="preserve" text-anchor="start" x="2152.17" y="-903.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">read by</text>
 </g>
 <!-- triage&#45;&gt;para -->
-<g id="edge24" class="edge">
+<g id="edge25" class="edge">
 <title>triage&#45;&gt;para</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M3244,-546C3309.66,-546 3385.42,-546 3451.78,-546"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3451.4,-548.63 3458.9,-546 3451.4,-543.38 3451.4,-548.63"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="3307.04,-546 3307.04,-568.8 3380.74,-568.8 3380.74,-546 3307.04,-546"/>
-<text xml:space="preserve" text-anchor="start" x="3310.04" y="-551.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">files to&#45;dos</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2637.61,-898C2704.99,-898 2783.13,-898 2851.26,-898"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2851.14,-900.63 2858.64,-898 2851.14,-895.38 2851.14,-900.63"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2706.45,-898 2706.45,-920.8 2780.15,-920.8 2780.15,-898 2706.45,-898"/>
+<text xml:space="preserve" text-anchor="start" x="2709.45" y="-903.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">files to&#45;dos</text>
 </g>
 <!-- triage&#45;&gt;zettel -->
-<g id="edge25" class="edge">
+<g id="edge26" class="edge">
 <title>triage&#45;&gt;zettel</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M3244,-458.6C3311.26,-422.53 3389.11,-380.78 3456.6,-344.58"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3457.59,-347.03 3462.96,-341.17 3455.11,-342.4 3457.59,-347.03"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="3309.76,-418.36 3309.76,-441.16 3378.02,-441.16 3378.02,-418.36 3309.76,-418.36"/>
-<text xml:space="preserve" text-anchor="start" x="3312.76" y="-424.16" font-family="Arial" font-size="14.00" fill="#c9c9c9">files ideas</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2637.61,-811.58C2706.16,-775.23 2785.84,-732.99 2854.79,-696.43"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2855.94,-698.79 2861.34,-692.96 2853.48,-694.15 2855.94,-698.79"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2709.17,-770.36 2709.17,-793.16 2777.43,-793.16 2777.43,-770.36 2709.17,-770.36"/>
+<text xml:space="preserve" text-anchor="start" x="2712.17" y="-776.16" font-family="Arial" font-size="14.00" fill="#c9c9c9">files ideas</text>
 </g>
 <!-- triage&#45;&gt;memory -->
-<g id="edge26" class="edge">
+<g id="edge27" class="edge">
 <title>triage&#45;&gt;memory</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M3244,-633.4C3310.37,-669 3387.04,-710.12 3453.91,-745.97"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3452.33,-748.11 3460.18,-749.34 3454.81,-743.48 3452.33,-748.11"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="3304.31,-699.7 3304.31,-722.5 3383.47,-722.5 3383.47,-699.7 3304.31,-699.7"/>
-<text xml:space="preserve" text-anchor="start" x="3307.31" y="-705.5" font-family="Arial" font-size="14.00" fill="#c9c9c9">logs the run</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2637.61,-984.42C2705.25,-1020.29 2783.74,-1061.9 2852.06,-1098.12"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2850.67,-1100.36 2858.52,-1101.55 2853.13,-1095.72 2850.67,-1100.36"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2703.72,-1060.36 2703.72,-1083.16 2782.88,-1083.16 2782.88,-1060.36 2703.72,-1060.36"/>
+<text xml:space="preserve" text-anchor="start" x="2706.72" y="-1066.16" font-family="Arial" font-size="14.00" fill="#c9c9c9">logs the run</text>
 </g>
 <!-- triage&#45;&gt;scan -->
-<g id="edge23" class="edge">
+<g id="edge24" class="edge">
 <title>triage&#45;&gt;scan</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M3062.8,-635.77C3028.62,-795.13 2932.67,-1123.69 2704.14,-1262 2533.06,-1365.54 2298.47,-1339.2 2134.94,-1300.23"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2135.61,-1297.69 2127.7,-1298.47 2134.37,-1302.79 2135.61,-1297.69"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2506.48,-1334.64 2506.48,-1357.44 2560.71,-1357.44 2560.71,-1334.64 2506.48,-1334.64"/>
-<text xml:space="preserve" text-anchor="start" x="2509.48" y="-1340.44" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks JT</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2449.31,-808.16C2418.57,-706.8 2354.92,-543.54 2243.88,-447.2 2191.37,-401.63 2122.05,-371.96 2057.03,-352.71"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2057.9,-350.22 2049.96,-350.66 2056.44,-355.27 2057.9,-350.22"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2148.41,-447.2 2148.41,-470 2202.64,-470 2202.64,-447.2 2148.41,-447.2"/>
+<text xml:space="preserve" text-anchor="start" x="2151.41" y="-453" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks JT</text>
 </g>
-<!-- para&#45;&gt;home -->
-<g id="edge28" class="edge">
-<title>para&#45;&gt;home</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M3783.43,-546C3849.11,-546 3925.44,-546 3992.89,-546"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3992.68,-548.63 4000.18,-546 3992.68,-543.38 3992.68,-548.63"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="3862.08,-546 3862.08,-568.8 3942.79,-568.8 3942.79,-546 3862.08,-546"/>
-<text xml:space="preserve" text-anchor="start" x="3865.08" y="-551.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">next actions</text>
+<!-- para&#45;&gt;mission -->
+<g id="edge29" class="edge">
+<title>para&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M3180.68,-981.77C3203.72,-999.5 3225.24,-1019.94 3241.89,-1043 3493.66,-1391.86 3551.57,-1924.48 3564.87,-2144.05"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3562.23,-2143.91 3565.29,-2151.25 3567.47,-2143.61 3562.23,-2143.91"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="3261.89,-1185.63 3261.89,-1208.43 3342.6,-1208.43 3342.6,-1185.63 3261.89,-1185.63"/>
+<text xml:space="preserve" text-anchor="start" x="3264.89" y="-1191.43" font-family="Arial" font-size="14.00" fill="#c9c9c9">next actions</text>
 </g>
 <!-- para&#45;&gt;capture -->
-<g id="edge27" class="edge">
+<g id="edge28" class="edge">
 <title>para&#45;&gt;capture</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M3500.21,-633.16C3479.84,-650.92 3459.99,-670.49 3443.47,-691 3080.21,-1142.06 3329.8,-1521.34 2855.72,-1854 2811.98,-1884.7 2756.38,-1897.96 2703.79,-1902.51"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2703.62,-1899.89 2696.34,-1903.08 2704.02,-1905.13 2703.62,-1899.89"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="3040.04,-1798.12 3040.04,-1820.92 3119.99,-1820.92 3119.99,-1798.12 3040.04,-1798.12"/>
-<text xml:space="preserve" text-anchor="start" x="3043.04" y="-1803.92" font-family="Arial" font-size="14.00" fill="#c9c9c9">open to&#45;dos</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2902.38,-985.57C2881.55,-1003.42 2860.92,-1022.92 2843.27,-1043 2731.8,-1169.8 2763.08,-1246.99 2643.33,-1366 2641.22,-1368.1 2639.06,-1370.17 2636.85,-1372.22"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2635.27,-1370.11 2631.44,-1377.07 2638.78,-1374.02 2635.27,-1370.11"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2703.33,-1292.55 2703.33,-1315.35 2783.27,-1315.35 2783.27,-1292.55 2703.33,-1292.55"/>
+<text xml:space="preserve" text-anchor="start" x="2706.33" y="-1298.35" font-family="Arial" font-size="14.00" fill="#c9c9c9">open to&#45;dos</text>
 </g>
-<!-- schedulers&#45;&gt;home -->
+<!-- schedulers&#45;&gt;mission -->
 <g id="edge5" class="edge">
-<title>schedulers&#45;&gt;home</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M188.22,-1149.4C243.69,-864.79 432.71,0 681.45,0 681.45,0 681.45,0 3623.78,0 3873.88,0 4049.73,-289.51 4126.85,-446.9"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="4124.38,-447.82 4130.02,-453.42 4129.1,-445.53 4124.38,-447.82"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2230.51,0 2230.51,-22.8 2257.5,-22.8 2257.5,0 2230.51,0"/>
-<text xml:space="preserve" text-anchor="start" x="2233.51" y="-8.2" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
+<title>schedulers&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M182.74,-1382.74C225.03,-1701.9 387.69,-2763 681.45,-2763 681.45,-2763 681.45,-2763 3023.58,-2763 3264.56,-2763 3441.27,-2493.75 3521.27,-2343.11"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3523.59,-2344.35 3524.76,-2336.49 3518.95,-2341.9 3523.59,-2344.35"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1849.77,-2763 1849.77,-2785.8 1876.76,-2785.8 1876.76,-2763 1849.77,-2763"/>
+<text xml:space="preserve" text-anchor="start" x="1852.77" y="-2771.2" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
 </g>
 <!-- schedulers&#45;&gt;mail -->
 <g id="edge1" class="edge">
 <title>schedulers&#45;&gt;mail</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M340.98,-1324.07C390.88,-1349.12 445.71,-1376.65 496.53,-1402.16"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="495.05,-1404.35 502.93,-1405.37 497.4,-1399.66 495.05,-1404.35"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="409.66,-1374.68 409.66,-1397.48 436.66,-1397.48 436.66,-1374.68 409.66,-1374.68"/>
-<text xml:space="preserve" text-anchor="start" x="412.66" y="-1382.88" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M340.98,-1293C390.46,-1293 444.8,-1293 495.26,-1293"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="495.11,-1295.63 502.61,-1293 495.11,-1290.38 495.11,-1295.63"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="409.66,-1293 409.66,-1315.8 436.66,-1315.8 436.66,-1293 409.66,-1293"/>
+<text xml:space="preserve" text-anchor="start" x="412.66" y="-1301.2" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
 </g>
 <!-- schedulers&#45;&gt;backups -->
 <g id="edge2" class="edge">
 <title>schedulers&#45;&gt;backups</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M238.35,-1328.75C302.72,-1412.85 404.88,-1540.21 505.22,-1640 521.69,-1656.38 539.86,-1672.86 558.09,-1688.54"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="556.19,-1690.37 563.59,-1693.24 559.59,-1686.37 556.19,-1690.37"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="401.09,-1567.84 401.09,-1590.64 445.22,-1590.64 445.22,-1567.84 401.09,-1567.84"/>
-<text xml:space="preserve" text-anchor="start" x="404.09" y="-1573.64" font-family="Arial" font-size="14.00" fill="#c9c9c9">hourly</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M329.74,-1382.97C388.29,-1416.27 454.83,-1454.11 514.16,-1487.86"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="512.79,-1490.1 520.61,-1491.52 515.39,-1485.53 512.79,-1490.1"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="401.09,-1446.7 401.09,-1469.5 445.22,-1469.5 445.22,-1446.7 401.09,-1446.7"/>
+<text xml:space="preserve" text-anchor="start" x="404.09" y="-1452.5" font-family="Arial" font-size="14.00" fill="#c9c9c9">hourly</text>
 </g>
 <!-- schedulers&#45;&gt;scan -->
 <g id="edge3" class="edge">
 <title>schedulers&#45;&gt;scan</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M340.72,-1239.1C670.76,-1239.28 1398.65,-1239.69 1746.97,-1239.89"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1746.89,-1242.52 1754.39,-1239.89 1746.9,-1237.27 1746.89,-1242.52"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="936.03,-1239.49 936.03,-1262.29 1022.18,-1262.29 1022.18,-1239.49 936.03,-1239.49"/>
-<text xml:space="preserve" text-anchor="start" x="939.03" y="-1245.29" font-family="Arial" font-size="14.00" fill="#c9c9c9">every minute</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M235.53,-1203.28C371.15,-1020.91 707.32,-608.48 1098.53,-422 1278.93,-336.01 1508.77,-314.95 1668.97,-312.34"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1668.93,-314.96 1676.4,-312.23 1668.86,-309.71 1668.93,-314.96"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="936.03,-520 936.03,-542.8 1022.18,-542.8 1022.18,-520 936.03,-520"/>
+<text xml:space="preserve" text-anchor="start" x="939.03" y="-525.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">every minute</text>
 </g>
 <!-- schedulers&#45;&gt;docs -->
 <g id="edge4" class="edge">
 <title>schedulers&#45;&gt;docs</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M278.25,-1149.1C376.46,-1075.68 529.52,-984 681.45,-984 681.45,-984 681.45,-984 1942.07,-984 2082.86,-984 2238.02,-1020.42 2353.95,-1055.15"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2353.15,-1057.65 2361.08,-1057.31 2354.66,-1052.62 2353.15,-1057.65"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1247.84,-984 1247.84,-1006.8 1291.98,-1006.8 1291.98,-984 1247.84,-984"/>
-<text xml:space="preserve" text-anchor="start" x="1250.84" y="-989.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">hourly</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M186.82,-1203.11C239.13,-909.88 422.35,0 681.45,0 681.45,0 681.45,0 1864.26,0 2057.94,0 2250.88,-128.16 2365.97,-221.75"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2363.97,-223.51 2371.43,-226.23 2367.29,-219.45 2363.97,-223.51"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1247.84,0 1247.84,-22.8 1291.98,-22.8 1291.98,0 1247.84,0"/>
+<text xml:space="preserve" text-anchor="start" x="1250.84" y="-5.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">hourly</text>
 </g>
 <!-- mail&#45;&gt;ingest -->
 <g id="edge7" class="edge">
 <title>mail&#45;&gt;ingest</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M858.66,-1405.08C1213.63,-1222.91 2013.57,-812.37 2363.42,-632.82"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2364.45,-635.24 2369.93,-629.48 2362.06,-630.57 2364.45,-635.24"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1501.29,-1075.14 1501.29,-1097.94 1697.18,-1097.94 1697.18,-1075.14 1501.29,-1075.14"/>
-<text xml:space="preserve" text-anchor="start" x="1504.29" y="-1080.94" font-family="Arial" font-size="14.00" fill="#c9c9c9">triage button: note with full text</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M732.63,-1203.14C841.64,-1014.63 1124.11,-581.74 1501.29,-418 1549.43,-397.1 1580.47,-382.78 1619.37,-418 1674.83,-468.21 1614.75,-688.54 1652.72,-753 1664.65,-773.26 1680.67,-791.36 1698.55,-807.32"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1696.64,-809.14 1704.03,-812.05 1700.07,-805.17 1696.64,-809.14"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1171.97,-700.48 1171.97,-723.28 1367.85,-723.28 1367.85,-700.48 1171.97,-700.48"/>
+<text xml:space="preserve" text-anchor="start" x="1174.97" y="-706.28" font-family="Arial" font-size="14.00" fill="#c9c9c9">triage button: note with full text</text>
+</g>
+<!-- mail&#45;&gt;mission -->
+<g id="edge8" class="edge">
+<title>mail&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M806.28,-1382.78C825.45,-1399.86 844.06,-1418.53 859.68,-1438 1111.06,-1751.38 867.16,-2244 1268.91,-2244 1268.91,-2244 1268.91,-2244 3023.58,-2244 3146.81,-2244 3285.7,-2244 3392.46,-2244"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3392.16,-2246.63 3399.66,-2244 3392.16,-2241.38 3392.16,-2246.63"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2107.16,-2244 2107.16,-2266.8 2243.88,-2266.8 2243.88,-2244 2107.16,-2244"/>
+<text xml:space="preserve" text-anchor="start" x="2110.16" y="-2249.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">Email and Texts tabs</text>
 </g>
 <!-- mail&#45;&gt;jt -->
 <g id="edge6" class="edge">
 <title>mail&#45;&gt;jt</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M859.43,-1548.63C917.85,-1569.14 982.3,-1594.77 1038.53,-1624.2 1074.93,-1643.25 1112.22,-1667.29 1145.9,-1691.02"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1144.28,-1693.09 1151.91,-1695.29 1147.31,-1688.8 1144.28,-1693.09"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="919.68,-1624.2 919.68,-1647 1038.53,-1647 1038.53,-1624.2 919.68,-1624.2"/>
-<text xml:space="preserve" text-anchor="start" x="922.68" y="-1630" font-family="Arial" font-size="14.00" fill="#c9c9c9">what needs action</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M859.47,-1224.95C879.53,-1219.33 899.88,-1214.53 919.68,-1211.2 971.77,-1202.44 986.47,-1202.23 1038.53,-1211.2 1055.05,-1214.05 1071.96,-1217.96 1088.74,-1222.55"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1087.76,-1225 1095.69,-1224.5 1089.18,-1219.94 1087.76,-1225"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="919.68,-1211.2 919.68,-1234 1038.53,-1234 1038.53,-1211.2 919.68,-1211.2"/>
+<text xml:space="preserve" text-anchor="start" x="922.68" y="-1217" font-family="Arial" font-size="14.00" fill="#c9c9c9">what needs action</text>
 </g>
 <!-- backups&#45;&gt;memory -->
-<g id="edge8" class="edge">
+<g id="edge9" class="edge">
 <title>backups&#45;&gt;memory</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M703.22,-1874.95C755.36,-2085.56 917.47,-2593 1268.91,-2593 1268.91,-2593 1268.91,-2593 2810.93,-2593 3545.66,-2593 3616.81,-1310.68 3621.95,-937.02"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3624.57,-937.32 3622.03,-929.79 3619.32,-937.26 3624.57,-937.32"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2190.43,-2593 2190.43,-2615.8 2297.59,-2615.8 2297.59,-2593 2190.43,-2593"/>
-<text xml:space="preserve" text-anchor="start" x="2193.43" y="-2598.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">writes setup into</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M690.63,-1673C706.95,-1823.95 758.9,-2130.88 919.68,-2327 1032.11,-2464.15 1091.57,-2520 1268.91,-2520 1268.91,-2520 1268.91,-2520 2474.61,-2520 2740.69,-2520 2942.47,-1598.96 3002.9,-1288.66"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3005.39,-1289.6 3004.24,-1281.74 3000.23,-1288.6 3005.39,-1289.6"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1809.69,-2520 1809.69,-2542.8 1916.84,-2542.8 1916.84,-2520 1809.69,-2520"/>
+<text xml:space="preserve" text-anchor="start" x="1812.69" y="-2525.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">writes setup into</text>
 </g>
 <!-- scan&#45;&gt;ingest -->
-<g id="edge18" class="edge">
+<g id="edge19" class="edge">
 <title>scan&#45;&gt;ingest</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1988.45,-1150.2C2032.91,-1068.52 2104.94,-946.92 2184.97,-854.2 2230.13,-801.88 2251.14,-798.64 2303.05,-753 2343.67,-717.29 2387.88,-677.62 2426.56,-642.63"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2428.18,-644.71 2431.98,-637.73 2424.65,-640.82 2428.18,-644.71"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2184.97,-854.2 2184.97,-877 2303.05,-877 2303.05,-854.2 2184.97,-854.2"/>
-<text xml:space="preserve" text-anchor="start" x="2187.97" y="-860" font-family="Arial" font-size="14.00" fill="#c9c9c9">one note per scan</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1698.31,-407.88C1681.69,-420.98 1666.05,-435.38 1652.72,-451 1576.09,-540.77 1499.93,-594.67 1556.22,-698.4 1586.45,-754.11 1639.71,-796.71 1693.47,-827.95"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1692,-830.13 1699.82,-831.56 1694.6,-825.57 1692,-830.13"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1501.29,-675.6 1501.29,-698.4 1619.37,-698.4 1619.37,-675.6 1501.29,-675.6"/>
+<text xml:space="preserve" text-anchor="start" x="1504.29" y="-681.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">one note per scan</text>
 </g>
 <!-- scan&#45;&gt;docs -->
-<g id="edge17" class="edge">
+<g id="edge18" class="edge">
 <title>scan&#45;&gt;docs</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2124.87,-1201.92C2197.83,-1186.73 2281.55,-1169.29 2354.07,-1154.19"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2354.46,-1156.79 2361.26,-1152.69 2353.38,-1151.65 2354.46,-1156.79"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2216.49,-1185.86 2216.49,-1208.66 2271.53,-1208.66 2271.53,-1185.86 2216.49,-1185.86"/>
-<text xml:space="preserve" text-anchor="start" x="2219.49" y="-1191.66" font-family="Arial" font-size="14.00" fill="#c9c9c9">indexed</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2046.92,-307.34C2067.24,-306.46 2087.64,-305.71 2107.16,-305.2 2167.9,-303.6 2183.14,-303.5 2243.88,-305.2 2260.02,-305.65 2276.78,-306.28 2293.57,-307.02"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2293.39,-309.64 2301,-307.36 2293.63,-304.4 2293.39,-309.64"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2148,-305.2 2148,-328 2203.04,-328 2203.04,-305.2 2148,-305.2"/>
+<text xml:space="preserve" text-anchor="start" x="2151" y="-311" font-family="Arial" font-size="14.00" fill="#c9c9c9">indexed</text>
 </g>
 <!-- docs&#45;&gt;pdftext -->
-<g id="edge21" class="edge">
+<g id="edge22" class="edge">
 <title>docs&#45;&gt;pdftext</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2364,-1046.7C2349.25,-1036.94 2335.31,-1026.05 2323.05,-1014 2288.68,-980.21 2285.03,-964.26 2273.76,-917.4 2219.88,-693.23 2205.78,-599.5 2323.05,-401 2334.85,-381.02 2350.61,-363.16 2368.23,-347.37"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2369.65,-349.62 2373.6,-342.72 2366.21,-345.65 2369.65,-349.62"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2218.83,-894.6 2218.83,-917.4 2269.18,-917.4 2269.18,-894.6 2218.83,-894.6"/>
-<text xml:space="preserve" text-anchor="start" x="2221.83" y="-900.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">full text</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2358.18,-407.92C2313.9,-441.55 2268.12,-474.61 2243.88,-487 2181.63,-518.81 2109.37,-544.37 2044.7,-563.64"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2044.16,-561.07 2037.71,-565.71 2045.65,-566.1 2044.16,-561.07"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2150.35,-541.71 2150.35,-564.51 2200.7,-564.51 2200.7,-541.71 2150.35,-541.71"/>
+<text xml:space="preserve" text-anchor="start" x="2153.35" y="-547.51" font-family="Arial" font-size="14.00" fill="#c9c9c9">full text</text>
 </g>
-<!-- jt&#45;&gt;home -->
-<g id="edge13" class="edge">
-<title>jt&#45;&gt;home</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1319.21,-1876.97C1414.45,-2040.79 1643.25,-2371 1940.07,-2371 1940.07,-2371 1940.07,-2371 2810.93,-2371 3678.69,-2371 4058.31,-1027.81 4148.67,-646.08"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="4151.22,-646.73 4150.38,-638.83 4146.11,-645.53 4151.22,-646.73"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2785.15,-2371 2785.15,-2393.8 2834.72,-2393.8 2834.72,-2371 2785.15,-2371"/>
-<text xml:space="preserve" text-anchor="start" x="2788.15" y="-2376.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">checks</text>
+<!-- jt&#45;&gt;mission -->
+<g id="edge14" class="edge">
+<title>jt&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1296.75,-1382.75C1358.96,-1577.61 1536.53,-2022 1862.26,-2022 1862.26,-2022 1862.26,-2022 3023.58,-2022 3166.98,-2022 3316.98,-2088.68 3423.27,-2148.96"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3421.68,-2151.08 3429.5,-2152.52 3424.29,-2146.52 3421.68,-2151.08"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2448.82,-2022 2448.82,-2044.8 2498.39,-2044.8 2498.39,-2022 2448.82,-2022"/>
+<text xml:space="preserve" text-anchor="start" x="2451.82" y="-2027.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">checks</text>
 </g>
 <!-- jt&#45;&gt;mail -->
-<g id="edge9" class="edge">
+<g id="edge10" class="edge">
 <title>jt&#45;&gt;mail</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1098.86,-1741.83C1040.43,-1723.26 975.67,-1699.18 919.68,-1670 877.81,-1648.18 835.35,-1619.28 798.2,-1591.26"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="799.84,-1589.21 792.28,-1586.76 796.66,-1593.39 799.84,-1589.21"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="926.69,-1718.44 926.69,-1741.24 1031.52,-1741.24 1031.52,-1718.44 926.69,-1718.44"/>
-<text xml:space="preserve" text-anchor="start" x="929.69" y="-1724.24" font-family="Arial" font-size="14.00" fill="#c9c9c9">presses buttons</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1098.63,-1293C1026.89,-1293 943.18,-1293 869.79,-1293"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="870.03,-1290.38 862.53,-1293 870.03,-1295.63 870.03,-1290.38"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="926.69,-1293 926.69,-1315.8 1031.52,-1315.8 1031.52,-1293 926.69,-1293"/>
+<text xml:space="preserve" text-anchor="start" x="929.69" y="-1298.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">presses buttons</text>
 </g>
 <!-- jt&#45;&gt;scan -->
-<g id="edge11" class="edge">
+<g id="edge12" class="edge">
 <title>jt&#45;&gt;scan</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1380.66,-1697.29C1502.11,-1598.01 1697.13,-1438.59 1821.87,-1336.62"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1823.49,-1338.68 1827.64,-1331.91 1820.17,-1334.62 1823.49,-1338.68"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1559.65,-1594.46 1559.65,-1617.26 1638.81,-1617.26 1638.81,-1594.46 1559.65,-1594.46"/>
-<text xml:space="preserve" text-anchor="start" x="1562.65" y="-1600.26" font-family="Arial" font-size="14.00" fill="#c9c9c9">loads paper</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1278.78,-1203.16C1295.92,-1053.41 1348.3,-749.41 1501.29,-548.2 1545.56,-489.97 1609.14,-442.49 1670.63,-406.11"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1671.92,-408.39 1677.08,-402.34 1669.28,-403.86 1671.92,-408.39"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1520.75,-548.2 1520.75,-571 1599.91,-571 1599.91,-548.2 1520.75,-548.2"/>
+<text xml:space="preserve" text-anchor="start" x="1523.75" y="-554" font-family="Arial" font-size="14.00" fill="#c9c9c9">loads paper</text>
 </g>
 <!-- jt&#45;&gt;assistants -->
-<g id="edge10" class="edge">
+<g id="edge11" class="edge">
 <title>jt&#45;&gt;assistants</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1441.13,-1849.13C1461.37,-1856.27 1481.76,-1863.37 1501.29,-1870 1590.05,-1900.14 1689.54,-1932.03 1771.31,-1957.76"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1770.36,-1960.21 1778.3,-1959.95 1771.94,-1955.2 1770.36,-1960.21"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1581.84,-1933.05 1581.84,-1955.85 1616.63,-1955.85 1616.63,-1933.05 1581.84,-1933.05"/>
-<text xml:space="preserve" text-anchor="start" x="1584.84" y="-1938.85" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1284.08,-1203.29C1319.6,-984.09 1427.81,-452.18 1619.37,-635.2 1678.14,-691.35 1608.19,-1298 1652.72,-1366 1663.79,-1382.9 1678.49,-1397.13 1694.99,-1409.08"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1693.07,-1410.94 1700.74,-1413.04 1696.06,-1406.62 1693.07,-1410.94"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1542.94,-635.2 1542.94,-658 1577.72,-658 1577.72,-635.2 1542.94,-635.2"/>
+<text xml:space="preserve" text-anchor="start" x="1545.94" y="-641" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks</text>
 </g>
 <!-- jt&#45;&gt;capture -->
-<g id="edge12" class="edge">
+<g id="edge13" class="edge">
 <title>jt&#45;&gt;capture</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1440.89,-1795C1613.41,-1803.83 1888.1,-1819.81 2124.97,-1842.2 2203.46,-1849.62 2290.17,-1860.11 2363.37,-1869.62"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2362.83,-1872.2 2370.61,-1870.57 2363.51,-1867 2362.83,-1872.2"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1887.88,-1842.2 1887.88,-1865 1994.27,-1865 1994.27,-1842.2 1887.88,-1842.2"/>
-<text xml:space="preserve" text-anchor="start" x="1890.88" y="-1848" font-family="Arial" font-size="14.00" fill="#c9c9c9">jots things down</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1344.09,-1382.76C1413.97,-1460.75 1527.01,-1568.18 1652.72,-1614 1869.71,-1693.09 2135.2,-1616.98 2304.14,-1548.59"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2305.12,-1551.02 2311.07,-1545.76 2303.13,-1546.16 2305.12,-1551.02"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1810.07,-1647.68 1810.07,-1670.48 1916.46,-1670.48 1916.46,-1647.68 1810.07,-1647.68"/>
+<text xml:space="preserve" text-anchor="start" x="1813.07" y="-1653.48" font-family="Arial" font-size="14.00" fill="#c9c9c9">jots things down</text>
 </g>
 <!-- assistants&#45;&gt;triage -->
-<g id="edge15" class="edge">
+<g id="edge16" class="edge">
 <title>assistants&#45;&gt;triage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2085.73,-1920.18C2099.18,-1910.92 2112.45,-1901.44 2124.97,-1892 2168.05,-1859.51 2826.2,-1297.17 2855.72,-1252 2857.87,-1248.72 2986.61,-839.84 3047.61,-645.91"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3050.07,-646.82 3049.82,-638.88 3045.06,-645.24 3050.07,-646.82"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2516.98,-1721.67 2516.98,-1744.47 2550.21,-1744.47 2550.21,-1721.67 2516.98,-1721.67"/>
-<text xml:space="preserve" text-anchor="start" x="2519.98" y="-1727.47" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2023.05,-1383.04C2031.34,-1377.49 2039.43,-1371.79 2047.16,-1366 2190.47,-1258.62 2323.84,-1098.12 2401.79,-995.76"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2403.73,-997.55 2406.17,-989.99 2399.54,-994.38 2403.73,-997.55"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2158.9,-1311.93 2158.9,-1334.73 2192.14,-1334.73 2192.14,-1311.93 2158.9,-1311.93"/>
+<text xml:space="preserve" text-anchor="start" x="2161.9" y="-1317.73" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
 </g>
 <!-- assistants&#45;&gt;memory -->
-<g id="edge16" class="edge">
+<g id="edge17" class="edge">
 <title>assistants&#45;&gt;memory</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2101.19,-2044.74C2375.51,-2094.35 2937.5,-2149.1 3244.31,-1848 3505.43,-1591.74 3587.79,-1138.26 3612.19,-937.04"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3614.77,-937.53 3613.05,-929.78 3609.56,-936.91 3614.77,-937.53"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2764.14,-2065.31 2764.14,-2088.11 2855.72,-2088.11 2855.72,-2065.31 2764.14,-2065.31"/>
-<text xml:space="preserve" text-anchor="start" x="2767.14" y="-2071.11" font-family="Arial" font-size="14.00" fill="#c9c9c9">remembers in</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2023.03,-1551.59C2185.24,-1624.03 2441.29,-1704.79 2643.33,-1614 2791.25,-1547.52 2904.86,-1391.44 2967.43,-1287.8"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2969.62,-1289.26 2971.21,-1281.48 2965.11,-1286.57 2969.62,-1289.26"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2427.82,-1654.36 2427.82,-1677.16 2519.4,-1677.16 2519.4,-1654.36 2427.82,-1654.36"/>
+<text xml:space="preserve" text-anchor="start" x="2430.82" y="-1660.16" font-family="Arial" font-size="14.00" fill="#c9c9c9">remembers in</text>
 </g>
 <!-- assistants&#45;&gt;capture -->
-<g id="edge14" class="edge">
+<g id="edge15" class="edge">
 <title>assistants&#45;&gt;capture</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2101.1,-1978.49C2182.26,-1962.41 2281.01,-1942.85 2363.56,-1926.49"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2363.98,-1929.08 2370.83,-1925.05 2362.96,-1923.93 2363.98,-1929.08"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2227.39,-1958.51 2227.39,-1981.31 2260.62,-1981.31 2260.62,-1958.51 2227.39,-1958.51"/>
-<text xml:space="preserve" text-anchor="start" x="2230.39" y="-1964.31" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2023.3,-1469C2109.4,-1469 2215.76,-1469 2303.39,-1469"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2303.18,-1471.63 2310.68,-1469 2303.18,-1466.38 2303.18,-1471.63"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2158.9,-1469 2158.9,-1491.8 2192.14,-1491.8 2192.14,-1469 2158.9,-1469"/>
+<text xml:space="preserve" text-anchor="start" x="2161.9" y="-1474.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
 </g>
 <!-- capture&#45;&gt;ingest -->
-<g id="edge19" class="edge">
+<g id="edge20" class="edge">
 <title>capture&#45;&gt;ingest</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2390.55,-1803.03C2363.72,-1779.38 2339.09,-1751.52 2323.05,-1720 2189.47,-1457.62 2225.55,-1346.87 2285.44,-1058.6 2317.31,-905.19 2404.81,-745.29 2466.86,-645.72"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2469.04,-647.18 2470.8,-639.43 2464.59,-644.4 2469.04,-647.18"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2230.51,-1058.6 2230.51,-1081.4 2257.5,-1081.4 2257.5,-1058.6 2230.51,-1058.6"/>
-<text xml:space="preserve" text-anchor="start" x="2233.51" y="-1066.8" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2314.8,-1379.14C2310.93,-1374.92 2307.27,-1370.54 2303.88,-1366 2241.98,-1283.17 2304.88,-1224.7 2243.88,-1141.2 2190.42,-1068.02 2107.66,-1011.28 2033.03,-971.09"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2034.5,-968.89 2026.65,-967.69 2032.04,-973.53 2034.5,-968.89"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2162.03,-1141.2 2162.03,-1164 2189.02,-1164 2189.02,-1141.2 2162.03,-1141.2"/>
+<text xml:space="preserve" text-anchor="start" x="2165.03" y="-1149.4" font-family="Arial" font-weight="bold" font-size="14.00" fill="#c9c9c9">[...]</text>
 </g>
 <!-- capture&#45;&gt;triage -->
-<g id="edge20" class="edge">
+<g id="edge21" class="edge">
 <title>capture&#45;&gt;triage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2693.55,-1844.49C2752.92,-1818.69 2815.6,-1780.85 2855.72,-1727 2983.75,-1555.14 3050.08,-898.77 3071.3,-646.03"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="3073.9,-646.46 3071.91,-638.77 3068.67,-646.02 3073.9,-646.46"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2779.31,-1804.68 2779.31,-1827.48 2840.56,-1827.48 2840.56,-1804.68 2779.31,-1804.68"/>
-<text xml:space="preserve" text-anchor="start" x="2782.31" y="-1810.48" font-family="Arial" font-size="14.00" fill="#c9c9c9">swept by</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2473.61,-1379.21C2473.61,-1275.63 2473.61,-1105.81 2473.61,-998.07"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2476.23,-998.37 2473.61,-990.87 2470.98,-998.37 2476.23,-998.37"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2428.58,-1172.1 2428.58,-1194.9 2489.83,-1194.9 2489.83,-1172.1 2428.58,-1172.1"/>
+<text xml:space="preserve" text-anchor="start" x="2431.58" y="-1177.9" font-family="Arial" font-size="14.00" fill="#c9c9c9">swept by</text>
 </g>
 </g>
 </svg>
@@ -4132,203 +4369,204 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <!-- Generated by graphviz version 15.0.0 (0)
  -->
 <!-- Pages: 1 -->
-<svg width="2032pt" height="942pt"
- viewBox="0.00 0.00 2032.00 942.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="2036pt" height="942pt"
+ viewBox="0.00 0.00 2036.00 942.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(15.05 927.05)">
 <g id="clust1" class="cluster">
 <title>cluster_fieldagent</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="8,-627 8,-892 431.46,-892 431.46,-627 8,-627"/>
+<polygon fill="#194b9e" stroke="#1b3d88" points="8,-627 8,-892 435.63,-892 435.63,-627 8,-627"/>
 <text xml:space="preserve" text-anchor="start" x="16" y="-879.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">FIELD AGENT</text>
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_assistants</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="621.65,-329 621.65,-900 1514.05,-900 1514.05,-329 621.65,-329"/>
-<text xml:space="preserve" text-anchor="start" x="629.65" y="-887.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">AI ASSISTANTS</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="625.82,-329 625.82,-900 1518.22,-900 1518.22,-329 625.82,-329"/>
+<text xml:space="preserve" text-anchor="start" x="633.82" y="-887.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">AI ASSISTANTS</text>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_capture</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="1122.01,-8 1122.01,-273 1506.05,-273 1506.05,-8 1122.01,-8"/>
-<text xml:space="preserve" text-anchor="start" x="1130.01" y="-260.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">CAPTURE</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="1126.18,-8 1126.18,-273 1510.22,-273 1510.22,-8 1126.18,-8"/>
+<text xml:space="preserve" text-anchor="start" x="1134.18" y="-260.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">CAPTURE</text>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_vault</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="1555.05,-310 1555.05,-904 1993.67,-904 1993.67,-310 1555.05,-310"/>
-<text xml:space="preserve" text-anchor="start" x="1563.05" y="-891.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SECOND BRAIN</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="1559.22,-310 1559.22,-904 1997.83,-904 1997.83,-310 1559.22,-310"/>
+<text xml:space="preserve" text-anchor="start" x="1567.22" y="-891.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SECOND BRAIN</text>
 </g>
 <!-- relay -->
 <g id="node1" class="node">
 <title>relay</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="399.46,-839 40,-839 40,-659 399.46,-659 399.46,-839"/>
-<text xml:space="preserve" text-anchor="start" x="168.59" y="-770.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home base</text>
-<text xml:space="preserve" text-anchor="start" x="147.83" y="-749.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Node service on the Mac</text>
-<text xml:space="preserve" text-anchor="start" x="60.06" y="-728.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Passes each phone message to Claude or Grok</text>
-<text xml:space="preserve" text-anchor="start" x="119.68" y="-710.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">and streams the answer back.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="403.63,-839 40,-839 40,-659 403.63,-659 403.63,-839"/>
+<text xml:space="preserve" text-anchor="start" x="170.68" y="-779.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home base</text>
+<text xml:space="preserve" text-anchor="start" x="149.92" y="-758.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Node service on the Mac</text>
+<text xml:space="preserve" text-anchor="start" x="60.06" y="-737.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Passes each phone message to Claude or Grok,</text>
+<text xml:space="preserve" text-anchor="start" x="72.16" y="-719.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">streams the answer back, and keeps Mission</text>
+<text xml:space="preserve" text-anchor="start" x="134.7" y="-701.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Control live from the vault.</text>
 </g>
 <!-- claude -->
 <g id="node2" class="node">
 <title>claude</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="983.46,-549 663.42,-549 663.42,-369 983.46,-369 983.46,-549"/>
-<text xml:space="preserve" text-anchor="start" x="765.06" y="-480.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Claude Code</text>
-<text xml:space="preserve" text-anchor="start" x="739.98" y="-459.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">terminal tabs inside Obsidian</text>
-<text xml:space="preserve" text-anchor="start" x="706.29" y="-438.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Main assistant. Builds and fixes the</text>
-<text xml:space="preserve" text-anchor="start" x="737.16" y="-420.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">machinery, runs the skills.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="987.63,-549 667.59,-549 667.59,-369 987.63,-369 987.63,-549"/>
+<text xml:space="preserve" text-anchor="start" x="769.23" y="-480.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Claude Code</text>
+<text xml:space="preserve" text-anchor="start" x="744.15" y="-459.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">terminal tabs inside Obsidian</text>
+<text xml:space="preserve" text-anchor="start" x="710.46" y="-438.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Main assistant. Builds and fixes the</text>
+<text xml:space="preserve" text-anchor="start" x="741.33" y="-420.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">machinery, runs the skills.</text>
 </g>
 <!-- grok -->
 <g id="node3" class="node">
 <title>grok</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="985.22,-839 661.65,-839 661.65,-659 985.22,-659 985.22,-839"/>
-<text xml:space="preserve" text-anchor="start" x="801.77" y="-770.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Grok</text>
-<text xml:space="preserve" text-anchor="start" x="739.98" y="-749.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">terminal tabs inside Obsidian</text>
-<text xml:space="preserve" text-anchor="start" x="681.71" y="-728.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Second assistant. Same vault, same skills,</text>
-<text xml:space="preserve" text-anchor="start" x="784.67" y="-710.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">same rules.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="989.39,-839 665.82,-839 665.82,-659 989.39,-659 989.39,-839"/>
+<text xml:space="preserve" text-anchor="start" x="805.94" y="-770.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Grok</text>
+<text xml:space="preserve" text-anchor="start" x="744.15" y="-749.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">terminal tabs inside Obsidian</text>
+<text xml:space="preserve" text-anchor="start" x="685.88" y="-728.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Second assistant. Same vault, same skills,</text>
+<text xml:space="preserve" text-anchor="start" x="788.84" y="-710.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">same rules.</text>
 </g>
 <!-- skills -->
 <g id="node4" class="node">
 <title>skills</title>
-<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M1474.05,-736.64C1474.05,-745.67 1402.33,-753 1314.03,-753 1225.74,-753 1154.01,-745.67 1154.01,-736.64 1154.01,-736.64 1154.01,-589.36 1154.01,-589.36 1154.01,-580.33 1225.74,-573 1314.03,-573 1402.33,-573 1474.05,-580.33 1474.05,-589.36 1474.05,-589.36 1474.05,-736.64 1474.05,-736.64"/>
-<path fill="none" stroke="#4f46e5" stroke-width="2" d="M1474.05,-736.64C1474.05,-727.61 1402.33,-720.27 1314.03,-720.27 1225.74,-720.27 1154.01,-727.61 1154.01,-736.64"/>
-<text xml:space="preserve" text-anchor="start" x="1257.35" y="-684.8" font-family="Arial" font-size="20.00" fill="#eef2ff">Shared skills</text>
-<text xml:space="preserve" text-anchor="start" x="1275.39" y="-663.8" font-family="Arial" font-size="13.00" fill="#c7d2fe">System/Skills</text>
-<text xml:space="preserve" text-anchor="start" x="1175.22" y="-642.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">Written procedures both assistants follow:</text>
-<text xml:space="preserve" text-anchor="start" x="1221.08" y="-624.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">triage, distill, lint, plain style.</text>
+<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M1478.22,-736.64C1478.22,-745.67 1406.5,-753 1318.2,-753 1229.91,-753 1158.18,-745.67 1158.18,-736.64 1158.18,-736.64 1158.18,-589.36 1158.18,-589.36 1158.18,-580.33 1229.91,-573 1318.2,-573 1406.5,-573 1478.22,-580.33 1478.22,-589.36 1478.22,-589.36 1478.22,-736.64 1478.22,-736.64"/>
+<path fill="none" stroke="#4f46e5" stroke-width="2" d="M1478.22,-736.64C1478.22,-727.61 1406.5,-720.27 1318.2,-720.27 1229.91,-720.27 1158.18,-727.61 1158.18,-736.64"/>
+<text xml:space="preserve" text-anchor="start" x="1261.51" y="-684.8" font-family="Arial" font-size="20.00" fill="#eef2ff">Shared skills</text>
+<text xml:space="preserve" text-anchor="start" x="1279.56" y="-663.8" font-family="Arial" font-size="13.00" fill="#c7d2fe">System/Skills</text>
+<text xml:space="preserve" text-anchor="start" x="1179.39" y="-642.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">Written procedures both assistants follow:</text>
+<text xml:space="preserve" text-anchor="start" x="1225.25" y="-624.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">triage, distill, lint, plain style.</text>
 </g>
 <!-- distill -->
 <g id="node5" class="node">
 <title>distill</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1474.05,-220 1154.01,-220 1154.01,-40 1474.05,-40 1474.05,-220"/>
-<text xml:space="preserve" text-anchor="start" x="1267.91" y="-151.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Chat distill</text>
-<text xml:space="preserve" text-anchor="start" x="1262.75" y="-130.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">session&#45;distill skill</text>
-<text xml:space="preserve" text-anchor="start" x="1189.8" y="-109.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Boils a finished AI chat down to a few</text>
-<text xml:space="preserve" text-anchor="start" x="1197.7" y="-91.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">lasting notes, then the chat can go.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1478.22,-220 1158.18,-220 1158.18,-40 1478.22,-40 1478.22,-220"/>
+<text xml:space="preserve" text-anchor="start" x="1272.07" y="-151.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Chat distill</text>
+<text xml:space="preserve" text-anchor="start" x="1266.91" y="-130.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">session&#45;distill skill</text>
+<text xml:space="preserve" text-anchor="start" x="1193.96" y="-109.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Boils a finished AI chat down to a few</text>
+<text xml:space="preserve" text-anchor="start" x="1201.87" y="-91.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">lasting notes, then the chat can go.</text>
 </g>
 <!-- triage -->
 <g id="node6" class="node">
 <title>triage</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1938.66,-530 1610.07,-530 1610.07,-350 1938.66,-350 1938.66,-530"/>
-<text xml:space="preserve" text-anchor="start" x="1723.78" y="-461.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Vault triage</text>
-<text xml:space="preserve" text-anchor="start" x="1717.65" y="-440.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Claude or Grok skill</text>
-<text xml:space="preserve" text-anchor="start" x="1630.12" y="-419.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Reads the in&#45;tray and files each item where</text>
-<text xml:space="preserve" text-anchor="start" x="1740.17" y="-401.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">it belongs.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1942.82,-530 1614.23,-530 1614.23,-350 1942.82,-350 1942.82,-530"/>
+<text xml:space="preserve" text-anchor="start" x="1727.94" y="-461.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Vault triage</text>
+<text xml:space="preserve" text-anchor="start" x="1721.82" y="-440.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Claude or Grok skill</text>
+<text xml:space="preserve" text-anchor="start" x="1634.29" y="-419.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Reads the in&#45;tray and files each item where</text>
+<text xml:space="preserve" text-anchor="start" x="1744.34" y="-401.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">it belongs.</text>
 </g>
 <!-- memory -->
 <g id="node7" class="node">
 <title>memory</title>
-<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M1953.67,-826.64C1953.67,-835.67 1873.3,-843 1774.36,-843 1675.42,-843 1595.05,-835.67 1595.05,-826.64 1595.05,-826.64 1595.05,-679.36 1595.05,-679.36 1595.05,-670.33 1675.42,-663 1774.36,-663 1873.3,-663 1953.67,-670.33 1953.67,-679.36 1953.67,-679.36 1953.67,-826.64 1953.67,-826.64"/>
-<path fill="none" stroke="#4f46e5" stroke-width="2" d="M1953.67,-826.64C1953.67,-817.61 1873.3,-810.27 1774.36,-810.27 1675.42,-810.27 1595.05,-817.61 1595.05,-826.64"/>
-<text xml:space="preserve" text-anchor="start" x="1702.13" y="-765" font-family="Arial" font-size="20.00" fill="#eef2ff">System memory</text>
-<text xml:space="preserve" text-anchor="start" x="1615.11" y="-742" font-family="Arial" font-size="15.00" fill="#c7d2fe">What the assistants need to remember between</text>
-<text xml:space="preserve" text-anchor="start" x="1743.1" y="-724" font-family="Arial" font-size="15.00" fill="#c7d2fe">sessions.</text>
+<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M1957.83,-826.64C1957.83,-835.67 1877.47,-843 1778.53,-843 1679.59,-843 1599.22,-835.67 1599.22,-826.64 1599.22,-826.64 1599.22,-679.36 1599.22,-679.36 1599.22,-670.33 1679.59,-663 1778.53,-663 1877.47,-663 1957.83,-670.33 1957.83,-679.36 1957.83,-679.36 1957.83,-826.64 1957.83,-826.64"/>
+<path fill="none" stroke="#4f46e5" stroke-width="2" d="M1957.83,-826.64C1957.83,-817.61 1877.47,-810.27 1778.53,-810.27 1679.59,-810.27 1599.22,-817.61 1599.22,-826.64"/>
+<text xml:space="preserve" text-anchor="start" x="1706.3" y="-765" font-family="Arial" font-size="20.00" fill="#eef2ff">System memory</text>
+<text xml:space="preserve" text-anchor="start" x="1619.28" y="-742" font-family="Arial" font-size="15.00" fill="#c7d2fe">What the assistants need to remember between</text>
+<text xml:space="preserve" text-anchor="start" x="1747.27" y="-724" font-family="Arial" font-size="15.00" fill="#c7d2fe">sessions.</text>
 </g>
 <!-- iphone -->
 <g id="node8" class="node">
 <title>iphone</title>
-<polygon fill="#a35829" stroke="#7e451d" stroke-width="0" points="381.12,-549 58.35,-549 58.35,-369 381.12,-369 381.12,-549"/>
-<text xml:space="preserve" text-anchor="start" x="188.59" y="-462" font-family="Arial" font-size="20.00" fill="#ffe0c2">iPhone</text>
-<text xml:space="preserve" text-anchor="start" x="78.4" y="-439" font-family="Arial" font-size="15.00" fill="#f9b27c">Obsidian, Reminders, the Field Agent app.</text>
+<polygon fill="#a35829" stroke="#7e451d" stroke-width="0" points="383.2,-549 60.43,-549 60.43,-369 383.2,-369 383.2,-549"/>
+<text xml:space="preserve" text-anchor="start" x="190.68" y="-462" font-family="Arial" font-size="20.00" fill="#ffe0c2">iPhone</text>
+<text xml:space="preserve" text-anchor="start" x="80.49" y="-439" font-family="Arial" font-size="15.00" fill="#f9b27c">Obsidian, Reminders, the Field Agent app.</text>
 </g>
 <!-- jt -->
 <g id="node9" class="node">
 <title>jt</title>
-<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="391.11,-236 48.35,-236 48.35,-56 391.11,-56 391.11,-236"/>
-<text xml:space="preserve" text-anchor="start" x="208.62" y="-158" font-family="Arial" font-size="20.00" fill="#f8fafc">JT</text>
-<text xml:space="preserve" text-anchor="start" x="68.41" y="-135" font-family="Arial" font-size="15.00" fill="#c2f0c2">Captures things, makes the calls, presses the</text>
-<text xml:space="preserve" text-anchor="start" x="193.05" y="-117" font-family="Arial" font-size="15.00" fill="#c2f0c2">buttons.</text>
+<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="393.19,-236 50.44,-236 50.44,-56 393.19,-56 393.19,-236"/>
+<text xml:space="preserve" text-anchor="start" x="210.71" y="-158" font-family="Arial" font-size="20.00" fill="#f8fafc">JT</text>
+<text xml:space="preserve" text-anchor="start" x="70.49" y="-135" font-family="Arial" font-size="15.00" fill="#c2f0c2">Captures things, makes the calls, presses the</text>
+<text xml:space="preserve" text-anchor="start" x="195.13" y="-117" font-family="Arial" font-size="15.00" fill="#c2f0c2">buttons.</text>
 </g>
 <!-- relay&#45;&gt;claude -->
 <g id="edge4" class="edge">
 <title>relay&#45;&gt;claude</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M399.23,-662.97C479.96,-624.06 574.87,-578.32 654.33,-540.02"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="655.1,-542.56 660.72,-536.94 652.82,-537.83 655.1,-542.56"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="459.46,-629.97 459.46,-652.77 601.65,-652.77 601.65,-629.97 459.46,-629.97"/>
-<text xml:space="preserve" text-anchor="start" x="462.46" y="-635.77" font-family="Arial" font-size="14.00" fill="#c9c9c9">one turn per message</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M403.56,-662.19C484.44,-623.34 579.22,-577.82 658.54,-539.72"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="659.29,-542.27 664.91,-536.66 657.02,-537.54 659.29,-542.27"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="463.63,-629.97 463.63,-652.77 605.82,-652.77 605.82,-629.97 463.63,-629.97"/>
+<text xml:space="preserve" text-anchor="start" x="466.63" y="-635.77" font-family="Arial" font-size="14.00" fill="#c9c9c9">one turn per message</text>
 </g>
 <!-- relay&#45;&gt;grok -->
 <g id="edge5" class="edge">
 <title>relay&#45;&gt;grok</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M399.23,-749C478.89,-749 572.35,-749 651.16,-749"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="651.15,-751.63 658.65,-749 651.15,-746.38 651.15,-751.63"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="459.46,-749 459.46,-771.8 601.65,-771.8 601.65,-749 459.46,-749"/>
-<text xml:space="preserve" text-anchor="start" x="462.46" y="-754.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">one turn per message</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M403.56,-749C483.36,-749 576.7,-749 655.37,-749"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="655.35,-751.63 662.85,-749 655.35,-746.38 655.35,-751.63"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="463.63,-749 463.63,-771.8 605.82,-771.8 605.82,-749 463.63,-749"/>
+<text xml:space="preserve" text-anchor="start" x="466.63" y="-754.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">one turn per message</text>
 </g>
 <!-- claude&#45;&gt;skills -->
 <g id="edge6" class="edge">
 <title>claude&#45;&gt;skills</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M983.41,-525.37C1034.68,-546.78 1091.68,-570.58 1143.67,-592.29"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1142.59,-594.68 1150.52,-595.15 1144.61,-589.84 1142.59,-594.68"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1045.22,-567.12 1045.22,-589.92 1094.01,-589.92 1094.01,-567.12 1045.22,-567.12"/>
-<text xml:space="preserve" text-anchor="start" x="1048.22" y="-572.92" font-family="Arial" font-size="14.00" fill="#c9c9c9">follows</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M987.58,-525.37C1038.84,-546.78 1095.85,-570.58 1147.84,-592.29"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1146.76,-594.68 1154.69,-595.15 1148.78,-589.84 1146.76,-594.68"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1049.39,-567.12 1049.39,-589.92 1098.18,-589.92 1098.18,-567.12 1049.39,-567.12"/>
+<text xml:space="preserve" text-anchor="start" x="1052.39" y="-572.92" font-family="Arial" font-size="14.00" fill="#c9c9c9">follows</text>
 </g>
 <!-- claude&#45;&gt;distill -->
 <g id="edge7" class="edge">
 <title>claude&#45;&gt;distill</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M957.95,-369.1C1024.06,-324.58 1103.91,-270.81 1171.13,-225.55"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1172.42,-227.85 1177.17,-221.48 1169.49,-223.49 1172.42,-227.85"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1053,-304.36 1053,-327.16 1086.24,-327.16 1086.24,-304.36 1053,-304.36"/>
-<text xml:space="preserve" text-anchor="start" x="1056" y="-310.16" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M962.12,-369.1C1028.23,-324.58 1108.08,-270.81 1175.3,-225.55"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1176.59,-227.85 1181.34,-221.48 1173.65,-223.49 1176.59,-227.85"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1057.17,-304.36 1057.17,-327.16 1090.4,-327.16 1090.4,-304.36 1057.17,-304.36"/>
+<text xml:space="preserve" text-anchor="start" x="1060.17" y="-310.16" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
 </g>
 <!-- claude&#45;&gt;triage -->
 <g id="edge8" class="edge">
 <title>claude&#45;&gt;triage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M983.27,-455.82C1153.85,-452.4 1424.04,-446.99 1600.03,-443.47"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1599.96,-446.1 1607.41,-443.32 1599.86,-440.85 1599.96,-446.1"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1297.42,-452.91 1297.42,-475.71 1330.65,-475.71 1330.65,-452.91 1297.42,-452.91"/>
-<text xml:space="preserve" text-anchor="start" x="1300.42" y="-458.71" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M987.43,-455.82C1158.01,-452.4 1428.21,-446.99 1604.2,-443.47"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1604.13,-446.1 1611.58,-443.32 1604.02,-440.85 1604.13,-446.1"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1301.58,-452.91 1301.58,-475.71 1334.82,-475.71 1334.82,-452.91 1301.58,-452.91"/>
+<text xml:space="preserve" text-anchor="start" x="1304.58" y="-458.71" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
 </g>
 <!-- grok&#45;&gt;skills -->
 <g id="edge9" class="edge">
 <title>grok&#45;&gt;skills</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M985.1,-720.72C1035.69,-711.82 1091.71,-701.96 1142.93,-692.94"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1143.2,-695.56 1150.13,-691.67 1142.29,-690.39 1143.2,-695.56"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1045.22,-708.58 1045.22,-731.38 1094.01,-731.38 1094.01,-708.58 1045.22,-708.58"/>
-<text xml:space="preserve" text-anchor="start" x="1048.22" y="-714.38" font-family="Arial" font-size="14.00" fill="#c9c9c9">follows</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M989.27,-720.72C1039.85,-711.82 1095.88,-701.96 1147.1,-692.94"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1147.37,-695.56 1154.3,-691.67 1146.46,-690.39 1147.37,-695.56"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1049.39,-708.58 1049.39,-731.38 1098.18,-731.38 1098.18,-708.58 1049.39,-708.58"/>
+<text xml:space="preserve" text-anchor="start" x="1052.39" y="-714.38" font-family="Arial" font-size="14.00" fill="#c9c9c9">follows</text>
 </g>
 <!-- grok&#45;&gt;triage -->
 <g id="edge10" class="edge">
 <title>grok&#45;&gt;triage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M985.2,-820.95C1138.37,-877.33 1366.83,-928.11 1514.05,-808 1584.36,-750.64 1506.97,-684.95 1555.05,-608 1571.63,-581.47 1594,-557.53 1618.1,-536.58"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1619.66,-538.7 1623.68,-531.85 1616.26,-534.7 1619.66,-538.7"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1297.42,-881.39 1297.42,-904.19 1330.65,-904.19 1330.65,-881.39 1297.42,-881.39"/>
-<text xml:space="preserve" text-anchor="start" x="1300.42" y="-887.19" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M989.37,-820.95C1142.54,-877.33 1370.99,-928.11 1518.22,-808 1588.53,-750.64 1511.14,-684.95 1559.22,-608 1575.8,-581.47 1598.16,-557.53 1622.27,-536.58"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1623.83,-538.7 1627.85,-531.85 1620.43,-534.7 1623.83,-538.7"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1301.58,-881.39 1301.58,-904.19 1334.82,-904.19 1334.82,-881.39 1301.58,-881.39"/>
+<text xml:space="preserve" text-anchor="start" x="1304.58" y="-887.19" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
 </g>
 <!-- skills&#45;&gt;memory -->
 <g id="edge11" class="edge">
 <title>skills&#45;&gt;memory</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1514.05,-702.08C1537.26,-706.64 1560.89,-711.28 1583.96,-715.81"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1583.3,-718.35 1591.16,-717.22 1584.31,-713.2 1583.3,-718.35"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1462.41,-687.12 1462.41,-709.92 1553.99,-709.92 1553.99,-687.12 1462.41,-687.12"/>
-<text xml:space="preserve" text-anchor="start" x="1465.41" y="-692.92" font-family="Arial" font-size="14.00" fill="#c9c9c9">remembers in</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1518.22,-702.08C1541.43,-706.64 1565.06,-711.28 1588.13,-715.81"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1587.46,-718.35 1595.33,-717.22 1588.48,-713.2 1587.46,-718.35"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1466.58,-687.12 1466.58,-709.92 1558.16,-709.92 1558.16,-687.12 1466.58,-687.12"/>
+<text xml:space="preserve" text-anchor="start" x="1469.58" y="-692.92" font-family="Arial" font-size="14.00" fill="#c9c9c9">remembers in</text>
 </g>
 <!-- triage&#45;&gt;memory -->
 <g id="edge12" class="edge">
 <title>triage&#45;&gt;memory</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1774.36,-529.69C1774.36,-567.83 1774.36,-612.49 1774.36,-651.8"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1771.74,-651.68 1774.36,-659.18 1776.99,-651.68 1771.74,-651.68"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1720.38,-585.1 1720.38,-607.9 1799.54,-607.9 1799.54,-585.1 1720.38,-585.1"/>
-<text xml:space="preserve" text-anchor="start" x="1723.38" y="-590.9" font-family="Arial" font-size="14.00" fill="#c9c9c9">logs the run</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1778.53,-529.69C1778.53,-567.83 1778.53,-612.49 1778.53,-651.8"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1775.9,-651.68 1778.53,-659.18 1781.15,-651.68 1775.9,-651.68"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1724.55,-585.1 1724.55,-607.9 1803.71,-607.9 1803.71,-585.1 1724.55,-585.1"/>
+<text xml:space="preserve" text-anchor="start" x="1727.55" y="-590.9" font-family="Arial" font-size="14.00" fill="#c9c9c9">logs the run</text>
 </g>
 <!-- iphone&#45;&gt;jt -->
 <g id="edge1" class="edge">
 <title>iphone&#45;&gt;jt</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M219.73,-369.02C219.73,-330.6 219.73,-285.61 219.73,-246.13"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="222.36,-246.22 219.73,-238.72 217.11,-246.22 222.36,-246.22"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="163.42,-291.1 163.42,-313.9 247.24,-313.9 247.24,-291.1 163.42,-291.1"/>
-<text xml:space="preserve" text-anchor="start" x="166.42" y="-296.9" font-family="Arial" font-size="14.00" fill="#c9c9c9">in his pocket</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M221.82,-369.02C221.82,-330.6 221.82,-285.61 221.82,-246.13"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="224.44,-246.22 221.82,-238.72 219.19,-246.22 224.44,-246.22"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="165.5,-291.1 165.5,-313.9 249.33,-313.9 249.33,-291.1 165.5,-291.1"/>
+<text xml:space="preserve" text-anchor="start" x="168.5" y="-296.9" font-family="Arial" font-size="14.00" fill="#c9c9c9">in his pocket</text>
 </g>
 <!-- jt&#45;&gt;claude -->
 <g id="edge2" class="edge">
 <title>jt&#45;&gt;claude</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M390.74,-234.44C459.64,-270.28 539.9,-312.03 612.4,-349.74"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="611.11,-352.03 618.97,-353.16 613.53,-347.37 611.11,-352.03"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="471.63,-271.81 471.63,-294.61 506.42,-294.61 506.42,-271.81 471.63,-271.81"/>
-<text xml:space="preserve" text-anchor="start" x="474.63" y="-277.61" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M393.01,-234.23C462.44,-270.22 543.43,-312.21 616.5,-350.08"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="615.27,-352.4 623.14,-353.52 617.69,-347.74 615.27,-352.4"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="474.41,-271.66 474.41,-294.46 509.19,-294.46 509.19,-271.66 474.41,-271.66"/>
+<text xml:space="preserve" text-anchor="start" x="477.41" y="-277.46" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks</text>
 </g>
 <!-- jt&#45;&gt;distill -->
 <g id="edge3" class="edge">
 <title>jt&#45;&gt;distill</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M391.1,-143.5C585.95,-140.65 904.66,-135.98 1111.63,-132.95"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1111.53,-135.58 1118.99,-132.84 1111.45,-130.33 1111.53,-135.58"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="650.33,-115.35 650.33,-138.15 756.72,-138.15 756.72,-115.35 650.33,-115.35"/>
-<text xml:space="preserve" text-anchor="start" x="653.33" y="-121.15" font-family="Arial" font-size="14.00" fill="#c9c9c9">jots things down</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M392.91,-143.51C588.19,-140.66 908.2,-135.98 1115.77,-132.94"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1115.69,-135.57 1123.16,-132.84 1115.62,-130.32 1115.69,-135.57"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="653.27,-115.35 653.27,-138.15 759.66,-138.15 759.66,-115.35 653.27,-115.35"/>
+<text xml:space="preserve" text-anchor="start" x="656.27" y="-121.15" font-family="Arial" font-size="14.00" fill="#c9c9c9">jots things down</text>
 </g>
 </g>
 </svg>
@@ -4338,167 +4576,310 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <!-- Generated by graphviz version 15.0.0 (0)
  -->
 <!-- Pages: 1 -->
-<svg width="2553pt" height="997pt"
- viewBox="0.00 0.00 2553.00 997.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(15.05 982.05)">
+<svg width="2707pt" height="1798pt"
+ viewBox="0.00 0.00 2707.00 1798.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(15.05 1782.85)">
 <g id="clust1" class="cluster">
-<title>cluster_fieldagent</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="436,-587 436,-959 2514.89,-959 2514.89,-587 436,-587"/>
-<text xml:space="preserve" text-anchor="start" x="444" y="-946.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">FIELD AGENT</text>
+<title>cluster_vault</title>
+<polygon fill="#194b9e" stroke="#1b3d88" points="8,-1449.8 8,-1714.8 392.04,-1714.8 392.04,-1449.8 8,-1449.8"/>
+<text xml:space="preserve" text-anchor="start" x="16" y="-1701.9" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SECOND BRAIN</text>
 </g>
 <g id="clust2" class="cluster">
+<title>cluster_schedulers</title>
+<polygon fill="#194b9e" stroke="#1b3d88" points="8,-1159.8 8,-1424.8 392.04,-1424.8 392.04,-1159.8 8,-1159.8"/>
+<text xml:space="preserve" text-anchor="start" x="16" y="-1411.9" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SCHEDULERS</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_fieldagent</title>
+<polygon fill="#194b9e" stroke="#1b3d88" points="588.12,-972.8 588.12,-1759.8 2668.9,-1759.8 2668.9,-972.8 588.12,-972.8"/>
+<text xml:space="preserve" text-anchor="start" x="596.12" y="-1746.9" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">FIELD AGENT</text>
+</g>
+<g id="clust4" class="cluster">
 <title>cluster_assistants</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="2100.47,-8 2100.47,-579 2504.04,-579 2504.04,-8 2100.47,-8"/>
-<text xml:space="preserve" text-anchor="start" x="2108.47" y="-566.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">AI ASSISTANTS</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="2254.48,-108.8 2254.48,-679.8 2658.04,-679.8 2658.04,-108.8 2254.48,-108.8"/>
+<text xml:space="preserve" text-anchor="start" x="2262.48" y="-666.9" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">AI ASSISTANTS</text>
+</g>
+<g id="clust5" class="cluster">
+<title>cluster_mail</title>
+<polygon fill="#194b9e" stroke="#1b3d88" points="591.89,-370.8 591.89,-964.8 998.82,-964.8 998.82,-370.8 591.89,-370.8"/>
+<text xml:space="preserve" text-anchor="start" x="599.89" y="-951.9" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">EMAIL &amp; TEXTS</text>
+</g>
+<!-- para -->
+<g id="node1" class="node">
+<title>para</title>
+<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M360.04,-1645.44C360.04,-1654.47 288.32,-1661.8 200.02,-1661.8 111.72,-1661.8 40,-1654.47 40,-1645.44 40,-1645.44 40,-1498.16 40,-1498.16 40,-1489.13 111.72,-1481.8 200.02,-1481.8 288.32,-1481.8 360.04,-1489.13 360.04,-1498.16 360.04,-1498.16 360.04,-1645.44 360.04,-1645.44"/>
+<path fill="none" stroke="#4f46e5" stroke-width="2" d="M360.04,-1645.44C360.04,-1636.41 288.32,-1629.07 200.02,-1629.07 111.72,-1629.07 40,-1636.41 40,-1645.44"/>
+<text xml:space="preserve" text-anchor="start" x="125.55" y="-1583.8" font-family="Arial" font-size="20.00" fill="#eef2ff">Projects &amp; Areas</text>
+<text xml:space="preserve" text-anchor="start" x="71.61" y="-1560.8" font-family="Arial" font-size="15.00" fill="#c7d2fe">Life admin: things with a finish line and</text>
+<text xml:space="preserve" text-anchor="start" x="149.15" y="-1542.8" font-family="Arial" font-size="15.00" fill="#c7d2fe">ongoing duties.</text>
+</g>
+<!-- calendar -->
+<g id="node2" class="node">
+<title>calendar</title>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="360.04,-1371.8 40,-1371.8 40,-1191.8 360.04,-1191.8 360.04,-1371.8"/>
+<text xml:space="preserve" text-anchor="start" x="130.56" y="-1303.6" font-family="Arial" font-size="20.00" fill="#f0f9ff">Calendar mirror</text>
+<text xml:space="preserve" text-anchor="start" x="163.89" y="-1282.6" font-family="Arial" font-size="13.00" fill="#b6ecf7">hourly · free</text>
+<text xml:space="preserve" text-anchor="start" x="77.86" y="-1261" font-family="Arial" font-size="15.00" fill="#b6ecf7">Copies the calendar into the vault for</text>
+<text xml:space="preserve" text-anchor="start" x="146.25" y="-1243" font-family="Arial" font-size="15.00" fill="#b6ecf7">Mission Control.</text>
+</g>
+<!-- mission -->
+<g id="node3" class="node">
+<title>mission</title>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="962.59,-1522.8 628.12,-1522.8 628.12,-1342.8 962.59,-1342.8 962.59,-1522.8"/>
+<text xml:space="preserve" text-anchor="start" x="726.45" y="-1463.6" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mission Control</text>
+<text xml:space="preserve" text-anchor="start" x="712.97" y="-1442.6" font-family="Arial" font-size="13.00" fill="#b6ecf7">dashboard screen in the app</text>
+<text xml:space="preserve" text-anchor="start" x="661.13" y="-1421" font-family="Arial" font-size="15.00" fill="#b6ecf7">The front door. Shows today, mail, texts,</text>
+<text xml:space="preserve" text-anchor="start" x="648.18" y="-1403" font-family="Arial" font-size="15.00" fill="#b6ecf7">calendar, and what each project needs next,</text>
+<text xml:space="preserve" text-anchor="start" x="752.83" y="-1385" font-family="Arial" font-size="15.00" fill="#b6ecf7">updated live.</text>
 </g>
 <!-- app -->
-<g id="node1" class="node">
+<g id="node4" class="node">
 <title>app</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="798.74,-827 476,-827 476,-647 798.74,-647 798.74,-827"/>
-<text xml:space="preserve" text-anchor="start" x="567.32" y="-758.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Field Agent app</text>
-<text xml:space="preserve" text-anchor="start" x="589.32" y="-737.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">SwiftUI · iPhone</text>
-<text xml:space="preserve" text-anchor="start" x="496.06" y="-716.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Two chats, Claude and Grok. Replies fill in</text>
-<text xml:space="preserve" text-anchor="start" x="574.01" y="-698.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">as they are written.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="956.73,-1212.8 633.99,-1212.8 633.99,-1032.8 956.73,-1032.8 956.73,-1212.8"/>
+<text xml:space="preserve" text-anchor="start" x="725.31" y="-1144.6" font-family="Arial" font-size="20.00" fill="#f0f9ff">Field Agent app</text>
+<text xml:space="preserve" text-anchor="start" x="747.31" y="-1123.6" font-family="Arial" font-size="13.00" fill="#b6ecf7">SwiftUI · iPhone</text>
+<text xml:space="preserve" text-anchor="start" x="654.04" y="-1102" font-family="Arial" font-size="15.00" fill="#b6ecf7">Two chats, Claude and Grok. Replies fill in</text>
+<text xml:space="preserve" text-anchor="start" x="732" y="-1084" font-family="Arial" font-size="15.00" fill="#b6ecf7">as they are written.</text>
 </g>
 <!-- tailnet -->
-<g id="node2" class="node">
+<g id="node5" class="node">
 <title>tailnet</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="1339.96,-827 1002.56,-827 1002.56,-647 1339.96,-647 1339.96,-827"/>
-<text xml:space="preserve" text-anchor="start" x="1102.34" y="-758.8" font-family="Arial" font-size="20.00" fill="#f8fafc">Private network</text>
-<text xml:space="preserve" text-anchor="start" x="1145.61" y="-737.8" font-family="Arial" font-size="13.00" fill="#cbd5e1">Tailscale</text>
-<text xml:space="preserve" text-anchor="start" x="1026.58" y="-716.2" font-family="Arial" font-size="15.00" fill="#cbd5e1">Links the phone to the Mac without opening</text>
-<text xml:space="preserve" text-anchor="start" x="1061.61" y="-698.2" font-family="Arial" font-size="15.00" fill="#cbd5e1">the home network to the internet.</text>
+<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="1489.8,-1212.8 1152.4,-1212.8 1152.4,-1032.8 1489.8,-1032.8 1489.8,-1212.8"/>
+<text xml:space="preserve" text-anchor="start" x="1252.18" y="-1144.6" font-family="Arial" font-size="20.00" fill="#f8fafc">Private network</text>
+<text xml:space="preserve" text-anchor="start" x="1295.45" y="-1123.6" font-family="Arial" font-size="13.00" fill="#cbd5e1">Tailscale</text>
+<text xml:space="preserve" text-anchor="start" x="1176.42" y="-1102" font-family="Arial" font-size="15.00" fill="#cbd5e1">Links the phone to the Mac without opening</text>
+<text xml:space="preserve" text-anchor="start" x="1211.45" y="-1084" font-family="Arial" font-size="15.00" fill="#cbd5e1">the home network to the internet.</text>
 </g>
 <!-- relay -->
-<g id="node3" class="node">
+<g id="node6" class="node">
 <title>relay</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1867.43,-827 1507.97,-827 1507.97,-647 1867.43,-647 1867.43,-827"/>
-<text xml:space="preserve" text-anchor="start" x="1636.56" y="-758.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home base</text>
-<text xml:space="preserve" text-anchor="start" x="1615.8" y="-737.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Node service on the Mac</text>
-<text xml:space="preserve" text-anchor="start" x="1528.02" y="-716.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Passes each phone message to Claude or Grok</text>
-<text xml:space="preserve" text-anchor="start" x="1587.65" y="-698.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">and streams the answer back.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2021.43,-1212.8 1657.8,-1212.8 1657.8,-1032.8 2021.43,-1032.8 2021.43,-1212.8"/>
+<text xml:space="preserve" text-anchor="start" x="1788.48" y="-1153.6" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home base</text>
+<text xml:space="preserve" text-anchor="start" x="1767.72" y="-1132.6" font-family="Arial" font-size="13.00" fill="#b6ecf7">Node service on the Mac</text>
+<text xml:space="preserve" text-anchor="start" x="1677.86" y="-1111" font-family="Arial" font-size="15.00" fill="#b6ecf7">Passes each phone message to Claude or Grok,</text>
+<text xml:space="preserve" text-anchor="start" x="1689.97" y="-1093" font-family="Arial" font-size="15.00" fill="#b6ecf7">streams the answer back, and keeps Mission</text>
+<text xml:space="preserve" text-anchor="start" x="1752.5" y="-1075" font-family="Arial" font-size="15.00" fill="#b6ecf7">Control live from the vault.</text>
 </g>
 <!-- approval -->
-<g id="node4" class="node">
+<g id="node7" class="node">
 <title>approval</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2474.89,-827 2129.62,-827 2129.62,-647 2474.89,-647 2474.89,-827"/>
-<text xml:space="preserve" text-anchor="start" x="2224.45" y="-758.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Allow / Deny card</text>
-<text xml:space="preserve" text-anchor="start" x="2273.7" y="-737.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">in the app</text>
-<text xml:space="preserve" text-anchor="start" x="2149.68" y="-716.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Before Claude edits a file or runs a command,</text>
-<text xml:space="preserve" text-anchor="start" x="2208.86" y="-698.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">the phone buzzes and asks.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2628.9,-1212.8 2283.63,-1212.8 2283.63,-1032.8 2628.9,-1032.8 2628.9,-1212.8"/>
+<text xml:space="preserve" text-anchor="start" x="2378.45" y="-1144.6" font-family="Arial" font-size="20.00" fill="#f0f9ff">Allow / Deny card</text>
+<text xml:space="preserve" text-anchor="start" x="2427.71" y="-1123.6" font-family="Arial" font-size="13.00" fill="#b6ecf7">in the app</text>
+<text xml:space="preserve" text-anchor="start" x="2303.68" y="-1102" font-family="Arial" font-size="15.00" fill="#b6ecf7">Before Claude edits a file or runs a command,</text>
+<text xml:space="preserve" text-anchor="start" x="2362.86" y="-1084" font-family="Arial" font-size="15.00" fill="#b6ecf7">the phone buzzes and asks.</text>
 </g>
 <!-- claude -->
-<g id="node5" class="node">
+<g id="node8" class="node">
 <title>claude</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2462.28,-228 2142.24,-228 2142.24,-48 2462.28,-48 2462.28,-228"/>
-<text xml:space="preserve" text-anchor="start" x="2243.88" y="-159.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Claude Code</text>
-<text xml:space="preserve" text-anchor="start" x="2218.8" y="-138.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">terminal tabs inside Obsidian</text>
-<text xml:space="preserve" text-anchor="start" x="2185.11" y="-117.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Main assistant. Builds and fixes the</text>
-<text xml:space="preserve" text-anchor="start" x="2215.98" y="-99.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">machinery, runs the skills.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2616.28,-328.8 2296.24,-328.8 2296.24,-148.8 2616.28,-148.8 2616.28,-328.8"/>
+<text xml:space="preserve" text-anchor="start" x="2397.89" y="-260.6" font-family="Arial" font-size="20.00" fill="#f0f9ff">Claude Code</text>
+<text xml:space="preserve" text-anchor="start" x="2372.8" y="-239.6" font-family="Arial" font-size="13.00" fill="#b6ecf7">terminal tabs inside Obsidian</text>
+<text xml:space="preserve" text-anchor="start" x="2339.12" y="-218" font-family="Arial" font-size="15.00" fill="#b6ecf7">Main assistant. Builds and fixes the</text>
+<text xml:space="preserve" text-anchor="start" x="2369.98" y="-200" font-family="Arial" font-size="15.00" fill="#b6ecf7">machinery, runs the skills.</text>
 </g>
 <!-- grok -->
-<g id="node6" class="node">
+<g id="node9" class="node">
 <title>grok</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2464.04,-518 2140.47,-518 2140.47,-338 2464.04,-338 2464.04,-518"/>
-<text xml:space="preserve" text-anchor="start" x="2280.59" y="-449.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Grok</text>
-<text xml:space="preserve" text-anchor="start" x="2218.8" y="-428.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">terminal tabs inside Obsidian</text>
-<text xml:space="preserve" text-anchor="start" x="2160.53" y="-407.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Second assistant. Same vault, same skills,</text>
-<text xml:space="preserve" text-anchor="start" x="2263.49" y="-389.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">same rules.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2618.04,-618.8 2294.48,-618.8 2294.48,-438.8 2618.04,-438.8 2618.04,-618.8"/>
+<text xml:space="preserve" text-anchor="start" x="2434.59" y="-550.6" font-family="Arial" font-size="20.00" fill="#f0f9ff">Grok</text>
+<text xml:space="preserve" text-anchor="start" x="2372.8" y="-529.6" font-family="Arial" font-size="13.00" fill="#b6ecf7">terminal tabs inside Obsidian</text>
+<text xml:space="preserve" text-anchor="start" x="2314.53" y="-508" font-family="Arial" font-size="15.00" fill="#b6ecf7">Second assistant. Same vault, same skills,</text>
+<text xml:space="preserve" text-anchor="start" x="2417.5" y="-490" font-family="Arial" font-size="15.00" fill="#b6ecf7">same rules.</text>
+</g>
+<!-- mailtriage -->
+<g id="node10" class="node">
+<title>mailtriage</title>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="958.82,-590.8 631.89,-590.8 631.89,-410.8 958.82,-410.8 958.82,-590.8"/>
+<text xml:space="preserve" text-anchor="start" x="720.89" y="-522.6" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mail &amp; text triage</text>
+<text xml:space="preserve" text-anchor="start" x="667.44" y="-501.6" font-family="Arial" font-size="13.00" fill="#b6ecf7">AI · once per Obsidian launch and when the</text>
+<text xml:space="preserve" text-anchor="start" x="651.95" y="-480" font-family="Arial" font-size="15.00" fill="#b6ecf7">Archives the noise and lists everything else</text>
+<text xml:space="preserve" text-anchor="start" x="728.23" y="-462" font-family="Arial" font-size="15.00" fill="#b6ecf7">under Needs action.</text>
+</g>
+<!-- fold -->
+<g id="node11" class="node">
+<title>fold</title>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="955.38,-903.8 635.34,-903.8 635.34,-723.8 955.38,-723.8 955.38,-903.8"/>
+<text xml:space="preserve" text-anchor="start" x="721.99" y="-844.6" font-family="Arial" font-size="20.00" fill="#f0f9ff">Needs action list</text>
+<text xml:space="preserve" text-anchor="start" x="750.57" y="-823.6" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mission Control</text>
+<text xml:space="preserve" text-anchor="start" x="666.13" y="-802" font-family="Arial" font-size="15.00" fill="#b6ecf7">One list per inbox. Tap a row to read it;</text>
+<text xml:space="preserve" text-anchor="start" x="664.87" y="-784" font-family="Arial" font-size="15.00" fill="#b6ecf7">swipe or press to open, archive, delete,</text>
+<text xml:space="preserve" text-anchor="start" x="678.62" y="-766" font-family="Arial" font-size="15.00" fill="#b6ecf7">triage, add to calendar, or respond.</text>
 </g>
 <!-- iphone -->
-<g id="node7" class="node">
+<g id="node12" class="node">
 <title>iphone</title>
-<polygon fill="#a35829" stroke="#7e451d" stroke-width="0" points="322.77,-320 0,-320 0,-140 322.77,-140 322.77,-320"/>
-<text xml:space="preserve" text-anchor="start" x="130.25" y="-233" font-family="Arial" font-size="20.00" fill="#ffe0c2">iPhone</text>
-<text xml:space="preserve" text-anchor="start" x="20.06" y="-210" font-family="Arial" font-size="15.00" fill="#f9b27c">Obsidian, Reminders, the Field Agent app.</text>
+<polygon fill="#a35829" stroke="#7e451d" stroke-width="0" points="361.4,-1081.8 38.64,-1081.8 38.64,-901.8 361.4,-901.8 361.4,-1081.8"/>
+<text xml:space="preserve" text-anchor="start" x="168.88" y="-994.8" font-family="Arial" font-size="20.00" fill="#ffe0c2">iPhone</text>
+<text xml:space="preserve" text-anchor="start" x="58.69" y="-971.8" font-family="Arial" font-size="15.00" fill="#f9b27c">Obsidian, Reminders, the Field Agent app.</text>
 </g>
 <!-- jt -->
-<g id="node8" class="node">
+<g id="node13" class="node">
 <title>jt</title>
-<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="1859.08,-320 1516.32,-320 1516.32,-140 1859.08,-140 1859.08,-320"/>
-<text xml:space="preserve" text-anchor="start" x="1676.59" y="-242" font-family="Arial" font-size="20.00" fill="#f8fafc">JT</text>
-<text xml:space="preserve" text-anchor="start" x="1536.38" y="-219" font-family="Arial" font-size="15.00" fill="#c2f0c2">Captures things, makes the calls, presses the</text>
-<text xml:space="preserve" text-anchor="start" x="1661.01" y="-201" font-family="Arial" font-size="15.00" fill="#c2f0c2">buttons.</text>
+<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="371.4,-768.8 28.64,-768.8 28.64,-588.8 371.4,-588.8 371.4,-768.8"/>
+<text xml:space="preserve" text-anchor="start" x="188.91" y="-690.8" font-family="Arial" font-size="20.00" fill="#f8fafc">JT</text>
+<text xml:space="preserve" text-anchor="start" x="48.7" y="-667.8" font-family="Arial" font-size="15.00" fill="#c2f0c2">Captures things, makes the calls, presses the</text>
+<text xml:space="preserve" text-anchor="start" x="173.33" y="-649.8" font-family="Arial" font-size="15.00" fill="#c2f0c2">buttons.</text>
+</g>
+<!-- para&#45;&gt;mission -->
+<g id="edge7" class="edge">
+<title>para&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M360.8,-1534.37C440.38,-1515.73 536.77,-1493.14 618.45,-1474.01"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="618.68,-1476.65 625.39,-1472.38 617.49,-1471.54 618.68,-1476.65"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="459.4,-1514.75 459.4,-1537.55 540.11,-1537.55 540.11,-1514.75 459.4,-1514.75"/>
+<text xml:space="preserve" text-anchor="start" x="462.4" y="-1520.55" font-family="Arial" font-size="14.00" fill="#c9c9c9">next actions</text>
+</g>
+<!-- calendar&#45;&gt;mission -->
+<g id="edge8" class="edge">
+<title>calendar&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M360.02,-1322.27C439.68,-1342.54 536.36,-1367.14 618.26,-1387.99"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="617.33,-1390.46 625.24,-1389.76 618.62,-1385.37 617.33,-1390.46"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="447.73,-1370.82 447.73,-1393.62 551.79,-1393.62 551.79,-1370.82 447.73,-1370.82"/>
+<text xml:space="preserve" text-anchor="start" x="450.73" y="-1376.62" font-family="Arial" font-size="14.00" fill="#c9c9c9">today’s events</text>
+</g>
+<!-- mission&#45;&gt;relay -->
+<g id="edge9" class="edge">
+<title>mission&#45;&gt;relay</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M962.28,-1490.39C1135.48,-1539.44 1407.82,-1584.28 1597.8,-1460.8 1687.06,-1402.79 1753.5,-1299.16 1793.73,-1221.89"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1796.03,-1223.16 1797.13,-1215.29 1791.36,-1220.76 1796.03,-1223.16"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1283.46,-1540.41 1283.46,-1563.21 1358.74,-1563.21 1358.74,-1540.41 1283.46,-1540.41"/>
+<text xml:space="preserve" text-anchor="start" x="1286.46" y="-1546.21" font-family="Arial" font-size="14.00" fill="#c9c9c9">button taps</text>
 </g>
 <!-- app&#45;&gt;tailnet -->
-<g id="edge5" class="edge">
+<g id="edge10" class="edge">
 <title>app&#45;&gt;tailnet</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M798.68,-737C859.81,-737 929.85,-737 992.51,-737"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="992.38,-739.63 999.88,-737 992.38,-734.38 992.38,-739.63"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="865.75,-737 865.75,-759.8 935.56,-759.8 935.56,-737 865.75,-737"/>
-<text xml:space="preserve" text-anchor="start" x="868.75" y="-742.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">messages</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M956.7,-1122.8C1015.41,-1122.8 1082.18,-1122.8 1142.32,-1122.8"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1142.16,-1125.43 1149.66,-1122.8 1142.16,-1120.18 1142.16,-1125.43"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1022.59,-1122.8 1022.59,-1145.6 1092.4,-1145.6 1092.4,-1122.8 1022.59,-1122.8"/>
+<text xml:space="preserve" text-anchor="start" x="1025.59" y="-1128.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">messages</text>
 </g>
 <!-- tailnet&#45;&gt;relay -->
-<g id="edge6" class="edge">
+<g id="edge11" class="edge">
 <title>tailnet&#45;&gt;relay</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1339.64,-737C1390.23,-737 1446.13,-737 1498.01,-737"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1497.81,-739.63 1505.31,-737 1497.81,-734.38 1497.81,-739.63"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1399.96,-737 1399.96,-759.8 1447.97,-759.8 1447.97,-737 1399.96,-737"/>
-<text xml:space="preserve" text-anchor="start" x="1402.96" y="-742.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">carries</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1489.44,-1122.8C1539.99,-1122.8 1595.87,-1122.8 1647.83,-1122.8"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1647.65,-1125.43 1655.14,-1122.8 1647.64,-1120.18 1647.65,-1125.43"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1549.8,-1122.8 1549.8,-1145.6 1597.8,-1145.6 1597.8,-1122.8 1549.8,-1122.8"/>
+<text xml:space="preserve" text-anchor="start" x="1552.8" y="-1128.6" font-family="Arial" font-size="14.00" fill="#c9c9c9">carries</text>
+</g>
+<!-- relay&#45;&gt;mission -->
+<g id="edge12" class="edge">
+<title>relay&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1657.84,-1204.41C1604.39,-1226.77 1545.32,-1249.78 1489.8,-1267.8 1316.8,-1323.94 1113.88,-1370 972.42,-1399.06"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="972.13,-1396.44 965.31,-1400.51 973.18,-1401.58 972.13,-1396.44"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1280.74,-1358.86 1280.74,-1381.66 1361.46,-1381.66 1361.46,-1358.86 1280.74,-1358.86"/>
+<text xml:space="preserve" text-anchor="start" x="1283.74" y="-1364.66" font-family="Arial" font-size="14.00" fill="#c9c9c9">live updates</text>
 </g>
 <!-- relay&#45;&gt;approval -->
-<g id="edge7" class="edge">
+<g id="edge13" class="edge">
 <title>relay&#45;&gt;approval</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1867.25,-726.38C1887.54,-725.48 1907.93,-724.72 1927.43,-724.2 1990.6,-722.51 2006.45,-722.46 2069.62,-724.2 2085.79,-724.65 2102.59,-725.27 2119.42,-726"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2119.26,-728.62 2126.87,-726.33 2119.5,-723.37 2119.26,-728.62"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1967.91,-724.2 1967.91,-747 2029.14,-747 2029.14,-724.2 1967.91,-724.2"/>
-<text xml:space="preserve" text-anchor="start" x="1970.91" y="-730" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks first</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2021.38,-1112.15C2041.64,-1111.27 2061.97,-1110.52 2081.43,-1110 2144.61,-1108.32 2160.45,-1108.26 2223.63,-1110 2239.8,-1110.45 2256.6,-1111.07 2273.43,-1111.8"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2273.27,-1114.42 2280.88,-1112.13 2273.5,-1109.17 2273.27,-1114.42"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2121.92,-1110 2121.92,-1132.8 2183.14,-1132.8 2183.14,-1110 2121.92,-1110"/>
+<text xml:space="preserve" text-anchor="start" x="2124.92" y="-1115.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks first</text>
 </g>
 <!-- relay&#45;&gt;claude -->
-<g id="edge8" class="edge">
+<g id="edge14" class="edge">
 <title>relay&#45;&gt;claude</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1777.24,-647.29C1886,-536.88 2057.69,-361.84 2069.62,-345 2087.41,-319.89 2080.56,-306.47 2100.47,-283 2115.2,-265.64 2132.42,-249.26 2150.47,-234.2"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2151.77,-236.53 2155.91,-229.74 2148.45,-232.46 2151.77,-236.53"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1927.43,-493.69 1927.43,-516.49 2069.62,-516.49 2069.62,-493.69 1927.43,-493.69"/>
-<text xml:space="preserve" text-anchor="start" x="1930.43" y="-499.49" font-family="Arial" font-size="14.00" fill="#c9c9c9">one turn per message</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1875.71,-1033.06C1936.49,-885.58 2072.51,-587.99 2254.48,-383.8 2269.81,-366.6 2287.52,-350.24 2305.95,-335.13"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2307.33,-337.39 2311.52,-330.63 2304.04,-333.3 2307.33,-337.39"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2081.43,-607.94 2081.43,-630.74 2223.63,-630.74 2223.63,-607.94 2081.43,-607.94"/>
+<text xml:space="preserve" text-anchor="start" x="2084.43" y="-613.74" font-family="Arial" font-size="14.00" fill="#c9c9c9">one turn per message</text>
 </g>
 <!-- relay&#45;&gt;grok -->
-<g id="edge9" class="edge">
+<g id="edge15" class="edge">
 <title>relay&#45;&gt;grok</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1867.11,-647C1950.51,-604.93 2049.34,-555.08 2131.61,-513.58"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2132.32,-516.16 2137.83,-510.44 2129.96,-511.47 2132.32,-516.16"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1927.43,-610.18 1927.43,-632.98 2069.62,-632.98 2069.62,-610.18 1927.43,-610.18"/>
-<text xml:space="preserve" text-anchor="start" x="1930.43" y="-615.98" font-family="Arial" font-size="14.00" fill="#c9c9c9">one turn per message</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1933.64,-1032.91C2047.13,-923.23 2238.25,-738.52 2354.95,-625.74"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2356.44,-627.95 2360.01,-620.86 2352.79,-624.18 2356.44,-627.95"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2081.43,-879 2081.43,-901.8 2223.63,-901.8 2223.63,-879 2081.43,-879"/>
+<text xml:space="preserve" text-anchor="start" x="2084.43" y="-884.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">one turn per message</text>
+</g>
+<!-- relay&#45;&gt;mailtriage -->
+<g id="edge16" class="edge">
+<title>relay&#45;&gt;mailtriage</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1687.89,-1032.85C1492.97,-916.53 1154.96,-714.81 955.86,-595.99"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="957.46,-593.89 949.68,-592.3 954.77,-598.39 957.46,-593.89"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1238.71,-913.76 1238.71,-936.56 1403.49,-936.56 1403.49,-913.76 1238.71,-913.76"/>
+<text xml:space="preserve" text-anchor="start" x="1241.71" y="-919.56" font-family="Arial" font-size="14.00" fill="#c9c9c9">phone attaches, 3 h apart</text>
 </g>
 <!-- approval&#45;&gt;relay -->
-<g id="edge10" class="edge">
+<g id="edge17" class="edge">
 <title>approval&#45;&gt;relay</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2129.69,-756.78C2109.47,-758.51 2089.1,-759.99 2069.62,-761 2006.51,-764.26 1990.55,-764.16 1927.43,-761 1911.24,-760.19 1894.45,-759.07 1877.62,-757.75"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1877.85,-755.14 1870.16,-757.15 1877.43,-760.37 1877.85,-755.14"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1952.34,-763.41 1952.34,-786.21 2044.71,-786.21 2044.71,-763.41 1952.34,-763.41"/>
-<text xml:space="preserve" text-anchor="start" x="1955.34" y="-769.21" font-family="Arial" font-size="14.00" fill="#c9c9c9">Allow or Deny</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2283.7,-1142.58C2263.47,-1144.31 2243.11,-1145.79 2223.63,-1146.8 2160.51,-1150.06 2144.55,-1149.94 2081.43,-1146.8 2065.28,-1146 2048.53,-1144.89 2031.74,-1143.59"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2031.98,-1140.98 2024.3,-1143 2031.57,-1146.21 2031.98,-1140.98"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2106.35,-1149.2 2106.35,-1172 2198.71,-1172 2198.71,-1149.2 2106.35,-1149.2"/>
+<text xml:space="preserve" text-anchor="start" x="2109.35" y="-1155" font-family="Arial" font-size="14.00" fill="#c9c9c9">Allow or Deny</text>
+</g>
+<!-- mailtriage&#45;&gt;fold -->
+<g id="edge18" class="edge">
+<title>mailtriage&#45;&gt;fold</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M795.36,-590.49C795.36,-628.88 795.36,-673.87 795.36,-713.37"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="792.73,-713.3 795.36,-720.8 797.98,-713.3 792.73,-713.3"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="721.53,-645.9 721.53,-668.7 840.39,-668.7 840.39,-645.9 721.53,-645.9"/>
+<text xml:space="preserve" text-anchor="start" x="724.53" y="-651.7" font-family="Arial" font-size="14.00" fill="#c9c9c9">what needs action</text>
+</g>
+<!-- fold&#45;&gt;mission -->
+<g id="edge20" class="edge">
+<title>fold&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M635.5,-875.48C576.03,-907.17 514.89,-952.25 481.29,-1013.4 415.92,-1132.41 533.55,-1255.22 643,-1336.94"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="641.18,-1338.85 648.77,-1341.2 644.3,-1334.63 641.18,-1338.85"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="431.4,-1013.4 431.4,-1036.2 568.12,-1036.2 568.12,-1013.4 431.4,-1013.4"/>
+<text xml:space="preserve" text-anchor="start" x="434.4" y="-1019.2" font-family="Arial" font-size="14.00" fill="#c9c9c9">Email and Texts tabs</text>
+</g>
+<!-- fold&#45;&gt;jt -->
+<g id="edge19" class="edge">
+<title>fold&#45;&gt;jt</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M663.21,-723.86C633.2,-707.54 600.55,-692.89 568.12,-684 508.7,-667.71 441.82,-662.98 381.58,-663.41"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="381.69,-660.78 374.22,-663.5 381.75,-666.03 381.69,-660.78"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="440.33,-684 440.33,-706.8 559.19,-706.8 559.19,-684 440.33,-684"/>
+<text xml:space="preserve" text-anchor="start" x="443.33" y="-689.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">what needs action</text>
 </g>
 <!-- iphone&#45;&gt;app -->
 <g id="edge2" class="edge">
 <title>iphone&#45;&gt;app</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M246.3,-319.77C330.23,-409.53 458.92,-547.18 545.28,-639.57"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="543.36,-641.35 550.4,-645.04 547.19,-637.77 543.36,-641.35"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="382.77,-498.7 382.77,-521.5 416,-521.5 416,-498.7 382.77,-498.7"/>
-<text xml:space="preserve" text-anchor="start" x="385.77" y="-504.5" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M329.69,-1081.77C351.04,-1098.1 372.56,-1115.47 392.04,-1132.8 411.16,-1149.8 407.93,-1164.63 431.4,-1174.8 491.41,-1200.81 561.73,-1197.56 624.4,-1184.35"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="624.68,-1186.98 631.44,-1182.8 623.55,-1181.85 624.68,-1186.98"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="483.14,-1194.38 483.14,-1217.18 516.38,-1217.18 516.38,-1194.38 483.14,-1194.38"/>
+<text xml:space="preserve" text-anchor="start" x="486.14" y="-1200.18" font-family="Arial" font-size="14.00" fill="#c9c9c9">runs</text>
 </g>
 <!-- iphone&#45;&gt;jt -->
 <g id="edge1" class="edge">
 <title>iphone&#45;&gt;jt</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M322.63,-230C608.89,-230 1206.16,-230 1506.33,-230"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1505.91,-232.63 1513.41,-230 1505.91,-227.38 1505.91,-232.63"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="858.74,-230 858.74,-252.8 942.56,-252.8 942.56,-230 858.74,-230"/>
-<text xml:space="preserve" text-anchor="start" x="861.74" y="-235.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">in his pocket</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M200.02,-901.82C200.02,-863.4 200.02,-818.41 200.02,-778.93"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="202.65,-779.02 200.02,-771.52 197.4,-779.02 202.65,-779.02"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="143.71,-823.9 143.71,-846.7 227.53,-846.7 227.53,-823.9 143.71,-823.9"/>
+<text xml:space="preserve" text-anchor="start" x="146.71" y="-829.7" font-family="Arial" font-size="14.00" fill="#c9c9c9">in his pocket</text>
+</g>
+<!-- jt&#45;&gt;mission -->
+<g id="edge3" class="edge">
+<title>jt&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M326.99,-768.6C351.78,-791.54 375.27,-817.98 392.04,-846.8 435.4,-921.34 384.94,-964.15 431.4,-1036.8 472.13,-1100.49 529.04,-1073.28 568.12,-1138 598.29,-1187.97 558.89,-1217.28 588.12,-1267.8 602.7,-1293.01 622.75,-1315.86 644.64,-1335.98"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="642.86,-1337.92 650.2,-1340.97 646.36,-1334.01 642.86,-1337.92"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="474.97,-1138 474.97,-1160.8 524.55,-1160.8 524.55,-1138 474.97,-1138"/>
+<text xml:space="preserve" text-anchor="start" x="477.97" y="-1143.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">checks</text>
 </g>
 <!-- jt&#45;&gt;approval -->
-<g id="edge3" class="edge">
+<g id="edge4" class="edge">
 <title>jt&#45;&gt;approval</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1858.64,-221.51C1933.84,-227.25 2016.99,-248.32 2069.62,-306.2 2114.68,-355.75 2065.6,-548.82 2100.47,-606 2107.95,-618.27 2117.07,-629.61 2127.25,-640.06"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2125.11,-641.64 2132.3,-645.02 2128.79,-637.89 2125.11,-641.64"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1982.29,-306.2 1982.29,-329 2014.76,-329 2014.76,-306.2 1982.29,-306.2"/>
-<text xml:space="preserve" text-anchor="start" x="1985.29" y="-312" font-family="Arial" font-size="14.00" fill="#c9c9c9">taps</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M271.26,-589.11C341.4,-507.48 457.37,-392.52 588.12,-343.8 960.86,-204.91 1888.8,-90.35 2223.63,-408.8 2271.87,-454.68 2236.31,-642.75 2254.48,-706.8 2286.89,-821.06 2349,-942.35 2395.6,-1024.29"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2393.13,-1025.25 2399.13,-1030.46 2397.68,-1022.65 2393.13,-1025.25"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1304.87,-221.37 1304.87,-244.17 1337.33,-244.17 1337.33,-221.37 1304.87,-221.37"/>
+<text xml:space="preserve" text-anchor="start" x="1307.87" y="-227.17" font-family="Arial" font-size="14.00" fill="#c9c9c9">taps</text>
 </g>
 <!-- jt&#45;&gt;claude -->
-<g id="edge4" class="edge">
+<g id="edge5" class="edge">
 <title>jt&#45;&gt;claude</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1858.92,-204.43C1930.61,-193.67 2014.78,-181.03 2090.35,-169.68"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2090.45,-172.31 2097.48,-168.6 2089.68,-167.12 2090.45,-172.31"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1944.87,-163.5 1944.87,-186.3 1979.66,-186.3 1979.66,-163.5 1944.87,-163.5"/>
-<text xml:space="preserve" text-anchor="start" x="1947.87" y="-169.3" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M218.83,-588.87C245.83,-474.87 307.66,-279.09 431.4,-161.8 556.76,-42.96 621.62,-22.8 794.36,-22.8 794.36,-22.8 794.36,-22.8 1840.62,-22.8 1980.76,-22.8 2129.23,-73.4 2245.14,-125.62"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2243.81,-127.9 2251.73,-128.61 2245.98,-123.12 2243.81,-127.9"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="890.35,0 890.35,-22.8 925.14,-22.8 925.14,0 890.35,0"/>
+<text xml:space="preserve" text-anchor="start" x="893.35" y="-5.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">asks</text>
+</g>
+<!-- jt&#45;&gt;fold -->
+<g id="edge6" class="edge">
+<title>jt&#45;&gt;fold</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M371.05,-717.49C450.85,-735.64 545.7,-757.22 625.37,-775.35"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="624.66,-777.88 632.55,-776.98 625.82,-772.76 624.66,-777.88"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="447.34,-758.39 447.34,-781.19 552.18,-781.19 552.18,-758.39 447.34,-758.39"/>
+<text xml:space="preserve" text-anchor="start" x="450.34" y="-764.19" font-family="Arial" font-size="14.00" fill="#c9c9c9">presses buttons</text>
 </g>
 </g>
 </svg>
@@ -4508,8 +4889,8 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <!-- Generated by graphviz version 15.0.0 (0)
  -->
 <!-- Pages: 1 -->
-<svg width="2632pt" height="3367pt"
- viewBox="0.00 0.00 2632.00 3367.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="2615pt" height="3367pt"
+ viewBox="0.00 0.00 2615.00 3367.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(15.05 3352.05)">
 <g id="clust1" class="cluster">
 <title>cluster_pi</title>
@@ -4518,33 +4899,33 @@ var e=e=>{switch(e){case`index`:return`digraph {
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_schedulers</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="478.04,-2281 478.04,-2852 2037.84,-2852 2037.84,-2281 478.04,-2281"/>
+<polygon fill="#194b9e" stroke="#1b3d88" points="478.04,-2281 478.04,-2852 2012.27,-2852 2012.27,-2281 478.04,-2281"/>
 <text xml:space="preserve" text-anchor="start" x="486.04" y="-2839.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SCHEDULERS</text>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_mail</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="1615.88,-8 1615.88,-579 2594.24,-579 2594.24,-8 1615.88,-8"/>
-<text xml:space="preserve" text-anchor="start" x="1623.88" y="-566.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">EMAIL &amp; TEXTS</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="1607.94,-8 1607.94,-579 2576.73,-579 2576.73,-8 1607.94,-8"/>
+<text xml:space="preserve" text-anchor="start" x="1615.94" y="-566.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">EMAIL &amp; TEXTS</text>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_scan</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="1628.17,-1756 1628.17,-2021 2012.21,-2021 2012.21,-1756 1628.17,-1756"/>
-<text xml:space="preserve" text-anchor="start" x="1636.17" y="-2008.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SCANNER</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="1620.23,-1756 1620.23,-2021 2004.27,-2021 2004.27,-1756 1620.23,-1756"/>
+<text xml:space="preserve" text-anchor="start" x="1628.23" y="-2008.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SCANNER</text>
 </g>
 <g id="clust5" class="cluster">
 <title>cluster_backups</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="1619.32,-886 1619.32,-1151 2021.06,-1151 2021.06,-886 1619.32,-886"/>
-<text xml:space="preserve" text-anchor="start" x="1627.32" y="-1138.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">BACKUPS</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="1611.38,-886 1611.38,-1151 2013.12,-1151 2013.12,-886 1611.38,-886"/>
+<text xml:space="preserve" text-anchor="start" x="1619.38" y="-1138.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">BACKUPS</text>
 </g>
 <g id="clust6" class="cluster">
 <title>cluster_printing</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="1618.39,-1168 1618.39,-1739 2021.98,-1739 2021.98,-1168 1618.39,-1168"/>
-<text xml:space="preserve" text-anchor="start" x="1626.39" y="-1726.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">3D PRINTING</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="1610.45,-1168 1610.45,-1739 2014.05,-1739 2014.05,-1168 1610.45,-1168"/>
+<text xml:space="preserve" text-anchor="start" x="1618.45" y="-1726.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">3D PRINTING</text>
 </g>
 <g id="clust7" class="cluster">
-<title>cluster_vault</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="2189.9,-2434 2189.9,-2699 2591.66,-2699 2591.66,-2434 2189.9,-2434"/>
-<text xml:space="preserve" text-anchor="start" x="2197.9" y="-2686.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SECOND BRAIN</text>
+<title>cluster_fieldagent</title>
+<polygon fill="#194b9e" stroke="#1b3d88" points="2174.03,-2434 2174.03,-2699 2572.5,-2699 2572.5,-2434 2174.03,-2434"/>
+<text xml:space="preserve" text-anchor="start" x="2182.03" y="-2686.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">FIELD AGENT</text>
 </g>
 <!-- heartbeat -->
 <g id="node1" class="node">
@@ -4573,103 +4954,106 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <text xml:space="preserve" text-anchor="start" x="546.32" y="-2390.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">The unread mail list, and a doorbell that</text>
 <text xml:space="preserve" text-anchor="start" x="550.07" y="-2372.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">wakes Obsidian when the phone asks.</text>
 </g>
-<!-- homeplugin -->
+<!-- brainengine -->
 <g id="node4" class="node">
-<title>homeplugin</title>
+<title>brainengine</title>
 <polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1386.33,-2791 1066.29,-2791 1066.29,-2611 1386.33,-2611 1386.33,-2791"/>
-<text xml:space="preserve" text-anchor="start" x="1138.48" y="-2722.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home Button plugin</text>
-<text xml:space="preserve" text-anchor="start" x="1181.87" y="-2701.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">inside Obsidian</text>
+<text xml:space="preserve" text-anchor="start" x="1169.05" y="-2722.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Brain Engine</text>
+<text xml:space="preserve" text-anchor="start" x="1181.5" y="-2701.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Obsidian plugin</text>
 <text xml:space="preserve" text-anchor="start" x="1092.1" y="-2680.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Runs most timers: every minute, every 5</text>
 <text xml:space="preserve" text-anchor="start" x="1139.18" y="-2662.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">minutes, hourly, and daily.</text>
 </g>
 <!-- calendar -->
 <g id="node5" class="node">
 <title>calendar</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1997.84,-2791 1642.53,-2791 1642.53,-2611 1997.84,-2611 1997.84,-2791"/>
-<text xml:space="preserve" text-anchor="start" x="1750.72" y="-2713.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Calendar mirror</text>
-<text xml:space="preserve" text-anchor="start" x="1784.06" y="-2692.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">hourly · free</text>
-<text xml:space="preserve" text-anchor="start" x="1662.58" y="-2671.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Copies the calendar onto the Home dashboard.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1972.27,-2791 1652.23,-2791 1652.23,-2611 1972.27,-2611 1972.27,-2791"/>
+<text xml:space="preserve" text-anchor="start" x="1742.79" y="-2722.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Calendar mirror</text>
+<text xml:space="preserve" text-anchor="start" x="1776.12" y="-2701.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">hourly · free</text>
+<text xml:space="preserve" text-anchor="start" x="1690.09" y="-2680.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Copies the calendar into the vault for</text>
+<text xml:space="preserve" text-anchor="start" x="1758.48" y="-2662.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Mission Control.</text>
 </g>
 <!-- health -->
 <g id="node6" class="node">
 <title>health</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1980.21,-2501 1660.17,-2501 1660.17,-2321 1980.21,-2321 1980.21,-2501"/>
-<text xml:space="preserve" text-anchor="start" x="1762.38" y="-2432.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Health check</text>
-<text xml:space="preserve" text-anchor="start" x="1788.39" y="-2411.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">daily · free</text>
-<text xml:space="preserve" text-anchor="start" x="1682.2" y="-2390.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Looks for broken links, stale projects, and</text>
-<text xml:space="preserve" text-anchor="start" x="1683.04" y="-2372.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">quiet machines; writes the Health Report.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1972.27,-2501 1652.23,-2501 1652.23,-2321 1972.27,-2321 1972.27,-2501"/>
+<text xml:space="preserve" text-anchor="start" x="1754.44" y="-2432.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Health check</text>
+<text xml:space="preserve" text-anchor="start" x="1780.46" y="-2411.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">daily · free</text>
+<text xml:space="preserve" text-anchor="start" x="1674.26" y="-2390.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Looks for broken links, stale projects, and</text>
+<text xml:space="preserve" text-anchor="start" x="1675.1" y="-2372.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">quiet machines; writes the Health Report.</text>
 </g>
 <!-- unread -->
 <g id="node7" class="node">
 <title>unread</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1980.21,-228 1660.17,-228 1660.17,-48 1980.21,-48 1980.21,-228"/>
-<text xml:space="preserve" text-anchor="start" x="1772.39" y="-159.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Unread list</text>
-<text xml:space="preserve" text-anchor="start" x="1748.66" y="-138.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every 5 min · free</text>
-<text xml:space="preserve" text-anchor="start" x="1694.72" y="-117.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Reads new mail straight from the mail</text>
-<text xml:space="preserve" text-anchor="start" x="1793.51" y="-99.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">servers.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1972.27,-228 1652.23,-228 1652.23,-48 1972.27,-48 1972.27,-228"/>
+<text xml:space="preserve" text-anchor="start" x="1764.45" y="-159.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Unread list</text>
+<text xml:space="preserve" text-anchor="start" x="1740.73" y="-138.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every 5 min · free</text>
+<text xml:space="preserve" text-anchor="start" x="1686.79" y="-117.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Reads new mail straight from the mail</text>
+<text xml:space="preserve" text-anchor="start" x="1785.58" y="-99.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">servers.</text>
 </g>
 <!-- texts -->
 <g id="node8" class="node">
 <title>texts</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1984.49,-518 1655.88,-518 1655.88,-338 1984.49,-338 1984.49,-518"/>
-<text xml:space="preserve" text-anchor="start" x="1766.86" y="-449.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Texts mirror</text>
-<text xml:space="preserve" text-anchor="start" x="1748.66" y="-428.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every 5 min · free</text>
-<text xml:space="preserve" text-anchor="start" x="1675.94" y="-407.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Copies new iMessages into the vault. Login</text>
-<text xml:space="preserve" text-anchor="start" x="1757.23" y="-389.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">codes are skipped.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1976.56,-518 1647.94,-518 1647.94,-338 1976.56,-338 1976.56,-518"/>
+<text xml:space="preserve" text-anchor="start" x="1758.92" y="-449.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Texts mirror</text>
+<text xml:space="preserve" text-anchor="start" x="1740.73" y="-428.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every 5 min · free</text>
+<text xml:space="preserve" text-anchor="start" x="1668" y="-407.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Copies new iMessages into the vault. Login</text>
+<text xml:space="preserve" text-anchor="start" x="1749.29" y="-389.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">codes are skipped.</text>
 </g>
 <!-- mailtriage -->
 <g id="node9" class="node">
 <title>mailtriage</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2554.24,-518 2227.32,-518 2227.32,-338 2554.24,-338 2554.24,-518"/>
-<text xml:space="preserve" text-anchor="start" x="2316.31" y="-449.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mail &amp; text triage</text>
-<text xml:space="preserve" text-anchor="start" x="2256" y="-428.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">AI · at Obsidian launch and on opening Home,</text>
-<text xml:space="preserve" text-anchor="start" x="2247.37" y="-407.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Archives the noise and lists everything else</text>
-<text xml:space="preserve" text-anchor="start" x="2323.65" y="-389.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">under Needs action.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2536.73,-518 2209.8,-518 2209.8,-338 2536.73,-338 2536.73,-518"/>
+<text xml:space="preserve" text-anchor="start" x="2298.79" y="-449.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mail &amp; text triage</text>
+<text xml:space="preserve" text-anchor="start" x="2245.35" y="-428.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">AI · once per Obsidian launch and when the</text>
+<text xml:space="preserve" text-anchor="start" x="2229.86" y="-407.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Archives the noise and lists everything else</text>
+<text xml:space="preserve" text-anchor="start" x="2306.14" y="-389.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">under Needs action.</text>
 </g>
 <!-- ocr -->
 <g id="node10" class="node">
 <title>ocr</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1980.21,-1968 1660.17,-1968 1660.17,-1788 1980.21,-1788 1980.21,-1968"/>
-<text xml:space="preserve" text-anchor="start" x="1740.43" y="-1908.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Scan sync + OCR</text>
-<text xml:space="preserve" text-anchor="start" x="1745.05" y="-1887.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every minute · free</text>
-<text xml:space="preserve" text-anchor="start" x="1700.55" y="-1866.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Pulls each raw scan, makes the text</text>
-<text xml:space="preserve" text-anchor="start" x="1691.77" y="-1848.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">searchable, deletes the Pi copy once it</text>
-<text xml:space="preserve" text-anchor="start" x="1782.25" y="-1830.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">checks out.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1972.27,-1968 1652.23,-1968 1652.23,-1788 1972.27,-1788 1972.27,-1968"/>
+<text xml:space="preserve" text-anchor="start" x="1732.5" y="-1908.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Scan sync + OCR</text>
+<text xml:space="preserve" text-anchor="start" x="1737.11" y="-1887.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every minute · free</text>
+<text xml:space="preserve" text-anchor="start" x="1692.61" y="-1866.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Pulls each raw scan, makes the text</text>
+<text xml:space="preserve" text-anchor="start" x="1683.84" y="-1848.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">searchable, deletes the Pi copy once it</text>
+<text xml:space="preserve" text-anchor="start" x="1774.31" y="-1830.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">checks out.</text>
 </g>
 <!-- machine -->
 <g id="node11" class="node">
 <title>machine</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1989.06,-1098 1651.32,-1098 1651.32,-918 1989.06,-918 1989.06,-1098"/>
-<text xml:space="preserve" text-anchor="start" x="1739.02" y="-1029.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Machine snapshot</text>
-<text xml:space="preserve" text-anchor="start" x="1784.06" y="-1008.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">hourly · free</text>
-<text xml:space="preserve" text-anchor="start" x="1671.37" y="-987.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Copies the Mac’s setup (scripts, schedules,</text>
-<text xml:space="preserve" text-anchor="start" x="1690.95" y="-969.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">settings) into the vault. Secrets left out.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1981.12,-1098 1643.38,-1098 1643.38,-918 1981.12,-918 1981.12,-1098"/>
+<text xml:space="preserve" text-anchor="start" x="1731.09" y="-1029.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Machine snapshot</text>
+<text xml:space="preserve" text-anchor="start" x="1776.12" y="-1008.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">hourly · free</text>
+<text xml:space="preserve" text-anchor="start" x="1663.44" y="-987.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Copies the Mac’s setup (scripts, schedules,</text>
+<text xml:space="preserve" text-anchor="start" x="1683.02" y="-969.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">settings) into the vault. Secrets left out.</text>
 </g>
 <!-- printlog -->
 <g id="node12" class="node">
 <title>printlog</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1981.98,-1388 1658.39,-1388 1658.39,-1208 1981.98,-1208 1981.98,-1388"/>
-<text xml:space="preserve" text-anchor="start" x="1783.5" y="-1319.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Print log</text>
-<text xml:space="preserve" text-anchor="start" x="1745.05" y="-1298.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every minute · free</text>
-<text xml:space="preserve" text-anchor="start" x="1678.44" y="-1277.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Notes each start and finish in the model’s</text>
-<text xml:space="preserve" text-anchor="start" x="1695.11" y="-1259.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">folder, the print log, and a notification.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1974.05,-1388 1650.45,-1388 1650.45,-1208 1974.05,-1208 1974.05,-1388"/>
+<text xml:space="preserve" text-anchor="start" x="1775.57" y="-1319.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Print log</text>
+<text xml:space="preserve" text-anchor="start" x="1737.11" y="-1298.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every minute · free</text>
+<text xml:space="preserve" text-anchor="start" x="1670.51" y="-1277.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Notes each start and finish in the model’s</text>
+<text xml:space="preserve" text-anchor="start" x="1687.17" y="-1259.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">folder, the print log, and a notification.</text>
 </g>
 <!-- publish -->
 <g id="node13" class="node">
 <title>publish</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1980.21,-1678 1660.17,-1678 1660.17,-1498 1980.21,-1498 1980.21,-1678"/>
-<text xml:space="preserve" text-anchor="start" x="1754.04" y="-1609.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Gallery publish</text>
-<text xml:space="preserve" text-anchor="start" x="1702.77" y="-1588.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every 5 min and right after a finish</text>
-<text xml:space="preserve" text-anchor="start" x="1688.03" y="-1567.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Pulls the drafted card, fills in the details,</text>
-<text xml:space="preserve" text-anchor="start" x="1738.88" y="-1549.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">and pushes it to the site.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1972.27,-1678 1652.23,-1678 1652.23,-1498 1972.27,-1498 1972.27,-1678"/>
+<text xml:space="preserve" text-anchor="start" x="1746.11" y="-1609.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Gallery publish</text>
+<text xml:space="preserve" text-anchor="start" x="1694.84" y="-1588.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every 5 min and right after a finish</text>
+<text xml:space="preserve" text-anchor="start" x="1680.1" y="-1567.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Pulls the drafted card, fills in the details,</text>
+<text xml:space="preserve" text-anchor="start" x="1730.95" y="-1549.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">and pushes it to the site.</text>
 </g>
-<!-- home -->
+<!-- mission -->
 <g id="node14" class="node">
-<title>home</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2559.66,-2646 2221.9,-2646 2221.9,-2466 2559.66,-2466 2559.66,-2646"/>
-<text xml:space="preserve" text-anchor="start" x="2314.07" y="-2568" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home dashboard</text>
-<text xml:space="preserve" text-anchor="start" x="2241.95" y="-2545" font-family="Arial" font-size="15.00" fill="#b6ecf7">The front door. Shows today, mail, texts, and</text>
-<text xml:space="preserve" text-anchor="start" x="2291.13" y="-2527" font-family="Arial" font-size="15.00" fill="#b6ecf7">what each project needs next.</text>
+<title>mission</title>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2540.5,-2646 2206.03,-2646 2206.03,-2466 2540.5,-2466 2540.5,-2646"/>
+<text xml:space="preserve" text-anchor="start" x="2304.35" y="-2586.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mission Control</text>
+<text xml:space="preserve" text-anchor="start" x="2290.87" y="-2565.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">dashboard screen in the app</text>
+<text xml:space="preserve" text-anchor="start" x="2239.04" y="-2544.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">The front door. Shows today, mail, texts,</text>
+<text xml:space="preserve" text-anchor="start" x="2226.08" y="-2526.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">calendar, and what each project needs next,</text>
+<text xml:space="preserve" text-anchor="start" x="2330.73" y="-2508.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">updated live.</text>
 </g>
 <!-- appleapps -->
 <g id="node15" class="node">
@@ -4689,24 +5073,24 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <!-- docs -->
 <g id="node17" class="node">
 <title>docs</title>
-<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1989.91,-808 1650.46,-808 1650.46,-628 1989.91,-628 1989.91,-808"/>
-<text xml:space="preserve" text-anchor="start" x="1759.04" y="-748.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Find Anything</text>
-<text xml:space="preserve" text-anchor="start" x="1764.55" y="-727.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">Mac · hourly · free</text>
-<text xml:space="preserve" text-anchor="start" x="1698.45" y="-706.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Copies the text of every document in</text>
-<text xml:space="preserve" text-anchor="start" x="1670.52" y="-688.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Documents into the vault so one search finds</text>
-<text xml:space="preserve" text-anchor="start" x="1814.35" y="-670.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">it.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1981.97,-808 1642.53,-808 1642.53,-628 1981.97,-628 1981.97,-808"/>
+<text xml:space="preserve" text-anchor="start" x="1751.1" y="-748.8" font-family="Arial" font-size="20.00" fill="#eff6ff">Find Anything</text>
+<text xml:space="preserve" text-anchor="start" x="1756.62" y="-727.8" font-family="Arial" font-size="13.00" fill="#bfdbfe">Mac · hourly · free</text>
+<text xml:space="preserve" text-anchor="start" x="1690.52" y="-706.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Copies the text of every document in</text>
+<text xml:space="preserve" text-anchor="start" x="1662.58" y="-688.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Documents into the vault so one search finds</text>
+<text xml:space="preserve" text-anchor="start" x="1806.42" y="-670.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">it.</text>
 </g>
 <!-- heartbeat&#45;&gt;health -->
 <g id="edge4" class="edge">
 <title>heartbeat&#45;&gt;health</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1386.26,-2901.09C1397.83,-2893.81 1409.23,-2886.4 1420.11,-2879 1496.13,-2827.34 1535.56,-2830 1582.53,-2751 1627.46,-2675.42 1569.15,-2630.48 1615.88,-2556 1626.97,-2538.33 1641.07,-2522.17 1656.67,-2507.59"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1658.39,-2509.57 1662.19,-2502.59 1654.87,-2505.68 1658.39,-2509.57"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1448.11,-2860.13 1448.11,-2882.93 1582.53,-2882.93 1582.53,-2860.13 1448.11,-2860.13"/>
-<text xml:space="preserve" text-anchor="start" x="1451.11" y="-2865.93" font-family="Arial" font-size="14.00" fill="#c9c9c9">disk and drive health</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1386.26,-2901.09C1397.83,-2893.81 1409.23,-2886.4 1420.11,-2879 1496.13,-2827.34 1537.14,-2830.92 1582.53,-2751 1625.69,-2675 1562.98,-2630.94 1607.94,-2556 1618.49,-2538.43 1632.07,-2522.4 1647.2,-2507.95"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1648.8,-2510.05 1652.53,-2503.04 1645.24,-2506.19 1648.8,-2510.05"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1448.11,-2860.17 1448.11,-2882.97 1582.53,-2882.97 1582.53,-2860.17 1448.11,-2860.17"/>
+<text xml:space="preserve" text-anchor="start" x="1451.11" y="-2865.97" font-family="Arial" font-size="14.00" fill="#c9c9c9">disk and drive health</text>
 </g>
-<!-- chiprelay&#45;&gt;homeplugin -->
+<!-- chiprelay&#45;&gt;brainengine -->
 <g id="edge5" class="edge">
-<title>chiprelay&#45;&gt;homeplugin</title>
+<title>chiprelay&#45;&gt;brainengine</title>
 <path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M837.79,-2701C906.4,-2701 986.75,-2701 1056.45,-2701"/>
 <polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1056.13,-2703.63 1063.63,-2701 1056.13,-2698.38 1056.13,-2703.63"/>
 <polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="898.08,-2701 898.08,-2723.8 1004.5,-2723.8 1004.5,-2701 898.08,-2701"/>
@@ -4715,122 +5099,122 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <!-- launchd&#45;&gt;unread -->
 <g id="edge6" class="edge">
 <title>launchd&#45;&gt;unread</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M712.97,-2321.19C814.97,-2053.26 1131.47,-1237.76 1448.11,-586 1515.38,-447.54 1513.4,-397.86 1615.88,-283 1631.28,-265.73 1649.1,-249.36 1667.66,-234.27"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1669.07,-236.5 1673.29,-229.77 1665.79,-232.4 1669.07,-236.5"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1187.13,-1517.97 1187.13,-1540.77 1265.49,-1540.77 1265.49,-1517.97 1187.13,-1517.97"/>
-<text xml:space="preserve" text-anchor="start" x="1190.13" y="-1523.77" font-family="Arial" font-size="14.00" fill="#c9c9c9">every 5 min</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M712.8,-2321.1C814.64,-2051.98 1131.4,-1230.7 1448.11,-574 1512.21,-441.09 1509.9,-393.27 1607.94,-283 1623.32,-265.71 1641.12,-249.32 1659.67,-234.22"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1661.08,-236.45 1665.3,-229.71 1657.8,-232.35 1661.08,-236.45"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1187.13,-1512.24 1187.13,-1535.04 1265.49,-1535.04 1265.49,-1512.24 1187.13,-1512.24"/>
+<text xml:space="preserve" text-anchor="start" x="1190.13" y="-1518.04" font-family="Arial" font-size="14.00" fill="#c9c9c9">every 5 min</text>
 </g>
-<!-- homeplugin&#45;&gt;calendar -->
+<!-- brainengine&#45;&gt;calendar -->
 <g id="edge7" class="edge">
-<title>homeplugin&#45;&gt;calendar</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1386.31,-2701C1462.16,-2701 1553.41,-2701 1632.53,-2701"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1632.09,-2703.63 1639.59,-2701 1632.09,-2698.38 1632.09,-2703.63"/>
+<title>brainengine&#45;&gt;calendar</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1386.1,-2701C1465.37,-2701 1561.31,-2701 1641.97,-2701"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1641.71,-2703.63 1649.21,-2701 1641.71,-2698.38 1641.71,-2703.63"/>
 <polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1493.26,-2701 1493.26,-2723.8 1537.39,-2723.8 1537.39,-2701 1493.26,-2701"/>
 <text xml:space="preserve" text-anchor="start" x="1496.26" y="-2706.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">hourly</text>
 </g>
-<!-- homeplugin&#45;&gt;health -->
+<!-- brainengine&#45;&gt;health -->
 <g id="edge8" class="edge">
-<title>homeplugin&#45;&gt;health</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1386.31,-2623.09C1468.16,-2582.99 1567.94,-2534.1 1651.06,-2493.38"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1652.04,-2495.82 1657.62,-2490.16 1649.73,-2491.11 1652.04,-2495.82"/>
+<title>brainengine&#45;&gt;health</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1386.1,-2622.14C1465.69,-2582.61 1562.09,-2534.74 1642.96,-2494.58"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1643.97,-2497 1649.52,-2491.32 1641.64,-2492.3 1643.97,-2497"/>
 <polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1497.92,-2590.5 1497.92,-2613.3 1532.72,-2613.3 1532.72,-2590.5 1497.92,-2590.5"/>
 <text xml:space="preserve" text-anchor="start" x="1500.92" y="-2596.3" font-family="Arial" font-size="14.00" fill="#c9c9c9">daily</text>
 </g>
-<!-- homeplugin&#45;&gt;texts -->
+<!-- brainengine&#45;&gt;texts -->
 <g id="edge10" class="edge">
-<title>homeplugin&#45;&gt;texts</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1232.94,-2611.04C1254,-2287.03 1332.88,-1181.32 1448.11,-848.2 1494.94,-712.82 1518.3,-677.87 1615.88,-573 1631.84,-555.85 1650.11,-539.48 1669.02,-524.33"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1670.52,-526.49 1674.78,-519.78 1667.27,-522.37 1670.52,-526.49"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1476.14,-848.2 1476.14,-871 1554.5,-871 1554.5,-848.2 1476.14,-848.2"/>
-<text xml:space="preserve" text-anchor="start" x="1479.14" y="-854" font-family="Arial" font-size="14.00" fill="#c9c9c9">every 5 min</text>
+<title>brainengine&#45;&gt;texts</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1232.9,-2611.08C1253.91,-2285.91 1332.83,-1172.7 1448.11,-837.2 1492.71,-707.41 1514.63,-673.63 1607.94,-573 1623.87,-555.82 1642.13,-539.44 1661.03,-524.28"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1662.53,-526.44 1666.79,-519.73 1659.28,-522.32 1662.53,-526.44"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1476.14,-837.2 1476.14,-860 1554.5,-860 1554.5,-837.2 1476.14,-837.2"/>
+<text xml:space="preserve" text-anchor="start" x="1479.14" y="-843" font-family="Arial" font-size="14.00" fill="#c9c9c9">every 5 min</text>
 </g>
-<!-- homeplugin&#45;&gt;mailtriage -->
+<!-- brainengine&#45;&gt;mailtriage -->
 <g id="edge15" class="edge">
-<title>homeplugin&#45;&gt;mailtriage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1285.61,-2611.24C1354.54,-2510.8 1477.51,-2348.42 1615.88,-2243.2 1780.36,-2118.12 1908.6,-2209.23 2037.84,-2048 2229.89,-1808.42 2346.29,-842.82 2379.73,-527.87"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2382.29,-528.59 2380.47,-520.86 2377.07,-528.04 2382.29,-528.59"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1762.32,-2243.2 1762.32,-2266 1878.05,-2266 1878.05,-2243.2 1762.32,-2243.2"/>
-<text xml:space="preserve" text-anchor="start" x="1765.32" y="-2249" font-family="Arial" font-size="14.00" fill="#c9c9c9">launch and Home</text>
+<title>brainengine&#45;&gt;mailtriage</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1284.6,-2611.08C1352.06,-2510.88 1472.26,-2349.07 1607.94,-2243.2 1765.82,-2120 1889.66,-2204.94 2014.05,-2048 2204.92,-1807.17 2326.46,-842.4 2361.65,-527.77"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2364.21,-528.5 2362.43,-520.76 2358.99,-527.92 2364.21,-528.5"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1759.44,-2243.2 1759.44,-2266 1865.06,-2266 1865.06,-2243.2 1759.44,-2243.2"/>
+<text xml:space="preserve" text-anchor="start" x="1762.44" y="-2249" font-family="Arial" font-size="14.00" fill="#c9c9c9">once per launch</text>
 </g>
-<!-- homeplugin&#45;&gt;ocr -->
+<!-- brainengine&#45;&gt;ocr -->
 <g id="edge11" class="edge">
-<title>homeplugin&#45;&gt;ocr</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1238.95,-2611.11C1259.93,-2480.95 1315.02,-2238.54 1448.11,-2082.2 1501.83,-2019.1 1580.16,-1971.99 1651.02,-1939.01"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1652.04,-1941.43 1657.77,-1935.92 1649.85,-1936.66 1652.04,-1941.43"/>
+<title>brainengine&#45;&gt;ocr</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1239.14,-2611.27C1260.36,-2481.31 1315.74,-2239.15 1448.11,-2082.2 1499.77,-2020.95 1574.72,-1974.47 1643.13,-1941.45"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1643.92,-1943.98 1649.56,-1938.39 1641.66,-1939.24 1643.92,-1943.98"/>
 <polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1472.25,-2082.2 1472.25,-2105 1558.39,-2105 1558.39,-2082.2 1472.25,-2082.2"/>
 <text xml:space="preserve" text-anchor="start" x="1475.25" y="-2088" font-family="Arial" font-size="14.00" fill="#c9c9c9">every minute</text>
 </g>
-<!-- homeplugin&#45;&gt;machine -->
+<!-- brainengine&#45;&gt;machine -->
 <g id="edge12" class="edge">
-<title>homeplugin&#45;&gt;machine</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1232.24,-2611.05C1246.1,-2399.6 1295,-1856.85 1448.11,-1433.2 1499.01,-1292.37 1513.11,-1249.92 1615.88,-1141 1628.09,-1128.06 1641.8,-1115.77 1656.18,-1104.27"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1657.56,-1106.52 1661.85,-1099.83 1654.32,-1102.39 1657.56,-1106.52"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1493.26,-1433.2 1493.26,-1456 1537.39,-1456 1537.39,-1433.2 1493.26,-1433.2"/>
-<text xml:space="preserve" text-anchor="start" x="1496.26" y="-1439" font-family="Arial" font-size="14.00" fill="#c9c9c9">hourly</text>
+<title>brainengine&#45;&gt;machine</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1232.12,-2611.02C1245.78,-2398.2 1294.34,-1849.61 1448.11,-1421.2 1496.55,-1286.26 1509.7,-1245.42 1607.94,-1141 1620.14,-1128.04 1633.83,-1115.74 1648.2,-1104.23"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1649.59,-1106.49 1653.87,-1099.79 1646.35,-1102.35 1649.59,-1106.49"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1493.26,-1421.2 1493.26,-1444 1537.39,-1444 1537.39,-1421.2 1493.26,-1421.2"/>
+<text xml:space="preserve" text-anchor="start" x="1496.26" y="-1427" font-family="Arial" font-size="14.00" fill="#c9c9c9">hourly</text>
 </g>
-<!-- homeplugin&#45;&gt;printlog -->
+<!-- brainengine&#45;&gt;printlog -->
 <g id="edge13" class="edge">
-<title>homeplugin&#45;&gt;printlog</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1237.39,-2611.11C1259.38,-2434.31 1320.25,-2031.16 1448.11,-1716.2 1501.71,-1584.18 1518.65,-1547.16 1615.88,-1443 1631.86,-1425.88 1650.16,-1409.52 1669.07,-1394.37"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1670.57,-1396.54 1674.83,-1389.83 1667.32,-1392.41 1670.57,-1396.54"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1472.25,-1716.2 1472.25,-1739 1558.39,-1739 1558.39,-1716.2 1472.25,-1716.2"/>
-<text xml:space="preserve" text-anchor="start" x="1475.25" y="-1722" font-family="Arial" font-size="14.00" fill="#c9c9c9">every minute</text>
+<title>brainengine&#45;&gt;printlog</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1237.12,-2611.07C1258.75,-2432.68 1319.18,-2023.7 1448.11,-1704.2 1499.05,-1577.99 1515.15,-1542.56 1607.94,-1443 1623.91,-1425.86 1642.2,-1409.5 1661.11,-1394.35"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1662.61,-1396.51 1666.87,-1389.81 1659.36,-1392.39 1662.61,-1396.51"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1472.25,-1704.2 1472.25,-1727 1558.39,-1727 1558.39,-1704.2 1472.25,-1704.2"/>
+<text xml:space="preserve" text-anchor="start" x="1475.25" y="-1710" font-family="Arial" font-size="14.00" fill="#c9c9c9">every minute</text>
 </g>
-<!-- homeplugin&#45;&gt;publish -->
+<!-- brainengine&#45;&gt;publish -->
 <g id="edge14" class="edge">
-<title>homeplugin&#45;&gt;publish</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1240.05,-2611.1C1263.97,-2461.5 1324.74,-2155.19 1448.11,-1925.2 1500.53,-1827.49 1592.65,-1743.54 1671.99,-1683.84"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1673.25,-1686.17 1677.69,-1679.58 1670.11,-1681.96 1673.25,-1686.17"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1476.14,-1925.2 1476.14,-1948 1554.5,-1948 1554.5,-1925.2 1476.14,-1925.2"/>
-<text xml:space="preserve" text-anchor="start" x="1479.14" y="-1931" font-family="Arial" font-size="14.00" fill="#c9c9c9">every 5 min</text>
+<title>brainengine&#45;&gt;publish</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1240.79,-2611.27C1265.77,-2462.27 1327.96,-2157.34 1448.11,-1926.2 1500.15,-1826.1 1525.25,-1805.74 1607.94,-1729 1624.61,-1713.54 1643.07,-1698.44 1661.87,-1684.23"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1663.38,-1686.38 1667.81,-1679.79 1660.23,-1682.17 1663.38,-1686.38"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1476.14,-1926.2 1476.14,-1949 1554.5,-1949 1554.5,-1926.2 1476.14,-1926.2"/>
+<text xml:space="preserve" text-anchor="start" x="1479.14" y="-1932" font-family="Arial" font-size="14.00" fill="#c9c9c9">every 5 min</text>
 </g>
-<!-- homeplugin&#45;&gt;docs -->
+<!-- brainengine&#45;&gt;docs -->
 <g id="edge9" class="edge">
-<title>homeplugin&#45;&gt;docs</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1227.05,-2611.38C1229.01,-2366.12 1252.67,-1666.3 1448.11,-1128.2 1496.24,-995.69 1518.67,-961.1 1615.88,-859 1630.84,-843.29 1647.81,-828.28 1665.42,-814.32"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1666.86,-816.53 1671.16,-809.84 1663.64,-812.39 1666.86,-816.53"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1493.26,-1128.2 1493.26,-1151 1537.39,-1151 1537.39,-1128.2 1493.26,-1128.2"/>
-<text xml:space="preserve" text-anchor="start" x="1496.26" y="-1134" font-family="Arial" font-size="14.00" fill="#c9c9c9">hourly</text>
+<title>brainengine&#45;&gt;docs</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1227.26,-2611.09C1229.76,-2364.99 1254.66,-1662.67 1448.11,-1121.2 1494.03,-992.68 1514.33,-958.31 1607.94,-859 1622.83,-843.21 1639.75,-828.16 1657.34,-814.18"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1658.78,-816.38 1663.07,-809.7 1655.55,-812.25 1658.78,-816.38"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1493.26,-1121.2 1493.26,-1144 1537.39,-1144 1537.39,-1121.2 1493.26,-1121.2"/>
+<text xml:space="preserve" text-anchor="start" x="1496.26" y="-1127" font-family="Arial" font-size="14.00" fill="#c9c9c9">hourly</text>
 </g>
-<!-- calendar&#45;&gt;home -->
+<!-- calendar&#45;&gt;mission -->
 <g id="edge16" class="edge">
-<title>calendar&#45;&gt;home</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1997.59,-2656.02C2065.81,-2638.62 2143.76,-2618.74 2212.1,-2601.31"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2212.56,-2603.9 2219.17,-2599.51 2211.26,-2598.82 2212.56,-2603.9"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2057.84,-2637.18 2057.84,-2659.98 2161.9,-2659.98 2161.9,-2637.18 2057.84,-2637.18"/>
-<text xml:space="preserve" text-anchor="start" x="2060.84" y="-2642.98" font-family="Arial" font-size="14.00" fill="#c9c9c9">today’s events</text>
+<title>calendar&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1971.95,-2659.84C2041.93,-2641.68 2124.42,-2620.29 2196.28,-2601.65"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2196.82,-2604.22 2203.42,-2599.8 2195.5,-2599.14 2196.82,-2604.22"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2041.97,-2641.49 2041.97,-2664.29 2146.03,-2664.29 2146.03,-2641.49 2041.97,-2641.49"/>
+<text xml:space="preserve" text-anchor="start" x="2044.97" y="-2647.29" font-family="Arial" font-size="14.00" fill="#c9c9c9">today’s events</text>
 </g>
-<!-- health&#45;&gt;home -->
+<!-- health&#45;&gt;mission -->
 <g id="edge17" class="edge">
-<title>health&#45;&gt;home</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1979.95,-2451.49C2052.11,-2469.89 2137.78,-2491.74 2212.09,-2510.69"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2211.18,-2513.16 2219.1,-2512.47 2212.48,-2508.08 2211.18,-2513.16"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2063.68,-2496.49 2063.68,-2519.29 2156.06,-2519.29 2156.06,-2496.49 2063.68,-2496.49"/>
-<text xml:space="preserve" text-anchor="start" x="2066.68" y="-2502.29" font-family="Arial" font-size="14.00" fill="#c9c9c9">Health Report</text>
+<title>health&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1971.95,-2452.16C2041.93,-2470.32 2124.42,-2491.71 2196.28,-2510.35"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2195.5,-2512.86 2203.42,-2512.2 2196.82,-2507.78 2195.5,-2512.86"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2047.81,-2496.49 2047.81,-2519.29 2140.19,-2519.29 2140.19,-2496.49 2047.81,-2496.49"/>
+<text xml:space="preserve" text-anchor="start" x="2050.81" y="-2502.29" font-family="Arial" font-size="14.00" fill="#c9c9c9">Health Report</text>
 </g>
 <!-- unread&#45;&gt;mailtriage -->
 <g id="edge18" class="edge">
 <title>unread&#45;&gt;mailtriage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1979.95,-218.97C2054.15,-256.82 2142.62,-301.94 2218.34,-340.56"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2216.94,-342.79 2224.81,-343.86 2219.32,-338.11 2216.94,-342.79"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2079.25,-308.97 2079.25,-331.77 2140.49,-331.77 2140.49,-308.97 2079.25,-308.97"/>
-<text xml:space="preserve" text-anchor="start" x="2082.25" y="-314.77" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1971.95,-220.33C2043.45,-257.42 2128.02,-301.29 2200.96,-339.13"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2199.7,-341.44 2207.57,-342.56 2202.12,-336.78 2199.7,-341.44"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2063.38,-308.97 2063.38,-331.77 2124.62,-331.77 2124.62,-308.97 2063.38,-308.97"/>
+<text xml:space="preserve" text-anchor="start" x="2066.38" y="-314.77" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
 </g>
 <!-- texts&#45;&gt;mailtriage -->
 <g id="edge19" class="edge">
 <title>texts&#45;&gt;mailtriage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1984.12,-428C2057.15,-428 2143.33,-428 2217.43,-428"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2217.28,-430.63 2224.78,-428 2217.28,-425.38 2217.28,-430.63"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2077.3,-428 2077.3,-450.8 2142.44,-450.8 2142.44,-428 2077.3,-428"/>
-<text xml:space="preserve" text-anchor="start" x="2080.3" y="-433.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">new texts</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1976.44,-428C2046.48,-428 2128.37,-428 2199.43,-428"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2199.31,-430.63 2206.81,-428 2199.31,-425.38 2199.31,-430.63"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2061.43,-428 2061.43,-450.8 2126.57,-450.8 2126.57,-428 2061.43,-428"/>
+<text xml:space="preserve" text-anchor="start" x="2064.43" y="-433.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">new texts</text>
 </g>
 <!-- appleapps&#45;&gt;calendar -->
 <g id="edge2" class="edge">
 <title>appleapps&#45;&gt;calendar</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M321.38,-3273.31C570.29,-3306.63 1060.64,-3340.1 1420.11,-3161 1578.59,-3082.04 1700.5,-2909.54 1765.87,-2799.67"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1767.96,-2801.28 1769.52,-2793.49 1763.44,-2798.61 1767.96,-2801.28"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="927.67,-3292.07 927.67,-3314.87 974.92,-3314.87 974.92,-3292.07 927.67,-3292.07"/>
-<text xml:space="preserve" text-anchor="start" x="930.67" y="-3297.87" font-family="Arial" font-size="14.00" fill="#c9c9c9">events</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M321.34,-3273.7C570.46,-3307.62 1061.41,-3341.95 1420.11,-3161 1576.69,-3082.01 1695.66,-2909.81 1759.31,-2799.96"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1761.58,-2801.28 1763.04,-2793.47 1757.03,-2798.67 1761.58,-2801.28"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="927.67,-3293.17 927.67,-3315.97 974.92,-3315.97 974.92,-3293.17 927.67,-3293.17"/>
+<text xml:space="preserve" text-anchor="start" x="930.67" y="-3298.97" font-family="Arial" font-size="14.00" fill="#c9c9c9">events</text>
 </g>
 <!-- appleapps&#45;&gt;iphone -->
 <g id="edge1" class="edge">
@@ -4856,222 +5240,287 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <!-- Generated by graphviz version 15.0.0 (0)
  -->
 <!-- Pages: 1 -->
-<svg width="2697pt" height="1720pt"
- viewBox="0.00 0.00 2697.00 1720.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(15.05 1705.05)">
+<svg width="2746pt" height="1750pt"
+ viewBox="0.00 0.00 2746.00 1750.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(15.05 1735.05)">
 <g id="clust1" class="cluster">
 <title>cluster_schedulers</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="8,-1111 8,-1682 408.04,-1682 408.04,-1111 8,-1111"/>
-<text xml:space="preserve" text-anchor="start" x="16" y="-1669.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SCHEDULERS</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="8,-8 8,-579 408.04,-579 408.04,-8 8,-8"/>
+<text xml:space="preserve" text-anchor="start" x="16" y="-566.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SCHEDULERS</text>
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_mail</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="526.4,-821 526.4,-1392 2659.29,-1392 2659.29,-821 526.4,-821"/>
-<text xml:space="preserve" text-anchor="start" x="534.4" y="-1379.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">EMAIL &amp; TEXTS</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="526.4,-533 526.4,-1104 2686.41,-1104 2686.41,-533 526.4,-533"/>
+<text xml:space="preserve" text-anchor="start" x="534.4" y="-1091.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">EMAIL &amp; TEXTS</text>
 </g>
 <g id="clust3" class="cluster">
+<title>cluster_fieldagent</title>
+<polygon fill="#194b9e" stroke="#1b3d88" points="2264.58,-1118 2264.58,-1712 2708.21,-1712 2708.21,-1118 2264.58,-1118"/>
+<text xml:space="preserve" text-anchor="start" x="2272.58" y="-1699.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">FIELD AGENT</text>
+</g>
+<g id="clust4" class="cluster">
 <title>cluster_vault</title>
-<polygon fill="#194b9e" stroke="#1b3d88" points="2267.25,-548 2267.25,-813 2651.29,-813 2651.29,-548 2267.25,-548"/>
-<text xml:space="preserve" text-anchor="start" x="2275.25" y="-800.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SECOND BRAIN</text>
+<polygon fill="#194b9e" stroke="#1b3d88" points="2294.37,-260 2294.37,-525 2678.41,-525 2678.41,-260 2294.37,-260"/>
+<text xml:space="preserve" text-anchor="start" x="2302.37" y="-512.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SECOND BRAIN</text>
 </g>
 <!-- launchd -->
 <g id="node1" class="node">
 <title>launchd</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="368.04,-1331 48,-1331 48,-1151 368.04,-1151 368.04,-1331"/>
-<text xml:space="preserve" text-anchor="start" x="101.29" y="-1262.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mac background agents</text>
-<text xml:space="preserve" text-anchor="start" x="153.09" y="-1241.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">launchd · 2 agents</text>
-<text xml:space="preserve" text-anchor="start" x="76.28" y="-1220.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">The unread mail list, and a doorbell that</text>
-<text xml:space="preserve" text-anchor="start" x="80.03" y="-1202.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">wakes Obsidian when the phone asks.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="368.04,-518 48,-518 48,-338 368.04,-338 368.04,-518"/>
+<text xml:space="preserve" text-anchor="start" x="101.29" y="-449.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mac background agents</text>
+<text xml:space="preserve" text-anchor="start" x="153.09" y="-428.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">launchd · 2 agents</text>
+<text xml:space="preserve" text-anchor="start" x="76.28" y="-407.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">The unread mail list, and a doorbell that</text>
+<text xml:space="preserve" text-anchor="start" x="80.03" y="-389.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">wakes Obsidian when the phone asks.</text>
 </g>
-<!-- homeplugin -->
+<!-- brainengine -->
 <g id="node2" class="node">
-<title>homeplugin</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="368.04,-1621 48,-1621 48,-1441 368.04,-1441 368.04,-1621"/>
-<text xml:space="preserve" text-anchor="start" x="120.19" y="-1552.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home Button plugin</text>
-<text xml:space="preserve" text-anchor="start" x="163.58" y="-1531.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">inside Obsidian</text>
-<text xml:space="preserve" text-anchor="start" x="73.81" y="-1510.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Runs most timers: every minute, every 5</text>
-<text xml:space="preserve" text-anchor="start" x="120.89" y="-1492.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">minutes, hourly, and daily.</text>
+<title>brainengine</title>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="368.04,-228 48,-228 48,-48 368.04,-48 368.04,-228"/>
+<text xml:space="preserve" text-anchor="start" x="150.76" y="-159.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Brain Engine</text>
+<text xml:space="preserve" text-anchor="start" x="163.21" y="-138.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Obsidian plugin</text>
+<text xml:space="preserve" text-anchor="start" x="73.81" y="-117.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Runs most timers: every minute, every 5</text>
+<text xml:space="preserve" text-anchor="start" x="120.89" y="-99.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">minutes, hourly, and daily.</text>
 </g>
 <!-- unread -->
 <g id="node3" class="node">
 <title>unread</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="890.72,-1041 570.68,-1041 570.68,-861 890.72,-861 890.72,-1041"/>
-<text xml:space="preserve" text-anchor="start" x="682.91" y="-972.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Unread list</text>
-<text xml:space="preserve" text-anchor="start" x="659.18" y="-951.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every 5 min · free</text>
-<text xml:space="preserve" text-anchor="start" x="605.24" y="-930.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Reads new mail straight from the mail</text>
-<text xml:space="preserve" text-anchor="start" x="704.03" y="-912.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">servers.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="890.72,-753 570.68,-753 570.68,-573 890.72,-573 890.72,-753"/>
+<text xml:space="preserve" text-anchor="start" x="682.91" y="-684.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Unread list</text>
+<text xml:space="preserve" text-anchor="start" x="659.18" y="-663.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every 5 min · free</text>
+<text xml:space="preserve" text-anchor="start" x="605.24" y="-642.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Reads new mail straight from the mail</text>
+<text xml:space="preserve" text-anchor="start" x="704.03" y="-624.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">servers.</text>
 </g>
 <!-- texts -->
 <g id="node4" class="node">
 <title>texts</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="895.01,-1331 566.4,-1331 566.4,-1151 895.01,-1151 895.01,-1331"/>
-<text xml:space="preserve" text-anchor="start" x="677.37" y="-1262.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Texts mirror</text>
-<text xml:space="preserve" text-anchor="start" x="659.18" y="-1241.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every 5 min · free</text>
-<text xml:space="preserve" text-anchor="start" x="586.45" y="-1220.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Copies new iMessages into the vault. Login</text>
-<text xml:space="preserve" text-anchor="start" x="667.75" y="-1202.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">codes are skipped.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="895.01,-1043 566.4,-1043 566.4,-863 895.01,-863 895.01,-1043"/>
+<text xml:space="preserve" text-anchor="start" x="677.37" y="-974.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Texts mirror</text>
+<text xml:space="preserve" text-anchor="start" x="659.18" y="-953.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mac · every 5 min · free</text>
+<text xml:space="preserve" text-anchor="start" x="586.45" y="-932.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Copies new iMessages into the vault. Login</text>
+<text xml:space="preserve" text-anchor="start" x="667.75" y="-914.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">codes are skipped.</text>
 </g>
 <!-- mailtriage -->
 <g id="node5" class="node">
 <title>mailtriage</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1407.08,-1061 1080.15,-1061 1080.15,-881 1407.08,-881 1407.08,-1061"/>
-<text xml:space="preserve" text-anchor="start" x="1169.14" y="-992.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mail &amp; text triage</text>
-<text xml:space="preserve" text-anchor="start" x="1108.83" y="-971.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">AI · at Obsidian launch and on opening Home,</text>
-<text xml:space="preserve" text-anchor="start" x="1100.21" y="-950.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Archives the noise and lists everything else</text>
-<text xml:space="preserve" text-anchor="start" x="1176.49" y="-932.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">under Needs action.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1407.08,-792 1080.15,-792 1080.15,-612 1407.08,-612 1407.08,-792"/>
+<text xml:space="preserve" text-anchor="start" x="1169.14" y="-723.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mail &amp; text triage</text>
+<text xml:space="preserve" text-anchor="start" x="1115.7" y="-702.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">AI · once per Obsidian launch and when the</text>
+<text xml:space="preserve" text-anchor="start" x="1100.21" y="-681.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Archives the noise and lists everything else</text>
+<text xml:space="preserve" text-anchor="start" x="1176.49" y="-663.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">under Needs action.</text>
 </g>
 <!-- fold -->
 <g id="node6" class="node">
 <title>fold</title>
-<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1972,-1061 1645.93,-1061 1645.93,-881 1972,-881 1972,-1061"/>
-<text xml:space="preserve" text-anchor="start" x="1735.6" y="-1001.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Needs action list</text>
-<text xml:space="preserve" text-anchor="start" x="1759.1" y="-980.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Home dashboard</text>
-<text xml:space="preserve" text-anchor="start" x="1665.99" y="-959.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">One list per inbox. Every row has the same</text>
-<text xml:space="preserve" text-anchor="start" x="1670.96" y="-941.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">buttons: open, archive, delete, triage, add</text>
-<text xml:space="preserve" text-anchor="start" x="1738.51" y="-923.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">to calendar, respond.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1977.33,-792 1657.29,-792 1657.29,-612 1977.33,-612 1977.33,-792"/>
+<text xml:space="preserve" text-anchor="start" x="1743.94" y="-732.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Needs action list</text>
+<text xml:space="preserve" text-anchor="start" x="1772.52" y="-711.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Mission Control</text>
+<text xml:space="preserve" text-anchor="start" x="1688.08" y="-690.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">One list per inbox. Tap a row to read it;</text>
+<text xml:space="preserve" text-anchor="start" x="1686.82" y="-672.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">swipe or press to open, archive, delete,</text>
+<text xml:space="preserve" text-anchor="start" x="1700.57" y="-654.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">triage, add to calendar, or respond.</text>
 </g>
 <!-- mailarchive -->
 <g id="node7" class="node">
 <title>mailarchive</title>
-<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M2619.29,-1044.64C2619.29,-1053.67 2547.57,-1061 2459.27,-1061 2370.97,-1061 2299.25,-1053.67 2299.25,-1044.64 2299.25,-1044.64 2299.25,-897.36 2299.25,-897.36 2299.25,-888.33 2370.97,-881 2459.27,-881 2547.57,-881 2619.29,-888.33 2619.29,-897.36 2619.29,-897.36 2619.29,-1044.64 2619.29,-1044.64"/>
-<path fill="none" stroke="#4f46e5" stroke-width="2" d="M2619.29,-1044.64C2619.29,-1035.61 2547.57,-1028.27 2459.27,-1028.27 2370.97,-1028.27 2299.25,-1035.61 2299.25,-1044.64"/>
-<text xml:space="preserve" text-anchor="start" x="2405.92" y="-992.8" font-family="Arial" font-size="20.00" fill="#eef2ff">Mail archive</text>
-<text xml:space="preserve" text-anchor="start" x="2389.55" y="-971.8" font-family="Arial" font-size="13.00" fill="#c7d2fe">Documents/mail&#45;archive</text>
-<text xml:space="preserve" text-anchor="start" x="2321.29" y="-950.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">The raw copy of every thread JT chose to</text>
-<text xml:space="preserve" text-anchor="start" x="2440.92" y="-932.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">keep.</text>
+<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M2646.41,-775.64C2646.41,-784.67 2574.69,-792 2486.39,-792 2398.1,-792 2326.37,-784.67 2326.37,-775.64 2326.37,-775.64 2326.37,-628.36 2326.37,-628.36 2326.37,-619.33 2398.1,-612 2486.39,-612 2574.69,-612 2646.41,-619.33 2646.41,-628.36 2646.41,-628.36 2646.41,-775.64 2646.41,-775.64"/>
+<path fill="none" stroke="#4f46e5" stroke-width="2" d="M2646.41,-775.64C2646.41,-766.61 2574.69,-759.27 2486.39,-759.27 2398.1,-759.27 2326.37,-766.61 2326.37,-775.64"/>
+<text xml:space="preserve" text-anchor="start" x="2433.04" y="-723.8" font-family="Arial" font-size="20.00" fill="#eef2ff">Mail archive</text>
+<text xml:space="preserve" text-anchor="start" x="2416.68" y="-702.8" font-family="Arial" font-size="13.00" fill="#c7d2fe">Documents/mail&#45;archive</text>
+<text xml:space="preserve" text-anchor="start" x="2348.41" y="-681.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">The raw copy of every thread JT chose to</text>
+<text xml:space="preserve" text-anchor="start" x="2468.04" y="-663.2" font-family="Arial" font-size="15.00" fill="#c7d2fe">keep.</text>
+</g>
+<!-- mission -->
+<g id="node8" class="node">
+<title>mission</title>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2653.63,-1338 2319.16,-1338 2319.16,-1158 2653.63,-1158 2653.63,-1338"/>
+<text xml:space="preserve" text-anchor="start" x="2417.48" y="-1278.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Mission Control</text>
+<text xml:space="preserve" text-anchor="start" x="2404" y="-1257.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">dashboard screen in the app</text>
+<text xml:space="preserve" text-anchor="start" x="2352.16" y="-1236.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">The front door. Shows today, mail, texts,</text>
+<text xml:space="preserve" text-anchor="start" x="2339.21" y="-1218.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">calendar, and what each project needs next,</text>
+<text xml:space="preserve" text-anchor="start" x="2443.86" y="-1200.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">updated live.</text>
+</g>
+<!-- relay -->
+<g id="node9" class="node">
+<title>relay</title>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="2668.21,-1651 2304.58,-1651 2304.58,-1471 2668.21,-1471 2668.21,-1651"/>
+<text xml:space="preserve" text-anchor="start" x="2435.25" y="-1591.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home base</text>
+<text xml:space="preserve" text-anchor="start" x="2414.49" y="-1570.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Node service on the Mac</text>
+<text xml:space="preserve" text-anchor="start" x="2324.63" y="-1549.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Passes each phone message to Claude or Grok,</text>
+<text xml:space="preserve" text-anchor="start" x="2336.74" y="-1531.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">streams the answer back, and keeps Mission</text>
+<text xml:space="preserve" text-anchor="start" x="2399.27" y="-1513.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Control live from the vault.</text>
 </g>
 <!-- ingest -->
-<g id="node8" class="node">
+<g id="node10" class="node">
 <title>ingest</title>
-<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M2619.29,-743.64C2619.29,-752.67 2547.57,-760 2459.27,-760 2370.97,-760 2299.25,-752.67 2299.25,-743.64 2299.25,-743.64 2299.25,-596.36 2299.25,-596.36 2299.25,-587.33 2370.97,-580 2459.27,-580 2547.57,-580 2619.29,-587.33 2619.29,-596.36 2619.29,-596.36 2619.29,-743.64 2619.29,-743.64"/>
-<path fill="none" stroke="#4f46e5" stroke-width="2" d="M2619.29,-743.64C2619.29,-734.61 2547.57,-727.27 2459.27,-727.27 2370.97,-727.27 2299.25,-734.61 2299.25,-743.64"/>
-<text xml:space="preserve" text-anchor="start" x="2423.69" y="-673" font-family="Arial" font-size="20.00" fill="#eef2ff">0 Ingest</text>
-<text xml:space="preserve" text-anchor="start" x="2319.63" y="-650" font-family="Arial" font-size="15.00" fill="#c7d2fe">The in&#45;tray. Every capture lands here first.</text>
+<path fill="#6366f1" stroke="#4f46e5" stroke-width="2" d="M2646.41,-455.64C2646.41,-464.67 2574.69,-472 2486.39,-472 2398.1,-472 2326.37,-464.67 2326.37,-455.64 2326.37,-455.64 2326.37,-308.36 2326.37,-308.36 2326.37,-299.33 2398.1,-292 2486.39,-292 2574.69,-292 2646.41,-299.33 2646.41,-308.36 2646.41,-308.36 2646.41,-455.64 2646.41,-455.64"/>
+<path fill="none" stroke="#4f46e5" stroke-width="2" d="M2646.41,-455.64C2646.41,-446.61 2574.69,-439.27 2486.39,-439.27 2398.1,-439.27 2326.37,-446.61 2326.37,-455.64"/>
+<text xml:space="preserve" text-anchor="start" x="2450.81" y="-385" font-family="Arial" font-size="20.00" fill="#eef2ff">0 Ingest</text>
+<text xml:space="preserve" text-anchor="start" x="2346.75" y="-362" font-family="Arial" font-size="15.00" fill="#c7d2fe">The in&#45;tray. Every capture lands here first.</text>
 </g>
 <!-- jt -->
-<g id="node9" class="node">
+<g id="node11" class="node">
 <title>jt</title>
-<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="2630.65,-470 2287.89,-470 2287.89,-290 2630.65,-290 2630.65,-470"/>
-<text xml:space="preserve" text-anchor="start" x="2448.16" y="-392" font-family="Arial" font-size="20.00" fill="#f8fafc">JT</text>
-<text xml:space="preserve" text-anchor="start" x="2307.95" y="-369" font-family="Arial" font-size="15.00" fill="#c2f0c2">Captures things, makes the calls, presses the</text>
-<text xml:space="preserve" text-anchor="start" x="2432.58" y="-351" font-family="Arial" font-size="15.00" fill="#c2f0c2">buttons.</text>
+<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="1988.69,-1344 1645.93,-1344 1645.93,-1164 1988.69,-1164 1988.69,-1344"/>
+<text xml:space="preserve" text-anchor="start" x="1806.2" y="-1266" font-family="Arial" font-size="20.00" fill="#f8fafc">JT</text>
+<text xml:space="preserve" text-anchor="start" x="1665.99" y="-1243" font-family="Arial" font-size="15.00" fill="#c2f0c2">Captures things, makes the calls, presses the</text>
+<text xml:space="preserve" text-anchor="start" x="1790.62" y="-1225" font-family="Arial" font-size="15.00" fill="#c2f0c2">buttons.</text>
 </g>
 <!-- gmail -->
-<g id="node10" class="node">
+<g id="node12" class="node">
 <title>gmail</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="2619.29,-180 2299.25,-180 2299.25,0 2619.29,0 2619.29,-180"/>
-<text xml:space="preserve" text-anchor="start" x="2433.16" y="-93" font-family="Arial" font-size="20.00" fill="#f8fafc">Gmail</text>
-<text xml:space="preserve" text-anchor="start" x="2413" y="-70" font-family="Arial" font-size="15.00" fill="#cbd5e1">Main mailbox.</text>
+<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="2646.41,-182 2326.37,-182 2326.37,-2 2646.41,-2 2646.41,-182"/>
+<text xml:space="preserve" text-anchor="start" x="2460.28" y="-95" font-family="Arial" font-size="20.00" fill="#f8fafc">Gmail</text>
+<text xml:space="preserve" text-anchor="start" x="2440.12" y="-72" font-family="Arial" font-size="15.00" fill="#cbd5e1">Main mailbox.</text>
 </g>
 <!-- icloudmail -->
-<g id="node11" class="node">
+<g id="node13" class="node">
 <title>icloudmail</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="368.04,-1041 48,-1041 48,-861 368.04,-861 368.04,-1041"/>
-<text xml:space="preserve" text-anchor="start" x="158.56" y="-954" font-family="Arial" font-size="20.00" fill="#f8fafc">iCloud Mail</text>
-<text xml:space="preserve" text-anchor="start" x="152.57" y="-931" font-family="Arial" font-size="15.00" fill="#cbd5e1">Second mailbox.</text>
+<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="368.04,-808 48,-808 48,-628 368.04,-628 368.04,-808"/>
+<text xml:space="preserve" text-anchor="start" x="158.56" y="-721" font-family="Arial" font-size="20.00" fill="#f8fafc">iCloud Mail</text>
+<text xml:space="preserve" text-anchor="start" x="152.57" y="-698" font-family="Arial" font-size="15.00" fill="#cbd5e1">Second mailbox.</text>
 </g>
 <!-- launchd&#45;&gt;unread -->
-<g id="edge4" class="edge">
-<title>launchd&#45;&gt;unread</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M367.72,-1152.61C429.16,-1118.39 499.56,-1079.18 561.85,-1044.49"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="563.05,-1046.82 568.33,-1040.88 560.5,-1042.24 563.05,-1046.82"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="428.04,-1113.36 428.04,-1136.16 506.4,-1136.16 506.4,-1113.36 428.04,-1113.36"/>
-<text xml:space="preserve" text-anchor="start" x="431.04" y="-1119.16" font-family="Arial" font-size="14.00" fill="#c9c9c9">every 5 min</text>
-</g>
-<!-- homeplugin&#45;&gt;texts -->
 <g id="edge5" class="edge">
-<title>homeplugin&#45;&gt;texts</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M367.72,-1442.61C428.3,-1408.87 497.6,-1370.27 559.24,-1335.94"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="560.36,-1338.32 565.63,-1332.38 557.8,-1333.74 560.36,-1338.32"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="428.04,-1403.36 428.04,-1426.16 506.4,-1426.16 506.4,-1403.36 428.04,-1403.36"/>
-<text xml:space="preserve" text-anchor="start" x="431.04" y="-1409.16" font-family="Arial" font-size="14.00" fill="#c9c9c9">every 5 min</text>
+<title>launchd&#45;&gt;unread</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M367.72,-499.62C429.03,-527.3 499.27,-559 561.46,-587.07"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="560.3,-589.42 568.21,-590.11 562.46,-584.64 560.3,-589.42"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="428.04,-559.57 428.04,-582.37 506.4,-582.37 506.4,-559.57 428.04,-559.57"/>
+<text xml:space="preserve" text-anchor="start" x="431.04" y="-565.37" font-family="Arial" font-size="14.00" fill="#c9c9c9">every 5 min</text>
 </g>
-<!-- homeplugin&#45;&gt;mailtriage -->
+<!-- brainengine&#45;&gt;texts -->
 <g id="edge6" class="edge">
-<title>homeplugin&#45;&gt;mailtriage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M367.81,-1526.6C514.16,-1516.08 732.62,-1483.55 895.01,-1386 1023.92,-1308.57 1127.48,-1165.81 1187.02,-1069.63"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1189.19,-1071.11 1190.88,-1063.34 1184.72,-1068.36 1189.19,-1071.11"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="672.84,-1508 672.84,-1530.8 788.57,-1530.8 788.57,-1508 672.84,-1508"/>
-<text xml:space="preserve" text-anchor="start" x="675.84" y="-1513.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">launch and Home</text>
+<title>brainengine&#45;&gt;texts</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M350.76,-227.95C371.45,-244.71 391.36,-263.23 408.04,-283 471.46,-358.16 481.03,-386.19 506.4,-481.2 525.17,-551.5 491.12,-744.37 526.4,-808 536.24,-825.76 549.29,-841.87 564.04,-856.35"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="561.96,-858 569.21,-861.24 565.57,-854.18 561.96,-858"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="428.04,-481.2 428.04,-504 506.4,-504 506.4,-481.2 428.04,-481.2"/>
+<text xml:space="preserve" text-anchor="start" x="431.04" y="-487" font-family="Arial" font-size="14.00" fill="#c9c9c9">every 5 min</text>
+</g>
+<!-- brainengine&#45;&gt;mailtriage -->
+<g id="edge7" class="edge">
+<title>brainengine&#45;&gt;mailtriage</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M368.02,-212.45C413.01,-234.06 461.84,-258.03 506.4,-281 709.94,-385.93 937.89,-518.75 1085.48,-606.84"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1083.82,-608.91 1091.6,-610.5 1086.51,-604.4 1083.82,-608.91"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="677.89,-491.64 677.89,-514.44 783.52,-514.44 783.52,-491.64 677.89,-491.64"/>
+<text xml:space="preserve" text-anchor="start" x="680.89" y="-497.44" font-family="Arial" font-size="14.00" fill="#c9c9c9">once per launch</text>
 </g>
 <!-- unread&#45;&gt;mailtriage -->
-<g id="edge7" class="edge">
+<g id="edge8" class="edge">
 <title>unread&#45;&gt;mailtriage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M890.56,-957.22C947.48,-959.45 1011.91,-961.97 1069.95,-964.24"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1069.71,-966.86 1077.31,-964.53 1069.92,-961.61 1069.71,-966.86"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="956.96,-962.2 956.96,-985 1018.2,-985 1018.2,-962.2 956.96,-962.2"/>
-<text xml:space="preserve" text-anchor="start" x="959.96" y="-968" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M890.56,-675.13C947.48,-679.47 1011.91,-684.39 1069.95,-688.82"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1069.64,-691.43 1077.32,-689.38 1070.04,-686.19 1069.64,-691.43"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="956.96,-684.84 956.96,-707.64 1018.2,-707.64 1018.2,-684.84 956.96,-684.84"/>
+<text xml:space="preserve" text-anchor="start" x="959.96" y="-690.64" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
 </g>
 <!-- texts&#45;&gt;mailtriage -->
-<g id="edge8" class="edge">
+<g id="edge9" class="edge">
 <title>texts&#45;&gt;mailtriage</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M894.76,-1154.83C951.04,-1125.09 1014.22,-1091.7 1071.15,-1061.62"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1072.15,-1064.06 1077.55,-1058.23 1069.69,-1059.41 1072.15,-1064.06"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="955.01,-1122.17 955.01,-1144.97 1020.15,-1144.97 1020.15,-1122.17 955.01,-1122.17"/>
-<text xml:space="preserve" text-anchor="start" x="958.01" y="-1127.97" font-family="Arial" font-size="14.00" fill="#c9c9c9">new texts</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M894.76,-872.89C950.92,-845.3 1013.96,-814.33 1070.79,-786.41"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1071.94,-788.78 1077.51,-783.11 1069.62,-784.06 1071.94,-788.78"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="955.01,-842.53 955.01,-865.33 1020.15,-865.33 1020.15,-842.53 955.01,-842.53"/>
+<text xml:space="preserve" text-anchor="start" x="958.01" y="-848.33" font-family="Arial" font-size="14.00" fill="#c9c9c9">new texts</text>
 </g>
 <!-- mailtriage&#45;&gt;fold -->
-<g id="edge9" class="edge">
+<g id="edge10" class="edge">
 <title>mailtriage&#45;&gt;fold</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1406.8,-971C1478.52,-971 1562.91,-971 1635.75,-971"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1635.42,-973.63 1642.92,-971 1635.42,-968.38 1635.42,-973.63"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1467.08,-971 1467.08,-993.8 1585.93,-993.8 1585.93,-971 1467.08,-971"/>
-<text xml:space="preserve" text-anchor="start" x="1470.08" y="-976.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">what needs action</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1406.91,-702C1482.1,-702 1571.42,-702 1647.41,-702"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1647.03,-704.63 1654.53,-702 1647.03,-699.38 1647.03,-704.63"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1467.08,-702 1467.08,-724.8 1585.93,-724.8 1585.93,-702 1467.08,-702"/>
+<text xml:space="preserve" text-anchor="start" x="1470.08" y="-707.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">what needs action</text>
 </g>
 <!-- fold&#45;&gt;mailarchive -->
-<g id="edge12" class="edge">
+<g id="edge13" class="edge">
 <title>fold&#45;&gt;mailarchive</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1971.89,-971C2068.24,-971 2190.36,-971 2288.13,-971"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2287.88,-973.63 2295.38,-971 2287.88,-968.38 2287.88,-973.63"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2056.13,-971 2056.13,-993.8 2203.76,-993.8 2203.76,-971 2056.13,-971"/>
-<text xml:space="preserve" text-anchor="start" x="2059.13" y="-976.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">triage button: raw copy</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1977.25,-702C2079.15,-702 2211.35,-702 2315.36,-702"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2315.12,-704.63 2322.62,-702 2315.12,-699.38 2315.12,-704.63"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2072.82,-702 2072.82,-724.8 2220.45,-724.8 2220.45,-702 2072.82,-702"/>
+<text xml:space="preserve" text-anchor="start" x="2075.82" y="-707.8" font-family="Arial" font-size="14.00" fill="#c9c9c9">triage button: raw copy</text>
+</g>
+<!-- fold&#45;&gt;mission -->
+<g id="edge14" class="edge">
+<title>fold&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1977.21,-736.42C2070.81,-765.39 2182.67,-816.94 2244.58,-906.2 2301.74,-988.62 2209.09,-1047.44 2264.58,-1131 2276.8,-1149.41 2292.91,-1165.13 2310.87,-1178.5"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2309.15,-1180.5 2316.77,-1182.72 2312.2,-1176.22 2309.15,-1180.5"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2078.27,-906.2 2078.27,-929 2214.99,-929 2214.99,-906.2 2078.27,-906.2"/>
+<text xml:space="preserve" text-anchor="start" x="2081.27" y="-912" font-family="Arial" font-size="14.00" fill="#c9c9c9">Email and Texts tabs</text>
 </g>
 <!-- fold&#45;&gt;ingest -->
-<g id="edge13" class="edge">
+<g id="edge15" class="edge">
 <title>fold&#45;&gt;ingest</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1971.89,-895.82C2068.53,-850.95 2191.1,-794.04 2289.02,-748.58"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2289.97,-751.03 2295.67,-745.5 2287.76,-746.27 2289.97,-751.03"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2032,-865.05 2032,-887.85 2227.89,-887.85 2227.89,-865.05 2032,-865.05"/>
-<text xml:space="preserve" text-anchor="start" x="2035" y="-870.85" font-family="Arial" font-size="14.00" fill="#c9c9c9">triage button: note with full text</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1977.25,-625.76C2079.46,-576.72 2212.15,-513.08 2316.3,-463.11"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2317.3,-465.55 2322.92,-459.94 2315.02,-460.81 2317.3,-465.55"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2048.69,-589.36 2048.69,-612.16 2244.58,-612.16 2244.58,-589.36 2048.69,-589.36"/>
+<text xml:space="preserve" text-anchor="start" x="2051.69" y="-595.16" font-family="Arial" font-size="14.00" fill="#c9c9c9">triage button: note with full text</text>
 </g>
 <!-- fold&#45;&gt;jt -->
-<g id="edge10" class="edge">
+<g id="edge11" class="edge">
 <title>fold&#45;&gt;jt</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1832.31,-881.04C1861.76,-780.5 1923.05,-619.35 2032,-524.2 2070.26,-490.79 2179.63,-454.11 2278.01,-426.11"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2278.68,-428.65 2285.19,-424.08 2277.25,-423.6 2278.68,-428.65"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2070.52,-524.2 2070.52,-547 2189.38,-547 2189.38,-524.2 2070.52,-524.2"/>
-<text xml:space="preserve" text-anchor="start" x="2073.52" y="-530" font-family="Arial" font-size="14.00" fill="#c9c9c9">what needs action</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1657.3,-790.53C1559.12,-857.28 1461.68,-954.19 1515.55,-1054.4 1542.76,-1105.03 1589.07,-1144.96 1637.36,-1175.38"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1635.73,-1177.47 1643.49,-1179.17 1638.49,-1173 1635.73,-1177.47"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1467.08,-1031.6 1467.08,-1054.4 1585.93,-1054.4 1585.93,-1031.6 1467.08,-1031.6"/>
+<text xml:space="preserve" text-anchor="start" x="1470.08" y="-1037.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">what needs action</text>
 </g>
 <!-- fold&#45;&gt;gmail -->
-<g id="edge11" class="edge">
+<g id="edge12" class="edge">
 <title>fold&#45;&gt;gmail</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1827.19,-881.18C1854.04,-759.79 1915.34,-541.31 2032,-391.2 2033.39,-389.42 2197.93,-273.35 2322.15,-185.84"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2323.55,-188.06 2328.17,-181.59 2320.53,-183.77 2323.55,-188.06"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2081.42,-391.2 2081.42,-414 2178.48,-414 2178.48,-391.2 2081.42,-391.2"/>
-<text xml:space="preserve" text-anchor="start" x="2084.42" y="-397" font-family="Arial" font-size="14.00" fill="#c9c9c9">archive, delete</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1894.11,-612.28C1937.28,-563.35 1993.61,-502.98 2048.69,-454.2 2129.22,-382.87 2184.24,-401.07 2244.58,-312 2264.89,-282.01 2243.38,-262.37 2264.58,-233 2279.32,-212.57 2298.03,-194.38 2318.29,-178.41"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2319.67,-180.66 2324.03,-174.02 2316.48,-176.49 2319.67,-180.66"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2098.11,-454.2 2098.11,-477 2195.16,-477 2195.16,-454.2 2098.11,-454.2"/>
+<text xml:space="preserve" text-anchor="start" x="2101.11" y="-460" font-family="Arial" font-size="14.00" fill="#c9c9c9">archive, delete</text>
+</g>
+<!-- mission&#45;&gt;relay -->
+<g id="edge16" class="edge">
+<title>mission&#45;&gt;relay</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2508.01,-1337.88C2509.72,-1347.61 2511.18,-1357.41 2512.19,-1366.86 2515.76,-1400.13 2515.76,-1408.87 2512.19,-1442.14 2511.53,-1448.34 2510.67,-1454.69 2509.68,-1461.07"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2507.15,-1460.31 2508.51,-1468.13 2512.33,-1461.16 2507.15,-1460.31"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2463.15,-1393.1 2463.15,-1415.9 2538.43,-1415.9 2538.43,-1393.1 2463.15,-1393.1"/>
+<text xml:space="preserve" text-anchor="start" x="2466.15" y="-1398.9" font-family="Arial" font-size="14.00" fill="#c9c9c9">button taps</text>
+</g>
+<!-- relay&#45;&gt;mailtriage -->
+<g id="edge17" class="edge">
+<title>relay&#45;&gt;mailtriage</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2332.68,-1471.13C2306.07,-1448.85 2281.53,-1422.7 2264.58,-1393 2226.86,-1326.93 2287.44,-1285.85 2244.58,-1223 2143.5,-1074.78 1674.52,-871.71 1416.3,-768.33"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1417.57,-766.01 1409.63,-765.67 1415.62,-770.89 1417.57,-766.01"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1734.92,-1026.95 1734.92,-1049.75 1899.7,-1049.75 1899.7,-1026.95 1734.92,-1026.95"/>
+<text xml:space="preserve" text-anchor="start" x="1737.92" y="-1032.75" font-family="Arial" font-size="14.00" fill="#c9c9c9">phone attaches, 3 h apart</text>
+</g>
+<!-- relay&#45;&gt;mission -->
+<g id="edge18" class="edge">
+<title>relay&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2486.39,-1471.02C2486.39,-1432.6 2486.39,-1387.61 2486.39,-1348.13"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2489.02,-1348.22 2486.39,-1340.72 2483.77,-1348.22 2489.02,-1348.22"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2431.63,-1393.1 2431.63,-1415.9 2512.35,-1415.9 2512.35,-1393.1 2431.63,-1393.1"/>
+<text xml:space="preserve" text-anchor="start" x="2434.63" y="-1398.9" font-family="Arial" font-size="14.00" fill="#c9c9c9">live updates</text>
 </g>
 <!-- jt&#45;&gt;fold -->
 <g id="edge1" class="edge">
 <title>jt&#45;&gt;fold</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2326.54,-469.94C2305.93,-486.05 2285.45,-503.35 2267.25,-521 2246.94,-540.69 2247.58,-550.7 2227.89,-571 2148.81,-652.55 2114.62,-657.22 2032,-735.2 1985.71,-778.89 1936.94,-830.05 1896.94,-873.53"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1895.02,-871.75 1891.88,-879.05 1898.89,-875.3 1895.02,-871.75"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2077.53,-735.2 2077.53,-758 2182.36,-758 2182.36,-735.2 2077.53,-735.2"/>
-<text xml:space="preserve" text-anchor="start" x="2080.53" y="-741" font-family="Arial" font-size="14.00" fill="#c9c9c9">presses buttons</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1646.36,-1188.85C1564.47,-1146.18 1490.43,-1083.5 1522.56,-1003.6 1555.23,-922.34 1621.74,-851.16 1683.32,-798.39"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1684.86,-800.53 1688.88,-793.68 1681.46,-796.52 1684.86,-800.53"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1474.09,-1003.6 1474.09,-1026.4 1578.92,-1026.4 1578.92,-1003.6 1474.09,-1003.6"/>
+<text xml:space="preserve" text-anchor="start" x="1477.09" y="-1009.4" font-family="Arial" font-size="14.00" fill="#c9c9c9">presses buttons</text>
+</g>
+<!-- jt&#45;&gt;mission -->
+<g id="edge2" class="edge">
+<title>jt&#45;&gt;mission</title>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1988.37,-1252.47C2086.51,-1251.59 2209.75,-1250.48 2308.95,-1249.59"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="2308.89,-1252.21 2316.37,-1249.52 2308.84,-1246.96 2308.89,-1252.21"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="2121.85,-1251.89 2121.85,-1274.69 2171.42,-1274.69 2171.42,-1251.89 2121.85,-1251.89"/>
+<text xml:space="preserve" text-anchor="start" x="2124.85" y="-1257.69" font-family="Arial" font-size="14.00" fill="#c9c9c9">checks</text>
 </g>
 <!-- gmail&#45;&gt;unread -->
-<g id="edge2" class="edge">
+<g id="edge3" class="edge">
 <title>gmail&#45;&gt;unread</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2299.48,-134.34C2218.12,-159 2118.29,-192.31 2032,-230 1597.98,-419.57 1118.15,-707.78 881.13,-855.85"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="879.99,-853.47 875.02,-859.67 882.77,-857.92 879.99,-853.47"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1495.88,-509.79 1495.88,-532.59 1557.13,-532.59 1557.13,-509.79 1495.88,-509.79"/>
-<text xml:space="preserve" text-anchor="start" x="1498.88" y="-515.59" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M2326.4,-143.77C1996.17,-251.29 1238.66,-497.94 900.31,-608.1"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="899.62,-605.57 893.3,-610.38 901.25,-610.56 899.62,-605.57"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1495.88,-423.44 1495.88,-446.24 1557.13,-446.24 1557.13,-423.44 1495.88,-423.44"/>
+<text xml:space="preserve" text-anchor="start" x="1498.88" y="-429.24" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
 </g>
 <!-- icloudmail&#45;&gt;unread -->
-<g id="edge3" class="edge">
+<g id="edge4" class="edge">
 <title>icloudmail&#45;&gt;unread</title>
-<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M367.78,-940.63C388.05,-939.62 408.53,-938.77 428.04,-938.2 470.97,-936.95 517.32,-937.81 560.5,-939.56"/>
-<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="560.2,-942.17 567.8,-939.86 560.42,-936.92 560.2,-942.17"/>
-<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="436.6,-938.2 436.6,-961 497.84,-961 497.84,-938.2 436.6,-938.2"/>
-<text xml:space="preserve" text-anchor="start" x="439.6" y="-944" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
+<path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M367.72,-701.24C428.78,-694.79 498.7,-687.4 560.7,-680.85"/>
+<polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="560.78,-683.48 567.96,-680.08 560.23,-678.26 560.78,-683.48"/>
+<polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="436.6,-693.79 436.6,-716.59 497.84,-716.59 497.84,-693.79 436.6,-693.79"/>
+<text xml:space="preserve" text-anchor="start" x="439.6" y="-699.59" font-family="Arial" font-size="14.00" fill="#c9c9c9">new mail</text>
 </g>
 </g>
 </svg>
@@ -5104,12 +5553,12 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <polygon fill="#194b9e" stroke="#1b3d88" points="2192.09,-222 2192.09,-1083 2613.19,-1083 2613.19,-222 2192.09,-222"/>
 <text xml:space="preserve" text-anchor="start" x="2200.09" y="-1070.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">SECOND BRAIN</text>
 </g>
-<!-- homeplugin -->
+<!-- brainengine -->
 <g id="node1" class="node">
-<title>homeplugin</title>
+<title>brainengine</title>
 <polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1437.06,-1030 1117.02,-1030 1117.02,-850 1437.06,-850 1437.06,-1030"/>
-<text xml:space="preserve" text-anchor="start" x="1189.21" y="-961.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home Button plugin</text>
-<text xml:space="preserve" text-anchor="start" x="1232.6" y="-940.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">inside Obsidian</text>
+<text xml:space="preserve" text-anchor="start" x="1219.78" y="-961.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Brain Engine</text>
+<text xml:space="preserve" text-anchor="start" x="1232.23" y="-940.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Obsidian plugin</text>
 <text xml:space="preserve" text-anchor="start" x="1142.83" y="-919.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Runs most timers: every minute, every 5</text>
 <text xml:space="preserve" text-anchor="start" x="1189.91" y="-901.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">minutes, hourly, and daily.</text>
 </g>
@@ -5222,17 +5671,17 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <text xml:space="preserve" text-anchor="start" x="1674.62" y="-910.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">Documents into the vault so one search finds</text>
 <text xml:space="preserve" text-anchor="start" x="1818.45" y="-892.2" font-family="Arial" font-size="15.00" fill="#bfdbfe">it.</text>
 </g>
-<!-- homeplugin&#45;&gt;ocr -->
+<!-- brainengine&#45;&gt;ocr -->
 <g id="edge2" class="edge">
-<title>homeplugin&#45;&gt;ocr</title>
+<title>brainengine&#45;&gt;ocr</title>
 <path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1436.85,-1027.67C1505.59,-1065.61 1586.09,-1110.06 1655.78,-1148.53"/>
 <polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1654.17,-1150.64 1662.01,-1151.97 1656.71,-1146.04 1654.17,-1150.64"/>
 <polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1508.42,-1108.52 1508.42,-1131.32 1594.56,-1131.32 1594.56,-1108.52 1508.42,-1108.52"/>
 <text xml:space="preserve" text-anchor="start" x="1511.42" y="-1114.32" font-family="Arial" font-size="14.00" fill="#c9c9c9">every minute</text>
 </g>
-<!-- homeplugin&#45;&gt;docs -->
+<!-- brainengine&#45;&gt;docs -->
 <g id="edge3" class="edge">
-<title>homeplugin&#45;&gt;docs</title>
+<title>brainengine&#45;&gt;docs</title>
 <path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M1437.02,-931.82C1487.4,-930.1 1543.31,-929.1 1594.56,-930.2 1610.69,-930.55 1627.45,-931.03 1644.24,-931.59"/>
 <polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1644.07,-934.21 1651.66,-931.85 1644.26,-928.97 1644.07,-934.21"/>
 <polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="1529.43,-930.2 1529.43,-953 1573.56,-953 1573.56,-930.2 1529.43,-930.2"/>
@@ -5652,12 +6101,12 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <polygon fill="#194b9e" stroke="#1b3d88" points="2161.26,-255 2161.26,-826 2561.3,-826 2561.3,-255 2161.26,-255"/>
 <text xml:space="preserve" text-anchor="start" x="2169.26" y="-813.1" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">EMBRY.DEV</text>
 </g>
-<!-- homeplugin -->
+<!-- brainengine -->
 <g id="node1" class="node">
-<title>homeplugin</title>
+<title>brainengine</title>
 <polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="360.04,-1062 40,-1062 40,-882 360.04,-882 360.04,-1062"/>
-<text xml:space="preserve" text-anchor="start" x="112.19" y="-993.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home Button plugin</text>
-<text xml:space="preserve" text-anchor="start" x="155.58" y="-972.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">inside Obsidian</text>
+<text xml:space="preserve" text-anchor="start" x="142.76" y="-993.8" font-family="Arial" font-size="20.00" fill="#f0f9ff">Brain Engine</text>
+<text xml:space="preserve" text-anchor="start" x="155.21" y="-972.8" font-family="Arial" font-size="13.00" fill="#b6ecf7">Obsidian plugin</text>
 <text xml:space="preserve" text-anchor="start" x="65.81" y="-951.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">Runs most timers: every minute, every 5</text>
 <text xml:space="preserve" text-anchor="start" x="112.89" y="-933.2" font-family="Arial" font-size="15.00" fill="#b6ecf7">minutes, hourly, and daily.</text>
 </g>
@@ -5750,17 +6199,17 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <text xml:space="preserve" text-anchor="start" x="1712.37" y="-177" font-family="Arial" font-size="15.00" fill="#cbd5e1">Carries the printer camera from home to the</text>
 <text xml:space="preserve" text-anchor="start" x="1706.5" y="-159" font-family="Arial" font-size="15.00" fill="#cbd5e1">public site without opening the home network.</text>
 </g>
-<!-- homeplugin&#45;&gt;printlog -->
+<!-- brainengine&#45;&gt;printlog -->
 <g id="edge1" class="edge">
-<title>homeplugin&#45;&gt;printlog</title>
+<title>brainengine&#45;&gt;printlog</title>
 <path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M326.9,-1061.86C384.13,-1097.37 454.45,-1133.96 523.86,-1152 688.86,-1194.89 739.71,-1182.51 907.44,-1152 980.17,-1138.77 1057.02,-1112.57 1122.8,-1086.03"/>
 <polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1123.66,-1088.51 1129.62,-1083.26 1121.69,-1083.65 1123.66,-1088.51"/>
 <polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="692.58,-1179.72 692.58,-1202.52 778.72,-1202.52 778.72,-1179.72 692.58,-1179.72"/>
 <text xml:space="preserve" text-anchor="start" x="695.58" y="-1185.52" font-family="Arial" font-size="14.00" fill="#c9c9c9">every minute</text>
 </g>
-<!-- homeplugin&#45;&gt;publish -->
+<!-- brainengine&#45;&gt;publish -->
 <g id="edge2" class="edge">
-<title>homeplugin&#45;&gt;publish</title>
+<title>brainengine&#45;&gt;publish</title>
 <path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M359.68,-896.18C424.82,-865.05 500.31,-828.98 566.41,-797.39"/>
 <polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="567.31,-799.87 572.95,-794.27 565.05,-795.14 567.31,-799.87"/>
 <polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="422.77,-859.77 422.77,-882.57 501.13,-882.57 501.13,-859.77 422.77,-859.77"/>
@@ -6032,12 +6481,12 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <polygon fill="#194b9e" stroke="#1b3d88" points="1080.05,-642.82 1080.05,-1213.82 1480.09,-1213.82 1480.09,-642.82 1080.05,-642.82"/>
 <text xml:space="preserve" text-anchor="start" x="1088.05" y="-1200.92" font-family="Arial" font-weight="bold" font-size="11.00" fill="#bfdbfe" fill-opacity="0.701961">BRAINPI</text>
 </g>
-<!-- homeplugin -->
+<!-- brainengine -->
 <g id="node1" class="node">
-<title>homeplugin</title>
+<title>brainengine</title>
 <polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="360.04,-239.82 40,-239.82 40,-59.82 360.04,-59.82 360.04,-239.82"/>
-<text xml:space="preserve" text-anchor="start" x="112.19" y="-171.62" font-family="Arial" font-size="20.00" fill="#f0f9ff">Home Button plugin</text>
-<text xml:space="preserve" text-anchor="start" x="155.58" y="-150.62" font-family="Arial" font-size="13.00" fill="#b6ecf7">inside Obsidian</text>
+<text xml:space="preserve" text-anchor="start" x="142.76" y="-171.62" font-family="Arial" font-size="20.00" fill="#f0f9ff">Brain Engine</text>
+<text xml:space="preserve" text-anchor="start" x="155.21" y="-150.62" font-family="Arial" font-size="13.00" fill="#b6ecf7">Obsidian plugin</text>
 <text xml:space="preserve" text-anchor="start" x="65.81" y="-129.02" font-family="Arial" font-size="15.00" fill="#b6ecf7">Runs most timers: every minute, every 5</text>
 <text xml:space="preserve" text-anchor="start" x="112.89" y="-111.02" font-family="Arial" font-size="15.00" fill="#b6ecf7">minutes, hourly, and daily.</text>
 </g>
@@ -6109,17 +6558,17 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <text xml:space="preserve" text-anchor="start" x="1683.32" y="-181.82" font-family="Arial" font-size="15.00" fill="#cbd5e1">Holds the vault backup and the website code;</text>
 <text xml:space="preserve" text-anchor="start" x="1740.87" y="-163.82" font-family="Arial" font-size="15.00" fill="#cbd5e1">builds and hosts embry.dev.</text>
 </g>
-<!-- homeplugin&#45;&gt;machine -->
+<!-- brainengine&#45;&gt;machine -->
 <g id="edge1" class="edge">
-<title>homeplugin&#45;&gt;machine</title>
+<title>brainengine&#45;&gt;machine</title>
 <path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M359.76,-163.73C409.04,-168.04 463.68,-172.83 514.17,-177.25"/>
 <polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="513.83,-179.85 521.53,-177.89 514.29,-174.62 513.83,-179.85"/>
 <polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="420.04,-172.61 420.04,-195.41 464.17,-195.41 464.17,-172.61 420.04,-172.61"/>
 <text xml:space="preserve" text-anchor="start" x="423.04" y="-178.41" font-family="Arial" font-size="14.00" fill="#c9c9c9">hourly</text>
 </g>
-<!-- homeplugin&#45;&gt;vaultpush -->
+<!-- brainengine&#45;&gt;vaultpush -->
 <g id="edge2" class="edge">
-<title>homeplugin&#45;&gt;vaultpush</title>
+<title>brainengine&#45;&gt;vaultpush</title>
 <path fill="none" stroke="#8d8d8d" stroke-width="2" stroke-dasharray="5,2" d="M359.99,-66.05C399.51,-49.1 442.51,-33.8 484.17,-25.02 648.45,9.57 697.09,6.88 861.91,-25.02 944.59,-41.03 1031.68,-73.35 1104.76,-105.38"/>
 <polygon fill="#8d8d8d" stroke="#8d8d8d" stroke-width="2" points="1103.37,-107.64 1111.29,-108.27 1105.49,-102.84 1103.37,-107.64"/>
 <polygon fill="#18191b" fill-opacity="0.627451" stroke="none" points="670.97,-25.02 670.97,-47.82 715.11,-47.82 715.11,-25.02 670.97,-25.02"/>

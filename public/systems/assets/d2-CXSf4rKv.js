@@ -13,17 +13,8 @@ Jt: {
   label: "JT"
   shape: c4-person
 }
-FieldAgent: {
-  label: "Field Agent"
-}
-Mail: {
-  label: "Email & Texts"
-}
 Assistants: {
   label: "AI assistants"
-}
-Gmail: {
-  label: "Gmail"
 }
 Vault: {
   label: "Second Brain"
@@ -31,14 +22,23 @@ Vault: {
 Capture: {
   label: "Capture"
 }
+FieldAgent: {
+  label: "Field Agent"
+}
 Scan: {
   label: "Scanner"
+}
+Mail: {
+  label: "Email & Texts"
 }
 Docs: {
   label: "Find Anything"
 }
 Pi: {
   label: "brainpi"
+}
+Gmail: {
+  label: "Gmail"
 }
 Printing: {
   label: "3D printing"
@@ -54,19 +54,21 @@ Github: {
 }
 
 Iphone -> Jt: "in his pocket"
-Jt -> Vault: "checks"
 Jt -> Capture: "jots things down"
 Vault -> Capture: "open to-dos"
 Capture -> Vault: "[...]"
 Jt -> Assistants: "asks"
 Assistants -> Vault: "[...]"
 Assistants -> Capture: "runs"
-Jt -> FieldAgent: "taps"
+Jt -> FieldAgent: "[...]"
 Iphone -> FieldAgent: "runs"
+Vault -> FieldAgent: "next actions"
 FieldAgent -> Assistants: "one turn per message"
 Jt -> Mail: "presses buttons"
+FieldAgent -> Mail: "phone attaches, 3 h apart"
 Mail -> Jt: "what needs action"
 Mail -> Vault: "triage button: note with full text"
+Mail -> FieldAgent: "Email and Texts tabs"
 Jt -> Scan: "loads paper"
 Vault -> Scan: "asks JT"
 Scan -> Vault: "one note per scan"
@@ -140,22 +142,23 @@ Vault: {
     label: "System memory"
     shape: stored_data
   }
-  Home: {
-    label: "Home dashboard"
+}
+FieldAgent: {
+  label: "Field Agent"
+
+  Mission: {
+    label: "Mission Control"
   }
 }
 
-Jt -> Vault.Home: "checks"
 Capture -> Vault.Ingest: "[...]"
 Capture -> Vault.Triage: "swept by"
 Assistants -> Vault.Triage: "runs"
 Assistants -> Vault.Memory: "remembers in"
-Schedulers -> Vault.Home: "[...]"
 Mail -> Vault.Ingest: "triage button: note with full text"
 Scan -> Vault.Ingest: "one note per scan"
 Docs -> Vault.PdfText: "full text"
 Backups -> Vault.Memory: "writes setup into"
-Vault.Para -> Vault.Home: "next actions"
 Vault.Ingest -> Vault.Triage: "read by"
 Vault.Triage -> Vault.Para: "files to-dos"
 Vault.Triage -> Vault.Zettel: "files ideas"
@@ -168,11 +171,15 @@ Jt -> Assistants: "asks"
 Jt -> Mail: "presses buttons"
 Jt -> Scan: "loads paper"
 Assistants -> Capture: "runs"
+Scan -> Docs: "indexed"
 Schedulers -> Mail: "[...]"
 Schedulers -> Scan: "every minute"
-Scan -> Docs: "indexed"
 Schedulers -> Docs: "hourly"
 Schedulers -> Backups: "hourly"
+Mail -> FieldAgent.Mission: "Email and Texts tabs"
+Vault.Para -> FieldAgent.Mission: "next actions"
+Jt -> FieldAgent.Mission: "checks"
+Schedulers -> FieldAgent.Mission: "[...]"
 `;case`captureView`:return`direction: right
 
 Assistants: {
@@ -312,6 +319,21 @@ Assistants -> Vault.Memory: "remembers in"
 Iphone: {
   label: "iPhone"
 }
+Vault: {
+  label: "Second Brain"
+
+  Para: {
+    label: "Projects & Areas"
+    shape: stored_data
+  }
+}
+Schedulers: {
+  label: "Schedulers"
+
+  Calendar: {
+    label: "Calendar mirror"
+  }
+}
 Jt: {
   label: "JT"
   shape: c4-person
@@ -319,6 +341,9 @@ Jt: {
 FieldAgent: {
   label: "Field Agent"
 
+  Mission: {
+    label: "Mission Control"
+  }
   App: {
     label: "Field Agent app"
   }
@@ -342,16 +367,36 @@ Assistants: {
     label: "Grok"
   }
 }
+Mail: {
+  label: "Email & Texts"
 
+  MailTriage: {
+    label: "Mail & text triage"
+  }
+  Fold: {
+    label: "Needs action list"
+  }
+}
+
+Jt -> FieldAgent.Mission: "checks"
 Jt -> FieldAgent.Approval: "taps"
 Iphone -> FieldAgent.App: "runs"
 FieldAgent.App -> FieldAgent.Tailnet: "messages"
+FieldAgent.Mission -> FieldAgent.Relay: "button taps"
+FieldAgent.Relay -> FieldAgent.Mission: "live updates"
 FieldAgent.Relay -> FieldAgent.Approval: "asks first"
 FieldAgent.Approval -> FieldAgent.Relay: "Allow or Deny"
 FieldAgent.Tailnet -> FieldAgent.Relay: "carries"
 Iphone -> Jt: "in his pocket"
 FieldAgent.Relay -> Assistants.Claude: "one turn per message"
 FieldAgent.Relay -> Assistants.Grok: "one turn per message"
+FieldAgent.Relay -> Mail.MailTriage: "phone attaches, 3 h apart"
+Jt -> Mail.Fold: "presses buttons"
+Mail.MailTriage -> Mail.Fold: "what needs action"
+Mail.Fold -> Jt: "what needs action"
+Mail.Fold -> FieldAgent.Mission: "Email and Texts tabs"
+Vault.Para -> FieldAgent.Mission: "next actions"
+Schedulers.Calendar -> FieldAgent.Mission: "today’s events"
 Jt -> Assistants: "asks"
 `;case`schedulersView`:return`direction: right
 
@@ -377,8 +422,8 @@ Schedulers: {
   Launchd: {
     label: "Mac background agents"
   }
-  HomePlugin: {
-    label: "Home Button plugin"
+  BrainEngine: {
+    label: "Brain Engine"
   }
   Calendar: {
     label: "Calendar mirror"
@@ -427,32 +472,32 @@ Printing: {
     label: "Gallery publish"
   }
 }
-Vault: {
-  label: "Second Brain"
+FieldAgent: {
+  label: "Field Agent"
 
-  Home: {
-    label: "Home dashboard"
+  Mission: {
+    label: "Mission Control"
   }
 }
 
 AppleApps -> Schedulers.Calendar: "events"
 Iphone -> Schedulers.ChipRelay: "button taps"
-Schedulers.HomePlugin -> Schedulers.Calendar: "hourly"
-Schedulers.HomePlugin -> Schedulers.Health: "daily"
-Schedulers.ChipRelay -> Schedulers.HomePlugin: "queues a button"
-Schedulers.HomePlugin -> Docs: "hourly"
+Schedulers.BrainEngine -> Schedulers.Calendar: "hourly"
+Schedulers.BrainEngine -> Schedulers.Health: "daily"
+Schedulers.ChipRelay -> Schedulers.BrainEngine: "queues a button"
+Schedulers.BrainEngine -> Docs: "hourly"
 AppleApps -> Iphone: "on"
 Schedulers.Launchd -> Mail.Unread: "every 5 min"
-Schedulers.HomePlugin -> Mail.Texts: "every 5 min"
-Schedulers.HomePlugin -> Mail.MailTriage: "launch and Home"
+Schedulers.BrainEngine -> Mail.Texts: "every 5 min"
+Schedulers.BrainEngine -> Mail.MailTriage: "once per launch"
 Mail.Unread -> Mail.MailTriage: "new mail"
 Mail.Texts -> Mail.MailTriage: "new texts"
-Schedulers.HomePlugin -> Scan.Ocr: "every minute"
-Schedulers.HomePlugin -> Backups.Machine: "hourly"
-Schedulers.HomePlugin -> Printing.PrintLog: "every minute"
-Schedulers.HomePlugin -> Printing.Publish: "every 5 min"
-Schedulers.Calendar -> Vault.Home: "today’s events"
-Schedulers.Health -> Vault.Home: "Health Report"
+Schedulers.BrainEngine -> Scan.Ocr: "every minute"
+Schedulers.BrainEngine -> Backups.Machine: "hourly"
+Schedulers.BrainEngine -> Printing.PrintLog: "every minute"
+Schedulers.BrainEngine -> Printing.Publish: "every 5 min"
+Schedulers.Calendar -> FieldAgent.Mission: "today’s events"
+Schedulers.Health -> FieldAgent.Mission: "Health Report"
 Pi.Heartbeat -> Schedulers.Health: "disk and drive health"
 `;case`email`:return`direction: right
 
@@ -472,8 +517,8 @@ Schedulers: {
   Launchd: {
     label: "Mac background agents"
   }
-  HomePlugin: {
-    label: "Home Button plugin"
+  BrainEngine: {
+    label: "Brain Engine"
   }
 }
 Mail: {
@@ -496,6 +541,16 @@ Mail: {
     shape: stored_data
   }
 }
+FieldAgent: {
+  label: "Field Agent"
+
+  Mission: {
+    label: "Mission Control"
+  }
+  Relay: {
+    label: "Home base"
+  }
+}
 Vault: {
   label: "Second Brain"
 
@@ -515,8 +570,13 @@ Mail.Fold -> Mail.MailArchive: "triage button: raw copy"
 Mail.Fold -> Jt: "what needs action"
 Mail.Fold -> Gmail: "archive, delete"
 Schedulers.Launchd -> Mail.Unread: "every 5 min"
-Schedulers.HomePlugin -> Mail.Texts: "every 5 min"
-Schedulers.HomePlugin -> Mail.MailTriage: "launch and Home"
+Schedulers.BrainEngine -> Mail.MailTriage: "once per launch"
+Schedulers.BrainEngine -> Mail.Texts: "every 5 min"
+Jt -> FieldAgent.Mission: "checks"
+Mail.Fold -> FieldAgent.Mission: "Email and Texts tabs"
+FieldAgent.Mission -> FieldAgent.Relay: "button taps"
+FieldAgent.Relay -> Mail.MailTriage: "phone attaches, 3 h apart"
+FieldAgent.Relay -> FieldAgent.Mission: "live updates"
 Mail.Fold -> Vault.Ingest: "triage button: note with full text"
 `;case`scanner`:return`direction: right
 
@@ -527,8 +587,8 @@ Jt: {
 Schedulers: {
   label: "Schedulers"
 
-  HomePlugin: {
-    label: "Home Button plugin"
+  BrainEngine: {
+    label: "Brain Engine"
   }
 }
 Scan: {
@@ -590,8 +650,8 @@ Scan.Pdf -> Docs: "indexed"
 Scan.Scanner -> Pi.ScanWatch: "paper detected"
 Pi.ScanWatch -> Scan.Raw: "saves pages"
 Scan.Raw -> Pi.OcrFallback: "left an hour"
-Schedulers.HomePlugin -> Scan.Ocr: "every minute"
-Schedulers.HomePlugin -> Docs: "hourly"
+Schedulers.BrainEngine -> Scan.Ocr: "every minute"
+Schedulers.BrainEngine -> Docs: "hourly"
 Scan.Ocr -> Vault.Ingest: "one note per scan"
 Vault.Ingest -> Vault.Triage: "read by"
 Vault.Triage -> Scan.Rename: "asks JT"
@@ -687,8 +747,8 @@ Cloudflare -> SiteLive: "serves"
 Schedulers: {
   label: "Schedulers"
 
-  HomePlugin: {
-    label: "Home Button plugin"
+  BrainEngine: {
+    label: "Brain Engine"
   }
 }
 Printing: {
@@ -738,8 +798,8 @@ Site: {
 
 Printing.Printer -> Printing.PrintLog: "start and finish"
 Printing.PrintLog -> Printing.Library: "writes history"
-Schedulers.HomePlugin -> Printing.PrintLog: "every minute"
-Schedulers.HomePlugin -> Printing.Publish: "every 5 min"
+Schedulers.BrainEngine -> Printing.PrintLog: "every minute"
+Schedulers.BrainEngine -> Printing.Publish: "every 5 min"
 Printing.Printer -> Pi.Camera: "camera feed"
 Printing.Printer -> Pi.PrintWatch: "finished"
 Pi.Camera -> Pi.PrintWatch: "bed photo"
@@ -800,8 +860,8 @@ Printing.Publish -> Site.Code: "gallery card"
 Schedulers: {
   label: "Schedulers"
 
-  HomePlugin: {
-    label: "Home Button plugin"
+  BrainEngine: {
+    label: "Brain Engine"
   }
 }
 Backups: {
@@ -846,8 +906,8 @@ Github: {
 Backups.Machine -> Backups.VaultPush: "one minute before"
 Backups.TimeMachine -> Backups.Usb: "second copy"
 Backups.VaultPush -> Github: "private repo"
-Schedulers.HomePlugin -> Backups.Machine: "hourly"
-Schedulers.HomePlugin -> Backups.VaultPush: "hourly"
+Schedulers.BrainEngine -> Backups.Machine: "hourly"
+Schedulers.BrainEngine -> Backups.VaultPush: "hourly"
 Backups.Machine -> Vault.Memory: "writes setup into"
 Backups.TimeMachine -> Pi.TmShare: "backs up to"
 `;default:throw Error(`Unknown viewId: `+e)}};export{e as d2Source};
