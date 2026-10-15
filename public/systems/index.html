@@ -2,6 +2,13 @@
 <html lang="en-US">
 
 <head>
+  <script id="phone-redirect">(function(){try{
+var touch=/iPhone|iPad|iPod|Android/.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Macintosh/.test(navigator.userAgent))||matchMedia('(pointer: coarse)').matches;
+if(!touch||/[?&]full\b/.test(location.search))return;
+var ids=["index","secondBrain","captureView","assistantsView","fieldAgentView","schedulersView","email","scanner","piView","printingView","siteView","backupsView"];var m=location.hash.match(/view\/([\w-]+)/);
+var url='/map/'+(m&&ids.indexOf(m[1])>=0?m[1]:'index');
+(window.top!==window?window.top:window).location.replace(url);
+}catch(e){}})();</script>
   <meta charset="utf-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
