@@ -4,11 +4,23 @@ import Hero from '../components/Hero.astro';
 import { dots } from '../lib/patterns.js';
 const bodyBg = dots();
 import site from '../data/site.json';
+import { paths } from '../lib/brand-icons.js';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="About" description="JT Embry, owner of Embry Development, LLC in the Louisville metropolitan area: ten years of finance and healthcare engineering, now a one-person studio. One email starts a project.">
-  <Hero variant="graph" seed={23} diagram="index" mapLabel="Explore the system I built" eyebrow="About" title="One engineer. No account managers.">
+  <Hero variant="graph" seed={23} diagram="index" eyebrow="About" title="One engineer. No account managers.">
     <p class="lede">When you email {site.legalName}, the person who answers is the person who does the work.</p>
+    <Fragment slot="actions">
+      <a class="contact-tile" href={site.github} rel="me">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d={paths.github} fill="currentColor" /></svg>GitHub
+      </a>
+      <a class="contact-tile" href={site.linkedin} rel="me">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d={paths.linkedin} fill="currentColor" /></svg>LinkedIn
+      </a>
+      <a class="contact-tile contact-tile-primary" href={mailto}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2.5 6.5 12 13l9.5-6.5" /></svg>Email me
+      </a>
+    </Fragment>
   </Hero>
 
   <section class="section band-parallax">
