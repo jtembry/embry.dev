@@ -10,6 +10,14 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
 <Base title="Software, AI systems, and physical parts" description={site.tagline}>
   <Hero variant="graph" diagram="index" eyebrow={`${site.legalName} · ${site.location}`} title="Less busywork. More business.">
     <p class="lede">I'm JT Embry, owner of Embry Development, LLC, a one-person studio in the Louisville metropolitan area. I build software, AI systems, and 3D-printed parts, with ten years of finance and healthcare engineering behind each job.</p>
+    {site.booking && (
+      <Fragment slot="actions">
+        <button type="button" class="contact-tile contact-tile-primary contact-tile-wide" data-book>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" /></svg>
+          <span>Book a free consultation</span>
+        </button>
+      </Fragment>
+    )}
   </Hero>
 
   <section class="section band band-parallax">
@@ -32,7 +40,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         </div>
         <div class="card">
           <p class="index">03</p>
-          <h3>Design and 3D printing</h3>
+          <h3>Rapid Prototyping (CAD) & 3D printing</h3>
           <p class="problem">"We need a part, a prototype, or a small run that no catalog sells."</p>
           <p>CAD from your sketch or measurements, working prints, and small batches. You get the part and the files. <a href="/printing">How it works</a></p>
         </div>

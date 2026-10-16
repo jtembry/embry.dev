@@ -6,6 +6,17 @@
   "location": "Louisville Metropolitan Area",
   "email": "joel@embry.dev",
   "contactEndpoint": "https://contact.embry.dev",
+  "booking": {
+    "timezone": "America/Kentucky/Louisville",
+    "durationMinutes": 15,
+    "noticeHours": 24,
+    "horizonDays": 21,
+    "hoursLabel": "Tuesday and Thursday, 5:00 to 6:00 PM Eastern.",
+    "windows": [
+      { "weekday": 2, "start": "17:00", "end": "18:00" },
+      { "weekday": 4, "start": "17:00", "end": "18:00" }
+    ]
+  },
   "linkedin": "https://www.linkedin.com/in/embry-dev",
   "github": "https://github.com/jtembry",
   "live": {

@@ -77,6 +77,31 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <p class="contact-actions"><button class="btn btn-primary" type="submit">Send message</button></p>
       </form>
     </dialog>
+    {site.booking && (
+      <dialog class="contact-dialog" id="book-dialog" aria-labelledby="book-title">
+        <form class="contact-form" method="post" action={site.contactEndpoint} data-fallback={site.email} data-booking={JSON.stringify(site.booking)}>
+          <div class="contact-head">
+            <h2 id="book-title">Book a free consultation</h2>
+            <button type="button" class="contact-close" aria-label="Close">×</button>
+          </div>
+          <p class="muted">A 15-minute phone call. I call you. I confirm within two business days. The time goes on my calendar only after I confirm.</p>
+          <p class="muted">{site.booking.hoursLabel}</p>
+          <label>Your name<input name="name" autocomplete="name" required maxlength="120" /></label>
+          <label>Your email<input name="email" type="email" autocomplete="email" required maxlength="200" /></label>
+          <label>Phone<input name="phone" type="tel" autocomplete="tel" required maxlength="40" /></label>
+          <label>What do you want to talk about?<input name="topic" required maxlength="200" /></label>
+          <label>Time<select name="slot" required></select></label>
+          <label class="contact-hp" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off" /></label>
+          <input type="hidden" name="subject" value="Free consultation" />
+          <input type="hidden" name="page" />
+          <input type="hidden" name="message" />
+          <input type="hidden" name="slotStart" />
+          <input type="hidden" name="slotEnd" />
+          <p class="contact-status" role="status" aria-live="polite"></p>
+          <p class="contact-actions"><button class="btn btn-primary" type="submit">Request this time</button></p>
+        </form>
+      </dialog>
+    )}
     <footer class="site">
       <div class="wrap">
         <p class="footer-brand"><Logo class="logo-footer" size={32} /><br />{site.legalName}<br /><em>{site.tagline}</em></p>
@@ -143,6 +168,139 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
             status.textContent = `${(err as Error).message} You can also write to ${contactForm.dataset.fallback}.`;
           } finally {
             submit.disabled = false;
+          }
+        });
+      }
+
+      // Consultation: the homepage tile opens this dialog. The request is emailed.
+      // A calendar file is attached only after the contact worker that knows
+      // slotStart/slotEnd is deployed. weekday 0 is Sunday.
+      const book = document.querySelector<HTMLDialogElement>('#book-dialog');
+      const bookForm = book?.querySelector('form');
+      const bookCfg = bookForm?.dataset.booking ? JSON.parse(bookForm.dataset.booking) : null;
+      if (book && bookForm && bookCfg) {
+        const bookStatus = bookForm.querySelector<HTMLElement>('.contact-status')!;
+        const bookSubmit = bookForm.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+        const bookField = (n: string) => bookForm.elements.namedItem(n) as HTMLInputElement | HTMLSelectElement;
+        const slotSelect = bookField('slot') as HTMLSelectElement;
+        const zone = bookCfg.timezone as string;
+        const duration = bookCfg.durationMinutes as number;
+        const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const labelFmt = new Intl.DateTimeFormat('en-US', {
+          timeZone: zone, weekday: 'long', month: 'long', day: 'numeric',
+          hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
+        });
+        const endFmt = new Intl.DateTimeFormat('en-US', {
+          timeZone: zone, hour: 'numeric', minute: '2-digit',
+        });
+        const zoneParts = (date: Date) => {
+          const bag: Record<string, string> = {};
+          for (const p of new Intl.DateTimeFormat('en-US', {
+            timeZone: zone, hourCycle: 'h23', weekday: 'short',
+            year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: '2-digit', minute: '2-digit',
+          }).formatToParts(date)) bag[p.type] = p.value;
+          return bag;
+        };
+        // Wall-clock time in the booking zone, as a UTC instant.
+        const atZone = (y: number, mo: number, d: number, hh: number, mm: number) => {
+          const utc = new Date(Date.UTC(y, mo - 1, d, hh, mm));
+          const p = zoneParts(utc);
+          const asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute);
+          return new Date(utc.getTime() - (asUTC - utc.getTime()));
+        };
+        const nextDay = (y: number, mo: number, d: number) => {
+          const p = zoneParts(new Date(atZone(y, mo, d, 12, 0).getTime() + 36 * 60 * 60 * 1000));
+          return [+p.year, +p.month, +p.day] as const;
+        };
+        const fillSlots = () => {
+          const slots: Date[] = [];
+          const now = Date.now();
+          const notice = (bookCfg.noticeHours as number) * 60 * 60 * 1000;
+          const today = zoneParts(new Date());
+          let y = +today.year, mo = +today.month, d = +today.day;
+          for (let i = 0; i <= (bookCfg.horizonDays as number); i++) {
+            const weekday = weekdays.indexOf(zoneParts(atZone(y, mo, d, 12, 0)).weekday);
+            for (const w of bookCfg.windows as { weekday: number, start: string, end: string }[]) {
+              if (w.weekday !== weekday) continue;
+              const [eh, em] = w.end.split(':').map(Number);
+              const endMins = eh * 60 + em;
+              let mins = w.start.split(':').map(Number).reduce((h, m) => h * 60 + m);
+              while (mins + duration <= endMins) {
+                const start = atZone(y, mo, d, Math.floor(mins / 60), mins % 60);
+                if (start.getTime() >= now + notice) slots.push(start);
+                mins += duration;
+              }
+            }
+            [y, mo, d] = nextDay(y, mo, d);
+          }
+          slotSelect.replaceChildren();
+          if (!slots.length) {
+            const o = document.createElement('option');
+            o.value = '';
+            o.textContent = 'No open times in the next three weeks';
+            slotSelect.append(o);
+            bookSubmit.disabled = true;
+            return;
+          }
+          bookSubmit.disabled = false;
+          for (const start of slots) {
+            const o = document.createElement('option');
+            o.value = start.toISOString();
+            o.dataset.end = new Date(start.getTime() + duration * 60000).toISOString();
+            o.textContent = labelFmt.format(start);
+            slotSelect.append(o);
+          }
+        };
+        document.querySelectorAll<HTMLButtonElement>('[data-book]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            setOpen(false);
+            bookField('page').value = location.pathname;
+            fillSlots();
+            bookStatus.textContent = '';
+            book.showModal();
+            bookField('name').focus();
+          });
+        });
+        book.querySelector('.contact-close')!.addEventListener('click', () => book.close());
+        book.addEventListener('click', (e) => { if (e.target === book) book.close(); });
+        bookForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (!bookForm.reportValidity()) return;
+          const phone = bookField('phone').value.trim();
+          if ((phone.match(/\d/g) || []).length < 7) {
+            bookStatus.textContent = 'Enter a phone number I can call.';
+            return;
+          }
+          const option = slotSelect.selectedOptions[0];
+          if (!option?.value) return;
+          const start = new Date(option.value);
+          const end = new Date(option.dataset.end || '');
+          const topic = bookField('topic').value.trim();
+          bookField('slotStart').value = start.toISOString();
+          bookField('slotEnd').value = end.toISOString();
+          bookField('message').value = [
+            'Free consultation request.',
+            '',
+            `When: ${labelFmt.format(start)} to ${endFmt.format(end)}`,
+            `Phone: ${phone}`,
+            `Topic: ${topic}`,
+            '',
+            'This is a request. Add it to the calendar only if you accept the call.',
+          ].join('\n');
+          bookSubmit.disabled = true;
+          bookStatus.textContent = 'Sending…';
+          try {
+            const res = await fetch(bookForm.action, { method: 'POST', body: new FormData(bookForm) });
+            const out = await res.json().catch(() => ({}));
+            if (!res.ok || !out.ok) throw new Error(out.error || 'Could not send right now.');
+            bookForm.reset();
+            bookField('subject').value = 'Free consultation';
+            bookStatus.textContent = "Sent. I'll email you within two business days. It is not booked until I confirm.";
+          } catch (err) {
+            bookStatus.textContent = `${(err as Error).message} You can also write to ${bookForm.dataset.fallback}.`;
+          } finally {
+            bookSubmit.disabled = false;
           }
         });
       }
