@@ -5,7 +5,7 @@
   <script id="phone-redirect">(function(){try{
 var touch=/iPhone|iPad|iPod|Android/.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Macintosh/.test(navigator.userAgent))||matchMedia('(pointer: coarse)').matches;
 if(!touch||/[?&]full\b/.test(location.search))return;
-var ids=["index","secondBrain","captureView","assistantsView","fieldAgentView","schedulersView","email","scanner","piView","printingView","siteView","backupsView"];var m=location.hash.match(/view\/([\w-]+)/);
+var ids=["index","intakeView","email","scanner","captureView","secondBrain","assistantsView","fieldAgentView","backupsView","workshopView","printingView","siteView"];var m=location.hash.match(/view\/([\w-]+)/);
 var url='/map/'+(m&&ids.indexOf(m[1])>=0?m[1]:'index');
 (window.top!==window?window.top:window).location.replace(url);
 }catch(e){}})();</script>
@@ -14,10 +14,10 @@ var url='/map/'+(m&&ids.indexOf(m[1])>=0?m[1]:'index');
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
   <link rel="icon" type="image/svg+xml" href="/systems/assets/favicon-CeB0sGK2.svg">
   <title>LikeC4</title>
-  <script type="module" crossorigin src="/systems/assets/index-Bea89htR.js"></script>
+  <script type="module" crossorigin src="/systems/assets/index-B7f7r-pU.js"></script>
   <link rel="modulepreload" crossorigin href="/systems/assets/internal-CqubCvLW.js">
   <link rel="modulepreload" crossorigin href="/systems/assets/hooks-BqlPhm1B.js">
-  <link rel="modulepreload" crossorigin href="/systems/assets/main-Q0LnBLWR.js">
+  <link rel="modulepreload" crossorigin href="/systems/assets/main-LyOmbNv9.js">
   <link rel="stylesheet" crossorigin href="/systems/assets/fonts-sNclyEVF.css">
   <link rel="stylesheet" crossorigin href="/systems/assets/style-asaqdsGB.css">
 </head>
