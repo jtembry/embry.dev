@@ -241,7 +241,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
           return new Date(utc.getTime() - (asUTC - utc.getTime()));
         };
         const nextDay = (y: number, mo: number, d: number) => {
-          const p = zoneParts(new Date(atZone(y, mo, d, 12, 0).getTime() + 36 * 60 * 60 * 1000));
+          const p = zoneParts(atZone(y, mo, d + 1, 12, 0));
           return [+p.year, +p.month, +p.day] as const;
         };
         const dayKey = (date: Date) => {
