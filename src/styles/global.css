@@ -246,18 +246,20 @@ footer.site .social a:hover, footer.site .social a:focus-visible { color: #ffb18
 .contact-actions { margin: 0; }
 .contact-actions .btn { width: 100%; }
 .contact-actions .btn:disabled { opacity: .6; cursor: progress; }
-.book-cal { display: grid; gap: .6rem; }
-.book-cal-bar { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
-.book-cal-month { margin: 0; font-weight: 600; }
-.book-cal-nav { font: inherit; width: 2rem; height: 2rem; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
+.book-cal { display: grid; gap: .75rem; justify-items: center; }
+.book-cal-bar { display: grid; grid-template-columns: 2rem 1fr 2rem; align-items: center; width: 100%; max-width: 20rem; }
+.book-cal-month { margin: 0; text-align: center; font-weight: 600; }
+.book-cal-nav { appearance: none; font: inherit; width: 2rem; height: 2rem; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; }
 .book-cal-nav:disabled { opacity: .35; cursor: default; }
-.book-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: .2rem; }
-.book-cal-dow { text-align: center; font-size: .72rem; font-weight: 600; color: var(--muted); }
-.book-cal-day { min-height: 2.1rem; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font: inherit; font-size: .9rem; padding: 0; }
+.book-cal-grid { display: grid; grid-template-columns: repeat(7, 2.4rem); gap: .15rem; justify-content: center; }
+.book-cal-dow, .book-cal-day, .book-cal-pad { width: 2.4rem; height: 2.4rem; display: grid; place-items: center; margin: 0; padding: 0; line-height: 1; box-sizing: border-box; }
+.book-cal-dow { height: 1.4rem; font-size: .7rem; font-weight: 600; color: var(--muted); }
+.book-cal-day { appearance: none; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-size: .9rem; }
 button.book-cal-day { background: var(--accent-tint); color: var(--ink); font-weight: 600; cursor: pointer; }
 button.book-cal-day[aria-pressed="true"] { background: var(--accent-bright); }
+.book-cal-empty, .book-times { width: 100%; max-width: 20rem; }
 .book-cal-empty { margin: 0; color: var(--muted); }
-.book-times-label { margin: .2rem 0 0; font-weight: 600; }
-.book-times-list { display: flex; flex-wrap: wrap; gap: .4rem; }
-.book-time { font: inherit; font-size: .9rem; font-weight: 600; padding: .35rem .7rem; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; }
+.book-times-label { margin: 0 0 .45rem; font-weight: 600; }
+.book-times-list { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; }
+.book-time { appearance: none; font: inherit; font-size: .9rem; font-weight: 600; padding: .4rem .5rem; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; text-align: center; }
 .book-time[aria-pressed="true"] { background: var(--accent-bright); border-color: var(--accent-bright); }
