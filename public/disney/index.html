@@ -1127,9 +1127,12 @@ async function planNext(){
   if(!/^[a-z0-9-]{6,40}$/.test(TRIP.next||"")){   // finished before trips had a next one: make it now
     TRIP={...TRIP,next:succCode(TRIP_CODE,TRIP.finished)}; tripMt=Date.now(); metaPending=true; saveMeta(); await pushMeta();
   }
-  const st=await tripState(TRIP.next);   // another phone may have started it already: join it, don't reset its settings
-  try{ localStorage.setItem("mk-trip",TRIP.next); }catch(e){}
-  location.href=st&&st.meta?`${location.pathname}?trip=${TRIP.next}`:newTripURL(TRIP.next,TRIP_CODE);
+  // another phone may have started it already: join it, don't reset its settings.
+  // A successor that is itself finished or deleted is skipped, so the button always lands on a live or blank trip.
+  let code=TRIP.next, prev=TRIP_CODE, st=await tripState(code);
+  for(let i=0;i<20&&st&&st.meta&&st.meta.finished&&/^[a-z0-9-]{6,40}$/.test(st.meta.next||"");i++){ prev=code; code=st.meta.next; st=await tripState(code); }
+  try{ localStorage.setItem("mk-trip",code); }catch(e){}
+  location.href=st&&st.meta&&!st.meta.finished?`${location.pathname}?trip=${code}`:newTripURL(code,prev);
 }
 document.getElementById("fin-banner").addEventListener("click",e=>{ const b=e.target.closest("#fin-new"); if(!b) return; b.disabled=true; b.textContent="Opening…"; planNext(); });
 function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElementById("past").classList.contains("on")) paintPast(); DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
