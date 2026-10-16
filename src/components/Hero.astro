@@ -27,7 +27,7 @@ const front = diagram ? '' : gen({ parity: 0, seed }) + gen({ parity: 1, seed })
       <slot />
       {(mapLabel || Astro.slots.has('actions')) && (
         <p class="hero-actions">
-          {mapLabel && mapHref && <a class="btn btn-primary btn-lg" href={mapHref}>{mapLabel} <span aria-hidden="true">→</span></a>}
+          {mapLabel && mapHref && <a class="btn btn-primary" href={mapHref}>{mapLabel} <span aria-hidden="true">→</span></a>}
           <slot name="actions" />
         </p>
       )}

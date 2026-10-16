@@ -12,10 +12,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     <p class="lede">I'm JT Embry, owner of Embry Development, LLC, a one-person studio in the Louisville metropolitan area. I build software, AI systems, and 3D-printed parts, with ten years of finance and healthcare engineering behind each job.</p>
     {site.booking && (
       <Fragment slot="actions">
-        <button type="button" class="contact-tile contact-tile-primary contact-tile-wide" data-book>
-          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" /></svg>
-          <span>Book a free consultation</span>
-        </button>
+        <button type="button" class="btn btn-primary" data-book>Book a free consultation</button>
       </Fragment>
     )}
   </Hero>

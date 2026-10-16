@@ -90,7 +90,20 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
           <label>Your email<input name="email" type="email" autocomplete="email" required maxlength="200" /></label>
           <label>Phone<input name="phone" type="tel" autocomplete="tel" required maxlength="40" /></label>
           <label>What do you want to talk about?<input name="topic" required maxlength="200" /></label>
-          <label>Time<select name="slot" required></select></label>
+          <div class="book-cal">
+            <div class="book-cal-bar">
+              <button type="button" class="book-cal-nav" data-cal-prev aria-label="Previous month">‹</button>
+              <p class="book-cal-month" data-cal-month></p>
+              <button type="button" class="book-cal-nav" data-cal-next aria-label="Next month">›</button>
+            </div>
+            <div class="book-cal-grid" data-cal-grid></div>
+            <p class="book-cal-empty" data-cal-empty hidden>No open times in the next three weeks.</p>
+            <div class="book-times" data-book-times hidden>
+              <p class="book-times-label" data-times-label></p>
+              <div class="book-times-list" data-times-list role="group" aria-label="Times"></div>
+            </div>
+          </div>
+          <input type="hidden" name="slot" value="" />
           <label class="contact-hp" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off" /></label>
           <input type="hidden" name="subject" value="Free consultation" />
           <input type="hidden" name="page" />
@@ -181,8 +194,17 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
       if (book && bookForm && bookCfg) {
         const bookStatus = bookForm.querySelector<HTMLElement>('.contact-status')!;
         const bookSubmit = bookForm.querySelector<HTMLButtonElement>('button[type="submit"]')!;
-        const bookField = (n: string) => bookForm.elements.namedItem(n) as HTMLInputElement | HTMLSelectElement;
-        const slotSelect = bookField('slot') as HTMLSelectElement;
+        const bookField = (n: string) => bookForm.elements.namedItem(n) as HTMLInputElement;
+        const slotInput = bookField('slot');
+        const cal = bookForm.querySelector('.book-cal')!;
+        const grid = cal.querySelector<HTMLElement>('[data-cal-grid]')!;
+        const monthLabel = cal.querySelector<HTMLElement>('[data-cal-month]')!;
+        const prevBtn = cal.querySelector<HTMLButtonElement>('[data-cal-prev]')!;
+        const nextBtn = cal.querySelector<HTMLButtonElement>('[data-cal-next]')!;
+        const timesWrap = cal.querySelector<HTMLElement>('[data-book-times]')!;
+        const timesLabel = cal.querySelector<HTMLElement>('[data-times-label]')!;
+        const timesList = cal.querySelector<HTMLElement>('[data-times-list]')!;
+        const emptyNote = cal.querySelector<HTMLElement>('[data-cal-empty]')!;
         const zone = bookCfg.timezone as string;
         const duration = bookCfg.durationMinutes as number;
         const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -192,6 +214,15 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         });
         const endFmt = new Intl.DateTimeFormat('en-US', {
           timeZone: zone, hour: 'numeric', minute: '2-digit',
+        });
+        const dayFmt = new Intl.DateTimeFormat('en-US', {
+          timeZone: zone, weekday: 'long', month: 'long', day: 'numeric',
+        });
+        const timeFmt = new Intl.DateTimeFormat('en-US', {
+          timeZone: zone, hour: 'numeric', minute: '2-digit',
+        });
+        const monthFmt = new Intl.DateTimeFormat('en-US', {
+          timeZone: zone, month: 'long', year: 'numeric',
         });
         const zoneParts = (date: Date) => {
           const bag: Record<string, string> = {};
@@ -213,7 +244,91 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
           const p = zoneParts(new Date(atZone(y, mo, d, 12, 0).getTime() + 36 * 60 * 60 * 1000));
           return [+p.year, +p.month, +p.day] as const;
         };
-        const fillSlots = () => {
+        const dayKey = (date: Date) => {
+          const p = zoneParts(date);
+          return `${p.year}-${p.month}-${p.day}`;
+        };
+        const shiftMonth = (y: number, m: number, delta: number) => {
+          const moved = new Date(Date.UTC(y, m - 1 + delta, 1));
+          return [moved.getUTCFullYear(), moved.getUTCMonth() + 1] as const;
+        };
+        let byDay = new Map<string, Date[]>();
+        let viewY = 0;
+        let viewM = 0;
+        let selectedKey = '';
+        const monthHas = (y: number, m: number) => {
+          const prefix = `${y}-${String(m).padStart(2, '0')}-`;
+          for (const key of byDay.keys()) if (key.startsWith(prefix)) return true;
+          return false;
+        };
+        const renderTimes = (key: string) => {
+          timesList.replaceChildren();
+          const daySlots = byDay.get(key) ?? [];
+          if (!daySlots.length) { timesWrap.hidden = true; return; }
+          timesWrap.hidden = false;
+          timesLabel.textContent = dayFmt.format(daySlots[0]);
+          for (const start of daySlots) {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'book-time';
+            b.textContent = timeFmt.format(start);
+            const endIso = new Date(start.getTime() + duration * 60000).toISOString();
+            b.setAttribute('aria-pressed', slotInput.value === start.toISOString() ? 'true' : 'false');
+            b.addEventListener('click', () => {
+              slotInput.value = start.toISOString();
+              bookField('slotEnd').value = endIso;
+              timesList.querySelectorAll('.book-time').forEach((el) => el.setAttribute('aria-pressed', 'false'));
+              b.setAttribute('aria-pressed', 'true');
+            });
+            timesList.append(b);
+          }
+        };
+        const renderMonth = () => {
+          grid.replaceChildren();
+          for (const name of ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']) {
+            const s = document.createElement('span');
+            s.className = 'book-cal-dow';
+            s.textContent = name;
+            grid.append(s);
+          }
+          const firstWd = weekdays.indexOf(zoneParts(atZone(viewY, viewM, 1, 12, 0)).weekday);
+          for (let i = 0; i < firstWd; i++) grid.append(document.createElement('span'));
+          let day = 1;
+          while (day <= 31 && zoneParts(atZone(viewY, viewM, day, 12, 0)).month === String(viewM).padStart(2, '0')) {
+            const probe = atZone(viewY, viewM, day, 12, 0);
+            const key = dayKey(probe);
+            if (byDay.has(key)) {
+              const b = document.createElement('button');
+              b.type = 'button';
+              b.className = 'book-cal-day';
+              b.textContent = String(day);
+              b.setAttribute('aria-label', dayFmt.format(probe));
+              b.setAttribute('aria-pressed', selectedKey === key ? 'true' : 'false');
+              b.addEventListener('click', () => {
+                selectedKey = key;
+                slotInput.value = '';
+                bookField('slotEnd').value = '';
+                renderMonth();
+                renderTimes(key);
+              });
+              grid.append(b);
+            } else {
+              const s = document.createElement('span');
+              s.className = 'book-cal-day';
+              s.textContent = String(day);
+              grid.append(s);
+            }
+            day++;
+          }
+          monthLabel.textContent = monthFmt.format(atZone(viewY, viewM, 1, 12, 0));
+          const [py, pm] = shiftMonth(viewY, viewM, -1);
+          const [ny, nm] = shiftMonth(viewY, viewM, 1);
+          prevBtn.disabled = !monthHas(py, pm);
+          nextBtn.disabled = !monthHas(ny, nm);
+          emptyNote.hidden = byDay.size > 0;
+          bookSubmit.disabled = byDay.size === 0;
+        };
+        const showCalendar = () => {
           const slots: Date[] = [];
           const now = Date.now();
           const notice = (bookCfg.noticeHours as number) * 60 * 60 * 1000;
@@ -234,29 +349,36 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
             }
             [y, mo, d] = nextDay(y, mo, d);
           }
-          slotSelect.replaceChildren();
-          if (!slots.length) {
-            const o = document.createElement('option');
-            o.value = '';
-            o.textContent = 'No open times in the next three weeks';
-            slotSelect.append(o);
-            bookSubmit.disabled = true;
-            return;
-          }
-          bookSubmit.disabled = false;
+          byDay = new Map();
           for (const start of slots) {
-            const o = document.createElement('option');
-            o.value = start.toISOString();
-            o.dataset.end = new Date(start.getTime() + duration * 60000).toISOString();
-            o.textContent = labelFmt.format(start);
-            slotSelect.append(o);
+            const key = dayKey(start);
+            byDay.set(key, [...(byDay.get(key) ?? []), start]);
           }
+          selectedKey = '';
+          slotInput.value = '';
+          bookField('slotEnd').value = '';
+          timesWrap.hidden = true;
+          timesList.replaceChildren();
+          const first = slots[0] ? zoneParts(slots[0]) : zoneParts(new Date());
+          viewY = +first.year;
+          viewM = +first.month;
+          renderMonth();
         };
+        prevBtn.addEventListener('click', () => {
+          if (prevBtn.disabled) return;
+          [viewY, viewM] = shiftMonth(viewY, viewM, -1);
+          renderMonth();
+        });
+        nextBtn.addEventListener('click', () => {
+          if (nextBtn.disabled) return;
+          [viewY, viewM] = shiftMonth(viewY, viewM, 1);
+          renderMonth();
+        });
         document.querySelectorAll<HTMLButtonElement>('[data-book]').forEach((btn) => {
           btn.addEventListener('click', () => {
             setOpen(false);
             bookField('page').value = location.pathname;
-            fillSlots();
+            showCalendar();
             bookStatus.textContent = '';
             book.showModal();
             bookField('name').focus();
@@ -272,13 +394,14 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
             bookStatus.textContent = 'Enter a phone number I can call.';
             return;
           }
-          const option = slotSelect.selectedOptions[0];
-          if (!option?.value) return;
-          const start = new Date(option.value);
-          const end = new Date(option.dataset.end || '');
+          if (!slotInput.value || !bookField('slotEnd').value) {
+            bookStatus.textContent = 'Pick a day and a time.';
+            return;
+          }
+          const start = new Date(slotInput.value);
+          const end = new Date(bookField('slotEnd').value);
           const topic = bookField('topic').value.trim();
           bookField('slotStart').value = start.toISOString();
-          bookField('slotEnd').value = end.toISOString();
           bookField('message').value = [
             'Free consultation request.',
             '',
@@ -296,11 +419,12 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
             if (!res.ok || !out.ok) throw new Error(out.error || 'Could not send right now.');
             bookForm.reset();
             bookField('subject').value = 'Free consultation';
+            showCalendar();
             bookStatus.textContent = "Sent. I'll email you within two business days. It is not booked until I confirm.";
           } catch (err) {
             bookStatus.textContent = `${(err as Error).message} You can also write to ${bookForm.dataset.fallback}.`;
           } finally {
-            bookSubmit.disabled = false;
+            bookSubmit.disabled = byDay.size === 0;
           }
         });
       }
