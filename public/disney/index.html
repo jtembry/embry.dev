@@ -503,6 +503,7 @@ button{min-height:44px}
       <p class="tf-hours" id="tf-hours"></p>
       <label>Leave the park (leave empty to stay until closing) <input type="time" name="leave"></label>
       <label class="tf-check"><input type="checkbox" name="das"> DAS / Lightning Lane: book return times for rides</label>
+      <label class="tf-check" id="tf-mealrem" hidden><input type="checkbox" id="mealrem"> 🔔 Remind me before meals (this phone)</label>
       <div class="tf-row"><button type="submit" class="tf-save">Save for everyone on this trip</button><button type="button" id="trip-finish">Finish this trip</button><button type="button" id="trip-delete" class="tf-del">Delete this trip</button></div>
       <p>Saved with the trip, so every phone on it gets the same date and times.</p>
     </form>
@@ -995,6 +996,29 @@ function appActivity(){
   window.ParkPlanner.activity(s);
 }
 setInterval(appActivity,60000);
+// meal reminders (iPhone app only, per phone): quick service 45 min ahead to mobile order, other meals 15 min ahead.
+// Rescheduled each minute from the meal times; a ticked or skipped meal loses its reminder.
+const MEALREM_KEY="mk-mealrem"+TK, MEALSENT_KEY="mk-mealrem-sent"+TK;
+const mealRemOn=()=>{ try{ return localStorage.getItem(MEALREM_KEY)==="1"; }catch(e){ return false; } };
+function appMeals(){
+  if(!inApp()) return;
+  const n=nowET(), want={};
+  if(mealRemOn()&&n.day===DAY&&!TRIP.finished) MEAL_KS.forEach(k=>{
+    const ch=chosenSpot(k); if(!ch||done.has(ch)||foodPri(skipId(k))==="must") return;
+    const f=FOOD.find(x=>x.id===ch), mk=MEALK[k], quick=f&&f.type==="quick"&&!mk.snack, at=mk.t-(quick?45:15);
+    if(at<=n.min) return;
+    want["meal-"+k]=quick?{at,title:`${mk.label}: mobile order now`,body:`Order at ${f.name} in the Disney app for pickup about ${fmtMin(mk.t)}.`}
+                         :{at,title:`${mk.label} in 15 min`,body:`${f?f.name:"Your meal"} is planned for ${fmtMin(mk.t)}. Start heading over.`};
+  });
+  let sent={}; try{ sent=JSON.parse(localStorage.getItem(MEALSENT_KEY))||{}; }catch(e){}
+  Object.keys(sent).forEach(id=>{ if(!want[id]) window.ParkPlanner.cancel(id); });
+  Object.entries(want).forEach(([id,r])=>{ if(JSON.stringify(sent[id])!==JSON.stringify(r)) window.ParkPlanner.remind(id,etMs(r.at),r.title,r.body); });
+  try{ localStorage.setItem(MEALSENT_KEY,JSON.stringify(want)); }catch(e){}
+}
+(()=>{ const l=document.getElementById("tf-mealrem"), c=document.getElementById("mealrem"); if(!inApp()) return;
+  l.hidden=false; c.checked=mealRemOn();
+  c.addEventListener("change",()=>{ try{ localStorage.setItem(MEALREM_KEY,c.checked?"1":"0"); }catch(e){} appMeals(); }); })();
+setInterval(appMeals,60000);
 const openDet=new Set();
 document.addEventListener("toggle",e=>{const d=e.target; if(d.dataset&&d.dataset.det){d.open?openDet.add(d.dataset.det):openDet.delete(d.dataset.det)}},true);
 function rideLI(id,extra){
@@ -1782,7 +1806,7 @@ function renderMap(){
   document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name}${wait(next)!=null?` · ${wait(next)} min`:""}${isFood(next)?` · ${byQ.get(next).meal}`:""} <span class="ms-sub">· ${left.length} stops · ~${walkMinPx(px)} min walk</span></span>${dasHTML()}`:"<span><b>Every ride on the path is done.</b> Re-ride favorites or head home.</span>";
   document.getElementById("map-warn").innerHTML=warnHTML();
   if(pmSel) pmCard(pmSel);
-  appActivity();
+  appActivity(); appMeals();
   if(!pmCentered&&document.getElementById("map").classList.contains("on")&&(pmFocus||next)){ pmCentered=true; pmCenter(PT(pmFocus||next)); pmFocus=null; }
 }
 function pmCenter([x,y]){ pmScroll.scrollTo({left:x/2060*pmInner.offsetWidth-pmScroll.clientWidth/2,top:y/2124*pmInner.offsetHeight-pmScroll.clientHeight/2}); }
