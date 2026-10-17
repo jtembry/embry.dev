@@ -168,6 +168,7 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .tripbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:0 0 8px;font-size:14px;color:var(--muted)}
 .tripbar b{color:var(--ink)}
 .tripbar button{min-height:36px;padding:0 12px;font-size:13px}
+.tripbtns{display:flex;gap:8px}
 .tripform{display:grid;gap:10px;margin:0 0 12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
 .tripform label{display:grid;gap:4px;font-size:13px;font-weight:700;color:var(--ink)}
 .tripform input{min-height:40px;font:inherit;font-size:15px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
@@ -495,7 +496,7 @@ button{min-height:44px}
   <section class="part view" id="day" aria-labelledby="day-h">
     <div class="offline" id="offline" hidden>No signal. Showing the plan, waits and forecast saved on this phone.</div>
     <h2 id="day-h" class="sr">The day</h2>
-    <div class="tripbar"><span id="trip-sum"></span><button type="button" id="trip-edit" aria-expanded="false" aria-controls="trip-form">Trip settings</button></div>
+    <div class="tripbar"><span id="trip-sum"></span><span class="tripbtns"><button type="button" id="trip-share">Share trip</button><button type="button" id="trip-edit" aria-expanded="false" aria-controls="trip-form">Trip settings</button></span></div>
     <form class="tripform" id="trip-form" hidden>
       <label>Date <input type="date" name="date" required></label>
       <label>At the gate <input type="time" name="gate" required></label>
@@ -1197,6 +1198,16 @@ async function planNext(){
 }
 document.getElementById("fin-banner").addEventListener("click",e=>{ const b=e.target.closest("#fin-new"); if(!b) return; b.disabled=true; b.textContent="Opening…"; planNext(); });
 function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElementById("past").classList.contains("on")) paintPast(); DAY=TRIP.date; setMealTargets(); try{ WX={}; loadWeather(); }catch(e){} if(render!==false) renderDay(); }
+// Share trip: the embry.dev link for this trip, so the group opens the same plan.
+// In the iPhone app it opens the share sheet; on the web, Safari's share sheet, else the link is copied.
+(()=>{ const b=document.getElementById("trip-share"); if(!TRIP_CODE){ b.hidden=true; return; }
+  b.addEventListener("click",async()=>{
+    const url=`https://embry.dev/disney/?trip=${TRIP_CODE}`, text="Our Magic Kingdom plan. Open it to see the picks and check off rides together.";
+    if(inApp()&&window.ParkPlanner.share) return window.ParkPlanner.share(url,text);
+    if(navigator.share){ try{ await navigator.share({title:"Our park day",text,url}); }catch(e){} return; }
+    try{ await navigator.clipboard.writeText(url); b.textContent="Link copied"; setTimeout(()=>{ b.textContent="Share trip"; },2000); }
+    catch(e){ window.prompt("Copy this link and send it to the group",url); }
+  }); })();
 (()=>{
   const form=document.getElementById("trip-form"), btn=document.getElementById("trip-edit");
   const fill=()=>{ form.date.value=TRIP.date||""; form.gate.value=TRIP.gate||""; form.leave.value=TRIP.leave||""; form.das.checked=dasOn(); paintHoursLine(); };
