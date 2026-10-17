@@ -447,6 +447,17 @@ html,body{max-width:100%;overflow-x:hidden}
 .tl .what .daspick{margin:8px 0 0}
 .daspick{display:block;margin-top:8px;font-size:14px;color:var(--ink)}
 .tl .what .daspick b{display:inline;color:var(--das)}
+.dasrem{margin:6px 0 0;font-size:14px}
+.dasrem-btn{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-weight:700}
+.dasrem-sheet{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.45);display:flex;align-items:flex-end}
+.dasrem-sheet[hidden]{display:none}
+.dasrem-card{width:100%;display:grid;gap:12px;background:var(--paper);color:var(--ink);border-radius:18px 18px 0 0;padding:18px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.dasrem-card label{display:grid;gap:6px;font-size:15px}
+.dasrem-card input{font:inherit;font-size:22px;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.dasrem-err{margin:0;color:#c0392b;font-size:14px}
+.dasrem-row{display:flex;gap:8px;justify-content:flex-end}
+.dasrem-row button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-weight:700}
+.dasrem-row .dasrem-set{background:var(--mid);border-color:var(--mid);color:#fff}
 .tl .what span.wait{color:#fff}
 .tl .what span.wait.mid{color:#1d2a26}
 .tl .what span.wait.closed{color:var(--muted)}
@@ -931,8 +942,38 @@ function dasBooking(){
 function dasHTML(){
   const b=dasBooking(); if(!b) return "";
   const a=byQ.get(b.id), n=nowET();
-  return `<p class="daspick">🎟 Book next on DAS: <b>${a.name}</b> #${a.m}${b.w!=null?`, ${b.w} min posted (return about ${fmtMin(n.min+Math.max(0,b.w-10))})`:""}. ${zoneOf.get(b.id)===currentZone()?"It's at this stop.":`The path gets there around ${fmtMin(b.eta)}.`} The return stays good until close.</p>`;
+  return `<p class="daspick">🎟 Book next on DAS: <b>${a.name}</b> #${a.m}${b.w!=null?`, ${b.w} min posted (return about ${fmtMin(n.min+Math.max(0,b.w-10))})`:""}. ${zoneOf.get(b.id)===currentZone()?"It's at this stop.":`The path gets there around ${fmtMin(b.eta)}.`} The return stays good until close.</p>${dasRemHTML(b)}`;
 }
+// DAS return reminder (iPhone app only): a notification when the return time Disney gave us comes up.
+// One return is held at a time, so there is one reminder; ticking that ride clears it.
+const DASREM_KEY="mk-dasrem"+TK, inApp=()=>!!(window.ParkPlanner&&window.ParkPlanner.app);
+function dasRem(){ try{ const r=JSON.parse(localStorage.getItem(DASREM_KEY)); return r&&r.day===DAY?r:null; }catch(e){ return null; } }
+function dasRemClear(){ try{ localStorage.removeItem(DASREM_KEY); }catch(e){} if(inApp()) window.ParkPlanner.cancel("das-return"); }
+function dasRemHTML(b){
+  const n=nowET(); if(!inApp()||n.day!==DAY) return "";
+  let r=dasRem(); if(r&&done.has(r.id)){ dasRemClear(); r=null; }
+  if(r) return `<p class="dasrem">🔔 Reminder at <b>${fmtMin(r.min)}</b> for ${byQ.get(r.id).name}. <button type="button" class="dasrem-btn" data-dasrem="${r.id}">Change</button></p>`;
+  return `<p class="dasrem"><button type="button" class="dasrem-btn" data-dasrem="${b.id}" data-est="${b.w!=null?n.min+Math.max(0,b.w-10):n.min+30}">🔔 Booked it? Remind me at the return time</button></p>`;
+}
+function dasRemSheet(id,est){
+  let s=document.getElementById("dasrem-sheet");
+  if(!s){ s=document.createElement("div"); s.id="dasrem-sheet"; s.className="dasrem-sheet"; document.body.appendChild(s); }
+  const r=dasRem(), m=r&&r.id===id?r.min:Math.round(est/5)*5, hhmm=`${String(Math.floor(m/60)%24).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
+  s.innerHTML=`<div class="dasrem-card" role="dialog" aria-labelledby="dasrem-h"><b id="dasrem-h">DAS return for ${byQ.get(id).name}</b>
+    <label>Return time from the Disney app <input type="time" id="dasrem-t" value="${hhmm}"></label>
+    <p class="dasrem-err" id="dasrem-err" hidden>That time has passed. Pick a later one.</p>
+    <div class="dasrem-row">${r?`<button type="button" data-dr="off">Turn off</button>`:""}<button type="button" data-dr="cancel">Cancel</button><button type="button" data-dr="set" class="dasrem-set">Remind me</button></div></div>`;
+  s.hidden=false;
+  s.onclick=e=>{ const k=e.target.closest("[data-dr]")?.dataset.dr; if(!k&&e.target!==s) return;
+    if(k==="set"){ const [h,mm]=document.getElementById("dasrem-t").value.split(":").map(Number), min=h*60+mm, n=nowET();
+      if(!(min>n.min)){ document.getElementById("dasrem-err").hidden=false; return; }
+      const at=Date.now()+(min-n.min)*60000-new Date().getSeconds()*1000, a=byQ.get(id);
+      window.ParkPlanner.remind("das-return",at,`${a.name}: DAS return time`,`Your return time is now. Head to the Lightning Lane entrance${a.m?` (#${a.m} on the map)`:""}.`);
+      try{ localStorage.setItem(DASREM_KEY,JSON.stringify({id,min,day:DAY})); }catch(e){} }
+    if(k==="off") dasRemClear();
+    s.hidden=true; renderDay(); renderMap(); };
+}
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-dasrem]"); if(b) dasRemSheet(+b.dataset.dasrem,+b.dataset.est||nowET().min+30); });
 const openDet=new Set();
 document.addEventListener("toggle",e=>{const d=e.target; if(d.dataset&&d.dataset.det){d.open?openDet.add(d.dataset.det):openDet.delete(d.dataset.det)}},true);
 function rideLI(id,extra){
