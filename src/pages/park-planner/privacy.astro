@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.json';
+---
+<Base title="Park Planner privacy policy" description="What the Park Planner iPhone app collects, where it goes, and how to delete it.">
+  <section class="section" style="padding-top: calc(var(--header-h) + 2rem)">
+    <div class="wrap">
+      <h1>Park Planner privacy policy</h1>
+      <p>Effective October 17, 2026. Park Planner is an iPhone app made by {site.legalName}. This page says what the app collects, where it goes, and how to delete it.</p>
+
+      <h2>The short version</h2>
+      <ul>
+        <li>No accounts, no names, no email addresses, no ads, and no tracking.</li>
+        <li>Your location stays on your phone.</li>
+        <li>The only things that leave your phone are your trip's settings, your ride picks, and your checkmarks, so the people you share a trip with see the same plan.</li>
+      </ul>
+
+      <h2>Location</h2>
+      <p>If you allow it, the app uses your location to show where you are on the park map and to plan the path from where you stand. Your location is used on the phone and never sent to us or anyone else. You can turn it off in Settings › Park Planner › Location.</p>
+
+      <h2>Shared trips</h2>
+      <p>Each trip has a trip code. To keep everyone's phones in step, the app stores these on our server (a Cloudflare Worker at sync.embry.dev):</p>
+      <ul>
+        <li>The trip's settings: park date, gate time, leave time, closing time, and fireworks time.</li>
+        <li>For each ride or meal: how you plan to ride it, whether it is done, and when each was last changed.</li>
+      </ul>
+      <p>None of this names you. Anyone who has the trip code or trip link can see and change that trip, so share the link only with your group.</p>
+
+      <h2>Reminders and the lock screen</h2>
+      <p>DAS return reminders and the next-stop card on your lock screen are made on your phone. We do not receive them.</p>
+
+      <h2>Park data</h2>
+      <p>To show posted waits, park hours, fireworks times, and weather, the app asks these services for them: our relay at waits.embry.dev (wait times from Queue-Times.com), ThemeParks.wiki, and the National Weather Service. The requests carry nothing about you. Like any internet request, each one shows the service your phone's IP address.</p>
+
+      <h2>How long we keep it, and how to delete it</h2>
+      <p>Trip data stays on the server so that past trips and their recaps keep working. To delete a trip, email <a href={`mailto:${site.email}?subject=${encodeURIComponent('Delete a Park Planner trip')}`}>{site.email}</a> with its trip code. We delete it within 30 days. Deleting the app removes everything stored on your phone.</p>
+
+      <h2>Children</h2>
+      <p>The app is not directed at children under 13 and collects nothing that identifies anyone.</p>
+
+      <h2>Changes</h2>
+      <p>If this policy changes, this page will show the new version and its date.</p>
+
+      <h2>Contact</h2>
+      <p>{site.legalName}, {site.location}. Email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+      <p><small>Park Planner is an unofficial planner. It is not affiliated with or endorsed by The Walt Disney Company.</small></p>
+    </div>
+  </section>
+</Base>
