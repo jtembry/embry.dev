@@ -191,6 +191,12 @@ button:focus-visible{outline:3px solid var(--mid);outline-offset:2px}
 .fin-banner .fin-new{display:block;width:100%;margin-top:10px;min-height:44px;background:#fff;border-color:#fff;color:#16897a;font-weight:800;font-size:15px}
 .trip-done #day .ridechk select,.trip-done #day .ridechk input,.trip-done #day .fsel,.trip-done #day .fchk,.trip-done .pm-card select,.trip-done .fd-add{pointer-events:none;opacity:.55}
 .past{display:grid;gap:6px}
+.join{display:grid;gap:8px;margin-top:16px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);font-size:14px}
+.join label{display:grid;gap:2px}
+.join-row{display:flex;gap:8px}
+.join-row input{flex:1;min-width:0;min-height:44px;padding:0 10px;font:inherit;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.join-row button{min-height:44px;padding:0 16px;border-radius:999px;border:0;background:var(--mid);color:#fff;font:inherit;font-weight:700}
+.join-err{margin:0;color:#c0392b}
 .past h3{margin:6px 0 0;font-size:14px}
 .past a{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none;font-size:14px}
 .past a small{color:var(--muted)}
@@ -600,6 +606,9 @@ button{min-height:44px}
     <h2 id="past-h">Past Trips</h2>
     <div class="past" id="past-list"><p>Loading…</p></div>
     <small class="wx-src">Trips this phone has been on, and the trips each new trip came from. Tap one for its recap.</small>
+    <form class="join" id="join" hidden><label for="join-in"><b>Join a trip</b> Paste the trip link or code someone sent you.</label>
+      <div class="join-row"><input id="join-in" type="text" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="embry.dev/disney/?trip=…"><button type="submit">Open</button></div>
+      <p class="join-err" id="join-err" hidden>That isn't a trip link or code.</p></form>
   </section>
 
 </div>
@@ -645,6 +654,11 @@ const NOTES={13763:"Walk through the castle and take photos in front of it",138:
 const DEFAULT_PLAN=[138,1190,131,143,11527,126,129,130,13630,134,334,137,140,136,127,135,13763];
 // ---------- trip: which group trip this phone is on, and its settings (date, gate, leave, fireworks); closing time comes from Disney ----------
 const GROUP_TRIP="mk-mqoj1lu";
+// iPhone app on a phone that has never been on a trip: start a private one (random code, Trip settings open)
+// instead of falling back to the group trip. A phone already on a trip keeps it.
+(()=>{ try{ if(!(window.ParkPlanner&&window.ParkPlanner.app)||new URLSearchParams(location.search).get("trip")||localStorage.getItem("mk-trip")) return;
+  const r=crypto.getRandomValues(new Uint8Array(10)), code="mk-"+[...r].map(b=>"abcdefghijklmnopqrstuvwxyz0123456789"[b%36]).join("");
+  history.replaceState(null,"",`${location.pathname}?trip=${code}&new=1&setup=1${location.hash}`); }catch(e){} })();
 const TRIP_CODE=(()=>{ let t=new URLSearchParams(location.search).get("trip"); try{ if(t) localStorage.setItem("mk-trip",t); else t=localStorage.getItem("mk-trip"); }catch(e){} if(!t) t=GROUP_TRIP; return /^[a-z0-9-]{6,40}$/.test(t)?t:null; })();
 const TK=!TRIP_CODE||TRIP_CODE===GROUP_TRIP?"":"@"+TRIP_CODE;   // picks, checkmarks and hidden cards are kept per trip; the first group trip keeps its original keys
 const TRIP_DEFAULT={date:"2026-10-10",gate:"07:50",leave:"",fireworks:"21:00"}, META_KEY="mk-meta"+TK;
@@ -1019,6 +1033,15 @@ function appMeals(){
   l.hidden=false; c.checked=mealRemOn();
   c.addEventListener("change",()=>{ try{ localStorage.setItem(MEALREM_KEY,c.checked?"1":"0"); }catch(e){} appMeals(); }); })();
 setInterval(appMeals,60000);
+// the iPhone app is "Park Planner": no Disney name or castle in its title (App Store rules on others' trademarks)
+(()=>{ if(!inApp()) return; const a=document.querySelector(".bar-home"); a.setAttribute("aria-label","Park Planner");
+  a.querySelector(".ttl").textContent="Park Planner"; a.querySelector(".castle").textContent="📍"; document.title="Park Planner"; })();
+// Join a trip (iPhone app only): the app has no address bar, and trip links open in Safari, so paste the link or code here
+(()=>{ const f=document.getElementById("join"); if(!inApp()) return; f.hidden=false;
+  f.addEventListener("submit",e=>{ e.preventDefault(); const v=document.getElementById("join-in").value.trim();
+    let code=(v.match(/[?&]trip=([a-z0-9-]{6,40})/i)||[])[1]||(/^[a-z0-9-]{6,40}$/i.test(v)?v:null);
+    if(!code){ document.getElementById("join-err").hidden=false; return; }
+    location.href=`${location.pathname}?trip=${code.toLowerCase()}#day`; }); })();
 const openDet=new Set();
 document.addEventListener("toggle",e=>{const d=e.target; if(d.dataset&&d.dataset.det){d.open?openDet.add(d.dataset.det):openDet.delete(d.dataset.det)}},true);
 function rideLI(id,extra){
