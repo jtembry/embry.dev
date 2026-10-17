@@ -967,13 +967,33 @@ function dasRemSheet(id,est){
   s.onclick=e=>{ const k=e.target.closest("[data-dr]")?.dataset.dr; if(!k&&e.target!==s) return;
     if(k==="set"){ const [h,mm]=document.getElementById("dasrem-t").value.split(":").map(Number), min=h*60+mm, n=nowET();
       if(!(min>n.min)){ document.getElementById("dasrem-err").hidden=false; return; }
-      const at=Date.now()+(min-n.min)*60000-new Date().getSeconds()*1000, a=byQ.get(id);
+      const at=etMs(min), a=byQ.get(id);
       window.ParkPlanner.remind("das-return",at,`${a.name}: DAS return time`,`Your return time is now. Head to the Lightning Lane entrance${a.m?` (#${a.m} on the map)`:""}.`);
       try{ localStorage.setItem(DASREM_KEY,JSON.stringify({id,min,day:DAY})); }catch(e){} }
     if(k==="off") dasRemClear();
     s.hidden=true; renderDay(); renderMap(); };
 }
 document.addEventListener("click",e=>{ const b=e.target.closest("[data-dasrem]"); if(b) dasRemSheet(+b.dataset.dasrem,+b.dataset.est||nowET().min+30); });
+// lock screen (iPhone app only): the next stop, when we get there, and the DAS return we hold. Sent once a minute on the trip day.
+const etMs=min=>{ const n=nowET(); return Date.now()+(min-n.min)*60000-new Date().getSeconds()*1000; };
+let appActLast="";
+function appActivity(){
+  if(!inApp()||!window.ParkPlanner.activity) return;
+  const n=nowET(), path=fullPath(), next=n.day===DAY&&!TRIP.finished?path.find(id=>!done.has(id)):null;
+  let s=null;
+  if(next!=null){
+    const a=byQ.get(next), it=SCHED&&SCHED.items.find(x=>x.id===next), r=dasRem(), lw=lastById&&lastById.get(next), l=landOf(next);
+    s={trip:TRIP_CODE||"", name:isFood(next)?`${a.meal}: ${a.name}`:a.name, land:LAND_NAME[l],
+       color:getComputedStyle(document.documentElement).getPropertyValue(`--l${l}`).trim(),
+       at:it?etMs(Math.max(it.arrive,n.min)):null, wait:lw&&lw.open?lw.wait:null, left:path.filter(id=>!done.has(id)).length,
+       ends:SCHED&&SCHED.end?etMs(SCHED.end):null, das:r&&!done.has(r.id)?byQ.get(r.id).name:null, dasAt:r&&!done.has(r.id)?etMs(r.min):null};
+  }
+  // only the minute-level facts decide whether to update, so the lock screen isn't redrawn every tick
+  const key=JSON.stringify(s&&{...s,at:s.at&&Math.round(s.at/60000),ends:s.ends&&Math.round(s.ends/60000),dasAt:s.dasAt&&Math.round(s.dasAt/60000)});
+  if(key===appActLast) return; appActLast=key;
+  window.ParkPlanner.activity(s);
+}
+setInterval(appActivity,60000);
 const openDet=new Set();
 document.addEventListener("toggle",e=>{const d=e.target; if(d.dataset&&d.dataset.det){d.open?openDet.add(d.dataset.det):openDet.delete(d.dataset.det)}},true);
 function rideLI(id,extra){
@@ -1751,6 +1771,7 @@ function renderMap(){
   document.getElementById("map-sum").innerHTML=next?`<span><b>Next:</b> ${byQ.get(next).name}${wait(next)!=null?` · ${wait(next)} min`:""}${isFood(next)?` · ${byQ.get(next).meal}`:""} <span class="ms-sub">· ${left.length} stops · ~${walkMinPx(px)} min walk</span></span>${dasHTML()}`:"<span><b>Every ride on the path is done.</b> Re-ride favorites or head home.</span>";
   document.getElementById("map-warn").innerHTML=warnHTML();
   if(pmSel) pmCard(pmSel);
+  appActivity();
   if(!pmCentered&&document.getElementById("map").classList.contains("on")&&(pmFocus||next)){ pmCentered=true; pmCenter(PT(pmFocus||next)); pmFocus=null; }
 }
 function pmCenter([x,y]){ pmScroll.scrollTo({left:x/2060*pmInner.offsetWidth-pmScroll.clientWidth/2,top:y/2124*pmInner.offsetHeight-pmScroll.clientHeight/2}); }
