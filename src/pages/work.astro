@@ -15,7 +15,7 @@ const tag = {
   printing: ['/printing', '3D printing'],
 };
 ---
-<Base title="Work" description="Things I have built or led: an iPhone app for AI assistants, a second brain run by agents, a live printer camera, a Disney trip planner, a small-business site, and platform work in finance and healthcare.">
+<Base title="Work" description="Things I have built or led: an iPhone app for AI assistants, a second brain run by agents, a live printer camera, a theme park day planner, a small-business site, and platform work in finance and healthcare.">
   <Hero variant="graph" seed={5} eyebrow="Work" title="Proof, not promises.">
     <p class="lede">Here are things I have built or led. Most cross more than one service, so each one is tagged with every service it shows. LinkedIn names the employers and clients; this page names only the work and the result.</p>
   </Hero>
@@ -34,10 +34,10 @@ const tag = {
           <p>An iPhone app that reaches the AI assistants on my Mac from anywhere, over a private network. A chat app on your phone starts every answer from zero. These assistants run where my records live, next to my files, email, notes, and the vault that holds what I know about each job, and a knowledge assistant keeps all of it indexed. So from the truck I can ask what we quoted a customer last spring and get the quote, or ask for the follow-up and get it drafted from that thread. The records stay on the Mac; the phone only reaches them. Each chat runs in a folder, replies appear as they are written, and photos go along with a message. Before an assistant edits a file or runs a command, the phone buzzes and asks me to allow or deny it. I can change the app from the app: an assistant edits the code, checks it, and installs the new version on the phone. <a href={systemsHref('fieldAgentView')}>See how it connects</a></p>
           <p class="tags">{[tag.phone, tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
-        <div class="card work-card" id="mk-planner">
+        <div class="card work-card" id="kingdom-guide">
           <p class="eyebrow">Phone app</p>
-          <h3><a href="/disney/">Magic Kingdom Planner</a></h3>
-          <p>A day plan for our family's Disney trip that lives on everyone's phone. It draws our route on the park map and lists the rides and meals in order, colored by time of day. When one of us checks off a ride or moves a meal, the others see it. It pulls the park's hours and weather alerts, uses GPS to know when we are inside, and keeps working with no signal. <a href="/disney/">Open the planner</a></p>
+          <h3><a href="/kingdom-guide/support">Kingdom Guide</a></h3>
+          <p>An iPhone app that plans a day at Magic Kingdom. It puts the rides a family picks in walking order, estimates when they will reach each one, and shows the posted waits. For families who use the Disability Access Service, it says which ride to book next and reminds them when the return time comes up. The next stop sits on the lock screen, the map is drawn from open map data, and everyone on the trip sees the same plan. It began as a web page for our own trip and is headed for the App Store. <a href="/kingdom-guide/support">About the app</a></p>
           <p class="tags">{[tag.phone, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="second-brain">
