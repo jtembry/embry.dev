@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.json';
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Kingdom Guide')}`;
+---
+<Base title="Kingdom Guide support" description="Help for the Kingdom Guide iPhone app: DAS reminders, the lock-screen card, and location.">
+  <section class="section" style="padding-top: calc(var(--header-h) + 2rem)">
+    <div class="wrap">
+      <h1>Kingdom Guide support</h1>
+      <p>Kingdom Guide plans a Magic Kingdom day on your phone: the rides you want, in walking order, with estimated times, live posted waits, and DAS return times.</p>
+      <p>Questions or problems: email <a href={mailto}>{site.email}</a>. I read everything and reply within two business days.</p>
+
+      <h2>Common questions</h2>
+
+      <h3>How do DAS reminders work?</h3>
+      <p>On the trip day, under <strong>Book next on DAS</strong>, tap <strong>Remind me at the return time</strong> and enter the return time from the Disney app. Your phone notifies you when it comes up. Ticking the ride clears the reminder.</p>
+
+      <h3>Can it remind me about meals?</h3>
+      <p>Yes. In <strong>Trip settings</strong>, turn on <strong>Remind me before meals</strong>. For quick-service lunch and dinner, the phone reminds you 45 minutes ahead to mobile order in the Disney app. For snacks and table service, it reminds you 15 minutes ahead. The setting is for your phone only.</p>
+
+      <h3>What is the card on my lock screen?</h3>
+      <p>On the trip day the app shows the next stop on your lock screen: when the path gets there, the posted wait, and the DAS return you hold. It updates while the app is open and ends when the day is done. To turn it off, go to Settings › Kingdom Guide › Live Activities.</p>
+
+      <h3>The blue dot is missing on the map.</h3>
+      <p>Allow location in Settings › Kingdom Guide › Location, then tap ◎ on the Map tab.</p>
+
+      <h3>Does it work without signal?</h3>
+      <p>Yes. The planner is built into the app, and it keeps the last waits, hours, and trip changes it fetched. Changes you make offline go out when the signal returns.</p>
+
+      <h2>Privacy</h2>
+      <p>No accounts and no tracking, and your location stays on your phone. The full <a href="/kingdom-guide/privacy">privacy policy</a> says exactly what leaves it.</p>
+
+      <p><small>Kingdom Guide is an unofficial planner. It is not affiliated with or endorsed by The Walt Disney Company.</small></p>
+    </div>
+  </section>
+</Base>

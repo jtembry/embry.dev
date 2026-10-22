@@ -1040,9 +1040,9 @@ function appMeals(){
   l.hidden=false; c.checked=mealRemOn();
   c.addEventListener("change",()=>{ try{ localStorage.setItem(MEALREM_KEY,c.checked?"1":"0"); }catch(e){} appMeals(); }); })();
 setInterval(appMeals,60000);
-// the iPhone app is "Park Planner": no Disney name or castle in its title (App Store rules on others' trademarks)
-(()=>{ if(!inApp()) return; const a=document.querySelector(".bar-home"); a.setAttribute("aria-label","Park Planner");
-  a.querySelector(".ttl").textContent="Park Planner"; a.querySelector(".castle").textContent="📍"; document.title="Park Planner"; })();
+// the iPhone app is "Kingdom Guide": no Disney name or castle in its title (App Store rules on others' trademarks)
+(()=>{ if(!inApp()) return; const a=document.querySelector(".bar-home"); a.setAttribute("aria-label","Kingdom Guide");
+  a.querySelector(".ttl").textContent="Kingdom Guide"; a.querySelector(".castle").textContent="🧭"; document.title="Kingdom Guide"; })();
 (()=>{ if(inApp()) document.getElementById("osm-credit").hidden=false; })();   // the app's map is drawn from OpenStreetMap
 // drive time lookup (iPhone app only): Apple Maps, from the place typed in Starting from, or from where the phone is
 (()=>{ const b=document.getElementById("drive-look"), f=document.getElementById("trip-form"), note=document.getElementById("drive-note");
