@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["8KVH2G7JBG.dev.embry.kingdomguide"],
+        "components": [
+          { "/": "/disney", "?": { "trip": "?*" }, "comment": "a shared trip link opens in Kingdom Guide" },
+          { "/": "/disney/", "?": { "trip": "?*" } },
+          { "/": "/disney/index.html", "?": { "trip": "?*" } }
+        ]
+      }
+    ]
+  }
+}
