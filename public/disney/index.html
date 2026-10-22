@@ -487,6 +487,50 @@ button{min-height:44px}
 .plan .links a:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .closed{background:var(--paper);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:14px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ---------- polish (2026-10-22): one header, one button system, calmer cards. Overrides the rules above. ---------- */
+.bar{padding:max(10px,env(safe-area-inset-top,0px)) 16px 10px;margin:-20px -16px 0;gap:10px;
+  background:color-mix(in srgb,var(--bg) 84%,transparent);-webkit-backdrop-filter:saturate(1.5) blur(14px);backdrop-filter:saturate(1.5) blur(14px)}
+.bar-home{gap:10px;font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--ink)}
+.bar-home .ttl{background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--ink)}
+:root[data-theme="light"] .bar-home .ttl{background-image:none}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .bar-home .ttl{background-image:none}}
+.bar-home .logo{width:32px;height:32px;flex:none;border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.18)}
+.tabs{gap:2px;padding:3px;border:0;border-radius:11px;background:color-mix(in srgb,var(--ink) 9%,transparent)}
+.tabs a{min-height:34px;padding:0 14px;border-radius:8px;font-size:14px;font-weight:700;color:var(--muted)}
+.tabs a[aria-current]{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.14),0 0 0 .5px rgba(0,0,0,.06)}
+@media (max-width:420px){.bar-home{font-size:19px}}
+/* the trip: one card, date first, actions on the right */
+.tripbar{padding:12px 14px;border-radius:16px;background:var(--paper);border:1px solid var(--line);font-size:14px;line-height:1.4;gap:10px 12px;margin:0}
+.tripbar #trip-sum{flex:1 1 220px}
+.tripbar #trip-sum b{font-family:var(--display);font-size:18px;font-weight:800}
+.tripbtns{gap:6px}
+.tripbar .tripbtns button{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:999px;border:0;font-size:14px;font-weight:700;
+  background:color-mix(in srgb,var(--mid) 14%,transparent);color:var(--ink)}
+.tripbar .tripbtns button svg{width:17px;height:17px;flex:none}
+.tripbar .tripbtns button[aria-expanded="true"]{background:var(--mid);color:#fff}
+.day-sum{border-radius:14px;padding:10px 14px;background:color-mix(in srgb,var(--mid) 8%,var(--paper));border-color:color-mix(in srgb,var(--mid) 25%,var(--line))}
+/* right now: DAS and nudges as tinted callouts, the reminder as a real button */
+.day-now{display:grid;gap:8px}
+.day-now .daspick{margin:0;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--das) 13%,var(--paper));border:1px solid color-mix(in srgb,var(--das) 30%,var(--line))}
+.day-now .znudge{border-radius:14px;padding:10px 14px}
+.dasrem{margin:0}
+.dasrem-btn{min-height:40px;padding:0 16px;border:0;background:var(--mid);color:#fff;font-size:14px}
+/* toolbar over the timeline: Expand all as a quiet text button */
+.tl-hidbar{align-items:center}
+#tl-all{min-height:32px;padding:0 4px;border:0;background:none;color:var(--mid);font-size:14px;font-weight:700}
+.legend{padding:2px 2px 0;font-size:12.5px;gap:6px 12px}
+/* ride cards: the remove button recedes, the checkbox reads as a check circle */
+.tl-rm{color:color-mix(in srgb,var(--muted) 70%,transparent)}
+.tl-rm svg{width:15px;height:15px}
+.tl-chk input,.ridechk input{appearance:none;-webkit-appearance:none;width:24px;height:24px;border-radius:50%;border:2px solid color-mix(in srgb,var(--muted) 60%,transparent);background:var(--paper);display:grid;place-items:center;cursor:pointer}
+.tl-chk input:checked,.ridechk input:checked{background:var(--mid);border-color:var(--mid)}
+.tl-chk input:checked::after,.ridechk input:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:translateY(-1px) rotate(45deg)}
+/* the + button: solid, on brand */
+.fab-toggle{background:var(--mid);border:0;box-shadow:0 6px 18px rgba(0,0,0,.28),0 1px 3px rgba(0,0,0,.2)}
+.fab-toggle[aria-expanded="true"]{background:color-mix(in srgb,var(--mid) 80%,#000)}
+/* forms and other buttons share the same shape */
+.join-row button,.tf-save{border-radius:999px}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -495,7 +539,7 @@ button{min-height:44px}
 
 <div class="wrap">
   <header class="bar">
-    <a class="bar-home" href="#day" aria-label="Magic Kingdom Planner"><span class="castle" aria-hidden="true">🏰</span><span class="ttl">Magic Kingdom Planner</span><span class="spark" aria-hidden="true">✨</span></a>
+    <a class="bar-home" href="#day" aria-label="Magic Kingdom Planner"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#147a6c"/><path d="M12 50c10 2 22-1 18-10s14-11 22-12" fill="none" stroke="#fbf8f0" stroke-width="5" stroke-linecap="round" stroke-dasharray="7 6"/><circle cx="13" cy="50" r="4.5" fill="#e6c04e"/><circle cx="30" cy="40" r="4.5" fill="#6ea4ec"/><path d="M47 9a9 9 0 0 0-9 9c0 7 9 15 9 15s9-8 9-15a9 9 0 0 0-9-9z" fill="#ec7a62"/><circle cx="47" cy="18" r="3.4" fill="#fbf8f0"/></svg><span class="ttl">Magic Kingdom Planner</span></a>
     <nav class="tabs" aria-label="Sections"><a href="#day">The day</a><a href="#map">Map</a><a href="#past">Past Trips</a></nav>
   </header>
 
@@ -505,7 +549,7 @@ button{min-height:44px}
   <section class="part view" id="day" aria-labelledby="day-h">
     <div class="offline" id="offline" hidden>No signal. Showing the plan, waits and forecast saved on this phone.</div>
     <h2 id="day-h" class="sr">The day</h2>
-    <div class="tripbar"><span id="trip-sum"></span><span class="tripbtns"><button type="button" id="trip-share">Share trip</button><button type="button" id="trip-edit" aria-expanded="false" aria-controls="trip-form">Trip settings</button></span></div>
+    <div class="tripbar"><span id="trip-sum"></span><span class="tripbtns"><button type="button" id="trip-share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M6 11H5v9h14v-9h-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Share</span></button><button type="button" id="trip-edit" aria-expanded="false" aria-controls="trip-form"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="17" r="2.2" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Trip settings</span></button></span></div>
     <form class="tripform" id="trip-form" hidden>
       <label>Date <input type="date" name="date" required></label>
       <label>At the gate <input type="time" name="gate" required></label>
@@ -1042,7 +1086,7 @@ function appMeals(){
 setInterval(appMeals,60000);
 // the iPhone app is "Kingdom Guide": no Disney name or castle in its title (App Store rules on others' trademarks)
 (()=>{ if(!inApp()) return; const a=document.querySelector(".bar-home"); a.setAttribute("aria-label","Kingdom Guide");
-  a.querySelector(".ttl").textContent="Kingdom Guide"; a.querySelector(".castle").textContent="🧭"; document.title="Kingdom Guide"; })();
+  a.querySelector(".ttl").textContent="Kingdom Guide"; document.title="Kingdom Guide"; })();
 (()=>{ if(inApp()) document.getElementById("osm-credit").hidden=false; })();   // the app's map is drawn from OpenStreetMap
 // drive time lookup (iPhone app only): Apple Maps, from the place typed in Starting from, or from where the phone is
 (()=>{ const b=document.getElementById("drive-look"), f=document.getElementById("trip-form"), note=document.getElementById("drive-note");
@@ -1281,7 +1325,7 @@ function applyTrip(render){ paintFinished(); rememberTrip(); if(document.getElem
     const url=`https://embry.dev/disney/?trip=${TRIP_CODE}`, text="Our Magic Kingdom plan. Open it to see the picks and check off rides together.";
     if(inApp()&&window.ParkPlanner.share) return window.ParkPlanner.share(url,text);
     if(navigator.share){ try{ await navigator.share({title:"Our park day",text,url}); }catch(e){} return; }
-    try{ await navigator.clipboard.writeText(url); b.textContent="Link copied"; setTimeout(()=>{ b.textContent="Share trip"; },2000); }
+    try{ await navigator.clipboard.writeText(url); b.querySelector("span").textContent="Link copied"; setTimeout(()=>{ b.querySelector("span").textContent="Share"; },2000); }
     catch(e){ window.prompt("Copy this link and send it to the group",url); }
   }); })();
 (()=>{
