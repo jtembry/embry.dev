@@ -19,6 +19,18 @@ function byPosition(a, b) {
   return a.y - b.y || a.x - b.x;
 }
 
+// A title that starts with "1 ·" is a step in the story. Steps come first, in order;
+// everything else follows in canvas order. (The master map numbers its four engines.)
+function stepOf(block) {
+  const title = block.kind === 'group' ? block.title : block.card.title;
+  const m = /^(\d+)\s*[·.:]/.exec(title || '');
+  return m ? Number(m[1]) : Infinity;
+}
+
+function byStory(a, b) {
+  return stepOf(a) - stepOf(b) || byPosition(a, b);
+}
+
 export function mobileBlocks(view, views) {
   const compounds = view.nodes.filter((n) => n.group);
   const containers = compounds.filter((g) => view.nodes.some((n) => contains(n, g)));
@@ -94,6 +106,6 @@ export function mobileBlocks(view, views) {
     })),
     ...loose.map((node) => ({ kind: 'card', y: node.y, x: node.x, card: cardFor(node) })),
   ];
-  blocks.sort(byPosition);
+  blocks.sort(byStory);
   return blocks.filter((block) => block.kind === 'card' || block.cards.length > 0);
 }
