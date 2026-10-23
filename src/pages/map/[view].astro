@@ -11,7 +11,8 @@ import { systemsHref } from '../../lib/systems.js';
 import { mobileBlocks } from '../../lib/map-layout.js';
 
 export function getStaticPaths() {
-  return Object.keys(map).map((view) => ({ params: { view } }));
+  // The overview is src/pages/map/index.astro (the flow page); this file draws the detail views.
+  return Object.keys(map).filter((view) => view !== 'index').map((view) => ({ params: { view } }));
 }
 
 const v = map[Astro.params.view];
@@ -36,7 +37,7 @@ const path = (pts) => {
 const groups = v.nodes.filter((n) => n.group);
 const boxes = v.nodes.filter((n) => !n.group);
 const box = (n) => `left:${px(n.x, bx)}px;top:${px(n.y, by)}px;width:${Math.round(n.width * S)}px;height:${Math.round(n.height * S)}px`;
-const others = Object.values(map).filter((o) => o.id !== v.id);
+const others = Object.values(map).filter((o) => o.id !== v.id && o.id !== 'index');
 ---
 <Base title={`${v.title} · System map`} description={v.description || 'How the systems behind Embry Development connect.'}>
   <section class="section map-page">
