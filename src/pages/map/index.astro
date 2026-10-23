@@ -18,6 +18,68 @@ const shelves = [
   { title: 'Documents', note: 'every PDF, searchable' },
   { title: 'Memory', note: 'what the assistant keeps' },
 ];
+// What runs inside each step, as short chains. Folded under "Inside this step" so the four-step
+// story stays clean; the chains are the public cut of the private charts.
+const inside = {
+  in: [
+    { name: 'Email & texts', chain: [
+      ['Pull', 'New mail is pulled from both inboxes every five minutes.'],
+      ['Copy', 'New texts are copied. Login codes are skipped.'],
+      ['Sort', 'A few times a day the assistant archives the noise and lists the rest under Needs action.'],
+      ['Keep', 'Threads I keep are saved as plain files, outside any mailbox.'],
+    ] },
+    { name: 'Paper', chain: [
+      ['Scan', 'I press Scan. The pages go straight to the Mac.'],
+      ['Read', 'The text is read, so the PDF can be searched.'],
+      ['Name', 'A file name and a folder are proposed from what the page says.'],
+      ['Approve', 'One dialog on the phone. The note is filed.'],
+    ] },
+    { name: 'Notes & to-dos', chain: [
+      ['Note', 'A quick note lands in the in-tray.'],
+      ['Sweep', 'To-dos in the day’s journal are swept to the right project.'],
+      ['Sync', 'Phone reminders sync both ways.'],
+      ['Distill', 'A finished AI chat is boiled down to a few lasting notes.'],
+    ] },
+    { name: 'Finished prints', chain: [
+      ['Watch', 'The printer reports over the home network.'],
+      ['Log', 'Every start and finish is written in the model’s folder.'],
+      ['Photo', 'A finished print gets a bed photo and a drafted gallery card.'],
+      ['Publish', 'The card is pushed to this site.'],
+    ] },
+  ],
+  tray: [
+    { name: 'What the vault holds', chain: [
+      ['In-tray', 'Every capture lands here first.'],
+      ['Projects & Areas', 'Things with a finish line, and ongoing duties.'],
+      ['Ideas', 'One per note, linked to each other.'],
+      ['Documents', 'The text of every file, so one search finds it.'],
+      ['Memory', 'What the assistant keeps between sessions.'],
+    ] },
+  ],
+  sort: [
+    { name: 'How the sorting runs', chain: [
+      ['Two assistants', 'Claude Code and Grok, each in a terminal inside the vault.'],
+      ['One rulebook', 'Both follow the same written procedures: file notes, distill a chat, check the vault, plain style.'],
+      ['Filing', 'Reads the in-tray, names each item, picks the shelf, drafts replies.'],
+      ['Upkeep', 'A daily check looks for broken links, stale projects, and quiet machines.'],
+    ] },
+  ],
+  phone: [
+    { name: 'What is on the phone', chain: [
+      ['Mission Control', 'Today’s calendar, mail and texts that need action, the next step on each project.'],
+      ['Chat', 'Ask the assistant anything. The reply fills in as it is written.'],
+      ['Allow / Deny', 'The phone buzzes before a file is edited or a command runs.'],
+      ['Home base', 'A small service on the Mac relays each message. The records never leave the Mac.'],
+    ] },
+  ],
+  keep: [
+    { name: 'Where the copies go', chain: [
+      ['Hourly', 'The vault, plus a snapshot of the Mac’s setup, goes to a private GitHub repo.'],
+      ['Nightly', 'The whole Mac goes to Time Machine on a disk at home, mirrored to a second disk.'],
+      ['Off-site', 'A USB copy can leave the house.'],
+    ] },
+  ],
+};
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="How my own system works" description="Things come in, land in one in-tray, get sorted by an assistant, and show up on the phone as what needs doing.">
@@ -55,6 +117,17 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
           <path d="M350,0 C350,50 200,30 200,80" />
         </svg>
       </div>
+      <details class="wrap inside">
+        <summary>Inside this step</summary>
+        {inside.in.map((g) => (
+          <div class="inside-group">
+            {inside.in.length > 1 && <h3>{g.name}</h3>}
+            <ol class="chain">
+              {g.chain.map(([k, t]) => <li><b>{k}</b><span>{t}</span></li>)}
+            </ol>
+          </div>
+        ))}
+      </details>
     </section>
 
     <section class="flow-stage" id="tray">
@@ -69,6 +142,17 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
           <span>a mail thread · a scan · a note · a print log</span>
         </div>
       </div>
+      <details class="wrap inside">
+        <summary>Inside this step</summary>
+        {inside.tray.map((g) => (
+          <div class="inside-group">
+            {inside.tray.length > 1 && <h3>{g.name}</h3>}
+            <ol class="chain">
+              {g.chain.map(([k, t]) => <li><b>{k}</b><span>{t}</span></li>)}
+            </ol>
+          </div>
+        ))}
+      </details>
     </section>
 
     <section class="flow-stage" id="sort">
@@ -100,6 +184,17 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
           <path d="M350,0 C350,40 200,20 200,60" />
         </svg>
       </div>
+      <details class="wrap inside">
+        <summary>Inside this step</summary>
+        {inside.sort.map((g) => (
+          <div class="inside-group">
+            {inside.sort.length > 1 && <h3>{g.name}</h3>}
+            <ol class="chain">
+              {g.chain.map(([k, t]) => <li><b>{k}</b><span>{t}</span></li>)}
+            </ol>
+          </div>
+        ))}
+      </details>
     </section>
 
     <section class="flow-stage" id="phone">
@@ -120,6 +215,17 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
           <p class="phone-ask"><span>Assistant wants to edit a file</span><b>Allow</b><b>Deny</b></p>
         </div>
       </div>
+      <details class="wrap inside">
+        <summary>Inside this step</summary>
+        {inside.phone.map((g) => (
+          <div class="inside-group">
+            {inside.phone.length > 1 && <h3>{g.name}</h3>}
+            <ol class="chain">
+              {g.chain.map(([k, t]) => <li><b>{k}</b><span>{t}</span></li>)}
+            </ol>
+          </div>
+        ))}
+      </details>
     </section>
 
     <section class="flow-stage flow-stage-end" id="keep">
@@ -128,6 +234,17 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <h2>And it is backed up</h2>
         <p>The vault goes to a private GitHub repo every hour. The whole Mac goes to Time Machine, with a second copy that can leave the house. Nothing depends on one disk.</p>
       </div>
+      <details class="wrap inside">
+        <summary>Inside this step</summary>
+        {inside.keep.map((g) => (
+          <div class="inside-group">
+            {inside.keep.length > 1 && <h3>{g.name}</h3>}
+            <ol class="chain">
+              {g.chain.map(([k, t]) => <li><b>{k}</b><span>{t}</span></li>)}
+            </ol>
+          </div>
+        ))}
+      </details>
     </section>
   </div>
 
@@ -218,6 +335,21 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   .phone-ask b + b { background: transparent; border: 1.5px solid var(--ink-2); }
 
   .flow-stage-end { padding-bottom: clamp(3rem, 8vw, 5rem); }
+
+  /* Inside this step: folded chains under each figure. */
+  .inside { position: relative; margin-top: 1.5rem; }
+  .inside summary { width: fit-content; margin-inline: auto; padding: .4rem .9rem; border: 1.5px solid var(--accent-bright); border-radius: 999px; background: var(--bg); color: var(--accent); font-family: var(--mono); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; cursor: pointer; list-style: none; box-shadow: 0 0 0 .5rem var(--bg); }
+  .inside summary::-webkit-details-marker { display: none; }
+  .inside summary::after { content: ' ▾'; }
+  .inside[open] summary::after { content: ' ▴'; }
+  .inside summary:hover { background: var(--accent-tint); }
+  .inside-group { margin-top: 1.1rem; padding: 1rem 1.1rem 1.1rem; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); }
+  .inside-group h3 { margin: 0 0 .7rem; font-size: 1rem; color: var(--accent); }
+  .chain { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: .6rem 1.6rem; counter-reset: step; }
+  .chain li { position: relative; display: flex; flex-direction: column; gap: .15rem; padding: .6rem .75rem; background: var(--bg); border-radius: 8px; font-size: .9rem; color: var(--ink-2); }
+  .chain li b { color: var(--ink); font-size: .92rem; }
+  .chain li + li::before { content: '→'; position: absolute; left: -1.35rem; top: .55rem; color: var(--accent-bright); font-weight: 600; }
+
   .flow-after h2 { margin-top: 0; }
 
   /* Reveal as each step scrolls in. */
@@ -227,6 +359,8 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
 
   @media (max-width: 48rem) {
     .doors, .shelves { grid-template-columns: 1fr 1fr; }
+    .chain { grid-template-columns: 1fr; gap: 1.3rem; }
+    .chain li + li::before { content: '↓'; left: .75rem; top: -1.25rem; }
     .merge, .fan { height: 48px; }
     .flow-fig { margin-top: 1.25rem; }
     .flow-head p { font-size: 1rem; }
