@@ -200,11 +200,11 @@ footer.site .social a:hover, footer.site .social a:focus-visible { color: #ffb18
 
 /* Hero diagram: the page's view of the system map fills the hero behind the text, dimmed;
    the "Explore the map" link opens the plain /map page. */
-.hero-with-diagram { min-height: min(100svh, 60rem); display: flex; align-items: center; }
-.hero-with-diagram .hero-content { pointer-events: none; width: 100%; }
-.hero-with-diagram .hero-text { pointer-events: auto; max-width: 40rem; }
-.hero-with-diagram .hero-text h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); text-shadow: 0 2px 24px rgba(16,18,22,.8); }
-.hero-with-diagram .hero-text .lede { color: #e6e8ec; text-shadow: 0 1px 12px rgba(16,18,22,.9); }
+.hero-tall { min-height: min(100svh, 60rem); display: flex; align-items: center; }
+.hero-tall .hero-content { pointer-events: none; width: 100%; }
+.hero-tall .hero-text { pointer-events: auto; max-width: 40rem; }
+.hero-tall .hero-text h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); text-shadow: 0 2px 24px rgba(16,18,22,.8); }
+.hero-tall .hero-text .lede { color: #e6e8ec; text-shadow: 0 1px 12px rgba(16,18,22,.9); }
 .sysmap { position: absolute; inset: 0; margin: 0; z-index: 0; will-change: transform; }
 .sysmap::after { content: ""; position: absolute; inset: 0; pointer-events: none;
   background:

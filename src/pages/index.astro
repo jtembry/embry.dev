@@ -8,7 +8,7 @@ import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="Software, AI systems, and physical parts" description={site.tagline}>
-  <Hero variant="graph" diagram="index" eyebrow={`${site.legalName} · ${site.location}`} title="Less busywork. More business.">
+  <Hero variant="graph" tall eyebrow={`${site.legalName} · ${site.location}`} title="Less busywork. More business.">
     <p class="lede">I'm JT Embry. Embry Development, LLC is my one-person studio in the Louisville area. I build AI assistants, custom software, and 3D-printed parts, backed by ten years of finance and healthcare engineering.</p>
     {site.booking && (
       <Fragment slot="actions">

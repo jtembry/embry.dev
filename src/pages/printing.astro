@@ -10,7 +10,7 @@ import PrintGallery from '../components/PrintGallery.astro';
 const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing quote')}&body=${encodeURIComponent('What I need:\n\nDimensions or a photo/sketch:\n\nHow many:\n\nWhere it will be used (indoors, outdoors, heat, load):\n')}`;
 ---
 <Base title="Design and 3D printing" description="CAD design and 3D printing in the Louisville metropolitan area: replacement parts, brackets, jigs, enclosures, prototypes, and small runs.">
-  <Hero variant="layers" diagram="printingView" mapLabel="See my print pipeline" eyebrow={`Service · Design and 3D printing · ${site.location}`} title="The part no catalog sells.">
+  <Hero variant="layers" tall mapLabel="How the shop connects" eyebrow={`Service · Design and 3D printing · ${site.location}`} title="The part no catalog sells.">
     <p class="lede">The broken clip on a thing you like, the bracket that must be exactly this shape, the prototype before you pay for tooling, twenty of something for a booth: send me a photo, a sketch, or a file, and I'll quote it.</p>
     <a slot="actions" class="btn btn-secondary " href={quote}>Request a quote</a>
   </Hero>

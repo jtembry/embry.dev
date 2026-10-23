@@ -1,25 +1,20 @@
 ---
-// Page hero. A blueprint dot grid behind the text; with `diagram`, the matching view of the
-// system map fills the hero as a dimmed backdrop (click to explore). Without one, the static pattern fills the back.
+// Page hero. A blueprint dot grid and a generated pattern behind the text. `tall` makes it a
+// full-height opener. The big button (mapLabel) opens the four-step overview at /map, or mapTo.
 import { patterns } from '../lib/patterns.js';
-import SystemDiagram from './SystemDiagram.astro';
-import map from '../data/system-map.json';
-import { systemsHref } from '../lib/systems.js';
-const { eyebrow, title, variant = 'graph', seed = 3, image, diagram, mapLabel, mapTo } = Astro.props;
-// The big button: opens the full interactive map at this page's view. Page buttons (slot="actions") sit beside it.
-const mapHref = mapTo ?? (diagram && systemsHref((map[diagram] ?? map.index).id));
+const { eyebrow, title, variant = 'graph', seed = 3, image, tall = false, mapLabel, mapTo } = Astro.props;
+const mapHref = mapTo ?? '/map';
 const gen = patterns[variant] ?? patterns.graph;
 const back = patterns.dots();
-const front = diagram ? '' : gen({ parity: 0, seed }) + gen({ parity: 1, seed });
+const front = gen({ parity: 0, seed }) + gen({ parity: 1, seed });
 ---
-<section class:list={['hero', 'band-dark', `hero-${variant}`, { 'hero-with-diagram': diagram }]}>
+<section class:list={['hero', 'band-dark', `hero-${variant}`, { 'hero-tall': tall }]}>
   <div class="hero-bg" aria-hidden="true">
     {image && <img class="hero-img" src={image} alt="" loading="eager" decoding="async" />}
     <div class="hero-layer hero-layer-back" set:html={back} />
     {front && <div class="hero-layer hero-layer-front" set:html={front} />}
     <div class="hero-glow"></div>
   </div>
-  {diagram && <SystemDiagram view={diagram} />}
   <div class="wrap hero-content">
     <div class="hero-text">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}

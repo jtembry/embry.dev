@@ -1,16 +1,16 @@
 ---
 // The system map as one story, top to bottom: four doors in, one in-tray, the assistant sorts,
 // the phone shows what needs you. A spine down the middle fills as you scroll and a dot rides it,
-// so the page reads as one item moving through the system. The detail views (per box) stay at
-// /map/<view>; this page is the front door Ryan asked for, not the whole graph.
+// so the page reads as one item moving through the system. This is the whole public map: the
+// LikeC4 charts behind it live in the vault (System/System Map.md) and ~/Projects/system-map.
 import Base from '../../layouts/Base.astro';
-import { systemsHref } from '../../lib/systems.js';
+import site from '../../data/site.json';
 
 const doors = [
-  { title: 'Email & texts', how: 'Two inboxes and iMessage, read every five minutes. Login codes are skipped.', view: 'email' },
-  { title: 'Paper', how: 'Press Scan. The page becomes a searchable PDF with a note to file.', view: 'scanner' },
-  { title: 'Notes & to-dos', how: 'A quick note, a line in the day’s journal, or a reminder on the phone.', view: 'captureView' },
-  { title: 'Finished prints', how: 'The printer logs every start and finish on its own.', view: 'printingView' },
+  { title: 'Email & texts', how: 'Two inboxes and iMessage, read every five minutes. Login codes are skipped.' },
+  { title: 'Paper', how: 'Press Scan. The page becomes a searchable PDF with a note to file.' },
+  { title: 'Notes & to-dos', how: 'A quick note, a line in the day’s journal, or a reminder on the phone.' },
+  { title: 'Finished prints', how: 'The printer logs every start and finish on its own.' },
 ];
 const shelves = [
   { title: 'Projects', note: 'things with a finish line' },
@@ -18,16 +18,7 @@ const shelves = [
   { title: 'Documents', note: 'every PDF, searchable' },
   { title: 'Memory', note: 'what the assistant keeps' },
 ];
-const inside = [
-  ['email', 'Email & texts'],
-  ['scanner', 'Paper'],
-  ['captureView', 'Notes & to-dos'],
-  ['secondBrain', 'The vault'],
-  ['assistantsView', 'AI assistant'],
-  ['fieldAgentView', 'Field Agent'],
-  ['printingView', '3D printing'],
-  ['backupsView', 'Backups'],
-];
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="How my own system works" description="Things come in, land in one in-tray, get sorted by an assistant, and show up on the phone as what needs doing.">
   <section class="band-dark flow-hero">
@@ -52,7 +43,7 @@ const inside = [
         <ul class="doors">
           {doors.map((d) => (
             <li class="door">
-              <h3><a href={systemsHref(d.view)}>{d.title}</a></h3>
+              <h3>{d.title}</h3>
               <p>{d.how}</p>
             </li>
           ))}
@@ -70,7 +61,7 @@ const inside = [
       <div class="wrap flow-head">
         <p class="flow-num">2</p>
         <h2>One in-tray</h2>
-        <p>Every item lands in the same folder of <a href={systemsHref('secondBrain')}>the vault</a>: plain text files on my Mac, nothing in a vendor’s cloud.</p>
+        <p>Every item lands in the same folder of the vault: plain text files on my Mac, nothing in a vendor’s cloud.</p>
       </div>
       <div class="wrap flow-fig" data-depth="-0.3">
         <div class="box box-tray">
@@ -84,7 +75,7 @@ const inside = [
       <div class="wrap flow-head">
         <p class="flow-num">3</p>
         <h2>The assistant sorts it</h2>
-        <p>A few times a day <a href={systemsHref('assistantsView')}>an AI assistant</a> reads the in-tray and files each item where it belongs. Noise is archived. Replies are drafted. It follows written procedures, not memory, so it does the same thing every time.</p>
+        <p>A few times a day an AI assistant reads the in-tray and files each item where it belongs. Noise is archived. Replies are drafted. It follows written procedures, not memory, so it does the same thing every time.</p>
       </div>
       <div class="wrap flow-fig" data-depth="-0.3">
         <div class="box box-sort">
@@ -115,7 +106,7 @@ const inside = [
       <div class="wrap flow-head">
         <p class="flow-num">4</p>
         <h2>The phone shows what needs you</h2>
-        <p><a href={systemsHref('fieldAgentView')}>Field Agent</a> is one screen: today’s calendar, mail and texts that need an answer, and the next step on each project. A tap files, archives, or opens a chat with the right notes loaded. Before the assistant touches a file, the phone buzzes and asks.</p>
+        <p><a href="/work">Field Agent</a> is one screen: today’s calendar, mail and texts that need an answer, and the next step on each project. A tap files, archives, or opens a chat with the right notes loaded. Before the assistant touches a file, the phone buzzes and asks.</p>
       </div>
       <div class="wrap flow-fig" data-depth="-0.3">
         <div class="phone-frame">
@@ -135,17 +126,16 @@ const inside = [
       <div class="wrap flow-head">
         <p class="flow-num">+</p>
         <h2>And it is backed up</h2>
-        <p>The vault goes to a private GitHub repo every hour. The whole Mac goes to Time Machine, with a second copy that can leave the house. <a href={systemsHref('backupsView')}>How the backups run</a>.</p>
+        <p>The vault goes to a private GitHub repo every hour. The whole Mac goes to Time Machine, with a second copy that can leave the house. Nothing depends on one disk.</p>
       </div>
     </section>
   </div>
 
-  <section class="section band flow-inside">
+  <section class="section band flow-after">
     <div class="wrap">
-      <h2>Look inside a step</h2>
-      <p class="muted">Each page shows the boxes behind one step and what runs on what schedule.</p>
-      <p class="map-views">{inside.map(([id, label]) => <a class="tag" href={systemsHref(id)}>{label}</a>)}</p>
-      <p class="map-interactive">On a computer: <a href="/systems/?full#/view/index/">open the interactive map</a> (zoom, search, and drag).</p>
+      <h2>The same four steps, for your business</h2>
+      <p>Swap my doors for yours: customer email, quotes, invoices, job photos, the paperwork on the truck seat. The in-tray, the filing, and the phone screen stay the same. <a href="/knowledge-assistants">What a knowledge assistant does</a>.</p>
+      <p class="hero-actions"><a class="btn btn-primary" href={mailto}>Email me</a> <a class="btn btn-secondary" href="/work">See it running</a></p>
     </div>
   </section>
 </Base>
@@ -204,8 +194,6 @@ const inside = [
   .doors { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
   .door { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.1rem; }
   .door h3 { margin: 0 0 .35rem; font-size: 1.05rem; }
-  .door h3 a { color: var(--ink); text-decoration: none; }
-  .door h3 a:hover { color: var(--accent); }
   .door p { margin: 0; font-size: .95rem; color: var(--ink-2); }
   .merge, .fan { display: block; width: 100%; height: 70px; }
   .merge path, .fan path { fill: none; stroke: var(--accent-bright); stroke-width: 2; stroke-opacity: .8; }
@@ -230,9 +218,7 @@ const inside = [
   .phone-ask b + b { background: transparent; border: 1.5px solid var(--ink-2); }
 
   .flow-stage-end { padding-bottom: clamp(3rem, 8vw, 5rem); }
-  .flow-inside .map-views { display: flex; flex-wrap: wrap; gap: .5rem; }
-  .flow-inside .tag { text-decoration: none; padding: .45rem .85rem; font-size: .85rem; }
-  .map-interactive { color: var(--muted); font-size: .95rem; }
+  .flow-after h2 { margin-top: 0; }
 
   /* Reveal as each step scrolls in. */
   :global(html.motion) .flow-stage .flow-head, :global(html.motion) .flow-stage .flow-fig { opacity: 0; translate: 0 24px; transition: opacity .6s ease, translate .7s cubic-bezier(.2, .7, .2, 1); }
@@ -245,5 +231,4 @@ const inside = [
     .flow-fig { margin-top: 1.25rem; }
     .flow-head p { font-size: 1rem; }
   }
-  @media (pointer: coarse) { .map-interactive { display: none; } }
 </style>
