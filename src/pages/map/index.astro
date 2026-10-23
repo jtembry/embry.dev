@@ -87,7 +87,8 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     <div class="wrap">
       <p class="eyebrow">System map</p>
       <h1>How my own system works</h1>
-      <p class="lede">This is my own setup, not a client project. Everything I build for clients starts from the same four steps. Scroll to follow one item through.</p>
+      <p class="lede">This is my own setup, not a client project. Everything I build for clients starts from the same four steps.</p>
+      <p class="hero-actions"><a class="btn btn-primary" href="/map/journey">Follow one item through <span aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
@@ -252,7 +253,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     <div class="wrap">
       <h2>The same four steps, for your business</h2>
       <p>Swap my doors for yours: customer email, quotes, invoices, job photos, the paperwork on the truck seat. The in-tray, the filing, and the phone screen stay the same. <a href="/knowledge-assistants">What a knowledge assistant does</a>.</p>
-      <p class="hero-actions"><a class="btn btn-primary" href={mailto}>Email me</a> <a class="btn btn-secondary" href="/work">See it running</a></p>
+      <p class="hero-actions"><a class="btn btn-primary" href={mailto}>Email me</a> <a class="btn btn-secondary" href="/map/journey">Follow one item through</a> <a class="btn btn-secondary" href="/work">See it running</a></p>
     </div>
   </section>
 </Base>
@@ -294,6 +295,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
 <style>
   .flow-hero { padding: calc(var(--header-h) + 2.5rem) 0 3rem; }
   .flow-hero h1 { margin-bottom: .6rem; }
+  .flow-hero .hero-actions { margin-top: 1.2rem; }
   .flow { position: relative; overflow: hidden; --spine-x: 50%; }
   .flow-bg { position: absolute; inset: -20% 0; background-image: radial-gradient(rgba(176, 74, 16, .18) 1px, transparent 1.5px); background-size: 28px 28px; pointer-events: none; will-change: transform; }
   .flow-spine { position: absolute; top: 0; bottom: 0; left: var(--spine-x); width: 3px; margin-left: -1.5px; --p: 0;
