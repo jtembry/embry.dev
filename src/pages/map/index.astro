@@ -7,7 +7,7 @@ import Base from '../../layouts/Base.astro';
 import site from '../../data/site.json';
 
 const doors = [
-  { title: 'Email & texts', how: 'Two inboxes and iMessage, read every five minutes. Login codes are skipped.' },
+  { title: 'Email & texts', how: 'Two inboxes and iMessage, read the moment something arrives. Login codes are skipped.' },
   { title: 'Paper', how: 'Press Scan. The page becomes a searchable PDF with a note to file.' },
   { title: 'Notes & to-dos', how: 'A quick note, a line in the day’s journal, or a reminder on the phone.' },
   { title: 'Finished prints', how: 'The printer logs every start and finish on its own.' },
@@ -23,7 +23,7 @@ const shelves = [
 const inside = {
   in: [
     { name: 'Email & texts', chain: [
-      ['Pull', 'New mail is pulled from both inboxes every five minutes.'],
+      ['Pull', 'New mail is pulled from both inboxes as it arrives, and again when the phone opens the list.'],
       ['Copy', 'New texts are copied. Login codes are skipped.'],
       ['Sort', 'A few times a day the assistant archives the noise and lists the rest under Needs action.'],
       ['Keep', 'Threads I keep are saved as plain files, outside any mailbox.'],
