@@ -1,17 +1,25 @@
 ---
 // Finished prints, newest first. Entries come from brain-prints-publish (docs/live-and-gallery.md).
+// The shop page passes featuredOnly. The archive lists every entry.
 import { getCollection } from 'astro:content';
-const prints = (await getCollection('prints')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-// Newest SHOWN print cards stay visible; the rest open with "Show all". Without JS every card shows.
-const SHOWN = 6;
+const { featuredOnly = false } = Astro.props;
+const prints = (await getCollection('prints'))
+  .filter((p) => !featuredOnly || p.data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
   {prints.length === 0 ? (
-    <div class="card"><p class="eyebrow">Filling in</p><p>The gallery fills in as prints finish. Meanwhile, the list below says what I make.</p></div>
+    <div class="card">
+      {featuredOnly ? (
+        <p>Featured pieces will show here. Every finished print is in the <a href="/printing/archive">archive</a>.</p>
+      ) : (
+        <><p class="eyebrow">Filling in</p><p>The archive fills in as prints finish.</p></>
+      )}
+    </div>
   ) : (
-    <div class="gallery" id="print-gallery">
-      {prints.map((p, i) => (
-        <article class="print card" class:list={{ featured: p.data.featured, 'print-extra': i >= SHOWN }}>
+    <div class="gallery">
+      {prints.map((p) => (
+        <article class="print card" class:list={{ featured: p.data.featured }}>
           <a class="print-media" href={p.data.video ?? p.data.image} aria-label={`Open ${p.data.title}`}>
             <img src={p.data.image} alt={p.data.title} loading="lazy" decoding="async" />
             {p.data.video && <span class="print-play" aria-hidden="true">▶ timelapse</span>}
@@ -29,18 +37,3 @@ const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'shor
       ))}
     </div>
   )}
-  {prints.length > SHOWN && (
-    <p class="gallery-more"><button class="btn btn-secondary" type="button" aria-controls="print-gallery" aria-expanded="false" hidden>Show all {prints.length} prints</button></p>
-  )}
-<script>
-  const gallery = document.getElementById('print-gallery');
-  const more = document.querySelector('.gallery-more button');
-  if (gallery && more) {
-    gallery.classList.add('collapsed');
-    more.hidden = false;
-    more.addEventListener('click', () => {
-      gallery.classList.remove('collapsed');
-      more.parentElement.remove();
-    });
-  }
-</script>

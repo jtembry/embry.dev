@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import PrintGallery from '../../components/PrintGallery.astro';
+import { getCollection } from 'astro:content';
+const count = (await getCollection('prints')).length;
+---
+<Base title="Print archive" description="Every finished print from the shop, newest first, with the bed photo the printer took when the job ended.">
+  <Hero variant="layers" eyebrow="Design and 3D printing" title="Every print.">
+    <p class="lede">{count} finished prints, newest first. Each photo is from the printer's camera, taken when the job ended. <a href="/printing#prints">Featured prints</a> are on the shop page.</p>
+  </Hero>
+  <section class="section">
+    <div class="wrap">
+      <PrintGallery />
+    </div>
+  </section>
+</Base>
