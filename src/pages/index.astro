@@ -7,9 +7,10 @@ const linesBg = dots();
 import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
-<Base title="Software, AI systems, and physical parts" description={site.tagline}>
-  <Hero variant="graph" tall eyebrow={`${site.legalName} · ${site.location}`} title="Less busywork. More business.">
-    <p class="lede">I'm JT Embry. Embry Development, LLC is my one-person studio in the Louisville area. I build AI assistants, custom software, and 3D-printed parts, backed by ten years of finance and healthcare engineering.</p>
+<Base title="AI systems for small offices" description={site.tagline}>
+  <Hero variant="graph" tall eyebrow={`${site.legalName} · ${site.location}`} title="Stop being the filing system.">
+    <p class="lede">A small office runs on one person's memory. Every email, text, and scan waits for that person to read it, file it, and write the reply. I build an AI system that does that work at your office and shows you, on your phone, the few things that need you.</p>
+    <p>I'm JT Embry. Embry Development, LLC is my one-person studio in the Louisville area, backed by ten years of finance and healthcare engineering.</p>
     {site.booking && (
       <Fragment slot="actions">
         <button type="button" class="btn btn-primary" data-book>Book a free consultation</button>
@@ -19,47 +20,55 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
 
   <section class="section">
     <div class="wrap">
-      <h2>Hear the AI buzzwords and wonder what you're missing?</h2>
-      <p>You are not alone. Most businesses have work that AI can already do, and most owners don't know it yet. That is where I come in. I learn how your business runs, show you which tasks AI can handle, and build the tools that handle them.</p>
+      <h2>Everything waits for you.</h2>
+      <p>You are the one who knows where the quote is, what the client said, and what is due Friday. So you read every email, file every scan, and write every reply from memory. When you are on a job, in court, or on vacation, the office stops. A new hire has to learn the same pile from the start. ChatGPT on your phone does not help: it has never seen your files.</p>
     </div>
   </section>
 
   <section class="section" id="field-agent">
     <div class="wrap">
-      <h2>Field Agent: your business on your phone</h2>
-      <p>Field Agent is my main product. It is a phone app that talks to an AI assistant at your office. The assistant knows your business: every file, email, customer, and quote on your office computer, reached over an encrypted line.</p>
+      <h2>Field Agent on your phone. Home base at your office.</h2>
+      <p>Home base is a program on a computer you own. It reads what comes in, files it where it belongs, drafts the reply, and keeps every record indexed, so a question gets an answer with the source. Field Agent is the phone app that shows you what needs you today.</p>
       <ul>
-        <li>From the truck, ask "What did we quote this customer?" and get the quote.</li>
+        <li>From the truck, ask "What did we quote this customer?" and get the quote, with the document it came from.</li>
         <li>Ask for the follow-up email, and it is drafted from the thread.</li>
-        <li>Open the app and see what needs you today.</li>
+        <li>Open the app and see today: what to answer, what is due, what is waiting to be filed.</li>
         <li>Your records stay on your own computer, and nothing changes until you tap Allow.</li>
       </ul>
-      <p>It works today. I run my own business on it, and a demo shows it best.</p>
-      <p class="hero-actions">{site.booking && <button type="button" class="btn btn-primary" data-book>Book a demo</button>} <a href="/work#field-agent">See how it connects</a></p>
+      <p>It works today. I run my own business on it. The system map shows every step, and a demo shows it best.</p>
+      <p class="hero-actions">{site.booking && <button type="button" class="btn btn-primary" data-book>Book a demo</button>} <a href="/map">See the system map</a></p>
     </div>
   </section>
 
   <section class="section band band-parallax">
     <div class="band-bg" set:html={linesBg} aria-hidden="true" />
     <div class="wrap">
-      <h2>What I build</h2>
+      <h2>What is inside</h2>
+      <p>Four steps, the same ones my own office runs on. <a href="/map/journey">Follow one item through</a>.</p>
+      <ol class="steps">
+        <li><strong>Things come in.</strong> Email, texts, scans, voice notes, and the paperwork on the truck seat. Nothing is retyped. Paper and handwriting are read too, even <a href="/knowledge-assistants/transcription">old longhand</a>.</li>
+        <li><strong>One in-tray.</strong> Every item lands in the same place on a computer you own, not in a vendor's cloud.</li>
+        <li><strong>The system sorts it.</strong> It files each item, archives the noise, and drafts the reply. It follows written procedures, so it does the same thing every time.</li>
+        <li><strong>The phone shows what needs you.</strong> One screen: what to answer, what is due, the next step on each job. Before anything is changed, the phone asks.</li>
+      </ol>
+      <p>Two more pieces come with every install. The system <a href="/knowledge-assistants#rag">answers from your own files</a> and cites the page, so you can check it. Then <a href="/knowledge-assistants/ai-adoption">four weeks of training</a> beside your staff, so the office actually uses it.</p>
+      <p><a href="/knowledge-assistants">What you get, in full</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Two side doors</h2>
       <div class="grid">
         <div class="card">
           <p class="index">01</p>
-          <h3>Knowledge assistants for small practices</h3>
-          <p class="problem">"Our knowledge is in documents nobody can search."</p>
-          <p>A private assistant that searches your own files, runs on servers you control, and answers with citations. The method is called <a href="/knowledge-assistants#rag">RAG</a>: it looks up your documents before it answers. Field Agent puts it on your phone. <a href="/knowledge-assistants">How it works</a></p>
-          <p>Then <a href="/knowledge-assistants/ai-adoption">four weeks of training</a> so your team actually uses it.</p>
+          <h3>Custom software for any business</h3>
+          <p class="problem">"We pay for five tools and still run the business on a spreadsheet."</p>
+          <p>When your office needs a piece that does not exist, I build it around the way you work, with your leaders' input at every step. You own the code and the records. <a href="/software">How it works</a></p>
         </div>
         <div class="card">
           <p class="index">02</p>
-          <h3>Custom software for any business</h3>
-          <p class="problem">"We pay for five tools and still run the business on a spreadsheet."</p>
-          <p>No off-the-shelf box. I learn how your business runs and build around it, with your leaders' input at every step. You own the code and the records. <a href="/software">How it works</a></p>
-        </div>
-        <div class="card">
-          <p class="index">03</p>
-          <h3>Rapid Prototyping (CAD) & 3D printing</h3>
+          <h3>Rapid prototyping (CAD) and 3D printing</h3>
           <p class="problem">"We need a part, a prototype, or a small run that no catalog sells."</p>
           <p>CAD from your sketch or measurements, working prints, and small batches. You get the part and the files. <a href="/printing">How it works</a></p>
         </div>

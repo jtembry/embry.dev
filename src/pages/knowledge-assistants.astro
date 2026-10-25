@@ -4,13 +4,13 @@ import Hero from '../components/Hero.astro';
 import ServiceLinks from '../components/ServiceLinks.astro';
 import site from '../data/site.json';
 import { dots } from '../lib/patterns.js';
-const ask = `mailto:${site.email}?subject=${encodeURIComponent('Knowledge assistant for our practice')}`;
+const ask = `mailto:${site.email}?subject=${encodeURIComponent('An AI system for our office')}`;
 const bodyBg = dots();
 ---
-<Base title="Knowledge assistants for small practices" description="A private assistant that searches your own documents, runs on servers you control, and answers with citations. For law offices, clinics, and small firms.">
-  <Hero variant="graph" seed={5} tall mapLabel="See the knowledge system I run on" eyebrow="Knowledge assistants · Small practices" title="The last assistant you will ever need to train.">
-    <p class="lede"><em>"Our knowledge is in documents nobody can search."</em> Law offices, clinics, and small firms hold years of filings, notes, and precedent, and the people who know where things are retire. I build a private assistant that searches your own documents and answers with a citation to the source.</p>
-    <a slot="actions" class="btn btn-secondary " href={ask}>Ask about an assistant</a>
+<Base title="An AI system for your office" description="A system on a computer you own that reads what comes in, files it, drafts the reply, and answers from your own documents with the source. Field Agent puts it on your phone. For law offices, clinics, trades, and small firms.">
+  <Hero variant="graph" seed={5} tall mapLabel="See the system I run on" eyebrow="AI systems · Small offices" title="The office that files itself.">
+    <p class="lede"><em>"Everything waits for me."</em> Law offices, clinics, trades, and small firms run on one person's memory of where things are and what is due. I set up an AI system on a computer you own that reads what comes in, files it, drafts the reply, and answers a question from your own documents with a citation to the source. Field Agent, the phone app, shows you the few things that need you.</p>
+    <a slot="actions" class="btn btn-secondary " href={ask}>Ask about your office</a>
   </Hero>
 
   <section class="section band-parallax">
@@ -18,20 +18,23 @@ const bodyBg = dots();
     <div class="wrap">
       <h2>What you get</h2>
       <ul>
-        <li>Your documents indexed in place, with access rules that match your practice.</li>
+        <li>Every email, text, and scan read and filed where it belongs, with the noise archived and replies drafted.</li>
+        <li>Your documents indexed in place, with access rules that match your office.</li>
         <li>An assistant that takes plain-English questions from your staff and shows its sources every time.</li>
-        <li>Servers you control. Your data stays on your systems unless you choose a hosted model.</li>
+        <li>Field Agent on your phone: what to answer, what is due, the next step on each job, and an Allow button before anything changes.</li>
+        <li>A computer you own. Your data stays on your systems unless you choose a hosted model.</li>
         <li>A fixed-scope build, then optional monthly care for updates and new document sets.</li>
       </ul>
-      <p>Records still on paper or in longhand? I transcribe them first, so the assistant can search them. <a href="/knowledge-assistants/transcription">How transcription works</a></p>
-      <h2 id="rag">How it finds answers: RAG</h2>
+      <p>Records still on paper or in longhand? I transcribe them first, so the system can search them. <a href="/knowledge-assistants/transcription">How transcription works</a></p>
+      <p>The four steps every install follows are on the <a href="/map">system map</a>, with mine as the worked example.</p>
+      <h2 id="rag">How it answers from your files: RAG</h2>
       <p>The method is called RAG, short for retrieval-augmented generation. A plain chatbot answers from what it learned on the public internet, and it can make things up. A RAG assistant first looks up the passages in your documents that match the question. Then it writes its answer from those passages and cites them. It answers from your files, and you can check every answer against the source.</p>
       <h2>Then: teach your team to use it</h2>
       <p>An assistant nobody uses is a cost, not a tool. Four weeks of training, beside your staff on real work, teaches them how to ask, how to check the sources, and where the assistant fits in the day. I measure the change in your own records. <a href="/knowledge-assistants/ai-adoption">How the training works</a></p>
       <h2>Where it comes from</h2>
-      <p>I run one of these for myself: a personal knowledge system where agents file email, texts, scans, and notes into a searchable vault every day. It is the working prototype for this offer. <a href="/work#second-brain">See it on the Work page</a></p>
+      <p>I run one of these for myself: a system that files my email, texts, scans, and notes into a searchable vault every day and shows me what needs me on my phone. It is the working prototype for this offer. <a href="/work#second-brain">See it on the Work page</a></p>
       <p><span class="tag">Fixed scope</span> <span class="tag">Optional monthly care</span> <span class="tag">Quote on scope</span></p>
-      <p><a class="btn btn-primary" href={ask}>Ask about an assistant</a></p>
+      <p><a class="btn btn-primary" href={ask}>Ask about your office</a></p>
     </div>
   </section>
 
