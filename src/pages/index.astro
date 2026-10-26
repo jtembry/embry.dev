@@ -1,14 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import { dots } from '../lib/patterns.js';
-const stepsBg = dots();
 import site from '../data/site.json';
-const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
-<Base title="AI systems for small offices" description="I build what your office needs from the Claude or ChatGPT account you already pay for. Client files stay on a computer you own, and I train your staff to use it.">
+<Base title="AI systems for offices" description="I build what your office needs from the Claude or ChatGPT account you already pay for. Client files stay on a computer you own, and I train your staff to use it.">
   <Hero variant="graph" tall eyebrow={`${site.legalName} · ${site.location}`} title="I'll build what your office needs.">
-    <p class="lede">I build AI systems for small offices. They do the paperwork, so you can do the work.</p>
+    <p class="lede">I build AI systems and custom software solutions for offices. They focus on the busy work so you can focus on your business.</p>
     {site.booking && (
       <Fragment slot="actions">
         <button type="button" class="btn btn-primary" data-book>Book a free consultation</button>
@@ -18,35 +15,26 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
 
   <section class="section" id="field-agent">
     <div class="wrap">
-      <h2>What you get</h2>
+      <h2>Customizable solutions</h2>
       <div class="grid">
         <div class="card">
-          <h3><span class="wordmark">Home base</span></h3>
-          <p>Runs at your office on a computer you own. It files what comes in, drafts the replies, and answers from your own documents.</p>
+          <h3><span class="wordmark">Home<span class="accent"> base</span></span></h3>
+          <p>Runs on a computer at your office that you own. It files what comes in, drafts replies, and quickly gives your agents the information they need, when you need it.</p>
         </div>
         <div class="card">
-          <h3><span class="wordmark">Field Agent</span></h3>
-          <p>The phone app. It shows what needs you today and asks before it changes anything.</p>
+          <h3><span class="wordmark">Field<span class="accent"> Agent</span></span></h3>
+          <p>On iOS and Android. It shows your priorities and puts the whole office at your fingertips through a chat.</p>
         </div>
         <div class="card">
-          <h3>Training</h3>
-          <p>Four weeks beside your staff, on their real work.</p>
+          <h3>Mission support</h3>
+          <p>I train your staff with demos and give them real-time support. As your business changes, I enhance the app to meet your needs.</p>
         </div>
       </div>
-      <p><a href="/knowledge-assistants">What you get, in full</a> · <a href="/map">See the system map</a></p>
-    </div>
-  </section>
-
-  <section class="section band-parallax">
-    <div class="band-bg" set:html={stepsBg} aria-hidden="true" />
-    <div class="wrap">
-      <h2>How we help</h2>
-      <ol class="steps">
-        <li><strong>Tell me the problem.</strong> One email is enough.</li>
-        <li><strong>Get a one-page scope.</strong> What you get, what it costs, and when.</li>
-        <li><strong>Own it.</strong> The code and the records are yours.</li>
-      </ol>
-      <p><a class="btn btn-primary" href={mailto}>Email me</a></p>
+      <div class="card card-wide">
+        <h3>Built to order</h3>
+        <p>If the piece you need does not exist, I build it: custom software made around the way you work. <a href="/software">See custom software</a></p>
+      </div>
+      <p><a class="btn btn-primary btn-lg" href="/map">See the system map</a></p>
     </div>
   </section>
 </Base>

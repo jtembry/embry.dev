@@ -49,6 +49,7 @@ p, li { max-width: 65ch; }
 .btn { display: inline-block; padding: .45rem .95rem; border-radius: 6px; font-family: inherit; font-size: .92rem; font-weight: 600; line-height: 1.25; text-decoration: none; border: 2px solid transparent; cursor: pointer; }
 .btn-primary { background: var(--accent-bright); color: var(--ink); }
 .btn-primary:hover { background: #f0834a; }
+.btn-lg { padding: .8rem 1.6rem; font-size: 1.1rem; border-radius: 8px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .9rem; align-items: center; }
 .contact-tile, .band-dark .contact-tile { display: inline-flex; flex: 0 1 8.5rem; flex-direction: column; align-items: center; gap: .6rem; padding: 1.3rem 1.5rem 1rem; border-radius: 12px; border: 2px solid rgba(255,255,255,.35); background: rgba(10,14,20,.55); color: var(--white); font-weight: 600; text-decoration: none; transition: border-color .15s, color .15s; }
 button.contact-tile { font: inherit; cursor: pointer; }
@@ -63,6 +64,7 @@ button.contact-tile { font: inherit; cursor: pointer; }
 .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
 .card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem 1.4rem; }
 .card h3 { margin-top: 0; }
+.card-wide { margin: 1.25rem 0 1.75rem; }
 .card h3 a { color: var(--ink); text-decoration: none; }
 .card h3 a:hover { color: var(--accent); }
 .card .problem { font-style: italic; color: var(--muted); }
@@ -83,7 +85,9 @@ header.site { position: sticky; top: 0; z-index: 30; height: var(--header-h); ma
   border: 1px solid rgba(255,255,255,.1); box-shadow: 0 12px 40px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08); }
 .brand { display: inline-flex; align-items: center; gap: .55rem; font-family: var(--mono); font-weight: 600; font-size: 1.02rem; text-decoration: none; color: var(--white); }
 .brand .dot { color: var(--accent-bright); }
-.wordmark { font-family: var(--mono); font-weight: 600; letter-spacing: -.01em; white-space: nowrap; }
+.wordmark { font-family: var(--sans); font-weight: 600; letter-spacing: -.01em; white-space: nowrap; }
+.wordmark .accent { color: var(--accent); }
+.not-good { color: var(--accent-bright); }
 .brand .logo .logo-ink { fill: var(--white); }
 nav.primary { display: none; align-items: center; gap: .35rem; }
 nav.primary ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .15rem; }

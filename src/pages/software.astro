@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import ServiceLinks from '../components/ServiceLinks.astro';
 import site from '../data/site.json';
 import { dots } from '../lib/patterns.js';
 const ask = `mailto:${site.email}?subject=${encodeURIComponent('Custom software for my business')}`;
@@ -9,7 +8,7 @@ const bodyBg = dots();
 ---
 <Base title="Custom software for any business" description="Software and phone apps built around how your business already works: one login for your staff and customers, your records in a place you own, and the tools you already use connected.">
   <Hero variant="graph" seed={23} tall mapLabel="My portfolio" mapTo="/work" eyebrow="Custom software · Any business" title="Stop bending your business to fit someone else's software.">
-    <p class="lede"><em>"We pay for five tools and still run the business on a spreadsheet."</em> Off-the-shelf software makes you work its way. I learn how your business runs and build around it, with your leaders' input at every step: the customer portal, the scheduling, the billing, and the reports, behind one login. You own the code and the data.</p>
+    <p class="lede">Off-the-shelf software makes you work its way. I learn how your business runs and build around it, with your leaders' input at every step: the customer portal, the scheduling, the billing, and the reports, behind one login. You own the code and the data.</p>
     <a slot="actions" class="btn btn-secondary " href={ask}>Ask about your software</a>
   </Hero>
 
@@ -31,18 +30,12 @@ const bodyBg = dots();
         <li>You have outgrown the off-the-shelf tool you started with.</li>
         <li>Your people work in the field and need the system on their phones.</li>
       </ul>
-      <h2 id="phone-apps">Phone apps</h2>
-      <p>Some work happens in a truck, on a job site, or at a client's door. I build phone apps that connect to the rest of your system, so your crew can check a job, approve a request, or send a photo without a laptop.</p>
-      <p>My main product is <strong>Field Agent</strong>, the phone half of the <a href="/knowledge-assistants">AI system</a> I set up at your office. ChatGPT on your phone starts from zero: it has never seen your quotes, invoices, or customer email. I build the missing piece. Field Agent's home base runs on your own computer, where those records live, and keeps them filed and indexed. It works with Claude, ChatGPT, or an open-source model, so you get more from the account you already pay for instead of buying another one. Ask from the job site what you agreed with a customer, and the answer cites the quote. Ask for a follow-up, and it is drafted from the thread. Its Mission Control screen shows what needs you today. Your records stay on your machine, the phone reaches them over an encrypted line, and nothing changes until you tap Allow. When it is in, I train the people who will use it.</p>
-      <p class="hero-actions">{site.booking && <button type="button" class="btn btn-secondary" data-book>Book a demo</button>} <a href="/work#field-agent">See it on the Work page</a></p>
-      <p>Another is <strong>Kingdom Guide</strong>, an iPhone app that plans a theme park day: the route, the waits, and the return times for families who use disability access, with every phone on the trip in step. <a href="/work#kingdom-guide">See it on the Work page</a>.</p>
-      <h2>Where it comes from</h2>
-      <p>Ten years building finance and healthcare platforms, where lost data or downtime costs real money. I led the move of one live platform's services to the cloud.</p>
+      <h2 id="phone-apps">iOS &amp; Android</h2>
+      <p>I build phone apps that connect to the rest of your system, so your crew can check a job, approve a request, or send a photo without a laptop.</p>
       <p><span class="tag">Fixed scope</span> <span class="tag">You own the code</span> <span class="tag">Optional monthly care</span> <span class="tag">Quote on scope</span></p>
       <p><a class="btn btn-primary" href={ask}>Ask about your software</a></p>
       <p class="muted">Need only a website? I build those too. <a href="https://flourishfinancialgroup.org">Flourish Financial Group</a> went live a month after the first conversation and costs $0 a month to host.</p>
     </div>
   </section>
 
-  <ServiceLinks current="/software" />
 </Base>
