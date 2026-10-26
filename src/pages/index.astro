@@ -3,13 +3,12 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { dots } from '../lib/patterns.js';
 const stepsBg = dots();
-const linesBg = dots();
 import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <Base title="AI systems for small offices" description="I build what your office needs from the Claude or ChatGPT account you already pay for. Client files stay on a computer you own, and I train your staff to use it.">
   <Hero variant="graph" tall eyebrow={`${site.legalName} · ${site.location}`} title="I'll build what your office needs.">
-    <p class="lede">Claude or ChatGPT can draft a sentence. Neither one has seen your files, so someone still finds the document and pastes it in. I build the missing piece on a computer you own. It can use the account you already pay for. Client files stay off a personal chat. Then I train your staff to use it.</p>
+    <p class="lede">I build AI systems for small offices. They do the paperwork, so you can do the work.</p>
     {site.booking && (
       <Fragment slot="actions">
         <button type="button" class="btn btn-primary" data-book>Book a free consultation</button>
@@ -17,54 +16,35 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     )}
   </Hero>
 
-  <section class="section">
-    <div class="wrap">
-      <h2>A login is not a system.</h2>
-      <p>A new chat account does not know where the quote is. Staff paste client notes into a personal chat, rewrite the answer, and go back to the old folders. I look at how your office works and build the piece you are missing. Often that means filing what comes in and answering from your own documents, with the page. If the real need is something else, I build that. Your records stay on a computer you own, and I teach the people who will use it.</p>
-    </div>
-  </section>
-
   <section class="section" id="field-agent">
     <div class="wrap">
-      <h2><span class="wordmark">Field Agent</span> on your phone. <span class="wordmark">Home base</span> at your office.</h2>
-      <p><span class="wordmark">Home base</span> is a program on a computer you own. It reads what comes in, files it where it belongs, drafts the reply, and keeps every record indexed, so a question gets an answer with the source. It works with Claude, ChatGPT, or an open-source model, so you do not buy another subscription to make it run. <span class="wordmark">Field Agent</span> is the phone app that shows you what needs you today.</p>
-      <ul>
-        <li>From the truck, ask "What did we quote this customer?" and get the quote, with the document it came from.</li>
-        <li>Ask for the follow-up email, and it is drafted from the thread.</li>
-        <li>Open the app and see today: what to answer, what is due, what is waiting to be filed.</li>
-        <li>Your records stay on your own computer, and nothing changes until you tap Allow.</li>
-      </ul>
-      <p>It works today. I run my own business on it. The system map shows every step, and a demo shows it best.</p>
-      <p class="hero-actions">{site.booking && <button type="button" class="btn btn-primary" data-book>Book a demo</button>} <a href="/map">See the system map</a></p>
-    </div>
-  </section>
-
-  <section class="section band band-parallax">
-    <div class="band-bg" set:html={linesBg} aria-hidden="true" />
-    <div class="wrap">
-      <h2>What is inside</h2>
-      <p>Four steps, the same ones my own office runs on. <a href="/map/journey">Follow one item through</a>.</p>
-      <ol class="steps">
-        <li><strong>Things come in.</strong> Email, texts, scans, voice notes, and the paperwork on the truck seat. Nothing is retyped. Paper and handwriting are read too, even <a href="/knowledge-assistants/transcription">old longhand</a>.</li>
-        <li><strong>One in-tray.</strong> Every item lands in the same place on a computer you own, not in a vendor's cloud.</li>
-        <li><strong>The system sorts it.</strong> It files each item, archives the noise, and drafts the reply. It follows written procedures, so it does the same thing every time.</li>
-        <li><strong>The phone shows what needs you.</strong> One screen: what to answer, what is due, the next step on each job. Before anything is changed, the phone asks.</li>
-      </ol>
-      <p>Two more pieces come with every install. The system <a href="/knowledge-assistants#rag">answers from your own files</a> and cites the page, so you can check it. It works with Claude, ChatGPT, or an open-source model. Then <a href="/knowledge-assistants/ai-adoption">four weeks of training</a> beside your staff, on their real work, so the account you pay for gets used.</p>
-      <p><a href="/knowledge-assistants">What you get, in full</a></p>
+      <h2>What you get</h2>
+      <div class="grid">
+        <div class="card">
+          <h3><span class="wordmark">Home base</span></h3>
+          <p>Runs at your office on a computer you own. It files what comes in, drafts the replies, and answers from your own documents.</p>
+        </div>
+        <div class="card">
+          <h3><span class="wordmark">Field Agent</span></h3>
+          <p>The phone app. It shows what needs you today and asks before it changes anything.</p>
+        </div>
+        <div class="card">
+          <h3>Training</h3>
+          <p>Four weeks beside your staff, on their real work.</p>
+        </div>
+      </div>
+      <p><a href="/knowledge-assistants">What you get, in full</a> · <a href="/map">See the system map</a></p>
     </div>
   </section>
 
   <section class="section band-parallax">
     <div class="band-bg" set:html={stepsBg} aria-hidden="true" />
     <div class="wrap">
-      <h2>How a job goes</h2>
-      <p>Until recently, work like this took a team of developers. With AI tools, I do it alone, and fast.</p>
+      <h2>How we help</h2>
       <ol class="steps">
-        <li><strong>Tell me the problem.</strong> One email is enough. I'll tell you whether I should build it.</li>
-        <li><strong>Get a one-page scope.</strong> It says what you get, what it costs, and when, at a fixed price wherever I can scope the work.</li>
-        <li><strong>See it every week.</strong> You see working software each week, not a reveal at the end.</li>
-        <li><strong>Own it.</strong> You own the code, the files, and the parts, and you can take them anywhere.</li>
+        <li><strong>Tell me the problem.</strong> One email is enough.</li>
+        <li><strong>Get a one-page scope.</strong> What you get, what it costs, and when.</li>
+        <li><strong>Own it.</strong> The code and the records are yours.</li>
       </ol>
       <p><a class="btn btn-primary" href={mailto}>Email me</a></p>
     </div>
