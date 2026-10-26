@@ -7,9 +7,9 @@ import { dots } from '../lib/patterns.js';
 const ask = `mailto:${site.email}?subject=${encodeURIComponent('An AI system for our office')}`;
 const bodyBg = dots();
 ---
-<Base title="An AI system for your office" description="I build what your office needs on a computer you own. It uses the Claude or ChatGPT account you already pay for, keeps client files off a personal chat, answers from your own documents with the page, and I train your staff.">
+<Base title="An AI system for your office" description="You pay for an AI account that has never seen your files. I build the missing piece on a computer you own, answer from those files with the page, and train your staff until they use it.">
   <Hero variant="graph" seed={5} tall mapLabel="See the system I run on" eyebrow="AI systems · Small offices" title="The last assistant you'll ever need to hire.">
-    <p class="lede">An off-the-shelf chatbot answers from what it learned on the public internet, and it can make things up. <strong class="not-good">Not good.</strong> Our systems answer from the fountain of knowledge your business has built up over the years, keeping your clients' data private and secure. Your documents are the source of truth.</p>
+    <p class="lede">You already pay for Claude, ChatGPT, or Grok. The chat writes from the public internet, and it can invent an answer. Your staff still hunt for the file and paste client notes into a personal account. I build a system on a computer you own that writes from your files and shows the page. It uses the account you already pay for. Then I train your staff until they use it.</p>
     <a slot="actions" class="btn btn-secondary " href={ask}>Ask about your office</a>
   </Hero>
 
@@ -24,6 +24,7 @@ const bodyBg = dots();
         <li>An assistant that takes plain-English questions from your staff and shows its sources every time.</li>
         <li>Field Agent on your phone: what to answer, what is due, the next step on each job, and an Allow button before anything changes.</li>
         <li>Claude, ChatGPT, Grok, or an open-source model. If you already pay for one, this uses it. You do not buy a second subscription to make the system run.</li>
+        <li>A computer you own. Client files stay there unless you choose otherwise. People stop pasting them into a personal chat.</li>
       </ul>
       <h2 id="rag">How it answers from your files: RAG</h2>
       <p>The method is called RAG, short for retrieval-augmented generation. A RAG assistant first looks up the passages in your documents that match the question. Then it writes its answer from those passages and cites them. It answers from your files, and you can check every answer against the source.</p>
