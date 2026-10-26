@@ -254,7 +254,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     <div class="wrap">
       <h2>The same four steps, for your business</h2>
       <p>Swap my doors for yours: customer email, quotes, invoices, job photos, the paperwork on the truck seat. The in-tray, the filing, and the phone screen stay the same. <a href="/knowledge-assistants">What you get</a>.</p>
-      <p class="hero-actions"><a class="btn btn-primary" href={mailto}>Email me</a> <a class="btn btn-secondary" href="/map/journey">Follow one item through</a> <a class="btn btn-secondary" href="/work">See it running</a></p>
+      <p class="hero-actions"><a class="btn btn-primary" href={mailto}>Email me</a> <a class="btn btn-secondary" href="/map/journey">Follow one item through</a> {site.booking ? <button type="button" class="btn btn-secondary" data-book>See it running</button> : <a class="btn btn-secondary" href="/work">See it running</a>}</p>
     </div>
   </section>
 </Base>

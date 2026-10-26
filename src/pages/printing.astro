@@ -4,7 +4,6 @@ import Hero from '../components/Hero.astro';
 import { dots } from '../lib/patterns.js';
 const howBg = dots();
 import site from '../data/site.json';
-import ServiceLinks from '../components/ServiceLinks.astro';
 import LiveFeed from '../components/LiveFeed.astro';
 import PrintGallery from '../components/PrintGallery.astro';
 const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing quote')}&body=${encodeURIComponent('What I need:\n\nA photo, a sketch, or a file:\n\nHow many:\n\nWhere it will be used:\n')}`;
@@ -26,19 +25,6 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <h2>What I print</h2>
-      <div class="grid">
-        <div class="card"><h3>Dog tags</h3><p>A name and a number on a tag, round or shaped, in two colors. The ring hole is sized for a collar.</p></div>
-        <div class="card"><h3>Business cards</h3><p>A card someone can keep: your name, a mark, and a code that opens your site, in a few colors.</p></div>
-        <div class="card"><h3>Parts</h3><p>Clips, brackets, jigs, feet, hinges, and cases. I measure from the original or its mate, including the cutouts where your connectors are.</p></div>
-        <div class="card"><h3>Cable management</h3><p>Loops, mounts, and covers that hold a cord where you want it, on a desk, a rack, or a machine.</p></div>
-        <div class="card"><h3>Giveaways</h3><p>A short run for a booth, a counter, or a mailing: tags, clips, and small pieces with a logo. One to check, then a few dozen.</p></div>
-      </div>
-    </div>
-  </section>
-
   <section class="section band band-parallax">
     <div class="band-bg" set:html={howBg} aria-hidden="true" />
     <div class="wrap">
@@ -49,18 +35,8 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
         <li><strong>Check the fit.</strong> If the part must mate with something, you get one to test before the run.</li>
         <li><strong>Pick up or ship.</strong> Pick up in the Louisville metropolitan area or have it shipped. You get the files too, so you can reprint anywhere.</li>
       </ol>
-      <h3>Materials and equipment</h3>
-      <dl class="spec">
-        <dt>Printer</dt><dd>Bambu Lab P2S, enclosed, prints in several colors</dd>
-        <dt>Everyday</dt><dd>PLA for indoor parts and prototypes</dd>
-        <dt>Tough</dt><dd>PETG for outdoor use, moisture, and moderate heat</dd>
-        <dt>Flexible</dt><dd>TPU for gaskets, feet, bumpers, and grips</dd>
-        <dt>Heat and impact</dt><dd>ABS and ASA for parts near engines, sun, and rough handling</dd>
-        <dt>Design</dt><dd>CAD from your sketch or measurements, billed hourly; you keep the files</dd>
-      </dl>
       <p><span class="tag">Quote per job</span> <span class="tag">Local pickup</span> <span class="tag">You keep the files</span></p>
       <p><a class="btn btn-primary" href={quote}>Request a quote</a></p>
     </div>
   </section>
-  <ServiceLinks current="/printing" />
 </Base>
