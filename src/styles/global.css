@@ -87,6 +87,7 @@ header.site { position: sticky; top: 0; z-index: 30; height: var(--header-h); ma
 .brand .dot { color: var(--accent-bright); }
 .wordmark { font-family: var(--sans); font-weight: 600; letter-spacing: -.01em; white-space: nowrap; }
 .wordmark .accent { color: var(--accent); }
+.not-good { color: var(--accent-bright); }
 .brand .logo .logo-ink { fill: var(--white); }
 nav.primary { display: none; align-items: center; gap: .35rem; }
 nav.primary ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .15rem; }
