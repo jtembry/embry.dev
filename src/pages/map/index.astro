@@ -334,6 +334,12 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   .row-k { display: inline-block; min-width: 3.2rem; margin-right: .3rem; font-family: var(--mono); font-size: .72rem; text-transform: uppercase; color: #ffb187; }
   .phone-ask { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: .8rem 0 0; padding: .6rem .7rem; border-radius: 8px; background: var(--accent-tint); color: var(--ink); font-size: .85rem; }
   .phone-ask span { flex: 1 1 100%; }
+  :global(html[data-look="dos"]) .box { color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+  :global(html[data-look="dos"]) .box-sort { border: 2px solid var(--accent-bright); }
+  :global(html[data-look="dos"]) .box span, :global(html[data-look="dos"]) .row-k { color: var(--muted); }
+  :global(html[data-look="dos"]) .phone-frame { color: var(--ink); border-color: var(--line); box-shadow: none; }
+  :global(html[data-look="dos"]) .flow-num, :global(html[data-look="dos"]) .phone-ask b { color: #000; text-shadow: none; }
+  :global(html[data-look="dos"]) .flow-bg { background-image: radial-gradient(rgba(0, 255, 77, .14) 1px, transparent 1.5px); }
   .phone-ask b { padding: .25rem .7rem; border-radius: 6px; background: var(--accent-bright); font-weight: 600; }
   .phone-ask b + b { background: transparent; border: 1.5px solid var(--ink-2); }
 

@@ -28,11 +28,20 @@ const server = http.createServer((req, res) => {
   const url = new URL(req.url || '/', 'http://x');
   console.log(req.method, url.pathname);
   if (url.pathname === '/health') return json(res, 200, { ok: true });
+  // What the app asks first: name, features (turn on Mission Control, email, texts, scans), models.
+  if (url.pathname === '/about') return json(res, 200, {
+    ok: true, name: 'Mac', platform: 'darwin', models, relay: null,
+    features: { mission: true, grok: true, browser: false, usage: true, scripts: true, ingest: true,
+                email: true, texts: true, scans: true, voice: false, terminal: true },
+  });
+  if (url.pathname === '/terminals' && req.method === 'GET') return json(res, 200, { terminals: [] });
   if (url.pathname === '/sessions' && req.method === 'GET') return json(res, 200, { sessions });
   if (url.pathname === '/mac-sessions') return json(res, 200, { sessions: [] });
   if (url.pathname === '/usage') return json(res, 200, {
     claude: { fiveHour: { percent: 19, resetsAt: now + 3600e3 }, week: { percent: 24, resetsAt: now + 4 * 86400e3 }, limited: false, at: now },
     grok: { percent: 57, period: 'week', resetsAt: now + 86400e3, tier: 'SuperGrok', at: now },
+    turns: { today: { claude: { turns: 14, tokens: 182000 }, grok: { turns: 3, tokens: 21000 } },
+             week: { claude: { turns: 96, tokens: 1310000 }, grok: { turns: 22, tokens: 160000 } } },
   });
   if (url.pathname === '/mission' && req.method === 'GET') return json(res, 200, mission());
   if (url.pathname.startsWith('/mission/')) return json(res, 202, { ok: true });

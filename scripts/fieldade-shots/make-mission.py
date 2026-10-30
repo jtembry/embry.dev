@@ -1,4 +1,11 @@
+import datetime as dt
 import json, time
+
+# Dates follow the day the shots are taken, so nothing reads as weeks overdue.
+T = dt.date.today()
+D = lambda n=0: (T + dt.timedelta(days=n)).isoformat()
+DAY = lambda n=0, f="%a, %b %-d": (T + dt.timedelta(days=n)).strftime(f)
+MD = lambda n=0: f"{(T + dt.timedelta(days=n)).month}/{(T + dt.timedelta(days=n)).day}"
 
 now_ms = int(time.time() * 1000)
 
@@ -46,35 +53,43 @@ today_events = [
 mission = {
     "version": 1530,
     "at": now_ms,
-    "counts": {"emailUnread": 3, "emailRows": 3, "textUnread": 2, "textRows": 2},
+    "counts": {"emailUnread": 5, "emailRows": 5, "textUnread": 2, "textRows": 2},
     "today": {
         "calendar": today_events,
         "due": [
             {**todo("1 Projects/Henderson Kitchen/Henderson Kitchen.md", 31,
-                    "Send the revised quote to the Hendersons 📅 2026-10-15"),
-             "text": "Send the revised quote to the Hendersons", "due": "2026-10-15",
+                    f"Send the revised quote to the Hendersons 📅 {D()}"),
+             "text": "Send the revised quote to the Hendersons", "due": D(),
              "file": "Henderson Kitchen", "overdue": False},
+            {**todo("1 Projects/Parker Bathroom/Parker Bathroom.md", 22, f"Price two tile options 📅 {D(1)}"),
+             "text": "Price two tile options", "due": D(1), "file": "Parker Bathroom", "overdue": False},
+            {**todo("2 Areas/Truck/Truck.md", 19, f"Renew the truck registration 📅 {D(3)}"),
+             "text": "Renew the truck registration", "due": D(3), "file": "Truck", "overdue": False},
         ],
         "ingest": {"total": 2, "rows": [
-            {"name": "Text from Dana 2026-10-15 0812", "path": "0 Ingest/Text from Dana 2026-10-15 0812.md",
+            {"name": f"Text from Dana {D()} 0812", "path": f"0 Ingest/Text from Dana {D()} 0812.md",
              "kind": "text", "age": "2h", "at": now_ms - 2 * 3600e3,
              "gist": "Can we move the cabinet delivery to Friday?"},
-            {"name": "Receipt — lumber yard 2026-10-14", "path": "0 Ingest/Receipt — lumber yard 2026-10-14.md",
+            {"name": f"Receipt — lumber yard {D(-1)}", "path": f"0 Ingest/Receipt — lumber yard {D(-1)}.md",
              "kind": "scan", "age": "1d", "at": now_ms - 26 * 3600e3,
              "gist": "Scanned from the truck. $412.60, framing lumber and screws."},
         ]},
         "next": [
-            {"name": "Henderson Kitchen", "path": "1 Projects/Henderson Kitchen/Henderson Kitchen.md",
-             "next": "Confirm the countertop template date with the fabricator", "blocked": "",
-             "updated": "2026-10-15", "discreet": False},
-            {"name": "Truck", "path": "2 Areas/Truck/Truck.md",
-             "next": "Book the 60,000-mile service", "blocked": "", "updated": "2026-10-12", "discreet": False},
+            {"name": "Henderson Kitchen", "path": "1 Projects/Henderson Kitchen/Henderson Kitchen.md", "discreet": False,
+             "todo": todo("1 Projects/Henderson Kitchen/Henderson Kitchen.md", 24,
+                          "Confirm the countertop template date with the fabricator")},
+            {"name": "Parker Bathroom", "path": "1 Projects/Parker Bathroom/Parker Bathroom.md", "discreet": False,
+             "todo": todo("1 Projects/Parker Bathroom/Parker Bathroom.md", 20, "Measure and photograph the room")},
+            {"name": "Truck", "path": "2 Areas/Truck/Truck.md", "discreet": False,
+             "todo": todo("2 Areas/Truck/Truck.md", 18, "Book the 60,000-mile service")},
         ],
     },
     "email": [
-        email(1, "Dana Reyes", "Thu 10/15, 8:40 AM", "Invoice 1042 is approved. When can you start?"),
-        email(2, "County Permits", "Thu 10/15, 7:55 AM", "Permit 2026-3381 has been approved. Print the card for the job site."),
-        email(3, "Supply house", "Wed 10/14, 4:12 PM", "Your order is ready for pickup at the counter."),
+        email(1, "Dana Reyes", f"{DAY(0, '%a')} {MD()}, 8:40 AM", "Invoice 1042 is approved. When can you start?"),
+        email(2, "County Permits", f"{DAY(0, '%a')} {MD()}, 7:55 AM", "Permit 2026-3381 has been approved. Print the card for the job site."),
+        email(4, "Parker family", f"{DAY(0, '%a')} {MD()}, 6:58 AM", "Monday at 10 works for us. The side door will be open."),
+        email(5, "Tile Outlet", f"{DAY(-1, '%a')} {MD(-1)}, 5:30 PM", "The two samples you asked about are on hold under your name until Friday."),
+        email(3, "Supply house", f"{DAY(-1, '%a')} {MD(-1)}, 4:12 PM", "Your order is ready for pickup at the counter."),
     ],
     "messages": [
         msg(1, "Dana", "8:51a", "Can we move the cabinet delivery to Friday?"),
@@ -82,28 +97,28 @@ mission = {
     ],
     "calendar": {
         "upcoming": [
-            {"day": "Today — Thu, Oct 15", "events": today_events},
-            {"day": "Fri, Oct 16", "events": [ev("8:00a", "Cabinet delivery", "Jobs", "412 Maple St")]},
-            {"day": "Mon, Oct 19", "events": [ev("10:00–11:00a", "Estimate — Parker bathroom", "Jobs")]},
+            {"day": f"Today — {DAY()}", "events": today_events},
+            {"day": DAY(1), "events": [ev("8:00a", "Cabinet delivery", "Jobs", "412 Maple St")]},
+            {"day": DAY(4), "events": [ev("10:00–11:00a", "Estimate — Parker bathroom", "Jobs")]},
         ],
         "calendars": [{"name": "Work", "kind": "Google", "count": 6}, {"name": "Jobs", "kind": "iCloud", "count": 4},
                       {"name": "Home", "kind": "iCloud", "count": 2}],
-        "synced": "2026-10-15, 10:04 AM · next 7 days",
+        "synced": f"{D()}, 9:34 AM · next 7 days",
     },
     "projects": {
         "cards": [
-            card("Henderson Kitchen", "1 Projects", "Demo done; cabinets land Friday", "Confirm the countertop template date", "2026-10-15",
+            card("Henderson Kitchen", "1 Projects", "Demo done; cabinets land Friday", "Confirm the countertop template date", D(),
                  ["Confirm the countertop template date with the fabricator", "Order the under-cabinet lights"]),
-            card("Parker Bathroom", "1 Projects", "Estimate scheduled for Monday", "Measure and photograph the room", "2026-10-13",
+            card("Parker Bathroom", "1 Projects", "Estimate scheduled for Monday", "Measure and photograph the room", D(-2),
                  ["Measure and photograph the room", "Price two tile options"]),
         ],
-        "done": [{"done": "2026-10-14", "file": "Henderson Kitchen", "text": "Pull the electrical permit"}],
+        "done": [{"done": D(-1), "file": "Henderson Kitchen", "text": "Pull the electrical permit"}],
     },
     "areas": {
         "cards": [
-            card("Truck", "2 Areas", "Running fine; service due", "Book the 60,000-mile service", "2026-10-12",
+            card("Truck", "2 Areas", "Running fine; service due", "Book the 60,000-mile service", D(-3),
                  ["Book the 60,000-mile service"]),
-            card("Tools", "2 Areas", "Inventory current as of October", "Replace the worn miter blade", "2026-10-09",
+            card("Tools", "2 Areas", "Inventory current as of October", "Replace the worn miter blade", D(-6),
                  ["Replace the worn miter blade"]),
         ],
         "done": [],
@@ -113,10 +128,10 @@ mission = {
         {"name": "quote", "text": "Draft a fixed-scope quote from a site-walk note."},
         {"name": "file-notes", "text": "Sort what landed in the ingest folder into the right project or area."},
     ],
-    "archives": [{"done": "2026-10-08", "glyph": "◆", "text": "Garage shelving finished and photographed", "file": "Garage Shelving", "line": 12}],
-    "ingestLog": [{"stamp": "2026-10-15 00:00", "when": "2026-10-15", "who": "Claude · file-notes",
+    "archives": [{"done": D(-7), "glyph": "◆", "text": "Garage shelving finished and photographed", "file": "Garage Shelving", "line": 12}],
+    "ingestLog": [{"stamp": f"{D()} 00:00", "when": D(), "who": "Claude · file-notes",
                    "what": "Lumber receipt filed under Henderson Kitchen",
-                   "heading": "2026-10-15 (Claude · file-notes) — Lumber receipt filed under Henderson Kitchen"}],
+                   "heading": f"{D()} (Claude · file-notes) — Lumber receipt filed under Henderson Kitchen"}],
     "freshness": {"email": now_ms - 60e3, "messages": now_ms - 120e3, "calendar": now_ms - 300e3},
     "buildMs": 42,
 }

@@ -243,6 +243,9 @@ const scenarios = [
 
   .token { position: absolute; top: 0; left: 0; z-index: 2; max-width: 11rem; padding: .45rem .7rem; border-radius: 8px; background: var(--band); color: var(--white); font-size: .78rem; line-height: 1.3; box-shadow: 0 10px 24px rgba(20,22,28,.3), 0 0 0 2px var(--accent-bright); transition: transform .8s cubic-bezier(.3,.8,.3,1); pointer-events: none; }
   .token.jump { transition: none; }
+  :global(html[data-look="dos"]) .pick { border-color: var(--line); }
+  :global(html[data-look="dos"]) .pick[aria-selected="true"], :global(html[data-look="dos"]) .station.on .st-num, :global(html[data-look="dos"]) .station.done .st-num { color: #000; text-shadow: none; }
+  :global(html[data-look="dos"]) .token { background: #000; color: var(--ink); box-shadow: 0 0 0 2px var(--accent-bright); }
 
   .caption { margin-top: 1.5rem; padding: 1.1rem 1.25rem; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); }
   .cap-step { margin: 0 0 .3rem; font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }

@@ -266,3 +266,80 @@ button.book-cal-day[aria-pressed="true"] { background: var(--accent-bright); }
 .book-times-list { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; }
 .book-time { appearance: none; font: inherit; font-size: .9rem; font-weight: 600; padding: .4rem .5rem; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; text-align: center; }
 .book-time[aria-pressed="true"] { background: var(--accent-bright); border-color: var(--accent-bright); }
+
+/* DOS look: the FieldADE app's DOS mode (green phosphor on black, monospaced, square boxes).
+   Picked by the toggle in the menu (Base.astro), saved in localStorage "embry-look".
+   --white is the card surface everywhere, so places that use it as text color are re-pointed below. */
+html[data-look="dos"] {
+  color-scheme: dark;
+  --phosphor: #00ff4d;
+  --bg: #000;
+  --white: #051408;
+  --ink: var(--phosphor);
+  --ink-2: rgba(0,255,77,.85);
+  --muted: rgba(0,255,77,.65);
+  --line: rgba(0,255,77,.32);
+  --band: #000;
+  --band-2: #051408;
+  --accent: var(--phosphor);
+  --accent-bright: var(--phosphor);
+  --accent-tint: #0a2a12;
+  --pattern-stroke: var(--phosphor);
+  --pattern-fill: var(--phosphor);
+  --pattern-node: rgba(0,255,77,.5);
+  --radius: 0;
+  --sans: var(--mono);
+}
+html[data-look="dos"] *, html[data-look="dos"] *::before, html[data-look="dos"] *::after { border-radius: 0 !important; }
+html[data-look="dos"] body { text-shadow: 0 0 6px rgba(0,255,77,.28); }
+html[data-look="dos"] body::after { content: ""; position: fixed; inset: 0; z-index: 90; pointer-events: none;
+  background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.22) 3px); }
+html[data-look="dos"] h1, html[data-look="dos"] h2, html[data-look="dos"] h3 { letter-spacing: 0; text-transform: uppercase; }
+html[data-look="dos"] .band-dark, html[data-look="dos"] footer.site { color: var(--ink-2); border-block: 1px solid var(--line); }
+html[data-look="dos"] .band-dark h1, html[data-look="dos"] .band-dark h2, html[data-look="dos"] .band-dark h3, html[data-look="dos"] .band-dark .stat, html[data-look="dos"] .band-dark .btn-secondary, html[data-look="dos"] .brand, html[data-look="dos"] .footer-brand, html[data-look="dos"] .drawer-close, html[data-look="dos"] .live-badge, html[data-look="dos"] .print-play, html[data-look="dos"] .contact-tile, html[data-look="dos"] .pick { color: var(--phosphor); }
+html[data-look="dos"] .band-dark .lede, html[data-look="dos"] .hero-tall .hero-text .lede, html[data-look="dos"] footer.site, html[data-look="dos"] footer.site .social a, html[data-look="dos"] .live-offline, html[data-look="dos"] .drawer-label, html[data-look="dos"] .drawer-foot, html[data-look="dos"] nav.primary ul a, html[data-look="dos"] .drawer-list a { color: var(--muted); }
+html[data-look="dos"] .band-dark a, html[data-look="dos"] footer.site a, html[data-look="dos"] .live-offline a, html[data-look="dos"] .sysmap-open, html[data-look="dos"] .box span, html[data-look="dos"] .row-k { color: var(--phosphor); }
+html[data-look="dos"] .band-dark .btn-secondary { border-color: var(--phosphor); }
+html[data-look="dos"] .logo .logo-ink, html[data-look="dos"] .brand .logo .logo-ink, html[data-look="dos"] .band-dark .logo .logo-ink, html[data-look="dos"] footer.site .logo .logo-ink { fill: var(--phosphor); }
+html[data-look="dos"] .logo .logo-accent, html[data-look="dos"] .brand .dot { fill: #e8702a; color: #e8702a; }
+html[data-look="dos"] .btn-primary, html[data-look="dos"] .band-dark .btn-primary, html[data-look="dos"] footer.site .btn-primary, html[data-look="dos"] .contact-tile-primary, html[data-look="dos"] .band-dark .contact-tile-primary, html[data-look="dos"] .skip { background: var(--phosphor); border-color: var(--phosphor); color: #000; text-shadow: none; box-shadow: none; }
+html[data-look="dos"] .btn-primary:hover, html[data-look="dos"] .band-dark .contact-tile-primary:hover { background: #6dff97; color: #000; }
+html[data-look="dos"] .tag { background: transparent; border: 1px solid var(--line); }
+html[data-look="dos"] .card:hover { border-color: var(--phosphor); box-shadow: 0 0 0 1px var(--phosphor); }
+html[data-look="dos"] .bar, html[data-look="dos"] .drawer { background: rgba(0,0,0,.88); border-color: var(--line); box-shadow: none; }
+html[data-look="dos"] .bar { border: 1px solid var(--line); }
+html[data-look="dos"] nav.primary ul a:hover, html[data-look="dos"] .drawer-list a:hover { background: var(--accent-tint); color: var(--phosphor); }
+html[data-look="dos"] nav.primary ul a[aria-current="page"], html[data-look="dos"] .drawer-list a[aria-current="page"] { background: var(--phosphor); border-color: var(--phosphor); color: #000; text-shadow: none; }
+html[data-look="dos"] .nav-toggle, html[data-look="dos"] .drawer-close { background: transparent; border-color: var(--line); }
+html[data-look="dos"] .nav-toggle .bar-line { background: var(--phosphor); }
+html[data-look="dos"] .hero-glow { background: linear-gradient(90deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.65) 50%, rgba(0,0,0,.15) 100%); box-shadow: none; }
+html[data-look="dos"] .hero-img { filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(3); }
+html[data-look="dos"] .hero-tall .hero-text h1, html[data-look="dos"] .hero-tall .hero-text .lede { text-shadow: 0 0 10px rgba(0,255,77,.35); }
+html[data-look="dos"] .sysmap::after { background: linear-gradient(90deg, rgba(0,0,0,.95) 0%, rgba(0,0,0,.88) 42%, rgba(0,0,0,.2) 72%, rgba(0,0,0,.3) 100%); }
+html[data-look="dos"] .sysmap svg { filter: none; }
+html[data-look="dos"] .sysmap-group rect { fill: rgba(0,255,77,.04); stroke: rgba(0,255,77,.4); }
+html[data-look="dos"] .sysmap-group text, html[data-look="dos"] .sysmap-node text { fill: var(--phosphor); font-family: var(--mono); }
+html[data-look="dos"] .sysmap-edge { stroke: rgba(0,255,77,.45); }
+html[data-look="dos"] .sysmap-arrow { fill: rgba(0,255,77,.7); }
+html[data-look="dos"] .sysmap-node rect { fill: #051408; stroke: rgba(0,255,77,.45); }
+html[data-look="dos"] .sysmap-node.k-person rect { fill: rgba(0,255,77,.18); stroke: var(--phosphor); }
+html[data-look="dos"] .band-parallax .band-bg { --pattern-stroke: var(--phosphor); --pattern-fill: var(--phosphor); --pattern-node: var(--phosphor); opacity: .18; }
+html[data-look="dos"] .live-dot { background: var(--phosphor); animation: none; }
+html[data-look="dos"] .contact-form input, html[data-look="dos"] .contact-form textarea, html[data-look="dos"] .contact-form select, html[data-look="dos"] .book-cal-nav, html[data-look="dos"] .book-time { background: #000; color: var(--phosphor); }
+html[data-look="dos"] button.book-cal-day[aria-pressed="true"], html[data-look="dos"] .book-time[aria-pressed="true"] { background: var(--phosphor); color: #000; }
+html[data-look="dos"] a:focus-visible, html[data-look="dos"] button:focus-visible { outline-color: var(--phosphor); }
+
+/* Look toggle (menu) */
+.look-toggle { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--mono); font-size: .8rem; font-weight: 600; letter-spacing: .06em; cursor: pointer;
+  padding: .45rem .8rem; border-radius: 999px; color: rgba(255,255,255,.78); background: transparent; border: 1px solid rgba(255,255,255,.18); transition: background .18s, color .18s; }
+.look-toggle:hover { background: rgba(255,255,255,.09); color: var(--white); }
+.look-toggle .look-box { display: inline-block; width: .7rem; height: .7rem; border: 1.5px solid currentColor; }
+.look-toggle[aria-pressed="true"] .look-box { background: currentColor; }
+.drawer-look { align-self: flex-start; margin: .6rem .5rem 0; font-size: .9rem; padding: .6rem 1rem; }
+html[data-look="dos"] .look-toggle { color: var(--phosphor); border-color: var(--line); }
+html[data-look="dos"] .look-toggle:hover { background: var(--accent-tint); }
+
+/* Phone screenshots come in both app looks; the page shows the one that matches. */
+.look-dos-only { display: none !important; }
+html[data-look="dos"] .look-pro-only { display: none !important; }
+html[data-look="dos"] .look-dos-only { display: block !important; }
