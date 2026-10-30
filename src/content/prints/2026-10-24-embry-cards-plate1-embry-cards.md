@@ -9,7 +9,6 @@ layers: 6
 nozzle: 0.4
 designedByMe: true
 tags: []
-featured: true
 ---
 
 A business card in black, white, and green: the name, the email, the phone, and a code that opens the site.
