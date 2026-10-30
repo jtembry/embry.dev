@@ -7,16 +7,15 @@ const cardsBg = dots();
 // Most builds span more than one service, so each card carries every tag that fits,
 // and each tag links to the service page it belongs to.
 const tag = {
-  software: ['/software', 'Custom software'],
+  software: ['/software', 'Software solutions'],
   phone: ['/software#phone-apps', 'Phone apps'],
   assistants: ['/knowledge-assistants', 'AI system'],
-  training: ['/knowledge-assistants/ai-adoption', 'AI training'],
   printing: ['/printing', '3D printing'],
 };
 ---
-<Base title="Work" description="Things I have built or led: an iPhone app for the AI system on my Mac, a second brain that files itself, a live printer camera, a theme park day planner, a small-business site, and platform work in finance and healthcare.">
-  <Hero variant="graph" seed={5} eyebrow="Work" title="Proof, not promises.">
-    <p class="lede">Here are things I have built or led. Most cross more than one service, so each one is tagged with every service it shows. LinkedIn names the employers and clients; this page names only the work and the result.</p>
+<Base title="Products" description="What I make: FieldADE, an iPhone app for the AI system on your Mac; Home Base, the Mac app it talks to; Kingdom Guide, a Magic Kingdom day planner; a small-business site; and custom 3D prints.">
+  <Hero variant="graph" seed={5} eyebrow="Products" title="Proof, not promises.">
+    <p class="lede">Here are things I have built. Most cross more than one service, so each one is tagged with every service it shows.</p>
   </Hero>
 
   <section class="section band-parallax">
@@ -35,29 +34,17 @@ const tag = {
           <p>An iPhone app that reaches the AI assistants on my Mac from anywhere, over a private network. A chat app on your phone starts every answer from zero. These assistants run where my records live, next to my files, email, notes, and the vault that holds what I know about each job, and a knowledge assistant keeps all of it indexed. So from the truck I can ask what we quoted a customer last spring and get the quote, or ask for the follow-up and get it drafted from that thread. The records stay on the Mac; the phone only reaches them. Each chat runs in a folder, replies appear as they are written, and photos go along with a message. Before an assistant edits a file or runs a command, the phone buzzes and asks me to allow or deny it. I can change the app from the app: an assistant edits the code, checks it, and installs the new version on the phone. <a href="/map">See how it connects</a></p>
           <p class="tags">{[tag.phone, tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
+        <div class="card work-card" id="home-base">
+          <p class="eyebrow">Mac app</p>
+          <h3>Home Base</h3>
+          <p>The Mac app FieldADE talks to. It sits in the menu bar, carries everything it needs, and installs like any other app: no terminal, no setup scripts. It relays each message from the phone to the assistants on the Mac and sends the answers back. Your files, email, and notes stay on the Mac; the phone only reaches them. <a href="/map">See how it connects</a></p>
+          <p class="tags">{[tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
+        </div>
         <div class="card work-card" id="kingdom-guide">
           <p class="eyebrow">Phone app</p>
           <h3><a href="/kingdom-guide/support">Kingdom Guide</a></h3>
           <p>An iPhone app that plans a day at Magic Kingdom. It puts the rides a family picks in walking order, estimates when they will reach each one, and shows the posted waits. For families who use the Disability Access Service, it says which ride to book next and reminds them when the return time comes up. The next stop sits on the lock screen, the map is drawn from open map data, and everyone on the trip sees the same plan. It began as a web page for our own trip and is headed for the App Store. <a href="/kingdom-guide/support">About the app</a></p>
           <p class="tags">{[tag.phone, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
-        </div>
-        <div class="card work-card" id="second-brain">
-          <p class="eyebrow">AI systems</p>
-          <h3>A second brain that runs itself</h3>
-          <div class="work-shots">
-            <img class="work-shot look-pro-only" src="/work/mission-control.png" alt="Mission Control on an iPhone: today's calendar and what is due" width="460" height="1000" loading="lazy" />
-            <img class="work-shot look-dos-only" src="/work/mission-control-dos.png" alt="Mission Control on an iPhone: today's calendar and what is due, in the DOS look" width="460" height="1000" loading="lazy" />
-            <img class="work-shot look-pro-only" src="/work/mission-control-email.png" alt="Mission Control's email tab: five unread messages, with counts on the email and texts tabs" width="460" height="1000" loading="lazy" />
-            <img class="work-shot look-dos-only" src="/work/mission-control-email-dos.png" alt="Mission Control's email tab: five unread messages, with counts on the email and texts tabs, in the DOS look" width="460" height="1000" loading="lazy" />
-          </div>
-          <p>Agents sort my email, texts, scans, and notes into a searchable vault every day. Mission Control, a screen in FieldADE, shows what needs me: today's calendar, what is due, unread email and texts, what is waiting to be filed, and the next step for each project. A tap files an item, archives it, or opens a chat with the notes for that job already loaded. For a business, the same shape puts customer history, open quotes, and the next step on each job in your pocket, drawn from the records the assistant keeps, not from memory. It is the working prototype for the knowledge-assistant offer. <a href="/map">See how the system works</a></p>
-          <p class="tags">{[tag.assistants, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
-        </div>
-        <div class="card work-card" id="print-camera">
-          <p class="eyebrow">Shop software</p>
-          <h3>A printer that reports on itself</h3>
-          <p>A camera streams my 3D printer to this site, and a small program logs every print as it starts and finishes, with a photo of the result. Finished prints land in an <a href="/printing/archive">archive</a>. A few of them are featured on the printing page. <a href="/printing#live">Watch it print</a></p>
-          <p class="tags">{[tag.printing, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="flourish">
           <p class="eyebrow">Small business</p>
@@ -65,11 +52,11 @@ const tag = {
           <p>A financial counselor's site, live about a month after the first conversation. It is static and fast, costs $0 a month to host, and sits in her own GitHub account with a written guide, so she runs it herself.</p>
           <p class="tags">{[tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
-        <div class="card work-card">
-          <p class="eyebrow">AI adoption</p>
-          <h3>65% more tickets closed per sprint</h3>
-          <p>I chose the AI tooling for an engineering team: which tools, where in the workflow, and what conventions. The team's own tracker measured the change, before and after.</p>
-          <p class="tags">{[tag.training].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
+        <div class="card work-card" id="prints">
+          <p class="eyebrow">3D printing</p>
+          <h3><a href="/printing#prints">Featured prints</a></h3>
+          <p>I design and print custom pieces for marketing and promotion: business cards, card holders, signs, and giveaways with your name on them. Each one starts as a short conversation and comes off my own printer. <a href="/printing#prints">See featured prints</a></p>
+          <p class="tags">{[tag.printing].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
       </div>
     </div>

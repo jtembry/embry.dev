@@ -3,11 +3,11 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import site from '../data/site.json';
 import { dots } from '../lib/patterns.js';
-const ask = `mailto:${site.email}?subject=${encodeURIComponent('Custom software for my business')}`;
+const ask = `mailto:${site.email}?subject=${encodeURIComponent('Software for my business')}`;
 const bodyBg = dots();
 ---
-<Base title="Custom software for any business" description="Software and phone apps built around how your business already works: one login for your staff and customers, your records in a place you own, and the tools you already use connected.">
-  <Hero variant="graph" seed={23} tall mapLabel="My portfolio" mapTo="/work" eyebrow="Custom software · Any business" title="Stop bending your business to fit someone else's software.">
+<Base title="Software solutions for any business" description="Software and phone apps built around how your business already works: one login for your staff and customers, your records in a place you own, and the tools you already use connected.">
+  <Hero variant="graph" seed={23} tall mapLabel="My portfolio" mapTo="/products" eyebrow="Software solutions · Any business" title="Stop bending your business to fit someone else's software.">
     <p class="lede">Off-the-shelf software makes you work its way. I learn how your business runs and build around it, with your leaders' input at every step: the customer portal, the scheduling, the billing, and the reports, behind one login. You own the code and the data.</p>
     <a slot="actions" class="btn btn-secondary " href={ask}>Ask about your software</a>
   </Hero>
@@ -15,6 +15,8 @@ const bodyBg = dots();
   <section class="section band-parallax">
     <div class="band-bg" set:html={bodyBg} aria-hidden="true" />
     <div class="wrap">
+      <h2 id="prototyping">Your vision, working in days</h2>
+      <p>The beauty of a small studio is speed. We prototype fast, and we build from <em>your</em> vision, not a template. You describe the tool you wish you had; within days you are clicking through a working version of it. Then we change it together until it fits, and only then build it out.</p>
       <h2>What you get</h2>
       <ul>
         <li>Software built around how you work, with logins for your staff and, if you want, your customers.</li>
@@ -33,7 +35,7 @@ const bodyBg = dots();
       <h2 id="phone-apps">iOS &amp; Android</h2>
       <p>I build phone apps that connect to the rest of your system, so your crew can check a job, approve a request, or send a photo without a laptop.</p>
       <p><span class="tag">Fixed scope</span> <span class="tag">You own the code</span> <span class="tag">Optional monthly care</span> <span class="tag">Quote on scope</span></p>
-      <p><a class="btn btn-primary" href={ask}>Ask about your software</a></p>
+      <p><a class="btn btn-primary" href={ask}>Ask about your software</a> <a class="btn btn-secondary" href="/products">See our products</a></p>
       <p class="muted">Need only a website? I build those too. <a href="https://flourishfinancialgroup.org">Flourish Financial Group</a> went live a month after the first conversation and costs $0 a month to host.</p>
     </div>
   </section>

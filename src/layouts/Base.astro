@@ -7,11 +7,11 @@ const { title, description } = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 const services = [
   ['/knowledge-assistants', 'AI systems'],
-  ['/software', 'Custom software'],
+  ['/software', 'Software solutions'],
   ['/printing', '3D printing'],
 ];
 const more = [
-  ['/work', 'Work'],
+  ['/products', 'Products'],
   ['/about', 'About'],
 ];
 const nav = [...services, ...more];
