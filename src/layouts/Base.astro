@@ -26,7 +26,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     <link rel="canonical" href={new URL(path, Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');</script>
-    <script is:inline>try { if (localStorage.getItem('embry-look') === 'dos') document.documentElement.dataset.look = 'dos'; } catch {}</script>
+    <script is:inline>try { if (localStorage.getItem('embry-look') === 'dos') { document.documentElement.dataset.look = 'dos'; var icon = document.querySelector('link[rel="icon"]'); if (icon) icon.href = '/favicon-dos.svg'; } } catch {}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -146,7 +146,12 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
       // Look: DOS mode (green phosphor, like the FieldADE app) or the normal site. The head
       // script applies a saved choice before paint; screenshots swap via .look-dos-only/.look-pro-only.
       const lookButtons = document.querySelectorAll('.look-toggle');
-      const showLook = () => lookButtons.forEach((b) => b.setAttribute('aria-checked', String(root.dataset.look === 'dos')));
+      const icon = document.querySelector('link[rel="icon"]');
+      const showLook = () => {
+        const dos = root.dataset.look === 'dos';
+        lookButtons.forEach((b) => b.setAttribute('aria-checked', String(dos)));
+        if (icon) icon.href = dos ? '/favicon-dos.svg' : '/favicon.svg';
+      };
       lookButtons.forEach((b) => b.addEventListener('click', () => {
         const dos = root.dataset.look !== 'dos';
         if (dos) root.dataset.look = 'dos'; else delete root.dataset.look;

@@ -300,8 +300,12 @@ html[data-look="dos"] .band-dark h1, html[data-look="dos"] .band-dark h2, html[d
 html[data-look="dos"] .band-dark .lede, html[data-look="dos"] .hero-tall .hero-text .lede, html[data-look="dos"] footer.site, html[data-look="dos"] footer.site .social a, html[data-look="dos"] .live-offline, html[data-look="dos"] .drawer-label, html[data-look="dos"] .drawer-foot, html[data-look="dos"] nav.primary ul a, html[data-look="dos"] .drawer-list a { color: var(--muted); }
 html[data-look="dos"] .band-dark a, html[data-look="dos"] footer.site a, html[data-look="dos"] .live-offline a, html[data-look="dos"] .sysmap-open, html[data-look="dos"] .box span, html[data-look="dos"] .row-k { color: var(--phosphor); }
 html[data-look="dos"] .band-dark .btn-secondary { border-color: var(--phosphor); }
-html[data-look="dos"] .logo .logo-ink, html[data-look="dos"] .brand .logo .logo-ink, html[data-look="dos"] .band-dark .logo .logo-ink, html[data-look="dos"] footer.site .logo .logo-ink { fill: var(--phosphor); }
-html[data-look="dos"] .logo .logo-accent, html[data-look="dos"] .brand .dot { fill: #e8702a; color: #e8702a; }
+html[data-look="dos"] .logo .logo-ink, html[data-look="dos"] .brand .logo .logo-ink, html[data-look="dos"] .band-dark .logo .logo-ink, html[data-look="dos"] footer.site .logo .logo-ink,
+html[data-look="dos"] .logo .logo-accent { fill: var(--phosphor); }
+html[data-look="dos"] .brand .dot { color: var(--phosphor); }
+html[data-look="dos"] .band-dark .contact-tile:hover, html[data-look="dos"] .band-dark .contact-tile:focus-visible { color: var(--phosphor); }
+html[data-look="dos"] .sysmap-open { border-color: rgba(0,255,77,.45); }
+html[data-look="dos"] .sysmap-open:hover, html[data-look="dos"] .sysmap-open:focus-visible { border-color: var(--phosphor); background: rgba(0,255,77,.08); }
 html[data-look="dos"] .btn-primary, html[data-look="dos"] .band-dark .btn-primary, html[data-look="dos"] footer.site .btn-primary, html[data-look="dos"] .contact-tile-primary, html[data-look="dos"] .band-dark .contact-tile-primary, html[data-look="dos"] .skip { background: var(--phosphor); border-color: var(--phosphor); color: #000; text-shadow: none; box-shadow: none; }
 html[data-look="dos"] .btn-primary:hover, html[data-look="dos"] .band-dark .contact-tile-primary:hover { background: #6dff97; color: #000; }
 html[data-look="dos"] .tag { background: transparent; border: 1px solid var(--line); }
