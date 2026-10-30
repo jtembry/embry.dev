@@ -38,7 +38,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <a class="brand" href="/" aria-label="Embry Development home"><Logo size={24} /><span class="brand-text">embry<span class="dot">.dev</span></span></a>
         <nav class="primary" aria-label="Primary">
           <ul>{nav.map(([href, label]) => <li><a href={href} aria-current={path === href || path.startsWith(href + '/') ? 'page' : undefined}>{label}</a></li>)}</ul>
-          <button class="look-toggle" type="button" aria-pressed="false" title="Switch to the FieldADE app's DOS look"><span class="look-box" aria-hidden="true"></span>DOS</button>
+          <button class="look-toggle" type="button" role="switch" aria-checked="false" aria-label="Green screen look" title="Green screen look"><span class="look-knob" aria-hidden="true"></span></button>
           <a class="btn btn-primary nav-cta" href={mailto}>Email me</a>
         </nav>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open menu">
@@ -56,8 +56,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
       <ul class="drawer-list">{services.map(([href, label], i) => <li style={`--i:${i + 1}`}><a href={href} aria-current={path === href || path.startsWith(href + '/') ? 'page' : undefined}>{label}</a></li>)}</ul>
       <p class="drawer-label" style="--i:5">More</p>
       <ul class="drawer-list">{more.map(([href, label], i) => <li style={`--i:${i + 6}`}><a href={href} aria-current={path === href || path.startsWith(href + '/') ? 'page' : undefined}>{label}</a></li>)}</ul>
-      <p class="drawer-label" style="--i:8">Look</p>
-      <button class="look-toggle drawer-look" type="button" aria-pressed="false" style="--i:9"><span class="look-box" aria-hidden="true"></span>DOS mode</button>
+      <div class="drawer-look" style="--i:9"><button class="look-toggle" type="button" role="switch" aria-checked="false" aria-label="Green screen look" title="Green screen look"><span class="look-knob" aria-hidden="true"></span></button></div>
       <a class="btn btn-primary drawer-cta" href={mailto} style="--i:10">Email me</a>
       <p class="drawer-foot" style="--i:11">{site.legalName} · {site.location}</p>
     </aside>
@@ -147,7 +146,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
       // Look: DOS mode (green phosphor, like the FieldADE app) or the normal site. The head
       // script applies a saved choice before paint; screenshots swap via .look-dos-only/.look-pro-only.
       const lookButtons = document.querySelectorAll('.look-toggle');
-      const showLook = () => lookButtons.forEach((b) => b.setAttribute('aria-pressed', String(root.dataset.look === 'dos')));
+      const showLook = () => lookButtons.forEach((b) => b.setAttribute('aria-checked', String(root.dataset.look === 'dos')));
       lookButtons.forEach((b) => b.addEventListener('click', () => {
         const dos = root.dataset.look !== 'dos';
         if (dos) root.dataset.look = 'dos'; else delete root.dataset.look;

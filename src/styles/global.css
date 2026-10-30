@@ -329,17 +329,22 @@ html[data-look="dos"] .contact-form input, html[data-look="dos"] .contact-form t
 html[data-look="dos"] button.book-cal-day[aria-pressed="true"], html[data-look="dos"] .book-time[aria-pressed="true"] { background: var(--phosphor); color: #000; }
 html[data-look="dos"] a:focus-visible, html[data-look="dos"] button:focus-visible { outline-color: var(--phosphor); }
 
-/* Look toggle (menu) */
-.look-toggle { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--mono); font-size: .8rem; font-weight: 600; letter-spacing: .06em; cursor: pointer;
-  padding: .45rem .8rem; border-radius: 999px; color: rgba(255,255,255,.78); background: transparent; border: 1px solid rgba(255,255,255,.18); transition: background .18s, color .18s; }
-.look-toggle:hover { background: rgba(255,255,255,.09); color: var(--white); }
-.look-toggle .look-box { display: inline-block; width: .7rem; height: .7rem; border: 1.5px solid currentColor; }
-.look-toggle[aria-pressed="true"] .look-box { background: currentColor; }
-.drawer-look { align-self: flex-start; margin: .6rem .5rem 0; font-size: .9rem; padding: .6rem 1rem; }
-html[data-look="dos"] .look-toggle { color: var(--phosphor); border-color: var(--line); }
-html[data-look="dos"] .look-toggle:hover { background: var(--accent-tint); }
+/* Look toggle (menu): a plain switch. Stays a pill in the DOS look too. */
+.look-toggle { position: relative; flex: none; width: 2.75rem; height: 1.5rem; padding: 0; margin: 0 .35rem; cursor: pointer; vertical-align: middle;
+  border-radius: 999px !important; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.08);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.35); transition: background .25s, border-color .25s, box-shadow .25s; }
+.look-toggle:hover { border-color: rgba(255,255,255,.34); }
+.look-knob { position: absolute; top: 50%; left: 3px; width: 1.05rem; height: 1.05rem; border-radius: 50% !important; background: #f2f3f5;
+  box-shadow: 0 1px 3px rgba(0,0,0,.45); transform: translateY(-50%); transition: transform .28s cubic-bezier(.3,.7,.2,1), background .25s; }
+.look-toggle[aria-checked="true"] { background: var(--phosphor, #00ff4d); border-color: var(--phosphor, #00ff4d); box-shadow: 0 0 12px rgba(0,255,77,.45); }
+.look-toggle[aria-checked="true"] .look-knob { transform: translate(1.2rem, -50%); background: #000; box-shadow: none; }
+.drawer-look { display: flex; justify-content: center; margin: 1.5rem 0 1rem; }
+.drawer-look .look-toggle { transform: scale(1.15); }
+@media (prefers-reduced-motion: reduce) { .look-toggle, .look-knob { transition: none; } }
 
 /* Phone screenshots come in both app looks; the page shows the one that matches. */
 .look-dos-only { display: none !important; }
 html[data-look="dos"] .look-pro-only { display: none !important; }
 html[data-look="dos"] .look-dos-only { display: block !important; }
+html[data-look="dos"] .look-toggle { border-radius: 999px !important; text-shadow: none; }
+html[data-look="dos"] .look-knob { border-radius: 50% !important; }
