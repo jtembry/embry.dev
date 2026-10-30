@@ -6,9 +6,11 @@ import site from '../data/site.json';
 <Base title="AI systems for offices" description="I build what your office needs from the Claude or ChatGPT account you already pay for. Client files stay on a computer you own, and I train your staff to use it.">
   <Hero variant="graph" tall eyebrow={`${site.legalName} · ${site.location}`} title="I'll build what your office needs.">
     <p class="lede">I build AI systems and custom software solutions for offices. Let AI focus on the busywork so you can focus on your business.</p>
-    {site.booking && (
+    {(site.calUrl || site.booking) && (
       <Fragment slot="actions">
-        <button type="button" class="btn btn-primary" data-book>Book a free consultation</button>
+        {site.calUrl
+          ? <a class="btn btn-primary" href={site.calUrl} target="_blank" rel="noopener">Book a free consultation</a>
+          : <button type="button" class="btn btn-primary" data-book>Book a free consultation</button>}
       </Fragment>
     )}
   </Hero>

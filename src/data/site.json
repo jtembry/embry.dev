@@ -6,6 +6,7 @@
   "location": "Louisville Metropolitan Area",
   "email": "joel@embry.dev",
   "contactEndpoint": "https://contact.embry.dev",
+  "calUrl": "https://cal.com/joel-embry/consultation",
   "booking": {
     "timezone": "America/Kentucky/Louisville",
     "durationMinutes": 15,
