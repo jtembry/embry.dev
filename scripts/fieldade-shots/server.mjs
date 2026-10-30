@@ -13,7 +13,7 @@ const models = [
 ];
 const now = Date.now();
 const sessions = [
-  { id: 'claude-1', kind: 'claude', title: 'Field Agent', sessionId: 'a', model: 'claude-fable-5-1', modelLabel: 'Fable 5.1', models, state: 'connected', mode: null, approval: 'ask', activity: 'permission', replyAt: now - 40e3, path: '~/RemoteAgentIOS' },
+  { id: 'claude-1', kind: 'claude', title: 'FieldADE', sessionId: 'a', model: 'claude-fable-5-1', modelLabel: 'Fable 5.1', models, state: 'connected', mode: null, approval: 'ask', activity: 'permission', replyAt: now - 40e3, path: '~/RemoteAgentIOS' },
   { id: 'claude-2', kind: 'claude', title: 'Henderson quote', sessionId: 'b', model: 'claude-opus-5-5', modelLabel: 'Opus 5.5', models, state: 'connected', mode: null, approval: 'ask', activity: 'working', replyAt: now - 3 * 60e3, path: '~/second_brain' },
   { id: 'grok-1', kind: 'grok', title: 'Site copy', sessionId: 'c', model: 'grok-4.7', modelLabel: 'Grok 4.7', models, state: 'disconnected', mode: null, approval: 'ask', activity: 'idle', replyAt: now - 2 * 3600e3, path: '~/Projects/embry-dev-site' },
   { id: 'claude-3', kind: 'claude', title: 'Truck service', sessionId: 'd', model: 'claude-fable-5-1', modelLabel: 'Fable 5.1', models, state: 'disconnected', mode: null, approval: 'ask', activity: 'idle', replyAt: now - 26 * 3600e3, path: '~' },

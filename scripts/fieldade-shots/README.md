@@ -1,4 +1,4 @@
-# Field Agent screenshots for /work
+# FieldADE screenshots for /work
 
 The phone screenshots in `public/work/` come from the iOS simulator talking to a stand-in home base with made-up data, so nothing private lands on the site.
 
@@ -18,7 +18,7 @@ xcodebuild -project RemoteAgent.xcodeproj -scheme RemoteAgent -sdk iphonesimulat
 2. Start the stand-in home base (port 8789). It needs the `ws` package; symlink the real home base's node_modules:
 
 ```
-cd scripts/field-agent-shots
+cd scripts/fieldade-shots
 ln -sfn ~/RemoteAgentMac/node_modules node_modules
 python3 make-mission.py        # writes mission.json
 node server.mjs
