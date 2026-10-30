@@ -14,7 +14,7 @@ Printer camera (RTSPS, port 322, Developer Mode) → **go2rtc** on brainpi (user
 
 Entries are Markdown files in `src/content/prints/`, one per print, with the photo (and optional timelapse) in `public/prints/`. Fields: `title`, `date`, `image`, optional `video`, `material`, `color`, `printTime`, `layers`, `nozzle`, `model` (URL), `designedByMe`, `tags`, `featured`. The body is the one-sentence story.
 
-`/printing#prints` shows only entries with `featured: true` (the cards, tags, and other pieces worth putting in front of a visitor). `/printing/archive` lists every entry, newest first. `/prints` redirects there. The publisher never sets `featured`. Set it by hand, and rewrite the title and sentence, when a print should appear on the shop page. New jobs stay in the archive until then.
+`/printing#prints` shows only entries with `featured: true`. Feature each piece once. A later copy of a print already on the shop page stays in the archive. `/printing/archive` lists every entry, newest first. `/prints` redirects there. The publisher never sets `featured`. Set it by hand, and rewrite the title and sentence, when a print should appear on the shop page. New jobs stay in the archive until then.
 
 **Automatic drafts.** `brain-print-watch` runs on brainpi (user service) and listens to the printer over MQTT. When a job finishes it waits 20 s, grabs a bed photo from go2rtc, and writes `~/prints-drafts/<date>-<slug>/{entry.md,photo.jpg,job.json}` with the job name, filament type and color (from the AMS tray that fed), duration, layers, and nozzle filled in. Failed jobs are logged, not drafted.
 
