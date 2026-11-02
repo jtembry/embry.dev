@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.json';
+---
+<Base title="FieldADE privacy policy" description="What the FieldADE iPhone app and FieldADE Home Base collect, where your data goes, and what Embry Development never sees.">
+  <section class="section">
+    <div class="wrap">
+      <h1>FieldADE privacy policy</h1>
+      <p><em>Last updated November 1, 2026</em></p>
+
+      <p>FieldADE is an iPhone app, with an optional Mac app called FieldADE Home Base, made by {site.legalName}. This page covers both.</p>
+      <p><strong>The short version:</strong> we collect nothing. There is no account, no analytics, no advertising, and no tracking. Your notes, chats, and keys stay on your own devices, and when the app talks to an AI service it talks to that service directly with your own key.</p>
+
+      <h2>What stays on your devices</h2>
+      <ul>
+        <li><strong>Your vault.</strong> The app reads and edits the notes folder you pick, on your phone or in iCloud Drive. Those files never come to us.</li>
+        <li><strong>Your API keys.</strong> An Anthropic key you enter is kept in the iPhone Keychain. It goes only to Anthropic, with each request you make.</li>
+        <li><strong>Chats.</strong> Chat history is saved in the app's own storage on your phone, or on your Mac if you run a chat there.</li>
+        <li><strong>Calendar.</strong> If you allow it, the app reads your calendar on the phone to show today's events. Events never leave the phone.</li>
+        <li><strong>Speech.</strong> When you tap the mic, Apple's speech recognition turns your words into text, on the phone when the phone supports it.</li>
+        <li><strong>Camera.</strong> Used only to scan a pairing code or to take a photo you choose to send in a chat.</li>
+      </ul>
+
+      <h2>Where data goes when you use a feature</h2>
+      <ul>
+        <li><strong>Anthropic.</strong> When you chat, your message and the notes the assistant reads to answer it are sent to Anthropic's API under your key. Anthropic's handling is set out in its own privacy policy at anthropic.com.</li>
+        <li><strong>xAI.</strong> A voice call, if you set one up, runs from your own Mac to xAI's API under your key.</li>
+        <li><strong>Your home base.</strong> If you pair the phone with FieldADE Home Base, the phone talks to that Mac, which you own and run.</li>
+        <li><strong>Apple.</strong> For widget updates and notifications, the phone gives its push token to your own home base, which sends pushes through Apple's push service.</li>
+      </ul>
+
+      <h2>The relay</h2>
+      <p>To reach your Mac away from home, the app can route traffic through relay.embry.dev, a service we run on Cloudflare. Traffic is encrypted end to end with a key that only your phone and your Mac hold, so the relay cannot read it. The relay stores two things per home base: a hash of its key and the time it last connected. Cloudflare, as the host, may keep standard connection logs such as IP addresses for a short time.</p>
+
+      <h2>Children</h2>
+      <p>FieldADE is not directed at children under 13 and does not knowingly collect data from anyone.</p>
+
+      <h2>Changes</h2>
+      <p>If this policy changes, the new version will appear on this page with a new date.</p>
+
+      <h2>Contact</h2>
+      <p>Questions: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    </div>
+  </section>
+</Base>
