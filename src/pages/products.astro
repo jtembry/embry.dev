@@ -37,7 +37,9 @@ const tag = {
         <div class="card work-card" id="home-base">
           <p class="eyebrow">Mac app</p>
           <h3>Home Base</h3>
-          <p>The Mac app FieldADE talks to. It sits in the menu bar, carries everything it needs, and installs like any other app: no terminal, no setup scripts. It relays each message from the phone to the assistants on the Mac and sends the answers back. Your files, email, and notes stay on the Mac; the phone only reaches them. <a href="/map">See how it connects</a></p>
+          <p>The Mac app FieldADE talks to. It runs the assistants on your Mac, takes each message from your phone, and sends the answers back. It opens a window with the same screens as the phone, so you can pick up any chat at the Mac where you left it on the phone, and a menu bar panel shows that it is running and pairs a new phone. It installs like any other app: no terminal, no setup scripts. Your files, email, and notes stay on the Mac; the phone only reaches them. <a href="/map">See how it connects</a></p>
+          <p class="card-actions"><a class="btn btn-primary" href="https://downloads.embry.dev/HomeBase-latest.dmg" download>Download for Mac</a></p>
+          <p class="fine">Version 0.1.0 &middot; macOS 14 or later &middot; signed and notarized by Apple. With Homebrew: <code>brew install --cask jtembry/fieldade/fieldade-home-base</code></p>
           <p class="tags">{[tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="kingdom-guide">
@@ -67,6 +69,8 @@ const tag = {
   .work-card { display: flex; flex-direction: column; }
   .work-card .tags { margin-top: auto; display: flex; flex-wrap: wrap; gap: .4rem; }
   .work-card a.tag { text-decoration: none; }
+  .work-card .card-actions { margin: 1rem 0 .5rem; }
+  .work-card .fine { font-size: .85rem; color: var(--muted, inherit); margin: 0 0 1rem; overflow-wrap: anywhere; }
   .work-shots { display: flex; justify-content: center; gap: .75rem; margin: .25rem 0 1rem; }
   .work-shot { display: block; flex: 1 1 0; min-width: 0; max-width: 200px; height: auto; border-radius: 22px; border: 1px solid var(--line); }
 </style>
