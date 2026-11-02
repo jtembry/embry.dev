@@ -1,0 +1,18 @@
+# Serves the Home Base installers from R2 (bucket fieldade-downloads) at downloads.embry.dev and counts
+# each real download. Counts live in D1 (embry-downloads); read them with ./stats.sh.
+# Deploy: npx wrangler deploy (from this folder). Schema: schema.sql.
+name = "embry-downloads"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+routes = [{ pattern = "downloads.embry.dev", custom_domain = true }]
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "fieldade-downloads"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "embry-downloads"
+database_id = "c8f18b47-dac5-4c3c-ad25-115a84d85e29"
