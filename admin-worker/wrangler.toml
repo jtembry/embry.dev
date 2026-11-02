@@ -1,0 +1,19 @@
+# Admin stats page for embry.dev at admin.embry.dev, behind Cloudflare Access (one-time email code).
+# Fails closed: until TEAM_DOMAIN, POLICY_AUD and ADMIN_EMAILS below are filled in, every request gets a 503.
+# Setup steps: README.md. Deploy: npx wrangler deploy (from this folder). Test: node test/access.test.mjs
+name = "embry-admin"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = false
+
+routes = [{ pattern = "admin.embry.dev", custom_domain = true }]
+
+[vars]
+TEAM_DOMAIN = ""    # e.g. yourteam.cloudflareaccess.com
+POLICY_AUD = ""     # the Access application's Audience tag
+ADMIN_EMAILS = ""   # comma list, e.g. jtembryjr@icloud.com
+
+[[d1_databases]]
+binding = "DB"
+database_name = "embry-downloads"
+database_id = "c8f18b47-dac5-4c3c-ad25-115a84d85e29"
