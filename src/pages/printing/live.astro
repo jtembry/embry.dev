@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import LiveFeed from '../../components/LiveFeed.astro';
+---
+<Base title="Watch it print" description="The camera inside the shop's 3D printer, streamed live while a job is running.">
+  <Hero variant="layers" eyebrow="Design and 3D printing" title="Watch it print.">
+    <p class="lede">The camera inside the P2S, streamed while a job is running. It shows the print chamber and nothing else. <a href="/printing">Back to the shop</a>.</p>
+  </Hero>
+  <section class="section">
+    <div class="wrap">
+      <LiveFeed />
+    </div>
+  </section>
+</Base>

@@ -4,23 +4,20 @@ import Hero from '../components/Hero.astro';
 import { dots } from '../lib/patterns.js';
 const howBg = dots();
 import site from '../data/site.json';
-import LiveFeed from '../components/LiveFeed.astro';
 import PrintGallery from '../components/PrintGallery.astro';
 import stats from '../data/print_stats.json';
 const { prints, hours, kilograms } = stats.totals;
 const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing quote')}&body=${encodeURIComponent('What I need:\n\nA photo, a sketch, or a file:\n\nHow many:\n\nWhere it will be used:\n')}`;
 ---
 <Base title="Design and 3D printing" description="CAD and 3D printing in the Louisville metropolitan area: dog tags, business cards, parts, cable clips, giveaways, and short runs.">
-  <Hero variant="layers" tall mapLabel="How the shop connects" eyebrow={`Service · Design and 3D printing · ${site.location}`} title="Printed to order.">
+  <Hero variant="layers" tall eyebrow={`Service · Design and 3D printing · ${site.location}`} title="Printed to order.">
     <p class="lede">Dog tags, business cards, the part no catalog sells, a clip that holds a cable, a short run of something with your name or mark on it. Send a photo, a sketch, or a file, and I'll quote it.</p>
+    <a slot="actions" class="btn btn-primary watch-link" href="/printing/live" hidden>Watch it print <span aria-hidden="true">→</span></a>
     <a slot="actions" class="btn btn-secondary " href={quote}>Request a quote</a>
   </Hero>
 
   <section class="section" id="shop">
     <div class="wrap">
-      <h2 id="live">Watch it print</h2>
-      <p class="muted">The camera inside the P2S, streamed while a job is running. It shows the print chamber and nothing else.</p>
-      <LiveFeed />
       <h2 id="prints">From the shop</h2>
       <p class="muted">A few pieces worth a look. Every finished print, newest first, is in the <a href="/printing/archive">archive</a>.</p>
       <p class="print-totals"><strong>{prints}</strong> prints finished · <strong>{Math.round(hours)}</strong> hours on the printer · <strong>{kilograms.toFixed(1)} kg</strong> of filament</p>
@@ -43,3 +40,21 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
     </div>
   </section>
 </Base>
+<style>
+  .watch-link[hidden] { display: none; }
+</style>
+<script define:vars={{ statusUrl: site.live?.kind === 'go2rtc' && site.live.url ? `${site.live.url.replace(/\/$/, '')}/status.json` : '' }}>
+  // "Watch it print" shows only while a job runs. brain-print-watch on brainpi rewrites status.json
+  // every 60 s while printing; a file older than 5 min means the watcher or printer is gone.
+  const link = document.querySelector('.watch-link');
+  const check = () => {
+    if (!statusUrl || document.hidden) return;
+    fetch(`${statusUrl}?t=${Date.now()}`, { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((s) => { link.hidden = !(s.printing && Date.now() / 1000 - s.updated < 300); })
+      .catch(() => { link.hidden = true; });
+  };
+  check();
+  setInterval(check, 60000);
+  document.addEventListener('visibilitychange', check);
+</script>
