@@ -18,6 +18,7 @@ const prints = defineCollection({
     designedByMe: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
+    price: z.string().optional(),     // shown on the card, e.g. "$8 a set for 40"; omit = quote on scope
   }),
 });
 

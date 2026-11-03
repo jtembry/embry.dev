@@ -1,0 +1,15 @@
+---
+title: 3-key keyboard fidget
+date: 2026-11-02
+image: /prints/2026-11-01-clicker-test-v2.jpg
+material: PLA
+color: Your choice (shown in white)
+printTime: about 36 min a set
+nozzle: 0.4
+model: https://makerworld.com/en/models/2423770
+featured: true
+price: "$8 a set for 40 · $7 for 100 · $6 for 250 or more"
+tags: [fidget, bulk orders]
+---
+
+Three keys on a printed base, each on a real clicky keyboard switch. Pick a color for each key and for the base. Shown here is the white test set fresh off the printer, before assembly. Smaller orders are quoted on request.
