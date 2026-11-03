@@ -1,5 +1,5 @@
 # Admin stats page for embry.dev at admin.embry.dev, behind Cloudflare Access (one-time email code).
-# Fails closed: until TEAM_DOMAIN, POLICY_AUD and ADMIN_EMAILS below are filled in, every request gets a 503.
+# Fails closed: until TEAM_DOMAIN, POLICY_AUD (below) and the ADMIN_EMAILS secret are set, every request gets a 503.
 # Setup steps: README.md. Deploy: npx wrangler deploy (from this folder). Test: node test/access.test.mjs
 name = "embry-admin"
 main = "src/index.js"
@@ -9,9 +9,9 @@ workers_dev = false
 routes = [{ pattern = "admin.embry.dev", custom_domain = true }]
 
 [vars]
-TEAM_DOMAIN = ""    # e.g. yourteam.cloudflareaccess.com
-POLICY_AUD = ""     # the Access application's Audience tag
-ADMIN_EMAILS = ""   # comma list, e.g. jtembryjr@icloud.com
+TEAM_DOMAIN = "fancy-cloud-bec2.cloudflareaccess.com"
+POLICY_AUD = "48f41cda694b90c6b1dd05d16812ae0efa78c4c48a1f4a8b77ee09e2d3a571b2"   # Access app "embry.dev admin"
+# ADMIN_EMAILS is a secret, not here (this repo is public): npx wrangler secret put ADMIN_EMAILS  (comma list of emails)
 
 [[d1_databases]]
 binding = "DB"
