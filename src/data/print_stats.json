@@ -1,0 +1,303 @@
+{
+ "totals": {
+  "prints": 51,
+  "hours": 103.3,
+  "kilograms": 2.23
+ },
+ "prints": {
+  "2026-09-30-0-2mm-layer-2-walls-15-infill": {
+   "minutes": 162,
+   "grams": 62.0,
+   "material": "PLA",
+   "colors": "unknown"
+  },
+  "2026-09-30-opengrid-tiles-full-size-with-all-screw-holes-full-8x8-all-screws": {
+   "minutes": 218,
+   "grams": 78.6,
+   "material": "PLA",
+   "colors": "black (likely; file says red)"
+  },
+  "2026-10-01-opengrid-tiles-full-size-with-all-screw-holes-full-8x8-all-screws": {
+   "minutes": 218,
+   "grams": 78.6,
+   "material": "PLA",
+   "colors": "black (likely; file says red)"
+  },
+  "2026-10-02-opengrid-full-6x6-allscrews": {
+   "minutes": 113,
+   "grams": 44.5,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-03-opengrid-full-5x6-allscrews": {
+   "minutes": 105,
+   "grams": 37.1,
+   "material": "PLA",
+   "colors": "black + silver"
+  },
+  "2026-10-03-opengrid-full-6x6-allscrews": {
+   "minutes": 115,
+   "grams": 44.5,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-04-opengrid-full-5x6-allscrews": {
+   "minutes": 105,
+   "grams": 37.1,
+   "material": "PLA",
+   "colors": "black + silver"
+  },
+  "2026-10-04-opengrid-full-7x7-allscrews": {
+   "minutes": 152,
+   "grams": 60.4,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-04-opengrid-lite-7x7-allscrews": {
+   "minutes": 103,
+   "grams": 34.7,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-05-opengrid-full-7x7-allscrews": {
+   "minutes": 151,
+   "grams": 60.4,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-06-opengrid-full-7x7-allscrews": {
+   "minutes": 152,
+   "grams": 60.4,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-13-opengrid-full-7x7-allscrews": {
+   "minutes": 152,
+   "grams": 60.4,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-14-opengrid-connector-x70": {
+   "minutes": 33,
+   "grams": 8.2,
+   "material": "PLA",
+   "colors": "silver"
+  },
+  "2026-10-14-opengrid-full-7x7-allscrews": {
+   "minutes": 152,
+   "grams": 60.4,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-15-opengrid-connector-x6": {
+   "minutes": 9,
+   "grams": 0.7,
+   "material": "PLA",
+   "colors": "silver"
+  },
+  "2026-10-15-opengrid-full-5x4-allscrews": {
+   "minutes": 68,
+   "grams": 24.8,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-15-power-supply-bracket-35mm": {
+   "minutes": 98,
+   "grams": 40.5,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-15-screw-hole-caps-opengrid": {
+   "minutes": 8,
+   "grams": 3.1,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-15-underware-for-opengrid": {
+   "minutes": 36,
+   "grams": 1.9,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-16-double-laptop-underware-holder-16inch": {
+   "minutes": 385,
+   "grams": 147.3,
+   "material": "PLA",
+   "colors": "black + silver"
+  },
+  "2026-10-16-power-supply-bracket-40mm": {
+   "minutes": 93,
+   "grams": 33.9,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-16-tesmart-opengrid-adapter": {
+   "minutes": 106,
+   "grams": 56.9,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-17-opengrid-self-expanding-snap": {
+   "minutes": 264,
+   "grams": 101.0,
+   "material": "PLA",
+   "colors": "black + white"
+  },
+  "2026-10-17-tesmart-bracket-onepiece-x2": {
+   "minutes": 238,
+   "grams": 148.5,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-17-tesmart-bracket-taller-x2": {
+   "minutes": 371,
+   "grams": 148.5,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-17-tesmart-snap-test": {
+   "minutes": 16,
+   "grams": 3.9,
+   "material": "PLA",
+   "colors": "white"
+  },
+  "2026-10-19-brave-medallion": {
+   "minutes": 26,
+   "grams": 3.1,
+   "material": "PLA",
+   "colors": "black + white"
+  },
+  "2026-10-19-brave-medallion-judah": {
+   "minutes": 25,
+   "grams": 3.1,
+   "material": "PLA",
+   "colors": "black + white"
+  },
+  "2026-10-19-surge-strip-keyhole-v4": {
+   "minutes": 76,
+   "grams": 37.8,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-19-velcro-strap-loop-x4": {
+   "minutes": 76,
+   "grams": 25.7,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-19-wayfarer-keychain": {
+   "minutes": 33,
+   "grams": 6.0,
+   "material": "PLA",
+   "colors": "black + white"
+  },
+  "2026-10-20-brave-medallion-pair": {
+   "minutes": 42,
+   "grams": 9.3,
+   "material": "PLA",
+   "colors": "black + white"
+  },
+  "2026-10-20-velcro-strap-loop-x4": {
+   "minutes": 76,
+   "grams": 25.7,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-20-zip-tie-loop-x6": {
+   "minutes": 77,
+   "grams": 36.2,
+   "material": "PLA",
+   "colors": "black + silver"
+  },
+  "2026-10-21-opengrid-screw-cap-no8-x20": {
+   "minutes": 11,
+   "grams": 1.2,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-21-opengrid-screw-cap-x20": {
+   "minutes": 11,
+   "grams": 0.9,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-21-tesmart-bracket-stock-snap-x2": {
+   "minutes": 362,
+   "grams": 144.3,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-10-21-zip-tie-loop-x6": {
+   "minutes": 77,
+   "grams": 36.2,
+   "material": "PLA",
+   "colors": "black + silver"
+  },
+  "2026-10-22-embry-cards-plate1-embry-cards": {
+   "minutes": 33,
+   "grams": 15.9,
+   "material": "PLA",
+   "colors": "black + green + white"
+  },
+  "2026-10-23-embry-cards-plate1-embry-cards": {
+   "minutes": 64,
+   "grams": 15.9,
+   "material": "PLA",
+   "colors": "black + green + white"
+  },
+  "2026-10-24-embry-cards-plate1-embry-cards": {
+   "minutes": 64,
+   "grams": 15.9,
+   "material": "PLA",
+   "colors": "black + green + white"
+  },
+  "2026-10-27-embry-card-case-v8-embry-card-case-v8": {
+   "minutes": 211,
+   "grams": 43.2,
+   "material": "PLA",
+   "colors": "black + green + white"
+  },
+  "2026-10-28-embry-card-case-v8-embry-card-case-v8": {
+   "minutes": 211,
+   "grams": 43.2,
+   "material": "PLA",
+   "colors": "black + green + white"
+  },
+  "2026-10-30-embry-cards-plate1-embry-cards": {
+   "minutes": 58,
+   "grams": 15.9,
+   "material": "PLA",
+   "colors": "black + green + white"
+  },
+  "2026-10-30-eric-minzenberger-card-eric-minzenberger-card": {
+   "minutes": 46,
+   "grams": 12.0,
+   "material": "PLA",
+   "colors": "black + green + white"
+  },
+  "2026-10-30-josh-rhodes-card-josh-rhodes-card": {
+   "minutes": 43,
+   "grams": 12.3,
+   "material": "PLA",
+   "colors": "black + green + white"
+  },
+  "2026-10-30-pin-version-1-7-pin-up-card-holder-embry-pin-up-card-holder": {
+   "minutes": 292,
+   "grams": 27.1,
+   "material": "PLA",
+   "colors": "black + green + white"
+  },
+  "2026-11-01-clicker-test-v2": {
+   "minutes": 69,
+   "grams": 19.1,
+   "material": "PLA",
+   "colors": "white"
+  },
+  "2026-11-02-green-keycaps-x40-v3": {
+   "minutes": 224,
+   "grams": 65.8,
+   "material": "PLA",
+   "colors": "green"
+  }
+ }
+}

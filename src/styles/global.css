@@ -196,6 +196,7 @@ footer.site .footer-brand { font-family: var(--mono); color: var(--white); }
 .print-notes { font-size: .95rem; }
 .print-meta { display: flex; flex-wrap: wrap; gap: .35rem; margin: .5rem 0 0; }
 .print-meta a.tag { text-decoration: none; }
+.print-totals { font-family: var(--mono); font-size: .9rem; margin: .25rem 0 1.25rem; }
 @media (max-width: 40rem) { .print.featured { grid-column: auto; } }
 footer.site .social { display: inline-flex; gap: .7rem; vertical-align: -0.3em; margin-left: .5rem; }
 footer.site .social a { display: inline-flex; color: #cfd3da; transition: color .15s; }

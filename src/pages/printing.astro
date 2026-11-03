@@ -6,6 +6,8 @@ const howBg = dots();
 import site from '../data/site.json';
 import LiveFeed from '../components/LiveFeed.astro';
 import PrintGallery from '../components/PrintGallery.astro';
+import stats from '../data/print_stats.json';
+const { prints, hours, kilograms } = stats.totals;
 const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing quote')}&body=${encodeURIComponent('What I need:\n\nA photo, a sketch, or a file:\n\nHow many:\n\nWhere it will be used:\n')}`;
 ---
 <Base title="Design and 3D printing" description="CAD and 3D printing in the Louisville metropolitan area: dog tags, business cards, parts, cable clips, giveaways, and short runs.">
@@ -21,6 +23,7 @@ const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing qu
       <LiveFeed />
       <h2 id="prints">From the shop</h2>
       <p class="muted">A few pieces worth a look. Every finished print, newest first, is in the <a href="/printing/archive">archive</a>.</p>
+      <p class="print-totals"><strong>{prints}</strong> prints finished · <strong>{Math.round(hours)}</strong> hours on the printer · <strong>{kilograms.toFixed(1)} kg</strong> of filament</p>
       <PrintGallery featuredOnly />
     </div>
   </section>
