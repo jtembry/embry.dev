@@ -8,8 +8,8 @@ printTime: about 36 min a set
 nozzle: 0.4
 model: https://makerworld.com/en/models/2423770
 featured: true
-price: "$8 a set for 40 · $7 for 100 · $6 for 250 or more"
+price: "$8 per set (40 sets) · $7 per set (100) · $6 per set (250 or more)"
 tags: [fidget, bulk orders]
 ---
 
-Three keys on a printed base, each on a real clicky keyboard switch. Pick a color for each key and for the base. Shown here is the white test set fresh off the printer, before assembly. Smaller orders are quoted on request.
+Three keys on a printed base, each on a real clicky keyboard switch. Pick a color for each key and for the base. Shown here is the white test set fresh off the printer, before assembly. Prices are per set of three keys and a base. Smaller orders are quoted on request.
