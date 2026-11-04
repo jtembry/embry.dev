@@ -1,0 +1,44 @@
+[
+  {
+    "version": "0.3.0",
+    "date": "2026-11-04",
+    "title": "Email, connectors, and moving between chats",
+    "notes": [
+      "Email has an Inbox and a Sent list. Sent mail loads reliably, and says so when it did not load, instead of waiting forever.",
+      "The email reader shows a message the way the sender made it, with pictures.",
+      "Replies can carry files and photos. Redraft shows that it is working.",
+      "Add to Calendar reads the whole thread and shows you the exact event before it adds anything.",
+      "Connectors has a search field, and the Add list now shows Anthropic's full directory of about 300 connectors.",
+      "Swipe left or right in a chat to move to the next or previous chat.",
+      "A chat names itself after its first reply. Swipe right on any chat to name it by hand.",
+      "An agent can schedule a later check inside its own chat, so \"look at this tomorrow\" actually happens.",
+      "Settings has a Sources section. Your vault, email, texts and calendar each come from the machine you pick, one at a time.",
+      "HomeADE reaches your other machines, such as a work laptop, through the relay. Pair one by pasting its pairing link.",
+      "Texts stay in sync. Deleting a group chat goes through Messages, and changes the Mac cannot make yet wait in a queue.",
+      "Fixed crashes at launch, when opening a chat, and when swiping between chats. A failed connection test now says what went wrong and what to do."
+    ]
+  },
+  {
+    "version": "0.2.0",
+    "date": "2026-11-02",
+    "title": "First release as HomeADE",
+    "notes": [
+      "The Mac window and the menu-bar app are now one app. It was called Home Base; it is now HomeADE.",
+      "It talks to this Mac directly. It no longer keeps a list of home bases or relays to itself.",
+      "Paste a screenshot or a copied image into a chat with ⌘V.",
+      "The + button opens the model list at once.",
+      "A Connectors section in the sidebar lists the tools your assistants can reach, with counts of the ones working and failing.",
+      "Send to agent on an email or a text opens a chat with the whole thread.",
+      "Fixed: saving a setting could erase the end-to-end key and cause a 403 after pairing."
+    ]
+  },
+  {
+    "version": "0.1.0",
+    "date": "2026-11-01",
+    "title": "First public release, then called Home Base",
+    "notes": [
+      "One Mac app: a window with the same screens as the phone, a menu-bar panel, and the home base that runs your assistants.",
+      "Signed and notarized by Apple, so it opens without a warning. Install with a download or with Homebrew."
+    ]
+  }
+]

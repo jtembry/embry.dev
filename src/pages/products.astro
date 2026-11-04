@@ -2,6 +2,9 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { dots } from '../lib/patterns.js';
+import releases from '../data/homeade-releases.json';
+const latest = releases[0];
+const nice = (d) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 const cardsBg = dots();
 
 // Most builds span more than one service, so each card carries every tag that fits,
@@ -41,7 +44,25 @@ const tag = {
           </div>
           <p>The Mac app FieldADE talks to. It runs the assistants on your Mac, takes each message from your phone, and sends the answers back. It opens a window with the same screens as the phone, so you can pick up any chat at the Mac where you left it on the phone, and a menu bar panel shows that it is running and pairs a new phone. It installs like any other app: no terminal, no setup scripts. Your files, email, and notes stay on the Mac; the phone only reaches them. <a href="/map">See how it connects</a></p>
           <p class="card-actions"><a class="btn btn-primary" href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download for Mac</a></p>
-          <p class="fine">Version 0.2.0 &middot; macOS 14 or later &middot; signed and notarized by Apple. With Homebrew: <code>brew install --cask jtembry/fieldade/fieldade-home-base</code></p>
+          <p class="fine">Version {latest.version} &middot; {nice(latest.date)} &middot; macOS 14 or later &middot; signed and notarized by Apple. With Homebrew: <code>brew install --cask jtembry/fieldade/fieldade-home-base</code></p>
+          <details class="release-notes" open>
+            <summary>Release notes</summary>
+            <div class="release">
+              <h4>{releases[0].version} <span class="dim">&middot; {nice(releases[0].date)}</span></h4>
+              <p class="release-title">{releases[0].title}</p>
+              <ul>{releases[0].notes.map((n) => <li>{n}</li>)}</ul>
+            </div>
+            <details class="earlier">
+              <summary>Earlier versions</summary>
+              {releases.slice(1).map((r) => (
+                <div class="release">
+                  <h4>{r.version} <span class="dim">&middot; {nice(r.date)}</span></h4>
+                  <p class="release-title">{r.title}</p>
+                  <ul>{r.notes.map((n) => <li>{n}</li>)}</ul>
+                </div>
+              ))}
+            </details>
+          </details>
           <p class="tags">{[tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="kingdom-guide">
@@ -74,6 +95,16 @@ const tag = {
   .work-card .fine { font-size: .85rem; color: var(--muted, inherit); margin: 0 0 1rem; overflow-wrap: anywhere; }
   .work-shots { display: flex; justify-content: center; gap: .75rem; margin: .25rem 0 1rem; }
   .work-shots-wide { margin: .25rem 0 1rem; }
+  .release-notes { margin: 0 0 1rem; border-top: 1px solid var(--line); padding-top: .6rem; }
+  .release-notes summary { cursor: pointer; font-weight: 600; }
+  .release { margin-top: 1rem; }
+  .earlier { margin-top: 1.25rem; }
+  .earlier summary { font-weight: 400; color: var(--muted); }
+  .release h4 { margin: 0; font-size: 1rem; }
+  .release h4 .dim { font-weight: 400; color: var(--muted); }
+  .release-title { margin: .1rem 0 .4rem; color: var(--ink-2); }
+  .release ul { margin: 0; padding-left: 1.15rem; }
+  .release li { margin: .25rem 0; font-size: .92rem; }
   .work-shot-wide { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
   .work-shot { display: block; flex: 1 1 0; min-width: 0; max-width: 200px; height: auto; border-radius: 22px; border: 1px solid var(--line); }
 </style>
