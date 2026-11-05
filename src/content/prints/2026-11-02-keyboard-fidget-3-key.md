@@ -9,6 +9,7 @@ nozzle: 0.4
 model: https://makerworld.com/en/models/2423770
 featured: true
 price: "$8 per set (40 sets) · $7 per set (100) · $6 per set (250 or more)"
+buyUrl: https://buy.stripe.com/4gM8wOaEA9Gmgtcfeb7Vm00
 tags: [fidget, bulk orders]
 ---
 

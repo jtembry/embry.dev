@@ -19,6 +19,7 @@ const prints = defineCollection({
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     price: z.string().optional(),     // shown on the card, e.g. "$8 a set for 40"; omit = quote on scope
+    buyUrl: z.string().url().optional(), // Stripe Payment Link; shows an Order button on the card
   }),
 });
 
