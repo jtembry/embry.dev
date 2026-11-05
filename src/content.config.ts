@@ -7,7 +7,8 @@ const prints = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
-    image: z.string(),                 // e.g. /prints/2026-09-30-bracket.jpg
+    image: z.string(),
+    moreImages: z.array(z.object({ src: z.string(), alt: z.string() })).default([]), // extra photos shown as thumbnails                 // e.g. /prints/2026-09-30-bracket.jpg
     video: z.string().optional(),      // e.g. /prints/2026-09-30-bracket.mp4 (timelapse)
     material: z.string().optional(),   // PLA, PETG, TPU, ASA…
     color: z.string().optional(),

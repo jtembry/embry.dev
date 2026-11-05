@@ -26,6 +26,11 @@ const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'shor
             <img src={p.data.image} alt={p.data.title} loading="lazy" decoding="async" />
             {p.data.video && <span class="print-play" aria-hidden="true">▶ timelapse</span>}
           </a>
+          {p.data.moreImages.length > 0 && (
+            <div class="print-thumbs">
+              {p.data.moreImages.map((m) => <a href={m.src} aria-label={`Open ${m.alt}`}><img src={m.src} alt={m.alt} loading="lazy" decoding="async" /></a>)}
+            </div>
+          )}
           <div class="print-body">
             <h3>{p.data.title}</h3>
             <p class="muted">{fmt(p.data.date)}{p.data.material && ` · ${p.data.material}`}{p.data.color && ` · ${p.data.color}`}{p.data.printTime && ` · ${p.data.printTime}`}{p.data.layers && ` · ${p.data.layers} layers`}{p.data.nozzle && ` · ${p.data.nozzle} mm nozzle`}{stats.prints[p.id]?.grams && ` · ${Math.round(stats.prints[p.id].grams)} g of filament`}</p>
