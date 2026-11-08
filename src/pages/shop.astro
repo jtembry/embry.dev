@@ -6,47 +6,9 @@ const howBg = dots();
 import site from '../data/site.json';
 import PrintGallery from '../components/PrintGallery.astro';
 const quote = `mailto:${site.email}?subject=${encodeURIComponent('3D printing quote')}&body=${encodeURIComponent('What I need:\n\nA photo, a sketch, or a file:\n\nHow many:\n\nWhere it will be used:\n')}`;
-// Stripe Payment Links (live account) and the Cal.com scan booking. Prices are the bands in the vault note
-// "Embry Development LLC"; change them there first. Floorplans are invoiced on delivery, so they have no Stripe link.
-const products = [
-  {
-    id: 'fidget',
-    title: 'Traffic Light Fidget',
-    image: '/prints/2026-11-05-fidget-set.jpg',
-    alt: 'A finished fidget: red, yellow, and green keys on a black base',
-    text: 'Three keys on a printed base, each on a real clicky keyboard switch. Pick a color for each key and for the base. One unit is three keys and a base.',
-    prices: ['5 to 39 units: $10 each', '40 to 99: $8 each', '100 or more: $7 each · 250 or more: $6 each (email for these)'],
-    buttons: [
-      ['Order 5 to 39 · $10 each', 'https://buy.stripe.com/eVq14mh2Y2dUb8Sc1Z7Vm01'],
-      ['Order 40 or more · $8 each', 'https://buy.stripe.com/4gM8wOaEA9Gmgtcfeb7Vm00'],
-    ],
-  },
-  {
-    id: 'cards',
-    title: 'Printed business cards',
-    image: '/prints/2026-10-24-embry-cards-plate1-embry-cards.jpg',
-    alt: 'A plate of two-color printed business cards',
-    text: 'A business card printed in two colors of PLA, with your name and details on the face. Every order includes the design and a proof card, so you see one before the run.',
-    prices: ['10 cards: $55', '25 cards: $87.50', '50 cards: $125', 'Each price includes the $25 design and proof. Reorders skip it: email for a reorder or more than 50.'],
-    buttons: [
-      ['10 cards · $55', 'https://buy.stripe.com/9B6aEWfYU5q6gtcd637Vm02'],
-      ['25 cards · $87.50', 'https://buy.stripe.com/28E00i4gc2dU2Cmd637Vm03'],
-      ['50 cards · $125', 'https://buy.stripe.com/4gMfZg9AwaKqgtcc1Z7Vm04'],
-    ],
-  },
-  {
-    id: 'floorplan',
-    title: '3D floorplan of your house',
-    from: 'From $99',
-    image: '/shop/3d-floorplan.jpg',
-    alt: 'A printed 3D floorplan: green walls standing on a yellow floor, every room in place',
-    text: 'I come to the house and scan every room with LiDAR, which takes about an hour. Then I print the floorplan with the walls standing, in two colors. A gift for a new homeowner, a piece for a listing, or a model of the job for a contractor.',
-    prices: ['Small, about 5 in across: $99', 'Medium, about 7 in (shown): $129', 'Large, about 9.5 in: $179', 'The scan and modeling are included. Louisville metro included; $0.70 a mile past that. Invoiced on delivery.'],
-    buttons: [['Book a scan', 'https://cal.com/joel-embry/floorplan-scan']],
-  },
-];
+import { products } from '../data/shop.js';
 ---
-<Base title="3D shop" description="Order a clicky desk fidget, printed business cards, or a 3D floorplan of your house, printed in the Louisville metropolitan area.">
+<Base title="3D shop" image="/shop/3d-floorplan.jpg" description="Order a clicky desk fidget, printed business cards, or a 3D floorplan of your house, printed in the Louisville metropolitan area.">
   <Hero variant="layers" tall eyebrow={`3D shop · ${site.location}`} title="Order it, or book a scan.">
     <p class="lede">Three things you can order today: a clicky desk fidget, printed business cards, and a 3D floorplan of your house. For anything else, send a photo, a sketch, or a file, and I'll quote it.</p>
     <a slot="actions" class="btn btn-primary" href="#products">See the shop <span aria-hidden="true">→</span></a>
@@ -59,15 +21,16 @@ const products = [
       <h2>The shop</h2>
       <div class="gallery">
         {products.map((p) => (
-          <article class="print card" id={p.id}>
-            <a class="print-media" href={p.image} aria-label={`Open ${p.title}`}>
+          <article class="print card" id={p.slug}>
+            <a class="print-media" href={`/shop/${p.slug}`} aria-label={`${p.title}: details`}>
               <img src={p.image} alt={p.alt} loading="lazy" decoding="async" />
             </a>
             <div class="print-body">
-              <h3>{p.title}</h3>
+              <h3><a href={`/shop/${p.slug}`}>{p.title}</a></h3>
               {p.from && <p class="print-price">{p.from}</p>}
               <p class="print-notes">{p.text}</p>
               <ul class="shop-prices">{p.prices.map((line) => <li>{line}</li>)}</ul>
+              <p><a href={`/shop/${p.slug}`}>Details and photos <span aria-hidden="true">→</span></a></p>
               <p class="shop-buttons">{p.buttons.map(([label, href], i) => <a class:list={['btn', i === 0 ? 'btn-primary' : 'btn-secondary']} href={href} rel="noopener">{label}</a>)}</p>
             </div>
           </article>

@@ -3,7 +3,7 @@ import '../styles/global.css';
 import site from '../data/site.json';
 import Logo from '../components/Logo.astro';
 import SocialIcons from '../components/SocialIcons.astro';
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props; // image: link-preview photo, a path under public/
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 const services = [
   ['/knowledge-assistants', 'AI systems'],
@@ -24,6 +24,13 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     <title>{title} · {site.legalName}</title>
     <meta name="description" content={description ?? site.tagline} />
     <link rel="canonical" href={new URL(path, Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.legalName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description ?? site.tagline} />
+    <meta property="og:url" content={new URL(path, Astro.site)} />
+    {image && <meta property="og:image" content={new URL(image, Astro.site)} />}
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');</script>
     <script is:inline>try { if (localStorage.getItem('embry-look') === 'dos') { document.documentElement.dataset.look = 'dos'; var icon = document.querySelector('link[rel="icon"]'); if (icon) icon.href = '/favicon-dos.svg'; } } catch {}</script>

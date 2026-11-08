@@ -1,0 +1,55 @@
+---
+// One page per shop product, so a shared link shows the product photo (og:image in Base.astro).
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.json';
+import { products } from '../../data/shop.js';
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const others = products.filter((o) => o.slug !== p.slug);
+const ask = `mailto:${site.email}?subject=${encodeURIComponent(`Question about: ${p.title}`)}`;
+---
+<Base title={p.title} description={`${p.from ? p.from + '. ' : ''}${p.text}`} image={p.image}>
+  <section class="section product-page">
+    <div class="wrap">
+      <p class="eyebrow"><a href="/shop">3D shop</a> · {site.location}</p>
+      <div class="product">
+        <div class="product-media">
+          <a href={p.image}><img src={p.image} alt={p.alt} decoding="async" /></a>
+          {p.more && (
+            <div class="print-thumbs">
+              {p.more.map(([src, alt]) => <a href={src} aria-label={`Open ${alt}`}><img src={src} alt={alt} loading="lazy" decoding="async" /></a>)}
+            </div>
+          )}
+        </div>
+        <div class="product-body">
+          <h1>{p.title}</h1>
+          {p.from && <p class="print-price">{p.from}</p>}
+          <p>{p.text}</p>
+          <ul class="shop-prices">{p.prices.map((line) => <li>{line}</li>)}</ul>
+          <p class="shop-buttons">{p.buttons.map(([label, href], i) => <a class:list={['btn', i === 0 ? 'btn-primary' : 'btn-secondary']} href={href} rel="noopener">{label}</a>)}</p>
+          <p class="muted">Questions? <a href={ask}>Email me</a>.</p>
+        </div>
+      </div>
+      <h2>Also in the shop</h2>
+      <ul class="product-others">
+        {others.map((o) => <li><a href={`/shop/${o.slug}`}><img src={o.image} alt="" loading="lazy" decoding="async" /><span>{o.title}</span></a></li>)}
+      </ul>
+    </div>
+  </section>
+</Base>
+<style>
+  .product-page { padding-top: 7rem; }
+  .product { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; margin-bottom: 3rem; }
+  .product-media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; display: block; }
+  .product-media .print-thumbs { padding: .6rem 0 0; }
+  .product-media .print-thumbs img { width: 96px; height: 72px; border-radius: 6px; }
+  .product-body h1 { margin: 0 0 .5rem; }
+  .shop-prices { margin: .5rem 0 1rem; padding-left: 1.1rem; }
+  .shop-buttons { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .product-others { list-style: none; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); }
+  .product-others a { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+  .product-others img { width: 96px; height: 72px; object-fit: cover; border-radius: 6px; }
+  @media (max-width: 48rem) { .product { grid-template-columns: 1fr; } }
+</style>
