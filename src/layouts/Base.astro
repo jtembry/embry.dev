@@ -8,7 +8,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
 const services = [
   ['/knowledge-assistants', 'AI systems'],
   ['/software', 'Software solutions'],
-  ['/printing', '3D printing'],
+  ['/shop', '3D shop'],
 ];
 const more = [
   ['/products', 'Products'],
@@ -123,7 +123,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <p class="footer-brand"><Logo class="logo-footer" size={32} /><br />{site.legalName}<br /><em>{site.tagline}</em></p>
         <p>{site.ownerName} <SocialIcons /><br />
           {site.location} · <a href={`mailto:${site.email}`}>{site.email}</a><br />
-          <a href="/printing/live">Watch it print</a> · <a href="/printing#prints">Featured prints</a> · <a href="/printing/archive">Print archive</a> · <a href="/services">Services</a></p>
+          <a href="/shop">3D shop</a> · <a href="/shop/live">Watch it print</a> · <a href="/shop/archive">Print archive</a> · <a href="/services">Services</a></p>
         <p class="muted">© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
       </div>
     </footer>

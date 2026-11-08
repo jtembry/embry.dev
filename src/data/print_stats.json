@@ -1,8 +1,8 @@
 {
  "totals": {
-  "prints": 51,
-  "hours": 103.3,
-  "kilograms": 2.23
+  "prints": 58,
+  "hours": 131.4,
+  "kilograms": 2.92
  },
  "prints": {
   "2026-09-30-0-2mm-layer-2-walls-15-infill": {
@@ -298,6 +298,60 @@
    "grams": 65.8,
    "material": "PLA",
    "colors": "green"
+  },
+  "2026-11-03-black-bases-x20-v1": {
+   "minutes": 427,
+   "grams": 213.4,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-11-04-black-bases-x20-plate2": {
+   "minutes": 427,
+   "grams": 213.4,
+   "material": "PLA",
+   "colors": "black + green"
+  },
+  "2026-11-04-black-bases-x20-v1": {
+   "minutes": 427,
+   "grams": 213.4,
+   "material": "PLA",
+   "colors": "black"
+  },
+  "2026-11-05-9x9-grid-makerworld-1812206": {
+   "minutes": 304,
+   "grams": null,
+   "material": "PLA",
+   "colors": "white (A3) + #FFF144 (A2) + green (A1)"
+  },
+  "2026-11-05-black-bases-x20-plate2": {
+   "minutes": 427,
+   "grams": 213.4,
+   "material": "PLA",
+   "colors": "black + green"
+  },
+  "2026-11-05-red-keycaps-x40-v1": {
+   "minutes": 203,
+   "grams": 65.8,
+   "material": "PLA",
+   "colors": "red"
+  },
+  "2026-11-05-yellow-keycaps-x40-v1": {
+   "minutes": null,
+   "grams": 65.8,
+   "material": "PLA",
+   "colors": "yellow"
+  },
+  "2026-11-06-ud-cards-josh-eric-josh-eric-cards": {
+   "minutes": 16,
+   "grams": 18.7,
+   "material": "PLA",
+   "colors": "black (A4)"
+  },
+  "2026-11-08-lightscan-house-lightscan-house": {
+   "minutes": 307,
+   "grams": 115.4,
+   "material": "PLA",
+   "colors": "#FFF144 (A2) + green (A1)"
   }
  }
 }

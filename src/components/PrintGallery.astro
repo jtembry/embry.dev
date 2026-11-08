@@ -1,9 +1,8 @@
 ---
 // Finished prints, newest first. Entries come from brain-prints-publish (docs/live-and-gallery.md).
+// No grams or print time on public pages (JT, 2026-11-08); the prints DB on brainpi keeps them.
 // The shop page passes featuredOnly. The archive lists every entry.
 import { getCollection } from 'astro:content';
-// Filament and time per print, exported from the prints database on brainpi (3d_printing/db/export_site.py).
-import stats from '../data/print_stats.json';
 const { featuredOnly = false } = Astro.props;
 const prints = (await getCollection('prints'))
   .filter((p) => !featuredOnly || p.data.featured)
@@ -13,7 +12,7 @@ const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'shor
   {prints.length === 0 ? (
     <div class="card">
       {featuredOnly ? (
-        <p>Featured pieces will show here. Every finished print is in the <a href="/printing/archive">archive</a>.</p>
+        <p>Featured pieces will show here. Every finished print is in the <a href="/shop/archive">archive</a>.</p>
       ) : (
         <><p class="eyebrow">Filling in</p><p>The archive fills in as prints finish.</p></>
       )}
@@ -33,7 +32,7 @@ const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'shor
           )}
           <div class="print-body">
             <h3>{p.data.title}</h3>
-            <p class="muted">{fmt(p.data.date)}{p.data.material && ` · ${p.data.material}`}{p.data.color && ` · ${p.data.color}`}{p.data.printTime && ` · ${p.data.printTime}`}{p.data.layers && ` · ${p.data.layers} layers`}{p.data.nozzle && ` · ${p.data.nozzle} mm nozzle`}{stats.prints[p.id]?.grams && ` · ${Math.round(stats.prints[p.id].grams)} g of filament`}</p>
+            <p class="muted">{fmt(p.data.date)}{p.data.material && ` · ${p.data.material}`}{p.data.color && ` · ${p.data.color}`}{p.data.layers && ` · ${p.data.layers} layers`}{p.data.nozzle && ` · ${p.data.nozzle} mm nozzle`}</p>
             {p.data.price && <p class="print-price">{p.data.price}</p>}
             {p.data.buyUrl && <p><a class="btn btn-primary" href={p.data.buyUrl} rel="noopener">Order now · pay by card</a></p>}
             {p.body && <p class="print-notes" set:html={p.rendered?.html ?? ''} />}

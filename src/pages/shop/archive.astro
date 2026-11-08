@@ -6,8 +6,8 @@ import { getCollection } from 'astro:content';
 const count = (await getCollection('prints')).length;
 ---
 <Base title="Print archive" description="Every finished print from the shop, newest first, with the bed photo the printer took when the job ended.">
-  <Hero variant="layers" eyebrow="Design and 3D printing" title="Every print.">
-    <p class="lede">{count} finished prints, newest first. Each photo is from the printer's camera, taken when the job ended. <a href="/printing#prints">Featured prints</a> are on the shop page.</p>
+  <Hero variant="layers" eyebrow="3D shop" title="Every print.">
+    <p class="lede">{count} finished prints, newest first. Each photo is from the printer's camera, taken when the job ended. Things you can order are in the <a href="/shop">3D shop</a>.</p>
   </Hero>
   <section class="section">
     <div class="wrap">
