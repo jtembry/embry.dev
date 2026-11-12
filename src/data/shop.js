@@ -36,8 +36,9 @@ export const products = [
     image: '/shop/3d-floorplan.jpg',
     alt: 'A printed 3D floorplan: green walls standing on a yellow floor, every room in place',
     text: 'I come to the house and scan every room with LiDAR, which takes about an hour. Then I print the floorplan with the walls standing, in two colors. A gift for a new homeowner, a piece for a listing, or a model of the job for a contractor.',
-    prices: ['Small, about 5 in across: $99', 'Medium, about 7 in (shown): $129', 'Large, about 9.5 in: $179', 'The scan and modeling are included. Louisville metro included; $0.70 a mile past that. Invoiced on delivery.'],
-    buttons: [['Book a scan', 'https://cal.com/joel-embry/floorplan-scan']],
+    prices: ['Small, about 5 in across: $99', 'Medium, about 7 in (shown): $129', 'Large, about 9.5 in: $179', 'The scan and modeling are included. Louisville metro included; $0.70 a mile past that. Invoiced on delivery.',
+      'Realtor packs, any mix of sizes: 5 floorplans for $549, 10 for $999. Paid up front, used within 12 months.', 'Another print of a house I have already scanned, such as the same model in a subdivision: $49.', 'Homes over 3,500 sq ft add $40.'],
+    buttons: [['Book a scan', 'https://cal.com/joel-embry/floorplan-scan'], ['Ask about a realtor pack', 'mailto:joel@embry.dev?subject=Realtor%20floorplan%20pack']],
   },
 ];
 
