@@ -25,6 +25,15 @@ const tag = {
     <div class="band-bg" data-parallax="0.3" set:html={cardsBg} aria-hidden="true" />
     <div class="wrap">
       <div class="grid">
+        <div class="card work-card" id="lightscan">
+          <p class="eyebrow">For United Dynamics</p>
+          <h3>LightScan</h3>
+          <div class="work-shots">
+            <img class="work-shot" src="/software/lightscan.png" alt="LightScan on an iPhone: a scanned house drawn as a floor plan with wall lengths, and a heat map of high and low spots in the floor" width="460" height="1000" loading="lazy" />
+          </div>
+          <p>An iPhone app for United Dynamics, a foundation repair company. The estimator walks through a house and the phone's laser scanner draws the floor plan with every wall length, plus a heat map of where the floor sags or heaves. The app turns the scan into a report for the customer, with the foundation outline, a floor elevation map, and rainfall and soil for the address, and into a model you can 3D print. The first working version was on their phone a day after they described the problem. <a href="/shop/3d-floorplan">See the printed model</a></p>
+          <p class="tags">{[tag.phone, tag.software, tag.printing].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
+        </div>
         <div class="card work-card" id="fieldade">
           <h3>FieldADE</h3>
           <div class="work-shots">
@@ -53,15 +62,6 @@ const tag = {
           <h3><a href="/kingdom-guide/support">Kingdom Guide</a></h3>
           <p>An iPhone app that plans a day at Magic Kingdom. It puts the rides a family picks in walking order, estimates when they will reach each one, and shows the posted waits. For families who use the Disability Access Service, it says which ride to book next and reminds them when the return time comes up. The next stop sits on the lock screen, the map is drawn from open map data, and everyone on the trip sees the same plan. It began as a web page for our own trip and is headed for the App Store. <a href="/kingdom-guide/support">About the app</a></p>
           <p class="tags">{[tag.phone, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
-        </div>
-        <div class="card work-card" id="lightscan">
-          <p class="eyebrow">For United Dynamics</p>
-          <h3><a href="/software#lightscan">LightScan</a></h3>
-          <div class="work-shots">
-            <img class="work-shot" src="/software/lightscan.png" alt="LightScan on an iPhone: a scanned house drawn as a floor plan with wall lengths, and a heat map of high and low spots in the floor" width="460" height="1000" loading="lazy" />
-          </div>
-          <p>An iPhone app for United Dynamics, a foundation repair company. The estimator walks through a house and the phone's laser scanner draws the floor plan with every wall length, plus a heat map of where the floor sags or heaves. The app turns the scan into a report for the customer, with the foundation outline, a floor elevation map, and rainfall and soil for the address, and into a model you can 3D print. The first working version was on their phone a day after they described the problem. <a href="/shop/3d-floorplan">See the printed model</a></p>
-          <p class="tags">{[tag.phone, tag.software, tag.printing].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="flourish">
           <p class="eyebrow">Small business</p>
