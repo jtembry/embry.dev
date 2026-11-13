@@ -6,7 +6,7 @@ import site from '../../data/site.json';
   <section class="section">
     <div class="wrap">
       <h1>FieldADE privacy policy</h1>
-      <p><em>Last updated November 1, 2026</em></p>
+      <p><em>Last updated November 13, 2026</em></p>
 
       <p>FieldADE is an iPhone app, with an optional Mac app called HomeADE, made by {site.legalName}. This page covers both.</p>
       <p><strong>The short version:</strong> Embry Development collects nothing. There is no account, no analytics, no advertising, and no tracking. Your notes, chats, and keys stay on your own devices, and when the app talks to an AI service it talks to that service directly with your own key.</p>
@@ -17,7 +17,7 @@ import site from '../../data/site.json';
         <li><strong>Your vault.</strong> The app reads and edits the notes folder you pick, on your phone or in iCloud Drive. Those files never come to us.</li>
         <li><strong>Your API keys.</strong> An Anthropic key you enter is kept in the iPhone Keychain. It goes only to Anthropic, with each request you make.</li>
         <li><strong>Chats.</strong> Chat history is saved in the app's own storage on your phone, or on your Mac if you run a chat there.</li>
-        <li><strong>Calendar.</strong> If you allow it, the app reads your calendar on the phone to show today's events. Events never leave the phone.</li>
+        <li><strong>Calendar.</strong> The app shows your Google and iCloud calendars. If you sign in to Google in the app, it reads your calendars and events through Google's Calendar API with read-only access. If you sign in to iCloud, it reads them from Apple's iCloud calendar server with an app-specific password you make. Without a sign-in, and if you allow it, it reads the calendars already on the device. Events, sign-in tokens, and passwords stay on your devices, in the Keychain and your iCloud Keychain, and never come to us.</li>
         <li><strong>Speech.</strong> When you tap the mic, Apple's speech recognition turns your words into text, on the phone when the phone supports it.</li>
         <li><strong>Camera.</strong> Used only to scan a pairing code or to take a photo you choose to send in a chat.</li>
       </ul>
@@ -25,6 +25,7 @@ import site from '../../data/site.json';
       <h2>Where data goes when you use a feature</h2>
       <ul>
         <li><strong>Anthropic.</strong> When you chat, your message, any photo you attach, and the notes the assistant reads to answer it are sent to Anthropic's API under your key. When you ask for an AI reply to an email or text, your HomeADE sends that message to Anthropic the same way. Anthropic's handling is set out in its own privacy policy at anthropic.com.</li>
+        <li><strong>Google and Apple calendars.</strong> When you sign in to a calendar account, the app reads it straight from Google or Apple under that account. It only reads; it never changes or shares your events. FieldADE's use of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</li>
         <li><strong>xAI.</strong> A voice call, if you set one up, streams your voice from the phone through your own Mac to xAI's API under your key.</li>
         <li><strong>Your HomeADE.</strong> If you pair the phone with HomeADE, the phone talks to that Mac, which you own and run.</li>
         <li><strong>Apple.</strong> For widget updates and notifications, the phone gives its push token to your own HomeADE, which sends pushes through Apple's push service.</li>
