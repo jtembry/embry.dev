@@ -1,8 +1,8 @@
-// Home Base installers from R2, with a download counter.
-// GET /<name>.dmg   streams the file; HEAD works too; byte ranges are honored (resumed downloads).
+// HomeADE installers from R2, with a download counter: .dmg for the Mac, .exe for Windows (2026-11-15).
+// GET /<name>.dmg|.exe streams the file; HEAD works too; byte ranges are honored (resumed downloads).
 // A download counts once: a full GET (200, or a 206 that starts at byte 0 and covers the file), not HEAD,
 // not a bot, not a partial range. Stored per day, file and source (web or brew); no IP address, no user agent.
-const NAME = /^[A-Za-z0-9._-]+\.dmg$/;
+const NAME = /^[A-Za-z0-9._-]+\.(dmg|exe)$/;
 const BOT = /bot|crawl|spider|slurp|preview|monitor|scan|check|facebookexternalhit/i;
 
 export default {
