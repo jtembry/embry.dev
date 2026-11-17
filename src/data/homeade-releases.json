@@ -1,5 +1,20 @@
 [
   {
+    "version": "0.4.0",
+    "date": "2026-11-17",
+    "title": "A new window, Codex, and pairing that works on a new Mac",
+    "notes": [
+      "A new Mac pairs with the phone over the relay. Before, a fresh install made no encryption key, so the phone could not connect.",
+      "The HomeADE window is rebuilt with the same screens as the phone: Today, Email, Texts, Calendar, Ingest, Projects, Areas and Agents. Go → Classic Window brings back the old one.",
+      "Settings shows your notes folder, your inboxes, and which assistants are installed on this Mac, with the command to install each one that is missing.",
+      "Codex joins Claude and Grok as a chat you can start from the phone or the Mac.",
+      "Chats can be filtered, renamed, tagged and searched, including closed ones. Search in the sidebar finds Projects, Areas and chat titles.",
+      "Follow-ups stay with their chat after you close it, and show on Today and Calendar.",
+      "Security: the relay carries only encrypted traffic, every request needs the Mac's key, and assistants no longer see the Mac's keys.",
+      "Faster: the Mac sends only what changed, and replies stream as they are written."
+    ]
+  },
+  {
     "version": "0.3.0",
     "date": "2026-11-04",
     "title": "Email, connectors, and moving between chats",
