@@ -1,6 +1,7 @@
 // admin.embry.dev: private stats page. Every request must carry a valid Cloudflare Access login (see access.js).
 // GET /            the page
 // GET /api/stats   the same numbers as JSON
+// GET /map/        the private LikeC4 system map (static files from map-dist/, built by build-map.sh)
 import { verifyAccess } from "./access.js";
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -46,7 +47,7 @@ table{border-collapse:collapse;width:100%}td{padding:.35rem 0;border-bottom:1px 
 .note{color:var(--dim);font-size:.85rem;margin-top:2rem}
 @media (max-width:560px){.cards{grid-template-columns:1fr}}
 </style></head><body><main>
-<header><h1>Stats</h1><span class="who">${esc(email)} · <a href="/cdn-cgi/access/logout">Sign out</a></span></header>
+<header><h1>Stats</h1><span class="who"><a href="/map/">System map</a> · ${esc(email)} · <a href="/cdn-cgi/access/logout">Sign out</a></span></header>
 <h2>Home Base downloads</h2>
 <div class="cards"><div class="card"><b>${d.total}</b><span>All time</span></div><div class="card"><b>${d.last7}</b><span>Last 7 days</span></div><div class="card"><b>${d.last30}</b><span>Last 30 days</span></div></div>
 <h2>Per day, last 30 days</h2><div class="chart">${bars}</div>
@@ -62,6 +63,13 @@ export default {
     if (!auth.ok) return new Response(auth.why, { status: auth.status, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } });
     const url = new URL(request.url);
     const hdr = { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "no-referrer" };
+    if (url.pathname === "/map") return Response.redirect(`${url.origin}/map/`, 302);
+    if (url.pathname.startsWith("/map/")) {
+      const res = await env.ASSETS.fetch(request);
+      const out = new Response(res.body, res);
+      for (const [k, v] of Object.entries(hdr)) out.headers.set(k, v);
+      return out;
+    }
     if (url.pathname === "/api/stats") {
       return new Response(JSON.stringify({ downloads: await downloads(env) }), { headers: { ...hdr, "Content-Type": "application/json; charset=utf-8" } });
     }

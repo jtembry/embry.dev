@@ -4,3 +4,4 @@ dist/
 .DS_Store
 .env
 .drafts/
+admin-worker/map-dist/

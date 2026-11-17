@@ -17,3 +17,10 @@ POLICY_AUD = "48f41cda694b90c6b1dd05d16812ae0efa78c4c48a1f4a8b77ee09e2d3a571b2" 
 binding = "DB"
 database_name = "embry-downloads"
 database_id = "c8f18b47-dac5-4c3c-ad25-115a84d85e29"
+
+# Private system map (LikeC4) at /map/. Built from ~/Projects/system-map by ./build-map.sh into map-dist/ (gitignored:
+# this repo is public, the map is not). run_worker_first: every asset request passes the Access check in index.js.
+[assets]
+directory = "./map-dist"
+binding = "ASSETS"
+run_worker_first = true
