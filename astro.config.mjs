@@ -9,5 +9,5 @@ export default defineConfig({
   // Live and gallery folded into /printing 2026-10-04; /printing became /shop 2026-11-08; old links still land. Work came back 2026-10-11.
   redirects: { '/live': '/shop/live', '/prints': '/shop/archive', '/printing': '/shop', '/printing/live': '/shop/live', '/printing/archive': '/shop/archive', '/ai-adoption': '/knowledge-assistants/ai-adoption', '/contact': '/about#contact', '/websites': '/software', '/work': '/products',
     // The chart pages and the interactive LikeC4 map went private 2026-10-23; /map is the whole public map now.
-    '/systems': '/map', '/map/index': '/map', '/map/intakeView': '/map', '/map/email': '/map', '/map/scanner': '/map', '/map/captureView': '/map', '/map/secondBrain': '/map', '/map/assistantsView': '/map', '/map/fieldAgentView': '/map', '/map/backupsView': '/map', '/map/workshopView': '/map', '/map/printingView': '/map', '/map/siteView': '/map' },
+    '/systems': '/map', '/map/index': '/map', '/map/journey': '/map', '/map/intakeView': '/map', '/map/email': '/map', '/map/scanner': '/map', '/map/captureView': '/map', '/map/secondBrain': '/map', '/map/assistantsView': '/map', '/map/fieldAgentView': '/map', '/map/backupsView': '/map', '/map/workshopView': '/map', '/map/printingView': '/map', '/map/siteView': '/map' },
 });

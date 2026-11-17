@@ -1,95 +1,36 @@
 ---
-// The system map as one story, top to bottom: four doors in, one in-tray, the assistant sorts,
-// the phone shows what needs you. A spine down the middle fills as you scroll and a dot rides it,
-// so the page reads as one item moving through the system. This is the whole public map: the
-// LikeC4 charts behind it live in the vault (System/System Map.md) and ~/Projects/system-map.
+// The system map as one story, top to bottom: things come in, each arrives with a plan, one swipe
+// decides, it lands where it can be found. A spine down the middle fills as you scroll and a dot
+// rides it. Written by hand to match the flow JT actually uses; the LikeC4 charts stay private
+// (vault System/System Map.md, ~/Projects/system-map).
 import Base from '../../layouts/Base.astro';
 import site from '../../data/site.json';
 
 const doors = [
-  { title: 'Email & texts', how: 'Two inboxes and iMessage, read the moment something arrives. Login codes are skipped.' },
-  { title: 'Paper', how: 'Press Scan. The page becomes a searchable PDF with a note to file.' },
-  { title: 'Notes & to-dos', how: 'A quick note, a line in the day’s journal, or a reminder on the phone.' },
-  { title: 'Finished prints', how: 'The printer logs every start and finish on its own.' },
+  { title: 'Email & texts', how: 'Show up on the phone the moment they arrive.' },
+  { title: 'Paper', how: 'Press Scan. The page is read and given a name.' },
+  { title: 'Anything else', how: 'Share it from any app on the phone: a photo, a link, a file.' },
+];
+const swipes = [
+  { k: 'Triage', t: 'file it as planned' },
+  { k: 'Archive', t: 'done, out of the list' },
+  { k: 'Delete', t: 'gone' },
+  { k: 'Respond', t: 'a drafted reply; I send it' },
 ];
 const shelves = [
   { title: 'Projects', note: 'things with a finish line' },
   { title: 'Areas', note: 'ongoing duties' },
   { title: 'Documents', note: 'every PDF, searchable' },
-  { title: 'Memory', note: 'what the assistant keeps' },
+  { title: 'Reminders', note: 'to-dos with a date' },
 ];
-// What runs inside each step, as short chains. Folded under "Inside this step" so the four-step
-// story stays clean; the chains are the public cut of the private charts.
-const inside = {
-  in: [
-    { name: 'Email & texts', chain: [
-      ['Pull', 'New mail is pulled from both inboxes as it arrives, and again when the phone opens the list.'],
-      ['Copy', 'New texts are copied. Login codes are skipped.'],
-      ['Sort', 'A few times a day the assistant archives the noise and lists the rest under Needs action.'],
-      ['Keep', 'Threads I keep are saved as plain files, outside any mailbox.'],
-    ] },
-    { name: 'Paper', chain: [
-      ['Scan', 'I press Scan. The pages go straight to the Mac.'],
-      ['Read', 'The text is read, so the PDF can be searched.'],
-      ['Check', 'A page with a Social Security or card number goes to a private folder. Nothing reads it, nothing indexes it.'],
-      ['Name', 'A file name and a folder are proposed from what the page says.'],
-      ['Approve', 'One dialog on the phone. The note is filed, or filed private.'],
-    ] },
-    { name: 'Notes & to-dos', chain: [
-      ['Note', 'A quick note lands in the in-tray.'],
-      ['Sweep', 'To-dos in the day’s journal are swept to the right project.'],
-      ['Sync', 'Phone reminders sync both ways.'],
-      ['Distill', 'A finished AI chat is boiled down to a few lasting notes.'],
-    ] },
-    { name: 'Finished prints', chain: [
-      ['Watch', 'The printer reports over the home network.'],
-      ['Log', 'Every start and finish is written in the model’s folder.'],
-      ['Photo', 'A finished print gets a bed photo and a drafted gallery card.'],
-      ['Publish', 'The card is pushed to this site.'],
-    ] },
-  ],
-  tray: [
-    { name: 'What the vault holds', chain: [
-      ['In-tray', 'Every capture lands here first.'],
-      ['Projects & Areas', 'Things with a finish line, and ongoing duties.'],
-      ['Ideas', 'One per note, linked to each other.'],
-      ['Documents', 'The text of every file, so one search finds it.'],
-      ['Memory', 'What the assistant keeps between sessions.'],
-    ] },
-  ],
-  sort: [
-    { name: 'How the sorting runs', chain: [
-      ['Two assistants', 'Claude Code and Grok, each in a terminal inside the vault.'],
-      ['One rulebook', 'Both follow the same written procedures: file notes, distill a chat, check the vault, plain style.'],
-      ['Filing', 'Reads the in-tray, names each item, picks the shelf, drafts replies.'],
-      ['Upkeep', 'A daily check looks for broken links, stale projects, and quiet machines.'],
-    ] },
-  ],
-  phone: [
-    { name: 'What is on the phone', chain: [
-      ['Mission Control', 'Today’s calendar, mail and texts that need action, the next step on each project.'],
-      ['Chat', 'Ask the assistant anything. The reply fills in as it is written.'],
-      ['Allow / Deny', 'The phone buzzes before a file is edited or a command runs.'],
-      ['HomeADE', 'A small service on the Mac relays each message. The records never leave the Mac.'],
-    ] },
-  ],
-  keep: [
-    { name: 'Where the copies go', chain: [
-      ['Hourly', 'The vault, plus a snapshot of the Mac’s setup, goes to a private GitHub repo.'],
-      ['Nightly', 'The whole Mac goes to Time Machine on a disk at home, mirrored to a second disk.'],
-      ['Off-site', 'A USB copy can leave the house.'],
-    ] },
-  ],
-};
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
-<Base title="How my own system works" description="Things come in, land in one in-tray, get sorted by an assistant, and show up on the phone as what needs doing.">
+<Base title="How my own system works" description="Things come in, each one arrives with a plan, one swipe on the phone decides, and it lands where I will find it.">
   <section class="band-dark flow-hero">
     <div class="wrap">
       <p class="eyebrow">System map</p>
       <h1>How my own system works</h1>
-      <p class="lede">This is my own setup, not a client project. Everything I build for clients starts from the same four steps.</p>
-      <p class="hero-actions"><a class="btn btn-primary" href="/map/journey">Follow one item through <span aria-hidden="true">→</span></a></p>
+      <p class="lede">My own setup, in four steps. Client systems start from the same four.</p>
     </div>
   </section>
 
@@ -101,7 +42,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
       <div class="wrap flow-head">
         <p class="flow-num">1</p>
         <h2>Things come in</h2>
-        <p>Four doors. Nothing gets retyped.</p>
+        <p>Three doors, one list on the phone. Nothing gets retyped.</p>
       </div>
       <div class="wrap flow-fig" data-depth="-0.3">
         <ul class="doors">
@@ -112,149 +53,62 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
             </li>
           ))}
         </ul>
-        <svg class="merge" viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M50,0 C50,50 200,30 200,80" />
-          <path d="M150,0 C150,50 200,30 200,80" />
-          <path d="M250,0 C250,50 200,30 200,80" />
-          <path d="M350,0 C350,50 200,30 200,80" />
-        </svg>
       </div>
-      <details class="wrap inside">
-        <summary>Inside this step</summary>
-        {inside.in.map((g) => (
-          <div class="inside-group">
-            {inside.in.length > 1 && <h3>{g.name}</h3>}
-            <ol class="chain">
-              {g.chain.map(([k, t]) => <li><b>{k}</b><span>{t}</span></li>)}
-            </ol>
-          </div>
-        ))}
-      </details>
     </section>
 
-    <section class="flow-stage" id="tray">
+    <section class="flow-stage" id="plan">
       <div class="wrap flow-head">
         <p class="flow-num">2</p>
-        <h2>One in-tray</h2>
-        <p>Every item lands in the same folder of the vault: plain text files on my Mac, nothing in a vendor’s cloud.</p>
+        <h2>Each one comes with a plan</h2>
+        <p>Before I look, an AI model reads the item and writes one line: where it goes and what to do. A scan with a Social Security or card number skips this and goes straight to a locked folder.</p>
       </div>
       <div class="wrap flow-fig" data-depth="-0.3">
-        <div class="box box-tray">
-          <strong>In-tray</strong>
-          <span>a mail thread · a scan · a note · a print log</span>
+        <div class="box">
+          <strong>Email: “Can you quote a bracket?”</strong>
+          <span>Plan: to-do in Quote: custom bracket, due Friday</span>
         </div>
       </div>
-      <details class="wrap inside">
-        <summary>Inside this step</summary>
-        {inside.tray.map((g) => (
-          <div class="inside-group">
-            {inside.tray.length > 1 && <h3>{g.name}</h3>}
-            <ol class="chain">
-              {g.chain.map(([k, t]) => <li><b>{k}</b><span>{t}</span></li>)}
-            </ol>
-          </div>
-        ))}
-      </details>
     </section>
 
-    <section class="flow-stage" id="sort">
+    <section class="flow-stage" id="decide">
       <div class="wrap flow-head">
         <p class="flow-num">3</p>
-        <h2>The assistant sorts it</h2>
-        <p>A few times a day an AI assistant reads the in-tray and files each item where it belongs. Noise is archived. Replies are drafted. It follows written procedures, not memory, so it does the same thing every time.</p>
-      </div>
-      <div class="wrap flow-fig" data-depth="-0.3">
-        <div class="box box-sort">
-          <strong>Filing</strong>
-          <span>reads each item · names it · picks the shelf</span>
-        </div>
-        <svg class="fan" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M200,0 C200,40 50,20 50,60" />
-          <path d="M200,0 C200,40 150,20 150,60" />
-          <path d="M200,0 C200,40 250,20 250,60" />
-          <path d="M200,0 C200,40 350,20 350,60" />
-        </svg>
-        <ul class="shelves">
-          {shelves.map((s) => (
-            <li class="shelf"><strong>{s.title}</strong><span>{s.note}</span></li>
-          ))}
-        </ul>
-        <svg class="merge" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M50,0 C50,40 200,20 200,60" />
-          <path d="M150,0 C150,40 200,20 200,60" />
-          <path d="M250,0 C250,40 200,20 200,60" />
-          <path d="M350,0 C350,40 200,20 200,60" />
-        </svg>
-      </div>
-      <details class="wrap inside">
-        <summary>Inside this step</summary>
-        {inside.sort.map((g) => (
-          <div class="inside-group">
-            {inside.sort.length > 1 && <h3>{g.name}</h3>}
-            <ol class="chain">
-              {g.chain.map(([k, t]) => <li><b>{k}</b><span>{t}</span></li>)}
-            </ol>
-          </div>
-        ))}
-      </details>
-    </section>
-
-    <section class="flow-stage" id="phone">
-      <div class="wrap flow-head">
-        <p class="flow-num">4</p>
-        <h2>The phone shows what needs you</h2>
-        <p><a href="/products">FieldADE</a> is one screen: today’s calendar, mail and texts that need an answer, and the next step on each project. A tap files, archives, or opens a chat with the right notes loaded. Before the assistant touches a file, the phone buzzes and asks.</p>
+        <h2>I decide with one swipe</h2>
+        <p>On <a href="/products">FieldADE</a>, every row has the same four moves. Triage shows me the plan first; I confirm it, or add a sentence of context and it plans again. Nothing is filed or sent without my tap.</p>
       </div>
       <div class="wrap flow-fig" data-depth="-0.3">
         <div class="phone-frame">
           <p class="phone-title">Today</p>
           <ul class="phone-rows">
-            <li><span class="row-k">Reply</span> Quote follow-up from a customer</li>
-            <li><span class="row-k">Due</span> Invoice draft, Friday</li>
-            <li><span class="row-k">File</span> Scanned receipt, named and waiting</li>
-            <li><span class="row-k">Next</span> Print the second bracket</li>
+            {swipes.map((s) => <li><span class="row-k">{s.k}</span> {s.t}</li>)}
           </ul>
-          <p class="phone-ask"><span>Assistant wants to edit a file</span><b>Allow</b><b>Deny</b></p>
+          <p class="phone-ask"><span>To-do in Quote: custom bracket, due Friday?</span><b>Triage</b><b>Cancel</b></p>
         </div>
       </div>
-      <details class="wrap inside">
-        <summary>Inside this step</summary>
-        {inside.phone.map((g) => (
-          <div class="inside-group">
-            {inside.phone.length > 1 && <h3>{g.name}</h3>}
-            <ol class="chain">
-              {g.chain.map(([k, t]) => <li><b>{k}</b><span>{t}</span></li>)}
-            </ol>
-          </div>
-        ))}
-      </details>
     </section>
 
-    <section class="flow-stage flow-stage-end" id="keep">
+    <section class="flow-stage flow-stage-end" id="find">
       <div class="wrap flow-head">
-        <p class="flow-num">+</p>
-        <h2>And it is backed up</h2>
-        <p>The vault goes to a private GitHub repo every hour. The whole Mac goes to Time Machine, with a second copy that can leave the house. Nothing depends on one disk.</p>
+        <p class="flow-num">4</p>
+        <h2>It lands where I will find it</h2>
+        <p>Filed into plain notes on my Mac, not a vendor’s cloud. Search on the phone finds it by meaning, not just by name.</p>
       </div>
-      <details class="wrap inside">
-        <summary>Inside this step</summary>
-        {inside.keep.map((g) => (
-          <div class="inside-group">
-            {inside.keep.length > 1 && <h3>{g.name}</h3>}
-            <ol class="chain">
-              {g.chain.map(([k, t]) => <li><b>{k}</b><span>{t}</span></li>)}
-            </ol>
-          </div>
-        ))}
-      </details>
+      <div class="wrap flow-fig" data-depth="-0.3">
+        <ul class="shelves">
+          {shelves.map((s) => (
+            <li class="shelf"><strong>{s.title}</strong><span>{s.note}</span></li>
+          ))}
+        </ul>
+        <p class="flow-foot">Backed up to two disks at home, taking turns, and the notes also sync to iCloud.</p>
+      </div>
     </section>
   </div>
 
   <section class="section band flow-after">
     <div class="wrap">
       <h2>The same four steps, for your business</h2>
-      <p>Swap my doors for yours: customer email, quotes, invoices, job photos, the paperwork on the truck seat. The in-tray, the filing, and the phone screen stay the same. <a href="/knowledge-assistants">What you get</a>.</p>
-      <p class="hero-actions"><a class="btn btn-primary" href={mailto}>Email me</a> <a class="btn btn-secondary" href="/map/journey">Follow one item through</a> {site.calUrl ? <a class="btn btn-secondary" href={site.calUrl} target="_blank" rel="noopener">See it running</a> : site.booking ? <button type="button" class="btn btn-secondary" data-book>See it running</button> : <a class="btn btn-secondary" href="/products">See it running</a>}</p>
+      <p>Swap my doors for yours: customer email, quotes, invoices, job photos, the paperwork on the truck seat. The plan, the swipe, and the shelves stay the same. <a href="/knowledge-assistants">What you get</a>.</p>
+      <p class="hero-actions"><a class="btn btn-primary" href={mailto}>Email me</a> {site.calUrl ? <a class="btn btn-secondary" href={site.calUrl} target="_blank" rel="noopener">See it running</a> : site.booking ? <button type="button" class="btn btn-secondary" data-book>See it running</button> : <a class="btn btn-secondary" href="/products">See it running</a>}</p>
     </div>
   </section>
 </Base>
@@ -296,7 +150,6 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
 <style>
   .flow-hero { padding: calc(var(--header-h) + 2.5rem) 0 3rem; }
   .flow-hero h1 { margin-bottom: .6rem; }
-  .flow-hero .hero-actions { margin-top: 1.2rem; }
   .flow { position: relative; overflow: hidden; --spine-x: 50%; }
   .flow-bg { position: absolute; inset: -20% 0; background-image: radial-gradient(rgba(176, 74, 16, .18) 1px, transparent 1.5px); background-size: 28px 28px; pointer-events: none; will-change: transform; }
   .flow-spine { position: absolute; top: 0; bottom: 0; left: var(--spine-x); width: 3px; margin-left: -1.5px; --p: 0;
@@ -307,21 +160,19 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   .flow-head h2 { margin-top: .4rem; }
   .flow-head p { margin-inline: auto; }
   /* Text sits on a patch of page colour so the spine runs behind it, not through it. */
-  .flow-head h2, .flow-head p:not(.flow-num) { position: relative; width: fit-content; margin-inline: auto; background: var(--bg); box-shadow: 0 0 0 .6rem var(--bg); border-radius: 4px; }
+  .flow-head h2, .flow-head p:not(.flow-num), .flow-foot { position: relative; width: fit-content; margin-inline: auto; background: var(--bg); box-shadow: 0 0 0 .6rem var(--bg); border-radius: 4px; }
   .flow-num { display: inline-grid; place-items: center; width: 2.6rem; height: 2.6rem; margin: 0; border-radius: 50%; background: var(--accent-bright); color: var(--ink); font-family: var(--mono); font-weight: 600; font-size: 1.1rem; box-shadow: 0 0 0 6px var(--bg); }
   .flow-fig { position: relative; margin-top: 1.75rem; will-change: transform; }
+  .flow-foot { margin-top: 1.75rem; text-align: center; font-size: .95rem; color: var(--muted); }
 
-  .doors { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .doors { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
   .door { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.1rem; }
   .door h3 { margin: 0 0 .35rem; font-size: 1.05rem; }
   .door p { margin: 0; font-size: .95rem; color: var(--ink-2); }
-  .merge, .fan { display: block; width: 100%; height: 70px; }
-  .merge path, .fan path { fill: none; stroke: var(--accent-bright); stroke-width: 2; stroke-opacity: .8; }
 
-  .box { display: flex; flex-direction: column; gap: .25rem; width: min(100%, 26rem); margin-inline: auto; padding: 1.1rem 1.3rem; border-radius: var(--radius); background: var(--band); color: var(--white); text-align: center; box-shadow: 0 12px 36px rgba(20, 22, 28, .18); }
-  .box strong { font-size: 1.15rem; }
+  .box { display: flex; flex-direction: column; gap: .35rem; width: min(100%, 26rem); margin-inline: auto; padding: 1.1rem 1.3rem; border-radius: var(--radius); background: var(--band); color: var(--white); text-align: center; border: 2px solid var(--accent-bright); box-shadow: 0 12px 36px rgba(20, 22, 28, .18); }
+  .box strong { font-size: 1.05rem; }
   .box span { font-family: var(--mono); font-size: .8rem; color: #9be5ad; }
-  .box-sort { border: 2px solid var(--accent-bright); }
   .shelves { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
   .shelf { display: flex; flex-direction: column; gap: .15rem; padding: .8rem .9rem; background: var(--white); border: 1px dashed var(--muted); border-radius: var(--radius); text-align: center; }
   .shelf strong { font-size: .98rem; }
@@ -331,35 +182,19 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   .phone-title { margin: 0 0 .7rem; font-family: var(--mono); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-bright); }
   .phone-rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5rem; font-size: .9rem; }
   .phone-rows li { padding: .55rem .7rem; border-radius: 8px; background: var(--band-2); }
-  .row-k { display: inline-block; min-width: 3.2rem; margin-right: .3rem; font-family: var(--mono); font-size: .72rem; text-transform: uppercase; color: #9be5ad; }
+  .row-k { display: inline-block; min-width: 4.4rem; margin-right: .3rem; font-family: var(--mono); font-size: .72rem; text-transform: uppercase; color: #9be5ad; }
   .phone-ask { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: .8rem 0 0; padding: .6rem .7rem; border-radius: 8px; background: var(--accent-tint); color: var(--ink); font-size: .85rem; }
   .phone-ask span { flex: 1 1 100%; }
-  :global(html[data-look="dos"]) .box { color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
-  :global(html[data-look="dos"]) .box-sort { border: 2px solid var(--accent-bright); }
+  .phone-ask b { padding: .25rem .7rem; border-radius: 6px; background: var(--accent-bright); font-weight: 600; }
+  .phone-ask b + b { background: transparent; border: 1.5px solid var(--ink-2); }
+  :global(html[data-look="dos"]) .box { color: var(--ink); border: 2px solid var(--accent-bright); box-shadow: none; }
   :global(html[data-look="dos"]) .box span, :global(html[data-look="dos"]) .row-k { color: var(--muted); }
   :global(html[data-look="dos"]) .phone-frame { color: var(--ink); border-color: var(--line); box-shadow: none; }
   :global(html[data-look="dos"]) .flow-num, :global(html[data-look="dos"]) .phone-ask b { color: #000; text-shadow: none; }
   :global(html[data-look="dos"]) .flow-bg { background-image: radial-gradient(rgba(0, 255, 77, .14) 1px, transparent 1.5px); }
   :global(html[data-look="dos"]) .flow-dot { box-shadow: 0 0 0 5px rgba(0, 255, 77, .25), 0 0 18px rgba(0, 255, 77, .55); }
-  .phone-ask b { padding: .25rem .7rem; border-radius: 6px; background: var(--accent-bright); font-weight: 600; }
-  .phone-ask b + b { background: transparent; border: 1.5px solid var(--ink-2); }
 
   .flow-stage-end { padding-bottom: clamp(3rem, 8vw, 5rem); }
-
-  /* Inside this step: folded chains under each figure. */
-  .inside { position: relative; margin-top: 1.5rem; }
-  .inside summary { width: fit-content; margin-inline: auto; padding: .4rem .9rem; border: 1.5px solid var(--accent-bright); border-radius: 999px; background: var(--bg); color: var(--accent); font-family: var(--mono); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; cursor: pointer; list-style: none; box-shadow: 0 0 0 .5rem var(--bg); }
-  .inside summary::-webkit-details-marker { display: none; }
-  .inside summary::after { content: ' ▾'; }
-  .inside[open] summary::after { content: ' ▴'; }
-  .inside summary:hover { background: var(--accent-tint); }
-  .inside-group { margin-top: 1.1rem; padding: 1rem 1.1rem 1.1rem; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); }
-  .inside-group h3 { margin: 0 0 .7rem; font-size: 1rem; color: var(--accent); }
-  .chain { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: .6rem 1.6rem; counter-reset: step; }
-  .chain li { position: relative; display: flex; flex-direction: column; gap: .15rem; padding: .6rem .75rem; background: var(--bg); border-radius: 8px; font-size: .9rem; color: var(--ink-2); }
-  .chain li b { color: var(--ink); font-size: .92rem; }
-  .chain li + li::before { content: '→'; position: absolute; left: -1.35rem; top: .55rem; color: var(--accent-bright); font-weight: 600; }
-
   .flow-after h2 { margin-top: 0; }
 
   /* Reveal as each step scrolls in. */
@@ -368,10 +203,8 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   :global(html.motion) .flow-stage.in .flow-head, :global(html.motion) .flow-stage.in .flow-fig { opacity: 1; translate: 0 0; }
 
   @media (max-width: 48rem) {
-    .doors, .shelves { grid-template-columns: 1fr 1fr; }
-    .chain { grid-template-columns: 1fr; gap: 1.3rem; }
-    .chain li + li::before { content: '↓'; left: .75rem; top: -1.25rem; }
-    .merge, .fan { height: 48px; }
+    .doors { grid-template-columns: 1fr; }
+    .shelves { grid-template-columns: 1fr 1fr; }
     .flow-fig { margin-top: 1.25rem; }
     .flow-head p { font-size: 1rem; }
   }
