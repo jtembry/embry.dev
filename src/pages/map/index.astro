@@ -8,13 +8,13 @@ import site from '../../data/site.json';
 
 const steps = [
   { id: 'in', title: 'Things come in',
-    body: 'Email and texts show up the moment they arrive. A scanned page, or anything shared from another app, lands in the same app beside them. Nothing gets retyped.',
+    body: 'Email and texts show up the moment they arrive. A scanned page, or anything shared from another app, lands in the same app beside them. No one retypes anything.',
     shot: 'email', alt: 'FieldADE’s Email screen: five unread messages' },
   { id: 'plan', title: 'One swipe shows the plan',
     body: 'An AI model has already read each item and written where it goes. I swipe Triage and see that plan before anything happens: confirm it, add a sentence of context, or cancel. The other swipes are Archive, Delete, and Respond, which drafts a reply for me to send.',
     shot: 'triage', alt: 'The triage confirm: “To-do in Henderson Kitchen?”, with the to-do and its due date, and Triage, Add context, Cancel' },
   { id: 'find', title: 'It shows up where I need it',
-    body: 'Filed into plain notes on my Mac, under the right project. A dated to-do lands on the Today screen and in Reminders. Search on the phone finds the rest by meaning.',
+    body: 'Each item goes into plain notes on my Mac, under the right project. A dated to-do lands on the Today screen and in Reminders. Search on the phone finds the rest by meaning.',
     shot: 'today', alt: 'FieldADE’s Today screen: the new to-do, “Send Dana a start date”, at the top of Due' },
 ];
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
@@ -42,7 +42,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <div class="wrap flow-fig" data-depth="-0.3">
           <img class="shot look-pro-only" src={`/map/${st.shot}.png`} alt={st.alt} width="460" height="1000" loading="lazy" />
           <img class="shot look-dos-only" src={`/map/${st.shot}-dos.png`} alt={`${st.alt}, in the DOS look`} width="460" height="1000" loading="lazy" />
-          {i === steps.length - 1 && <p class="flow-foot">Backed up to two disks at home, taking turns, and the notes also sync to iCloud.</p>}
+          {i === steps.length - 1 && <p class="flow-foot">Two disks at home take turns backing it all up, and the notes also sync to iCloud.</p>}
         </div>
       </section>
     ))}
