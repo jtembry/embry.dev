@@ -1,36 +1,30 @@
 ---
-// The system map as one story, top to bottom: things come in, each arrives with a plan, one swipe
-// decides, it lands where it can be found. A spine down the middle fills as you scroll and a dot
-// rides it. Written by hand to match the flow JT actually uses; the LikeC4 charts stay private
-// (vault System/System Map.md, ~/Projects/system-map).
+// The system map as one story, top to bottom: things come in, one swipe shows the plan, it shows up
+// where it is needed. Each step is a real FieldADE screen on sample data (scripts/fieldade-shots),
+// in both looks. A spine down the middle fills as you scroll and a dot rides it. The LikeC4 charts
+// stay private (vault System/System Map.md, ~/Projects/system-map).
 import Base from '../../layouts/Base.astro';
 import site from '../../data/site.json';
 
-const doors = [
-  { title: 'Email & texts', how: 'Show up on the phone the moment they arrive.' },
-  { title: 'Paper', how: 'Press Scan. The page is read and given a name.' },
-  { title: 'Anything else', how: 'Share it from any app on the phone: a photo, a link, a file.' },
-];
-const swipes = [
-  { k: 'Triage', t: 'file it as planned' },
-  { k: 'Archive', t: 'done, out of the list' },
-  { k: 'Delete', t: 'gone' },
-  { k: 'Respond', t: 'a drafted reply; I send it' },
-];
-const shelves = [
-  { title: 'Projects', note: 'things with a finish line' },
-  { title: 'Areas', note: 'ongoing duties' },
-  { title: 'Documents', note: 'every PDF, searchable' },
-  { title: 'Reminders', note: 'to-dos with a date' },
+const steps = [
+  { id: 'in', title: 'Things come in',
+    body: 'Email and texts show up the moment they arrive. A scanned page, or anything shared from another app, lands in the same app beside them. Nothing gets retyped.',
+    shot: 'email', alt: 'FieldADE’s Email screen: five unread messages' },
+  { id: 'plan', title: 'One swipe shows the plan',
+    body: 'An AI model has already read each item and written where it goes. I swipe Triage and see that plan before anything happens: confirm it, add a sentence of context, or cancel. The other swipes are Archive, Delete, and Respond, which drafts a reply for me to send.',
+    shot: 'triage', alt: 'The triage confirm: “To-do in Henderson Kitchen?”, with the to-do and its due date, and Triage, Add context, Cancel' },
+  { id: 'find', title: 'It shows up where I need it',
+    body: 'Filed into plain notes on my Mac, under the right project. A dated to-do lands on the Today screen and in Reminders. Search on the phone finds the rest by meaning.',
+    shot: 'today', alt: 'FieldADE’s Today screen: the new to-do, “Send Dana a start date”, at the top of Due' },
 ];
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
-<Base title="How my own system works" description="Things come in, each one arrives with a plan, one swipe on the phone decides, and it lands where I will find it.">
+<Base title="How my own system works" description="Things come in, one swipe shows the plan, and it shows up where I need it. Real FieldADE screens with sample data.">
   <section class="band-dark flow-hero">
     <div class="wrap">
       <p class="eyebrow">System map</p>
       <h1>How my own system works</h1>
-      <p class="lede">My own setup, in four steps. Client systems start from the same four.</p>
+      <p class="lede">My own setup, in three steps. These are real screens from the app, filled with sample data.</p>
     </div>
   </section>
 
@@ -38,76 +32,26 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
     <div class="flow-bg" data-depth="0.5" aria-hidden="true"></div>
     <div class="flow-spine" aria-hidden="true"><span class="flow-dot"></span></div>
 
-    <section class="flow-stage" id="in">
-      <div class="wrap flow-head">
-        <p class="flow-num">1</p>
-        <h2>Things come in</h2>
-        <p>Three doors, one list on the phone. Nothing gets retyped.</p>
-      </div>
-      <div class="wrap flow-fig" data-depth="-0.3">
-        <ul class="doors">
-          {doors.map((d) => (
-            <li class="door">
-              <h3>{d.title}</h3>
-              <p>{d.how}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <section class="flow-stage" id="plan">
-      <div class="wrap flow-head">
-        <p class="flow-num">2</p>
-        <h2>Each one comes with a plan</h2>
-        <p>Before I look, an AI model reads the item and writes one line: where it goes and what to do. A scan with a Social Security or card number skips this and goes straight to a locked folder.</p>
-      </div>
-      <div class="wrap flow-fig" data-depth="-0.3">
-        <div class="box">
-          <strong>Email: “Can you quote a bracket?”</strong>
-          <span>Plan: to-do in Quote: custom bracket, due Friday</span>
+    {steps.map((st, i) => (
+      <section class={`flow-stage${i === steps.length - 1 ? ' flow-stage-end' : ''}`} id={st.id}>
+        <div class="wrap flow-head">
+          <p class="flow-num">{i + 1}</p>
+          <h2>{st.title}</h2>
+          <p>{st.body}</p>
         </div>
-      </div>
-    </section>
-
-    <section class="flow-stage" id="decide">
-      <div class="wrap flow-head">
-        <p class="flow-num">3</p>
-        <h2>I decide with one swipe</h2>
-        <p>On <a href="/products">FieldADE</a>, every row has the same four moves. Triage shows me the plan first; I confirm it, or add a sentence of context and it plans again. Nothing is filed or sent without my tap.</p>
-      </div>
-      <div class="wrap flow-fig" data-depth="-0.3">
-        <div class="phone-frame">
-          <p class="phone-title">Today</p>
-          <ul class="phone-rows">
-            {swipes.map((s) => <li><span class="row-k">{s.k}</span> {s.t}</li>)}
-          </ul>
-          <p class="phone-ask"><span>To-do in Quote: custom bracket, due Friday?</span><b>Triage</b><b>Cancel</b></p>
+        <div class="wrap flow-fig" data-depth="-0.3">
+          <img class="shot look-pro-only" src={`/map/${st.shot}.png`} alt={st.alt} width="460" height="1000" loading="lazy" />
+          <img class="shot look-dos-only" src={`/map/${st.shot}-dos.png`} alt={`${st.alt}, in the DOS look`} width="460" height="1000" loading="lazy" />
+          {i === steps.length - 1 && <p class="flow-foot">Backed up to two disks at home, taking turns, and the notes also sync to iCloud.</p>}
         </div>
-      </div>
-    </section>
-
-    <section class="flow-stage flow-stage-end" id="find">
-      <div class="wrap flow-head">
-        <p class="flow-num">4</p>
-        <h2>It lands where I will find it</h2>
-        <p>Filed into plain notes on my Mac, not a vendor’s cloud. Search on the phone finds it by meaning, not just by name.</p>
-      </div>
-      <div class="wrap flow-fig" data-depth="-0.3">
-        <ul class="shelves">
-          {shelves.map((s) => (
-            <li class="shelf"><strong>{s.title}</strong><span>{s.note}</span></li>
-          ))}
-        </ul>
-        <p class="flow-foot">Backed up to two disks at home, taking turns, and the notes also sync to iCloud.</p>
-      </div>
-    </section>
+      </section>
+    ))}
   </div>
 
   <section class="section band flow-after">
     <div class="wrap">
-      <h2>The same four steps, for your business</h2>
-      <p>Swap my doors for yours: customer email, quotes, invoices, job photos, the paperwork on the truck seat. The plan, the swipe, and the shelves stay the same. <a href="/knowledge-assistants">What you get</a>.</p>
+      <h2>The same three steps, for your business</h2>
+      <p>Swap my inbox for yours: customer email, quotes, invoices, job photos, the paperwork on the truck seat. The plan, the swipe, and the filing stay the same. <a href="/knowledge-assistants">What you get</a>.</p>
       <p class="hero-actions"><a class="btn btn-primary" href={mailto}>Email me</a> {site.calUrl ? <a class="btn btn-secondary" href={site.calUrl} target="_blank" rel="noopener">See it running</a> : site.booking ? <button type="button" class="btn btn-secondary" data-book>See it running</button> : <a class="btn btn-secondary" href="/products">See it running</a>}</p>
     </div>
   </section>
@@ -165,32 +109,9 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   .flow-fig { position: relative; margin-top: 1.75rem; will-change: transform; }
   .flow-foot { margin-top: 1.75rem; text-align: center; font-size: .95rem; color: var(--muted); }
 
-  .doors { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-  .door { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.1rem; }
-  .door h3 { margin: 0 0 .35rem; font-size: 1.05rem; }
-  .door p { margin: 0; font-size: .95rem; color: var(--ink-2); }
-
-  .box { display: flex; flex-direction: column; gap: .35rem; width: min(100%, 26rem); margin-inline: auto; padding: 1.1rem 1.3rem; border-radius: var(--radius); background: var(--band); color: var(--white); text-align: center; border: 2px solid var(--accent-bright); box-shadow: 0 12px 36px rgba(20, 22, 28, .18); }
-  .box strong { font-size: 1.05rem; }
-  .box span { font-family: var(--mono); font-size: .8rem; color: #9be5ad; }
-  .shelves { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-  .shelf { display: flex; flex-direction: column; gap: .15rem; padding: .8rem .9rem; background: var(--white); border: 1px dashed var(--muted); border-radius: var(--radius); text-align: center; }
-  .shelf strong { font-size: .98rem; }
-  .shelf span { font-size: .85rem; color: var(--muted); }
-
-  .phone-frame { width: min(100%, 20rem); margin-inline: auto; padding: 1.1rem 1rem 1rem; border-radius: 26px; background: var(--band); color: var(--bg); border: 6px solid #0d0f13; box-shadow: 0 18px 50px rgba(20, 22, 28, .3); }
-  .phone-title { margin: 0 0 .7rem; font-family: var(--mono); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-bright); }
-  .phone-rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5rem; font-size: .9rem; }
-  .phone-rows li { padding: .55rem .7rem; border-radius: 8px; background: var(--band-2); }
-  .row-k { display: inline-block; min-width: 4.4rem; margin-right: .3rem; font-family: var(--mono); font-size: .72rem; text-transform: uppercase; color: #9be5ad; }
-  .phone-ask { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: .8rem 0 0; padding: .6rem .7rem; border-radius: 8px; background: var(--accent-tint); color: var(--ink); font-size: .85rem; }
-  .phone-ask span { flex: 1 1 100%; }
-  .phone-ask b { padding: .25rem .7rem; border-radius: 6px; background: var(--accent-bright); font-weight: 600; }
-  .phone-ask b + b { background: transparent; border: 1.5px solid var(--ink-2); }
-  :global(html[data-look="dos"]) .box { color: var(--ink); border: 2px solid var(--accent-bright); box-shadow: none; }
-  :global(html[data-look="dos"]) .box span, :global(html[data-look="dos"]) .row-k { color: var(--muted); }
-  :global(html[data-look="dos"]) .phone-frame { color: var(--ink); border-color: var(--line); box-shadow: none; }
-  :global(html[data-look="dos"]) .flow-num, :global(html[data-look="dos"]) .phone-ask b { color: #000; text-shadow: none; }
+  .shot { display: block; width: min(100%, 17rem); height: auto; margin-inline: auto; border-radius: 34px; border: 6px solid #0d0f13; box-shadow: 0 18px 50px rgba(20, 22, 28, .3); background: #0d0f13; }
+  :global(html[data-look="dos"]) .shot { border-color: var(--line); box-shadow: none; }
+  :global(html[data-look="dos"]) .flow-num { color: #000; text-shadow: none; }
   :global(html[data-look="dos"]) .flow-bg { background-image: radial-gradient(rgba(0, 255, 77, .14) 1px, transparent 1.5px); }
   :global(html[data-look="dos"]) .flow-dot { box-shadow: 0 0 0 5px rgba(0, 255, 77, .25), 0 0 18px rgba(0, 255, 77, .55); }
 
@@ -203,8 +124,6 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
   :global(html.motion) .flow-stage.in .flow-head, :global(html.motion) .flow-stage.in .flow-fig { opacity: 1; translate: 0 0; }
 
   @media (max-width: 48rem) {
-    .doors { grid-template-columns: 1fr; }
-    .shelves { grid-template-columns: 1fr 1fr; }
     .flow-fig { margin-top: 1.25rem; }
     .flow-head p { font-size: 1rem; }
   }

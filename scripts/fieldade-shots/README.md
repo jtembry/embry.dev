@@ -11,6 +11,8 @@ Made 2026-10-15. Redone 2026-10-29 for the FieldADE app (Mission Control is the 
 | `mission-control.png` / `mission-control-dos.png` | Today: calendar and what's due |
 | `mission-control-email.png` / `mission-control-email-dos.png` | Email: unread messages |
 
+| `/map/email.png`, `/map/triage.png`, `/map/today.png` (+ `-dos`) | System map: Email list, the triage confirm with its plan, Today with the new to-do |
+
 The plain names are the Professional look (`themeMode pro`); `-dos` is the DOS look.
 
 ## Steps
@@ -126,3 +128,10 @@ done
 - The reply frame must start with the user's own text; the phone drops a reply that does not echo its send.
 - `defaults write` through `simctl spawn` needs one key per call; a quoted "key value" pair is read as one argument. (In zsh, `set -- $kv` does not split either.)
 - If the chat shows the prompt twice, delete the app's `Library/Application Support/history` in its container (the script does).
+
+## System map shots (2026-11-17)
+
+- Extra hook in the copy's `MissionControlView.swift` `.onAppear`: `-demoTriage <n>` waits 4 s, then sets `billed` to the triage chip of email row n, which opens the plan confirm. `-demoSection` moved into the same `.onAppear` (it now also calls `openQuickNote(); checkConnectors()`).
+- `make-mission.py` email rows carry `plan`; the Dana plan's due date must equal the first Due item's date, or the triage and Today shots disagree.
+- Shots: `-demoSection email`, `-demoSection email -demoTriage 0`, `-demoSection today`; copy with `sips -z 1000 460` to `public/map/<name>[-dos].png`.
+- Build without `-sdk iphonesimulator` (destination only). With `-sdk`, SwiftTerm's build-info tool lands in `Debug-iphonesimulator/` and its plugin step fails looking in `Debug/`. "failed with exit code 0" lines still leave a working `RemoteAgent.app`.

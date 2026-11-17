@@ -20,10 +20,15 @@ def chips(kind, key):
     return [{"label": l, "script": sc, "text": key, "billed": l in ("triage", "respond with AI")} for l, sc in s.items()]
 
 
-def email(i, title, when, text):
+def plan(title, what, kind, home, folder="1 Projects"):
+    return {"title": title, "what": what, "kind": kind, "home": home,
+            "homePath": f"{folder}/{home}/{home}.md" if home else ""}
+
+
+def email(i, title, when, text, p=None):
     key = f"<demo-{i}@example.com>"
     return {"id": key, "source": "System/Email.md", "title": title, "when": when, "text": text,
-            "open": {"label": "open", "url": "https://mail.example.com/"}, "buttons": chips("email", key)}
+            "open": {"label": "open", "url": "https://mail.example.com/"}, "buttons": chips("email", key), "plan": p}
 
 
 def msg(i, title, when, text):
@@ -58,8 +63,8 @@ mission = {
         "calendar": today_events,
         "due": [
             {**todo("1 Projects/Henderson Kitchen/Henderson Kitchen.md", 31,
-                    f"Send the revised quote to the Hendersons 📅 {D()}"),
-             "text": "Send the revised quote to the Hendersons", "due": D(),
+                    f"Send Dana a start date 📅 {D()}"),
+             "text": "Send Dana a start date", "due": D(),
              "file": "Henderson Kitchen", "overdue": False},
             {**todo("1 Projects/Parker Bathroom/Parker Bathroom.md", 22, f"Price two tile options 📅 {D(1)}"),
              "text": "Price two tile options", "due": D(1), "file": "Parker Bathroom", "overdue": False},
@@ -85,8 +90,10 @@ mission = {
         ],
     },
     "email": [
-        email(1, "Dana Reyes", f"{DAY(0, '%a')} {MD()}, 8:40 AM", "Invoice 1042 is approved. When can you start?"),
-        email(2, "County Permits", f"{DAY(0, '%a')} {MD()}, 7:55 AM", "Permit 2026-3381 has been approved. Print the card for the job site."),
+        email(1, "Dana Reyes", f"{DAY(0, '%a')} {MD()}, 8:40 AM", "Invoice 1042 is approved. When can you start?",
+              plan("To-do in Henderson Kitchen", f'Add to-do to Henderson Kitchen: "Send Dana a start date", due {D()}', "todo", "Henderson Kitchen")),
+        email(2, "County Permits", f"{DAY(0, '%a')} {MD()}, 7:55 AM", "Permit 2026-3381 has been approved. Print the card for the job site.",
+              plan("File into Henderson Kitchen", "Note in Henderson Kitchen: permit 2026-3381 approved; print the card for the site.", "note", "Henderson Kitchen")),
         email(4, "Parker family", f"{DAY(0, '%a')} {MD()}, 6:58 AM", "Monday at 10 works for us. The side door will be open."),
         email(5, "Tile Outlet", f"{DAY(-1, '%a')} {MD(-1)}, 5:30 PM", "The two samples you asked about are on hold under your name until Friday."),
         email(3, "Supply house", f"{DAY(-1, '%a')} {MD(-1)}, 4:12 PM", "Your order is ready for pickup at the counter."),
