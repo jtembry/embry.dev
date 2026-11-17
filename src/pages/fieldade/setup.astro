@@ -21,7 +21,7 @@ import site from '../../data/site.json';
       <h2 id="mac">1. Install HomeADE on your Mac</h2>
       <ol>
         <li><a href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download HomeADE</a>, open the file, and drag HomeADE to Applications.</li>
-        <li>Open HomeADE. An antenna icon appears in the menu bar. HomeADE now opens each time you log in; turn that off in the menu if you like.</li>
+        <li>Open HomeADE. An antenna icon appears in the menu bar. To start HomeADE each time you log in, click the icon and turn on <strong>Open at login</strong>.</li>
       </ol>
       <p class="fine">Or install with Homebrew:</p>
       <div class="cmd"><pre><code id="brew-cmd">brew install --cask jtembry/homeade/homeade</code></pre><button type="button" class="copy-btn" data-copy="brew-cmd">Copy</button></div>
@@ -72,11 +72,11 @@ import site from '../../data/site.json';
       <p>FieldADE can run on its own. Open <strong>Settings → Phone alone</strong>, turn on <strong>Phone only</strong>, pick a vault folder on the phone, and enter an Anthropic API key. Chats then run on the phone and bill that key. To look around first, tap <strong>Try the sample vault</strong> on the Today screen.</p>
 
       <h2 id="windows">Windows (beta)</h2>
-      <p>The <a href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Windows beta</a> runs the same screens in a window and a tray icon. It is not yet code-signed, so Windows warns you: click <strong>More info</strong>, then <strong>Run anyway</strong>. Pick a vault under <strong>Settings → Vault → Change folder…</strong>, and install and sign in to Claude Code, Codex, or Grok yourself. Pairing a phone with Windows is not in the beta yet.</p>
+      <p>The <a href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Windows beta</a> runs the same screens in a window and a tray icon. It is not yet code-signed, so Windows warns you: click <strong>More info</strong>, then <strong>Run anyway</strong>. Pick a vault under <strong>Settings → Vault → Change folder…</strong>, and install and sign in to Claude Code, Codex, or Grok yourself. The beta cannot pair a phone yet.</p>
 
       <h2 id="trouble">If something goes wrong</h2>
       <ul>
-        <li><strong>The HomeADE window says it has no token.</strong> Setup is not done. Click the antenna icon, then <strong>Set up this Mac…</strong></li>
+        <li><strong>The HomeADE window says it has no token.</strong> Setup is unfinished. Click the antenna icon, then <strong>Set up this Mac…</strong></li>
         <li><strong>The phone says to set the Mac's address.</strong> The phone is not paired. Do step 4.</li>
         <li><strong>The phone says "no end-to-end key."</strong> Make a new pairing code on the Mac and scan it again.</li>
         <li><strong>Chats do not start.</strong> Check that Claude Code is installed and signed in, then click <strong>Restart HomeADE…</strong> in the menu.</li>
