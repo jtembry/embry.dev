@@ -1,0 +1,23 @@
+[
+  {
+    "version": "1.0.1",
+    "date": "2026-11-19",
+    "title": "Messages that survive a dropped connection",
+    "notes": [
+      "Messages no longer go missing when the connection drops. The app confirms each one and sends it again if needed.",
+      "Faster: the Today screen opens from cache, and chats load and scroll more quickly.",
+      "Read vault notes inside the app, even when Obsidian doesn't have that vault.",
+      "Copy, share or save pictures in replies. They stay after a relaunch.",
+      "Add a contact straight from a scanned business card.",
+      "Tighter security: every connection needs its token, and pairing links ask before they apply."
+    ]
+  },
+  {
+    "version": "1.0",
+    "date": "2026-11-13",
+    "title": "First release on the App Store",
+    "notes": [
+      "FieldADE is on the App Store. It reaches the assistants on your Mac from your iPhone."
+    ]
+  }
+]

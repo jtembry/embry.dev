@@ -2,8 +2,10 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { dots } from '../lib/patterns.js';
-import releases from '../data/homeade-releases.json';
-const latest = releases[0];
+import homeadeReleases from '../data/homeade-releases.json';
+import fieldadeReleases from '../data/fieldade-releases.json';
+const latest = homeadeReleases[0];
+const fieldade = fieldadeReleases[0];
 const nice = (d) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 const cardsBg = dots();
 
@@ -44,6 +46,7 @@ const tag = {
           </div>
           <p>An iPhone app that reaches the AI assistants on my Mac from anywhere, over an encrypted connection. A chat app on your phone starts every answer from zero. These assistants run where my records live: beside my files, email, notes, and the vault that holds what I know about each job. A knowledge assistant keeps all of it indexed. So from the truck I can ask what we quoted a customer last spring and get the quote, or ask for the follow-up and get it drafted from that thread. The records stay on the Mac; the phone only reaches them. Each chat runs in a folder, replies appear as they are written, and a message can carry photos. Before an assistant edits a file or runs a command, the phone buzzes and asks me to allow or deny it. I can change the app from the app: an assistant edits the code, checks it, and installs the new version on the phone. <a href="/map">See how it connects</a></p>
           <p class="card-actions"><a class="btn btn-primary" href="https://apps.apple.com/us/app/fieldade/id6828288883" rel="noopener">Get it on the App Store</a> <a class="btn" href="/fieldade/setup">Setup guide</a></p>
+          <p class="fine">Version {fieldade.version} &middot; {nice(fieldade.date)} &middot; <a href="/fieldade/releases">Release notes</a></p>
           <p class="tags">{[tag.phone, tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="homeade">
