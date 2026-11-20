@@ -5,9 +5,9 @@ import ReleaseNotes from '../../components/ReleaseNotes.astro';
 import releases from '../../data/homeade-releases.json';
 const latest = releases[0];
 ---
-<Base title="HomeADE" description="HomeADE is the project desk for the agents on your computer. It files what comes in, keeps the brief in your notes, and shows which chats, skills, and models are in play." image="/work/homebase.png">
+<Base title="HomeADE" description="HomeADE is the desk on your computer where your agents work. It files what comes in as plain notes, and every later chat reads those notes, so nothing is explained twice." image="/work/homebase.png">
   <Hero variant="graph" seed={13} eyebrow="Agentic development environment" title="HomeADE">
-    <p class="lede">HomeADE is the project desk for the agents on your computer. Claude, Codex, and Grok still do the writing, the same tools you would open in a terminal. HomeADE keeps the queue, the notes they read, and a list of every chat, skill, and model on the machine. It runs on its own.</p>
+    <p class="lede">HomeADE is the desk on your computer where your agents work. Claude, Codex, and Grok still do the writing, the same tools you would open in a terminal. HomeADE files what comes in as plain notes, and every later chat reads those notes. It also lists every chat, skill, and model on the machine. It runs on its own.</p>
     <a slot="actions" class="btn btn-secondary" href="/homeade/setup">Setup guide</a>
   </Hero>
 
@@ -21,21 +21,25 @@ const latest = releases[0];
       <p class="card-actions"><a class="btn btn-primary" href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download for Mac</a> <a class="btn btn-secondary" href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Download for Windows (beta)</a></p>
       <p class="fine">Mac: version {latest.version} &middot; macOS 14 or later &middot; <a href="/homeade/setup">Setup guide</a><br />Windows: version 0.1.0 beta &middot; Windows 10 or later &middot; <a href="/homeade/setup#windows">unsigned</a></p>
 
+      <h2>How it works</h2>
+      <p>Something comes in: a mail, a scan, a note you paste, a loose file. HomeADE proposes where it belongs. You confirm. It becomes a plain note under a project or an area. The next chat on that project reads the note before it answers. That is the whole loop. The rest of this page is detail.</p>
+
+      <h2>The notes are the memory</h2>
+      <p>A project is a folder of plain Markdown notes about one piece of work. An area is the same for something ongoing: a client, a house, a team. Together they are the second brain. The project note holds the brief. The area note holds the standing context. When you start a chat on a project, the agent reads that folder first. You do not paste the brief again. You do not hope a chat app remembered the right client.</p>
+      <p>This is why the system grows in value. Every mail you file, every scan, every decision becomes part of what the next chat knows. On day one the agent asks you questions. A few months in, it already has the answers, because you filed them once. The folder is yours. Open any note and see exactly what the agent is working from. Closed chats stay searchable too, with their titles, tags, and models. Last week's decision is a note or a chat you can open, not a scrollback you lost.</p>
+
+      <h2>Ingest: file it once</h2>
+      <p>Ingest is the inbox of the notes. Mail, a note you paste, a scan, and a loose file land there. For each item HomeADE proposes a home: which project or area, and what the note should say. You confirm, and it is filed. Send a mail thread into a chat and the agent drafts a reply from the whole conversation. Add to Calendar reads that thread and shows you the event before it writes anything. Nothing is filed unseen.</p>
+
       <h2>Run the agents like a project</h2>
-      <p>A terminal shows one session. Claude Desktop shows a chat and the files you attach to it. The rest of the work, the open threads, the due dates, the model on each chat, sits in your head. HomeADE lists every chat. You filter, rename, tag, and search them, including the ones you closed. Each row names its model. Today shows what is due. A follow-up an agent schedules stays on that chat and shows on Today and on the calendar.</p>
-      <p>Two chats can use two branches of the same repo, so one agent does not overwrite the other's checkout. When this computer is connected to a ticket queue, you start a chat from a ticket in the folder you choose. The ticket, the branch, and the notes stay attached to that chat.</p>
+      <p>A terminal shows one session. A chat app shows one chat. The rest, the open threads, the due dates, the model on each chat, sits in your head. HomeADE lists every chat. You filter, rename, tag, and search them, including the ones you closed. Each row names its model. Today shows what is due. A follow-up an agent schedules stays on that chat and shows on Today and on the calendar.</p>
+      <p>Two chats can work on two branches of the same repo, so one agent does not overwrite the other's files. When this computer is connected to a ticket queue, you start a chat from a ticket in the folder you choose. The ticket, the branch, and the notes stay attached to that chat.</p>
 
-      <h2>Ingest, then file it where the next agent will look</h2>
-      <p>Mail, a note you paste, a scan, and a loose file land in Ingest. HomeADE can propose where an item belongs. You confirm the plan, and the note is filed under a project or an area. Send a mail thread into a chat and the agent drafts from the whole conversation. Add to Calendar reads that thread and shows you the event before it writes anything.</p>
-      <p>Projects and areas are the second brain. They are ordinary Markdown files in a folder you own. The next chat reads the project note. You do not paste the brief again, and you do not hope a desktop app remembered the right client.</p>
+      <h2>Skills, rules, and models in one list</h2>
+      <p>A skill is a written set of steps an agent can follow, such as "file my inbox" or "draft a reply in my style." A rule is a standing instruction. Setup lists every skill, rule, hook, connector, scheduled job, and command on this machine. You read what an agent will follow before you start it, and any chat can reach them. Nothing is buried in a config file you have to remember.</p>
+      <p>Settings shows which of Claude, Codex, and Grok are installed, the models each one offers, and the install command for any that is missing. You install them and sign in yourself. HomeADE does not keep that login. On a chat you pick the model. For small jobs, such as sorting what just arrived, you choose which model does the work. The Agents screen shows how much of each assistant's limit is used, so you can see who still has room.</p>
 
-      <h2>Memory you can point at</h2>
-      <p>The memory is the notes, the rules, and the chat record. A project note holds the brief. An area note holds the standing context. Setup lists the rules and skills on this machine, so you can read what an agent will follow before you start it. Closed chats stay searchable, with their titles, tags, and models. The decision from last week is a note or a chat you can open, not a scrollback you closed.</p>
-
-      <h2>Skills and models, in one list</h2>
-      <p>Settings shows which of Claude, Codex, and Grok are installed, the models each one offers, and the command for any that is missing. You install them and sign in yourself. HomeADE does not keep that login. On a chat you pick the model. For smaller jobs, such as sorting what just arrived, you choose which model does the work. Setup also lists connectors, skills, hooks, rules, scheduled jobs, and commands on this machine. The Agents screen shows how much of each assistant's limit is used, so you can see who still has room.</p>
-
-      <h2>PII stays on the computer you administer</h2>
+      <h2>Your data stays on your computer</h2>
       <p>There is no HomeADE account. Notes stay in the folder you chose. Chats are stored on this machine. You choose the folder a chat works in. The note reader will not open a note marked private. A prompt goes to Claude, Codex, or Grok only when you run that chat, under the login you set up. You allow a file edit or a command before it runs. API keys stay in the machine's secret store. The <a href="/fieldade/privacy">privacy policy</a> says what leaves the machine.</p>
 
       <h2>Install it and leave it running</h2>

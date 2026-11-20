@@ -5,9 +5,9 @@ import ReleaseNotes from '../../components/ReleaseNotes.astro';
 import releases from '../../data/fieldade-releases.json';
 const latest = releases[0];
 ---
-<Base title="FieldADE" description="FieldADE is the iPhone app for an agent workspace: the queue, the project notes, and a chat that reads them. You see which model is in use, and you allow a change before it happens." image="/work/fieldade.png">
+<Base title="FieldADE" description="FieldADE is the iPhone app for the same desk. File what comes in under a project with one swipe, and start a chat that already knows the project. A change waits until you allow it." image="/work/fieldade.png">
   <Hero variant="graph" seed={11} eyebrow="iPhone app" title="FieldADE">
-    <p class="lede">FieldADE is the iPhone app for the same kind of desk. You see what is due, what just came in, and which agent is on which chat. The brief lives in the project notes. A change waits until you allow it.</p>
+    <p class="lede">FieldADE is the iPhone app for the same desk. From the phone you see what is due, file what just came in, and start a chat that already knows the project. A change waits until you allow it.</p>
     <Fragment slot="actions">
       <a class="btn btn-secondary" href="/fieldade/setup">Setup guide</a>
       <a class="btn btn-secondary" href="/homeade">HomeADE, the desktop app</a>
@@ -26,19 +26,22 @@ const latest = releases[0];
       <p class="card-actions"><a class="store-badge" href="https://apps.apple.com/us/app/fieldade/id6828288883" rel="noopener"><img src="/brand/app-store-badge.svg" alt="Download on the App Store" width="132" height="44" /></a></p>
       <p class="fine">Version {latest.version} &middot; iOS 17 or later &middot; <a href="/fieldade/setup">Setup guide</a> &middot; <a href="/fieldade/privacy">Privacy policy</a></p>
 
-      <h2>The board, not a single chat</h2>
-      <p>Open the phone and you get the queue. Today shows what is due and what is waiting. The Agents screen lists the open chats, the model on each one, and how much of that assistant's limit is used. A follow-up an agent schedules shows on Today and on the calendar. You filter, rename, and search chats, including closed ones, so a decision has a place to live after the chat ends. On iOS 26 or later, a widget can sit on the home screen.</p>
+      <h2>How it works</h2>
+      <p>Something comes in on the phone: a mail, a text, a photo, a link. You file it under a project with one swipe. The note lands in the same folder your agents read on the computer. The next chat on that project opens knowing it. File from the phone or from the desk, it is one folder, so nothing is explained twice.</p>
 
       <h2>Ingest from wherever the work shows up</h2>
       <p>Mail and texts arrive in the app. Swipe to file an item under the right project, archive it, delete it, or draft a reply. You send the reply. Share a photo, a file, or a link into FieldADE and it lands in Ingest, the inbox of the notes. Point the camera at a business card and add the contact from the scan. <a href="/map">The sample screens</a> show the same three steps: something comes in, one swipe shows the plan, and the note shows up on the project.</p>
 
       <h2>The notes are the memory</h2>
-      <p>Projects and areas are the second brain: plain notes in a folder you own. Open one in the app and read the brief before you start a chat. The agent reads that folder, so the answer starts from the record, and you can check it. You are not retyping the context into a fresh CLI session, and you are not trusting a hidden memory inside a desktop chat.</p>
+      <p>Projects and areas are the second brain: plain notes in a folder you own. Open one in the app and read the brief before you start a chat. The agent reads that same folder, so its answer starts from the record, and you can check it against the note. Every item you file makes the next chat better informed, so the folder is worth more each month. You are not retyping the context into a fresh session, and you are not trusting a hidden memory inside a chat app.</p>
+
+      <h2>The board, not a single chat</h2>
+      <p>Open the phone and you get the queue. Today shows what is due and what is waiting. The Agents screen lists the open chats, the model on each one, and how much of that assistant's limit is used. A follow-up an agent schedules shows on Today and on the calendar. You filter, rename, and search chats, including closed ones, so a decision has a place to live after the chat ends. On iOS 26 or later, a widget can sit on the home screen.</p>
 
       <h2>Skills and models you can inspect</h2>
-      <p>Before you hand a chat more work, you can see which of Claude, Codex, and Grok are installed, and the skills, rules, and hooks on that machine. You pick the model for the chat. A file edit or a command waits until you allow it or deny it.</p>
+      <p>A skill is a written set of steps an agent can follow. Before you hand a chat more work, you can see which of Claude, Codex, and Grok are installed, and the skills, rules, and hooks on that machine, so you know what the agent can do and what it will follow. You pick the model for the chat. A file edit or a command waits until you allow it or deny it.</p>
 
-      <h2>PII stays in the folder you chose</h2>
+      <h2>Your data stays in the folder you chose</h2>
       <p>There is no FieldADE account. Notes stay in that folder. The note reader will not open a note marked private. A chat sends its prompt to the model under your own login, and only when you run it. The <a href="/fieldade/privacy">privacy policy</a> says what leaves the devices. The agents themselves run in <a href="/homeade">HomeADE</a> on your computer. FieldADE is how you reach that desk from the phone.</p>
 
       <h2>The phone by itself</h2>
