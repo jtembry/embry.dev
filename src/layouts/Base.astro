@@ -8,8 +8,6 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
 const services = [
   ['/knowledge-assistants', 'AI systems'],
   ['/software', 'Custom builds'],
-  // The 3D shop is linked from every page but the home page, so the home page reads as one offer.
-  ...(path === '/' ? [] : [['/shop', '3D shop']]),
 ];
 const more = [
   ['/products', 'Products'],
@@ -131,7 +129,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <p class="footer-brand"><Logo class="logo-footer" size={32} /><br />{site.legalName}<br /><em>{site.tagline}</em></p>
         <p>{site.ownerName} <SocialIcons /><br />
           {site.location} · <a href={`mailto:${site.email}`}>{site.email}</a><br />
-          {path !== '/' && <Fragment><a href="/shop">3D shop</a> · <a href="/shop/live">Watch it print</a> · <a href="/shop/archive">Print archive</a> · </Fragment>}<a href="/services">Services</a> · <a href="/products">Products</a></p>
+          <a href="/services">Services</a> · <a href="/products">Products</a></p>
         <p class="muted">© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
       </div>
     </footer>
