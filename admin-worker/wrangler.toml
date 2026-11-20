@@ -11,7 +11,11 @@ routes = [{ pattern = "admin.embry.dev", custom_domain = true }]
 [vars]
 TEAM_DOMAIN = "fancy-cloud-bec2.cloudflareaccess.com"
 POLICY_AUD = "48f41cda694b90c6b1dd05d16812ae0efa78c4c48a1f4a8b77ee09e2d3a571b2"   # Access app "embry.dev admin"
+CF_ACCOUNT_ID = "2ed1cd576af6817af1faae5d420ca93f"
+CF_SITE_TAG = "8ca35e4c139b4d14aa03913f9ef1580b"   # Web Analytics site embry.dev (not the beacon token)
 # ADMIN_EMAILS is a secret, not here (this repo is public): npx wrangler secret put ADMIN_EMAILS  (comma list of emails)
+# Also a secret: CF_API_TOKEN (Account Analytics Read) for /traffic.
+# D1 table admin_blobs: schema.sql.
 
 [[d1_databases]]
 binding = "DB"

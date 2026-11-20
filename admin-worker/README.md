@@ -9,3 +9,8 @@ System map: `/map/` serves the private LikeC4 map (static assets, `run_worker_fi
 Adding a stat: query D1 in `downloads()` style and add a section to `page()`. The Worker already binds the `embry-downloads` database.
 
 Test the login check: `node test/access.test.mjs`.
+
+## Pages (2026-11-17)
+
+- `/` overview, one number per section. `/traffic` Cloudflare Web Analytics via GraphQL (`traffic.js`, live per page load; secret `CF_API_TOKEN` = account token with Account Analytics Read, no expiry; `CF_SITE_TAG` is the Web Analytics site tag, not the beacon token). `/prints` snapshot in D1 `admin_blobs` (`schema.sql`), pushed by `~/Documents/3d_printing/db/export_admin.py`, which `print_cost.py --save` runs after every print. `/downloads` the old stats page. `/map/` private system map.
+- A page with no snapshot yet says which script to run.
