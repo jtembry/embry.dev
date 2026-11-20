@@ -1,0 +1,29 @@
+---
+// FieldADE's wordmark, ported from BlockText in RemoteAgentIOS/ContentView.swift:
+// F, E and A are drawn as block glyphs with a green bar; other letters are plain semibold caps.
+// Glyph units: 400 tall, stroke 84, bar from y 158 to 242.
+const { text } = Astro.props;
+const glyphs = {
+  F: { w: 290, ink: 'M0 0h84v400H0zM0 0h290v84H0z', bar: 'M0 158h220v84H0z' },
+  E: { w: 300, ink: 'M0 0h300v84H0zM0 316h300v84H0z', bar: 'M0 158h210v84H0z' },
+  A: { w: 400, ink: 'M0 400L200 0L400 400zM112 400L200 224L288 400z', bar: 'M121 158H279L321 242H79z' },
+};
+const pieces = [];
+for (const ch of text.toUpperCase()) {
+  if (glyphs[ch]) pieces.push({ glyph: glyphs[ch] });
+  else if (pieces.length && typeof pieces.at(-1) === 'string') pieces[pieces.length - 1] += ch;
+  else pieces.push(ch);
+}
+---
+<span class="blocktext" role="img" aria-label={text}>
+  {pieces.map((p) => typeof p === 'string'
+    ? <span aria-hidden="true">{p}</span>
+    : <svg aria-hidden="true" viewBox={`0 0 ${p.glyph.w} 400`} style={`width:${(p.glyph.w / 400) * 0.72}em`}><path class="bt-ink" fill-rule="evenodd" d={p.glyph.ink} /><path class="bt-bar" d={p.glyph.bar} /></svg>)}
+</span>
+
+<style>
+  .blocktext { display: inline-flex; align-items: baseline; gap: .12em; font-weight: 600; letter-spacing: .12em; line-height: 1; white-space: nowrap; }
+  .blocktext svg { height: .72em; margin-right: .12em; flex: none; }
+  .bt-ink { fill: currentColor; }
+  .bt-bar { fill: var(--bt-bar, #34c759); }
+</style>
