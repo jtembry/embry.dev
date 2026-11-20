@@ -9,33 +9,23 @@ const fieldade = fieldadeReleases[0];
 const nice = (d) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 const cardsBg = dots();
 
-// Most builds span more than one service, so each card carries every tag that fits,
-// and each tag links to the service page it belongs to.
+// Each card carries a tag for every part of the work it shows,
+// and each tag links to the page for that part.
 const tag = {
-  software: ['/software', 'Software solutions'],
+  software: ['/software', 'Custom build'],
   phone: ['/software#phone-apps', 'Phone apps'],
   assistants: ['/knowledge-assistants', 'AI system'],
-  printing: ['/shop', '3D shop'],
 };
 ---
-<Base title="Products" description="What I make: FieldADE, an iPhone app for the AI system on your Mac; HomeADE, the Mac app it talks to; Kingdom Guide, a Magic Kingdom day planner; LightScan, a floor-scanning app for a foundation repair company; a small-business site; and custom 3D prints.">
+<Base title="Products" description="What I have shipped: FieldADE, an iPhone app for the AI system on your Mac; HomeADE, the Mac app it talks to; and custom builds for clients, including LightScan, a floor-scanning app for a foundation repair company.">
   <Hero variant="graph" seed={5} eyebrow="Products" title="Proof, not promises.">
-    <p class="lede">Here are things I have built. Most span more than one service, so each carries a tag for every service it shows.</p>
+    <p class="lede">First, the system I sell: FieldADE and HomeADE. Below it, custom builds I have shipped for clients and for my own family.</p>
   </Hero>
 
   <section class="section band-parallax">
     <div class="band-bg" data-parallax="0.3" set:html={cardsBg} aria-hidden="true" />
     <div class="wrap">
       <div class="grid">
-        <div class="card work-card" id="lightscan">
-          <p class="eyebrow">Foundation repair</p>
-          <h3>LightScan</h3>
-          <div class="work-shots">
-            <img class="work-shot" src="/software/lightscan.png" alt="LightScan on an iPhone: a scanned house drawn as a floor plan with wall lengths, and a heat map of high and low spots in the floor" width="460" height="1000" loading="lazy" />
-          </div>
-          <p>An iPhone app for a foundation repair company. The estimator walks through a house and the phone's laser scanner draws the floor plan with every wall length, plus a heat map of where the floor sags or heaves. From the scan, the app makes a report for the customer, with the foundation outline, a floor elevation map, and the rainfall and soil for the address, and a model you can 3D print. The first working version was on their phone a day after they described the problem. <a href="/shop/3d-floorplan">See the printed model</a></p>
-          <p class="tags">{[tag.phone, tag.software, tag.printing].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
-        </div>
         <div class="card work-card" id="fieldade">
           <h3>FieldADE</h3>
           <div class="work-shots">
@@ -63,9 +53,13 @@ const tag = {
           <div class="cmd"><pre><code id="brew-cmd">brew install --cask jtembry/homeade/homeade</code></pre><button type="button" class="copy-btn" data-copy="brew-cmd">Copy</button></div>
           <p class="tags">{[tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
-        <div class="card work-card" id="kingdom-guide">
-          <h3><a href="/kingdom-guide/support">Kingdom Guide</a></h3>
-          <p>An iPhone app that plans a day at Magic Kingdom. It puts the rides a family picks in walking order, estimates when they will reach each one, and shows the posted waits. For families who use the Disability Access Service, it says which ride to book next and reminds them when the return time comes up. The next stop sits on the lock screen, the map is drawn from open map data, and everyone on the trip sees the same plan. It began as a web page for our own trip and is headed for the App Store. <a href="/kingdom-guide/support">About the app</a></p>
+        <div class="card work-card" id="lightscan">
+          <p class="eyebrow">Foundation repair</p>
+          <h3>LightScan</h3>
+          <div class="work-shots">
+            <img class="work-shot" src="/software/lightscan.png" alt="LightScan on an iPhone: a scanned house drawn as a floor plan with wall lengths, and a heat map of high and low spots in the floor" width="460" height="1000" loading="lazy" />
+          </div>
+          <p>An iPhone app for a foundation repair company. The estimator walks through a house and the phone's laser scanner draws the floor plan with every wall length, plus a heat map of where the floor sags or heaves. From the scan, the app makes a report for the customer, with the foundation outline, a floor elevation map, and the rainfall and soil for the address, and a model you can 3D print. The first working version was on their phone a day after they described the problem. <a href="/shop/3d-floorplan">See the printed model</a></p>
           <p class="tags">{[tag.phone, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="flourish">
@@ -74,11 +68,10 @@ const tag = {
           <p>A financial counselor's site, live about a month after the first conversation. It is static and fast, costs $0 a month to host, and sits in her own GitHub account with a written guide, so she runs it herself.</p>
           <p class="tags">{[tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
-        <div class="card work-card" id="prints">
-          <p class="eyebrow">3D printing</p>
-          <h3><a href="/shop#prints">Featured prints</a></h3>
-          <p>I design and print custom pieces for marketing and promotion: business cards, card holders, signs, and giveaways with your name on them. Each one starts as a short conversation and comes off my own printer. <a href="/shop">Visit the 3D shop</a></p>
-          <p class="tags">{[tag.printing].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
+        <div class="card work-card" id="kingdom-guide">
+          <h3><a href="/kingdom-guide/support">Kingdom Guide</a></h3>
+          <p>An iPhone app that plans a day at Magic Kingdom. It puts the rides a family picks in walking order, estimates when they will reach each one, and shows the posted waits. For families who use the Disability Access Service, it says which ride to book next and reminds them when the return time comes up. The next stop sits on the lock screen, the map is drawn from open map data, and everyone on the trip sees the same plan. It began as a web page for our own trip and is headed for the App Store. <a href="/kingdom-guide/support">About the app</a></p>
+          <p class="tags">{[tag.phone, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
       </div>
     </div>

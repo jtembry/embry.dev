@@ -3,14 +3,13 @@
 const { current } = Astro.props;
 const all = [
   ['/knowledge-assistants', 'An AI system for your office'],
-  ['/software', 'Software solutions for any business'],
-  ['/shop', '3D shop'],
+  ['/software', 'Custom builds for your office'],
 ];
 const others = all.filter(([href]) => href !== current);
 ---
 <section class="section band">
   <div class="wrap">
-    <h2>Other things I build</h2>
+    <h2>Also part of the work</h2>
     <div class="grid">
       {others.map(([href, label]) => <div class="card"><h3><a href={href}>{label}</a></h3></div>)}
     </div>
