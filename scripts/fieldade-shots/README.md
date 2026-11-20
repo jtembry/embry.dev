@@ -96,6 +96,7 @@ export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
 D=E09C1626-7715-4C84-BA46-169137C3D015; B=dev.embry.FieldAgents; L=$1; O=/tmp/fa-shots
 mkdir -p $O
 xcrun simctl spawn $D defaults write $B themeMode $L
+xcrun simctl ui $D appearance dark   # Professional look follows the system; the site shows it dark (JT, 2026-11-20)
 xcrun simctl status_bar $D override --time 9:41 --batteryState charged --batteryLevel 100 --wifiBars 3 --cellularBars 4
 shot() { name=$1; wait=$2; shift 2
   xcrun simctl terminate $D $B 2>/dev/null; sleep 1
