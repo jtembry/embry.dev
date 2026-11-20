@@ -7,7 +7,7 @@ import { dots } from '../lib/patterns.js';
 const ask = `mailto:${site.email}?subject=${encodeURIComponent('An AI system for our office')}`;
 const bodyBg = dots();
 ---
-<Base title="An AI system for your office" description="I build what your office needs on a computer you own. It uses the Claude or ChatGPT account you already pay for, keeps client files off a personal chat, answers from your own documents, citing the page, and I train your staff.">
+<Base title="An AI system for your office" description="I build what your office needs on a computer you own. It keeps client files off a personal chat, answers from your own documents, citing the page, and I train your staff.">
   <Hero variant="graph" seed={5} tall mapLabel="See the system I run on" eyebrow="AI systems · Small offices" title="The last assistant you'll ever need to hire.">
     <p class="lede">An off-the-shelf chatbot answers from what it learned on the public internet, and it can make things up. <strong class="not-good">Not good.</strong> Ours answer from what your business has learned over the years, and your clients' data stays private. Your documents have the last word.</p>
     <a slot="actions" class="btn btn-secondary " href={ask}>Ask about your office</a>
@@ -23,12 +23,12 @@ const bodyBg = dots();
         <li>Your documents indexed in place, with access rules that match your office.</li>
         <li>An assistant that takes plain-English questions from your staff and shows its sources every time.</li>
         <li>FieldADE on your phone: what to answer, what is due, the next step on each job, and an Allow button before anything changes.</li>
-        <li>Claude, ChatGPT, Grok, or an open-source model. If you already pay for one, the system runs on it, with no second subscription.</li>
+        <li>Runs on Claude, ChatGPT, Grok, or an open-source model.</li>
       </ul>
       <h2 id="rag">How it answers from your files: RAG</h2>
       <p>The method is called RAG, short for retrieval-augmented generation. A RAG assistant first looks up the passages in your documents that match the question. Then it writes its answer from those passages and cites them. It answers from your files, and you can check every answer against the source.</p>
       <h2>Then: teach your team to use it</h2>
-      <p>If the staff never use it, the account you pay for is wasted. In four weeks of training beside them on real work, they learn how to ask, how to check the page, and when to doubt an answer. I measure the change in your own records. <a href="/knowledge-assistants/ai-adoption">How the training works</a></p>
+      <p>If the staff never use it, the system is wasted. In four weeks of training beside them on real work, they learn how to ask, how to check the page, and when to doubt an answer. I measure the change in your own records. <a href="/knowledge-assistants/ai-adoption">How the training works</a></p>
       <p><span class="tag">Fixed scope</span> <span class="tag">Optional monthly care</span> <span class="tag">Quote on scope</span></p>
       <p><a class="btn btn-primary" href={ask}>Ask about your office</a> <a class="btn btn-secondary" href="/products">See our products</a></p>
     </div>

@@ -4,7 +4,7 @@ import Hero from '../components/Hero.astro';
 import site from '../data/site.json';
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
-<Base title="Services" description="You pay for an AI account that has never seen your files. I build the missing piece on a computer you own, train the staff, and build the custom tools the office still lacks.">
+<Base title="Services" description="You pay for an AI account that has never seen your files. I build the missing piece on a computer you own, train the staff, and build the custom tools the office still lacks. A 3D print shop sits beside that.">
   <Hero variant="graph" seed={11} tall mapLabel="Explore the system I built" eyebrow="Services" title="One system for your office.">
     <p class="lede">Every job starts with a one-page scope and a fixed price, so you know the cost before the work begins.</p>
   </Hero>
@@ -16,7 +16,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
           <p class="index">01</p>
           <h3><a href="/knowledge-assistants">An AI system for your office</a></h3>
           <p class="problem">"We pay for AI that has never seen our files."</p>
-          <p>I build what the office is missing, on a computer you own. It uses the Claude, ChatGPT, or Grok account you already pay for, keeps client files off a personal chat, and answers from your own documents, citing the page.</p>
+          <p>I build what the office is missing, on a computer you own. It keeps client files off a personal chat and answers from your own documents, citing the page.</p>
           <p>Then I spend <a href="/knowledge-assistants/ai-adoption">four weeks training your staff</a> to use it.</p>
         </div>
         <div class="card">
@@ -24,6 +24,12 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
           <h3><a href="/software">Custom builds for your office</a></h3>
           <p class="problem">"We pay for five tools and still run the business on a spreadsheet."</p>
           <p>When the office needs a piece the system does not have, such as a customer portal, a scheduling tool, or a phone app for the crew, I build it to plug into the same system, with your records kept in a place you own.</p>
+        </div>
+        <div class="card">
+          <p class="index">03</p>
+          <h3><a href="/shop">3D shop</a></h3>
+          <p class="problem">"We need a card, a tag, a part, or a short run that no catalog sells."</p>
+          <p>Dog tags, business cards, cable clips, giveaways, and the piece that has to be this shape. You get the pieces and the files.</p>
         </div>
       </div>
       <p><a class="btn btn-primary" href={mailto}>Email me</a></p>
