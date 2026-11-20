@@ -6,6 +6,24 @@ import { WebSocketServer } from 'ws';
 const PORT = 8789;
 const mission = () => JSON.parse(fs.readFileSync('./mission.json', 'utf8'));
 
+// HomeADE shots (2026-11-20): the Mac window is the home base's own web page, so this stand-in
+// also serves that page (GET /app, /app/<file>) from the real repo's web/ folder. The page then
+// asks this server for its data, and sees the same made-up rows the phone shots use.
+import path from 'node:path';
+import os from 'node:os';
+const WEB = process.env.WEB_DIR || path.join(os.homedir(), 'RemoteAgentMac', 'web');
+const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
+  '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.json': 'application/json; charset=utf-8' };
+// The footer shows the released desktop app's version (src/data/homeade-releases.json, newest first).
+const version = (() => { try { return JSON.parse(fs.readFileSync('../../src/data/homeade-releases.json', 'utf8'))[0].version; } catch { return '0.4.0'; } })();
+function serveWeb(url, res) {
+  const rel = url.pathname === '/app' || url.pathname === '/app/' ? 'index.html' : url.pathname.slice('/app/'.length);
+  const file = path.resolve(WEB, rel);
+  if (!file.startsWith(WEB + path.sep) || !TYPES[path.extname(file)] || !fs.existsSync(file)) { res.writeHead(404); return res.end(); }
+  res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] });
+  fs.createReadStream(file).pipe(res);
+}
+
 const models = [
   { id: 'claude-fable-5-1', label: 'Fable 5.1', kind: 'claude', effort: true, effortDefault: 'high' },
   { id: 'claude-opus-5-5', label: 'Opus 5.5', kind: 'claude', effort: true, effortDefault: 'medium' },
@@ -28,9 +46,21 @@ const server = http.createServer((req, res) => {
   const url = new URL(req.url || '/', 'http://x');
   console.log(req.method, url.pathname);
   if (url.pathname === '/health') return json(res, 200, { ok: true });
+  if (url.pathname === '/app' || url.pathname.startsWith('/app/')) return serveWeb(url, res);
+  // What the web page asks for beyond the phone's routes: empty answers keep every screen quiet.
+  if (url.pathname === '/peers') return json(res, 200, { peers: [] });
+  if (/^\/sessions\/[^/]+\/history/.test(url.pathname)) return json(res, 200, { messages: [], more: false });
+  if (/^\/sessions\/[^/]+\/desk/.test(url.pathname)) return json(res, 200, {});
+  if (url.pathname === '/tags') return json(res, 200, { tags: [] });
+  if (url.pathname === '/commands') return json(res, 200, { commands: [] });
+  if (url.pathname === '/skills') return json(res, 200, { skills: [] });
+  if (url.pathname === '/folders') return json(res, 200, { folders: [] });
+  if (url.pathname === '/mail/accounts') return json(res, 200, { accounts: [] });
+  if (url.pathname === '/task-models') return json(res, 200, { models: [] });
+  if (url.pathname === '/vault') return json(res, 200, { path: '~/second_brain', vault: '~/second_brain' });
   // What the app asks first: name, features (turn on Mission Control, email, texts, scans), models.
   if (url.pathname === '/about') return json(res, 200, {
-    ok: true, name: 'Mac', platform: 'darwin', models, relay: null,
+    ok: true, name: 'Mac', platform: 'darwin', models, relay: null, version: { version },
     features: { mission: true, grok: true, browser: false, usage: true, scripts: true, ingest: true,
                 email: true, texts: true, scans: true, voice: false, terminal: true },
   });

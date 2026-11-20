@@ -136,3 +136,16 @@ done
 - `make-mission.py` email rows carry `plan`; the Dana plan's due date must equal the first Due item's date, or the triage and Today shots disagree.
 - Shots: `-demoSection email`, `-demoSection email -demoTriage 0`, `-demoSection today`; copy with `sips -z 1000 460` to `public/map/<name>[-dos].png`.
 - Build without `-sdk iphonesimulator` (destination only). With `-sdk`, SwiftTerm's build-info tool lands in `Debug-iphonesimulator/` and its plugin step fails looking in `Debug/`. "failed with exit code 0" lines still leave a working `RemoteAgent.app`.
+
+## HomeADE shots (2026-11-20)
+
+The Mac window is the home base's own web page (`RemoteAgentMac/web/`, served at `/app`), so `server.mjs` serves that folder too (`WEB_DIR` overrides the path) and answers the few extra routes the page asks for (`/peers`, `/tags`, history, …) with empty lists. A HomeADE build always reads the real home base; never screenshot it.
+
+```
+python3 make-mission.py && node server.mjs      # as above
+node shoot-homeade.mjs                           # → /tmp/fa-shots/homeade-{pro,dos}.png, 2400×1628
+sips -z 814 1200 /tmp/fa-shots/homeade-pro.png --out ../../public/work/homebase.png
+sips -z 814 1200 /tmp/fa-shots/homeade-dos.png --out ../../public/work/homebase-dos.png
+```
+
+The script opens the Agents screen, clicks the FieldADE chat's title (the row's ⋯ button is a menu), waits for the scripted reply and the Allow / Deny card, and shoots each look at 1200×814 in the dark color scheme. The footer version comes from `src/data/homeade-releases.json`. Playwright is the real home base's `node_modules/playwright`.
