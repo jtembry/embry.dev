@@ -52,7 +52,7 @@
     "date": "2026-11-01",
     "title": "First public release, then called Home Base",
     "notes": [
-      "One Mac app: a window with the same screens as the phone, a menu-bar panel, and the home base that runs your assistants.",
+      "One desktop app: a window with the same screens as the phone, a menu-bar panel, and the home base that runs your assistants.",
       "Signed and notarized by Apple, so it opens without a warning. Install with a download or with Homebrew."
     ]
   }
