@@ -5,9 +5,9 @@ import ReleaseNotes from '../../components/ReleaseNotes.astro';
 import releases from '../../data/fieldade-releases.json';
 const latest = releases[0];
 ---
-<Base title="FieldADE" description="FieldADE is the iPhone app for the workday: what is due, your mail and texts, and a chat with the assistants that run on your Mac, beside your files." image="/work/fieldade.png">
+<Base title="FieldADE" description="FieldADE is the iPhone app for an agent workspace: the queue, the project notes, and a chat that reads them. You see which model is in use, and you allow a change before it happens." image="/work/fieldade.png">
   <Hero variant="graph" seed={11} eyebrow="iPhone app" title="FieldADE">
-    <p class="lede">FieldADE puts the workday on your iPhone. You see what is due, read the mail and the texts, and ask the assistants that run on your Mac, next to your files. A change waits until you allow it.</p>
+    <p class="lede">FieldADE is the iPhone app for the same kind of desk. You see what is due, what just came in, and which agent is on which chat. The brief lives in the project notes. A change waits until you allow it.</p>
     <Fragment slot="actions">
       <a class="btn btn-secondary" href="/fieldade/setup">Setup guide</a>
       <a class="btn btn-secondary" href="/homeade">HomeADE, the Mac app</a>
@@ -26,21 +26,23 @@ const latest = releases[0];
       <p class="card-actions"><a class="store-badge" href="https://apps.apple.com/us/app/fieldade/id6828288883" rel="noopener"><img src="/brand/app-store-badge.svg" alt="Download on the App Store" width="132" height="44" /></a></p>
       <p class="fine">Version {latest.version} &middot; iOS 17 or later &middot; <a href="/fieldade/setup">Setup guide</a> &middot; <a href="/fieldade/privacy">Privacy policy</a></p>
 
-      <h2>The list for the day</h2>
-      <p>Open the phone and Today shows what is due and what is waiting on you. A follow-up you asked an assistant to check later shows up there, and on the calendar. On iOS 26 or later, you can add a FieldADE widget to the home screen.</p>
+      <h2>The board, not a single chat</h2>
+      <p>Open the phone and you get the queue. Today shows what is due and what is waiting. The Agents screen lists the open chats, the model on each one, and how much of that assistant's limit is used. A follow-up an agent schedules shows on Today and on the calendar. You filter, rename, and search chats, including closed ones, so a decision has a place to live after the chat ends. On iOS 26 or later, a widget can sit on the home screen.</p>
 
-      <h2>Mail and texts, then back to the job</h2>
-      <p>Mail and texts arrive in the app. Swipe to file an item under the right project, archive it, delete it, or draft a reply. You send the reply. Share a photo, a file, or a link into FieldADE and it lands in your notes. Point the camera at a business card and add the contact from the scan.</p>
-      <p><a href="/map">See the three steps on sample screens</a>: things come in, one swipe shows the plan, and the item shows up where you need it.</p>
+      <h2>Ingest from wherever the work shows up</h2>
+      <p>Mail and texts arrive in the app. Swipe to file an item under the right project, archive it, delete it, or draft a reply. You send the reply. Share a photo, a file, or a link into FieldADE and it lands in Ingest, the inbox of the notes. Point the camera at a business card and add the contact from the scan. <a href="/map">The sample screens</a> show the same three steps: something comes in, one swipe shows the plan, and the note shows up on the project.</p>
 
-      <h2>An assistant that reads your files</h2>
-      <p>A chat reaches Claude, Codex, or Grok running in <a href="/homeade">HomeADE</a> on your Mac. The assistant reads the notes and files in the folder you picked, so the answer starts from your records, and you can check it against them. Start the chat in the truck and the same chat is open at the desk. Before the assistant edits a file or runs a command, the phone asks you to allow or deny it.</p>
+      <h2>The notes are the memory</h2>
+      <p>Projects and areas are the second brain: plain notes in a folder you own. Open one in the app and read the brief before you start a chat. The agent reads that folder, so the answer starts from the record, and you can check it. You are not retyping the context into a fresh CLI session, and you are not trusting a hidden memory inside a desktop chat.</p>
 
-      <h2>The records stay on your Mac</h2>
-      <p>Notes stay in the folder you chose. Away from home, the phone reaches the Mac through an encrypted link, and only the phone and the Mac hold the key. There is no FieldADE account. The <a href="/fieldade/privacy">privacy policy</a> says what leaves the devices and what stays.</p>
+      <h2>Skills and models you can inspect</h2>
+      <p>Before you hand a chat more work, you can see which of Claude, Codex, and Grok are installed, and the skills, rules, and hooks on that machine. You pick the model for the chat. A file edit or a command waits until you allow it or deny it.</p>
+
+      <h2>PII stays in the folder you chose</h2>
+      <p>There is no FieldADE account. Notes stay in that folder. The note reader will not open a note marked private. A chat sends its prompt to the model under your own login, and only when you run it. The <a href="/fieldade/privacy">privacy policy</a> says what leaves the devices. The agents themselves run in <a href="/homeade">HomeADE</a> on your computer. FieldADE is how you reach that desk from the phone.</p>
 
       <h2>The phone by itself</h2>
-      <p>FieldADE also runs with no Mac. Turn on Phone only, pick a notes folder on the phone, and enter an Anthropic API key. Chats then run on the phone and bill that key. To look around first, tap Try the sample vault on the Today screen. The <a href="/fieldade/setup#no-mac">setup guide</a> has the steps.</p>
+      <p>FieldADE can also run with no desktop app. Turn on Phone only, pick a notes folder on the phone, and enter an Anthropic API key. Chats then run on the phone and bill that key. To look around first, tap Try the sample vault on the Today screen. The <a href="/fieldade/setup#no-mac">setup guide</a> has the steps.</p>
 
       <h2 id="releases">Release notes</h2>
       <p>What changed in each version. The newest is the text on the App Store under What's New.</p>

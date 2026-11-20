@@ -6,7 +6,7 @@ import site from '../../data/site.json';
   <section class="section" style="padding-top: calc(var(--header-h) + 2rem)">
     <div class="wrap guide">
       <h1>Set up HomeADE</h1>
-      <p>HomeADE is the Mac app. It runs on the computer that holds your notes, and it runs Claude, Codex, or Grok beside those files. You can use the window all day with no phone. To reach the same work from an iPhone, pair <a href="/fieldade">FieldADE</a> after this. Setup on a Mac takes about ten minutes.</p>
+      <p>HomeADE is the project desk for the agents on this computer. It runs Claude, Codex, or Grok beside your notes. Setup on a Mac takes about ten minutes. HomeADE does not need another app.</p>
       <p><a href="/homeade">About HomeADE</a></p>
 
       <h2>What you need</h2>
@@ -39,20 +39,19 @@ import site from '../../data/site.json';
         <li>Click the antenna icon in the menu bar, then <strong>Set up this Mac…</strong></li>
         <li>Under <strong>Your notes</strong>, click <strong>Choose the folder…</strong> and pick your vault. HomeADE makes Projects, Areas, and Inbox folders in it if they are missing.</li>
         <li>Under <strong>Claude Code</strong>, check that it says <em>Found</em>. If it says <em>Not installed</em>, finish step 2 and click <strong>Check again</strong>.</li>
-        <li>Click <strong>Start</strong>. A window opens. If you are pairing an iPhone, the window shows a pairing code. <a href="/fieldade/setup">Set up FieldADE</a> and scan that code.</li>
+        <li>Click <strong>Start</strong>. A window opens.</li>
       </ol>
 
       <h2 id="more">Add Codex or Grok</h2>
       <p>Install either command-line tool and sign in to it. HomeADE lists what it finds under <strong>Settings → Agents on this machine</strong>, with the command for any that is missing.</p>
 
       <h2 id="windows">Windows (beta)</h2>
-      <p>The <a href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Windows beta</a> runs the same screens in a window and a tray icon. It is not yet code-signed, so Windows warns you: click <strong>More info</strong>, then <strong>Run anyway</strong>. Pick a vault under <strong>Settings → Vault → Change folder…</strong>, and install and sign in to Claude Code, Codex, or Grok yourself. The beta cannot pair a phone yet.</p>
+      <p>The <a href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Windows beta</a> runs the same screens in a window and a tray icon. It is not yet code-signed, so Windows warns you: click <strong>More info</strong>, then <strong>Run anyway</strong>. Pick a vault under <strong>Settings → Vault → Change folder…</strong>, and install and sign in to Claude Code, Codex, or Grok yourself.</p>
 
       <h2 id="trouble">If something goes wrong</h2>
       <ul>
         <li><strong>The HomeADE window says it has no token.</strong> Setup is unfinished. Click the antenna icon, then <strong>Set up this Mac…</strong></li>
         <li><strong>Chats do not start.</strong> Check that Claude Code is installed and signed in, then click <strong>Restart HomeADE…</strong> in the menu.</li>
-        <li><strong>The phone cannot connect.</strong> That setup is on the iPhone. <a href="/fieldade/setup#trouble">FieldADE troubleshooting</a>.</li>
       </ul>
       <p>Still stuck? Email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
     </div>

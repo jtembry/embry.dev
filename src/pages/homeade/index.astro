@@ -5,13 +5,10 @@ import ReleaseNotes from '../../components/ReleaseNotes.astro';
 import releases from '../../data/homeade-releases.json';
 const latest = releases[0];
 ---
-<Base title="HomeADE" description="HomeADE is the Mac app that holds your notes, mail, texts, and calendar, and runs Claude, Codex, or Grok beside those files." image="/work/homebase.png">
-  <Hero variant="graph" seed={13} eyebrow="Mac app" title="HomeADE">
-    <p class="lede">HomeADE holds the work and runs the assistants. Notes, mail, texts, the calendar, and your projects sit in one window. Ask a question and Claude, Codex, or Grok answers from the folder you chose, on your own plan.</p>
-    <Fragment slot="actions">
-      <a class="btn btn-secondary" href="/homeade/setup">Setup guide</a>
-      <a class="btn btn-secondary" href="/fieldade">FieldADE, the iPhone app</a>
-    </Fragment>
+<Base title="HomeADE" description="HomeADE is the project desk for the agents on your computer. It files what comes in, keeps the brief in your notes, and shows which chats, skills, and models are in play." image="/work/homebase.png">
+  <Hero variant="graph" seed={13} eyebrow="Agentic development environment" title="HomeADE">
+    <p class="lede">HomeADE is the project desk for the agents on your computer. Claude, Codex, and Grok still do the writing, the same tools you would open in a terminal. HomeADE keeps the queue, the notes they read, and a list of every chat, skill, and model on the machine. It runs on its own.</p>
+    <a slot="actions" class="btn btn-secondary" href="/homeade/setup">Setup guide</a>
   </Hero>
 
   <section class="section product">
@@ -24,20 +21,27 @@ const latest = releases[0];
       <p class="card-actions"><a class="btn btn-primary" href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download for Mac</a> <a class="btn btn-secondary" href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Download for Windows (beta)</a></p>
       <p class="fine">Mac: version {latest.version} &middot; macOS 14 or later &middot; <a href="/homeade/setup">Setup guide</a><br />Windows: version 0.1.0 beta &middot; Windows 10 or later &middot; <a href="/homeade/setup#windows">unsigned</a></p>
 
-      <h2>The desk and the phone show the same work</h2>
-      <p>The window has the same screens as <a href="/fieldade">FieldADE</a>: Today, Email, Texts, Calendar, your projects, and the assistants. Read the mail, see what is due, and answer from the desk. A chat you started on the iPhone is open here when you sit down. A follow-up scheduled inside a chat shows on Today and on the calendar after you close the chat.</p>
+      <h2>Run the agents like a project</h2>
+      <p>A terminal shows one session. Claude Desktop shows a chat and the files you attach to it. The rest of the work, the open threads, the due dates, the model on each chat, sits in your head. HomeADE lists every chat. You filter, rename, tag, and search them, including the ones you closed. Each row names its model. Today shows what is due. A follow-up an agent schedules stays on that chat and shows on Today and on the calendar.</p>
+      <p>Two chats can use two branches of the same repo, so one agent does not overwrite the other's checkout. When this computer is connected to a ticket queue, you start a chat from a ticket in the folder you choose. The ticket, the branch, and the notes stay attached to that chat.</p>
 
-      <h2>Assistants beside the files</h2>
-      <p>Claude Code, Codex, and Grok run on this Mac. You install each one and sign in yourself. HomeADE lists the ones it found, and the command for any that is missing. A question about a job can use the notes in the folder you picked. The reply appears as it is written. A file edit or a command still waits until you allow it.</p>
-      <p>Mail can carry the thread into a chat, so the assistant drafts from the whole conversation. Add to Calendar reads that thread and shows you the event before it writes anything.</p>
+      <h2>Ingest, then file it where the next agent will look</h2>
+      <p>Mail, a note you paste, a scan, and a loose file land in Ingest. HomeADE can propose where an item belongs. You confirm the plan, and the note is filed under a project or an area. Send a mail thread into a chat and the agent drafts from the whole conversation. Add to Calendar reads that thread and shows you the event before it writes anything.</p>
+      <p>Projects and areas are the second brain. They are ordinary Markdown files in a folder you own. The next chat reads the project note. You do not paste the brief again, and you do not hope a desktop app remembered the right client.</p>
 
-      <h2>More than one computer</h2>
-      <p>Pair FieldADE and the phone reaches this Mac from anywhere: the truck, a job site, the kitchen. The traffic is encrypted with a key only the phone and the Mac hold. A second computer, such as a work laptop, joins the same way. Paste its pairing link, and HomeADE can use that machine's notes, mail, or texts.</p>
-      <p>The <a href="/fieldade/privacy">privacy policy</a> covers both apps. There is no account, and the chats stay on your devices.</p>
+      <h2>Memory you can point at</h2>
+      <p>The memory is the notes, the rules, and the chat record. A project note holds the brief. An area note holds the standing context. Setup lists the rules and skills on this machine, so you can read what an agent will follow before you start it. Closed chats stay searchable, with their titles, tags, and models. The decision from last week is a note or a chat you can open, not a scrollback you closed.</p>
+
+      <h2>Skills and models, in one list</h2>
+      <p>Settings shows which of Claude, Codex, and Grok are installed, the models each one offers, and the command for any that is missing. You install them and sign in yourself. HomeADE does not keep that login. On a chat you pick the model. For smaller jobs, such as sorting what just arrived, you choose which model does the work. Setup also lists connectors, skills, hooks, rules, scheduled jobs, and commands on this machine. The Agents screen shows how much of each assistant's limit is used, so you can see who still has room.</p>
+
+      <h2>PII stays on the computer you administer</h2>
+      <p>There is no HomeADE account. Notes stay in the folder you chose. Chats are stored on this machine. You choose the folder a chat works in. The note reader will not open a note marked private. A prompt goes to Claude, Codex, or Grok only when you run that chat, under the login you set up. You allow a file edit or a command before it runs. API keys stay in the machine's secret store. The <a href="/fieldade/privacy">privacy policy</a> says what leaves the machine.</p>
 
       <h2>Install it and leave it running</h2>
-      <p>Download the disk image, drag HomeADE to Applications, and open it. Apple has signed and notarized the Mac app, so it opens without a warning. An antenna icon sits in the menu bar. Turn on Open at login and HomeADE is there each morning. You can work in the window all day with no iPhone. The <a href="/homeade/setup">setup guide</a> covers the install, Claude Code, and the one Terminal step.</p>
-      <p>The Windows beta runs the same screens in a window, with a tray icon. It is not code-signed yet, so Windows shows a warning, and it cannot pair a phone yet.</p>
+      <p>Download the disk image, drag HomeADE to Applications, and open it. Apple has signed and notarized the Mac app, so it opens without a warning. An antenna icon sits in the menu bar. Turn on Open at login and it is there each morning. The <a href="/homeade/setup">setup guide</a> covers the install, Claude Code, and the one Terminal step. Nothing else has to be installed.</p>
+      <p>The Windows beta runs the same screens in a window, with a tray icon. It is not code-signed yet, so Windows shows a warning.</p>
+      <p>FieldADE is an optional iPhone app. HomeADE does not require it.</p>
 
       <h2 id="releases">Release notes</h2>
       <p>What changed in each version of the Mac app, newest first.</p>
