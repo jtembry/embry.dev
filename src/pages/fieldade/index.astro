@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import ReleaseNotes from '../../components/ReleaseNotes.astro';
+import releases from '../../data/fieldade-releases.json';
+const latest = releases[0];
+---
+<Base title="FieldADE" description="FieldADE is the iPhone app for the workday: what is due, your mail and texts, and a chat with the assistants that run on your Mac, beside your files." image="/work/fieldade.png">
+  <Hero variant="graph" seed={11} eyebrow="iPhone app" title="FieldADE">
+    <p class="lede">FieldADE puts the workday on your iPhone. You see what is due, read the mail and the texts, and ask the assistants that run on your Mac, next to your files. A change waits until you allow it.</p>
+    <Fragment slot="actions">
+      <a class="btn btn-secondary" href="/fieldade/setup">Setup guide</a>
+      <a class="btn btn-secondary" href="/homeade">HomeADE, the Mac app</a>
+    </Fragment>
+  </Hero>
+
+  <section class="section product">
+    <div class="wrap">
+      <div class="product-shots">
+        <img class="shot look-pro-only" src="/work/fieldade.png" alt="FieldADE on an iPhone: a chat with Claude, with a card asking to allow or deny a file edit" width="460" height="1000" />
+        <img class="shot look-dos-only" src="/work/fieldade-dos.png" alt="FieldADE on an iPhone: a chat with Claude, with a card asking to allow or deny a file edit, in the DOS look" width="460" height="1000" />
+        <img class="shot look-pro-only" src="/work/fieldade-list.png" alt="FieldADE's Sessions screen: how much of each assistant's limit is used, and the list of open chats" width="460" height="1000" />
+        <img class="shot look-dos-only" src="/work/fieldade-list-dos.png" alt="FieldADE's Sessions screen: how much of each assistant's limit is used, and the list of open chats, in the DOS look" width="460" height="1000" />
+      </div>
+
+      <p class="card-actions"><a class="store-badge" href="https://apps.apple.com/us/app/fieldade/id6828288883" rel="noopener"><img src="/brand/app-store-badge.svg" alt="Download on the App Store" width="132" height="44" /></a></p>
+      <p class="fine">Version {latest.version} &middot; iOS 17 or later &middot; <a href="/fieldade/setup">Setup guide</a> &middot; <a href="/fieldade/privacy">Privacy policy</a></p>
+
+      <h2>The list for the day</h2>
+      <p>Open the phone and Today shows what is due and what is waiting on you. A follow-up you asked an assistant to check later shows up there, and on the calendar. On iOS 26 or later, you can add a FieldADE widget to the home screen.</p>
+
+      <h2>Mail and texts, then back to the job</h2>
+      <p>Mail and texts arrive in the app. Swipe to file an item under the right project, archive it, delete it, or draft a reply. You send the reply. Share a photo, a file, or a link into FieldADE and it lands in your notes. Point the camera at a business card and add the contact from the scan.</p>
+      <p><a href="/map">See the three steps on sample screens</a>: things come in, one swipe shows the plan, and the item shows up where you need it.</p>
+
+      <h2>An assistant that reads your files</h2>
+      <p>A chat reaches Claude, Codex, or Grok running in <a href="/homeade">HomeADE</a> on your Mac. The assistant reads the notes and files in the folder you picked, so the answer starts from your records, and you can check it against them. Start the chat in the truck and the same chat is open at the desk. Before the assistant edits a file or runs a command, the phone asks you to allow or deny it.</p>
+
+      <h2>The records stay on your Mac</h2>
+      <p>Notes stay in the folder you chose. Away from home, the phone reaches the Mac through an encrypted link, and only the phone and the Mac hold the key. There is no FieldADE account. The <a href="/fieldade/privacy">privacy policy</a> says what leaves the devices and what stays.</p>
+
+      <h2>The phone by itself</h2>
+      <p>FieldADE also runs with no Mac. Turn on Phone only, pick a notes folder on the phone, and enter an Anthropic API key. Chats then run on the phone and bill that key. To look around first, tap Try the sample vault on the Today screen. The <a href="/fieldade/setup#no-mac">setup guide</a> has the steps.</p>
+
+      <h2 id="releases">Release notes</h2>
+      <p>What changed in each version. The newest is the text on the App Store under What's New.</p>
+      <ReleaseNotes releases={releases} />
+
+      <p class="back"><a href="/products">All products</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .product h2 { scroll-margin-top: 6.5rem; }
+  .product-shots { display: flex; justify-content: center; gap: .75rem; margin: 0 0 1.5rem; }
+  .shot { display: block; flex: 1 1 0; min-width: 0; max-width: 220px; height: auto; border-radius: 22px; border: 1px solid var(--line); }
+  .card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: .5rem 0; }
+  .store-badge { display: inline-flex; line-height: 0; }
+  .store-badge img { height: 44px; width: auto; }
+  .fine { font-size: .85rem; color: var(--muted); margin: 0 0 1rem; }
+  .back { margin-top: 2.5rem; }
+</style>

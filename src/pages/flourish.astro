@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import site from '../data/site.json';
+const ask = `mailto:${site.email}?subject=${encodeURIComponent('A website for my business')}`;
+---
+<Base title="Flourish Financial Group" description="A website for an accredited financial counselor, live about a month after the first conversation. Static pages, no monthly hosting bill, and she updates it herself." image="/software/flourish.jpg">
+  <Hero variant="graph" seed={19} eyebrow="Custom build · Website" title="Flourish Financial Group">
+    <p class="lede">A website for an accredited financial counselor, live about a month after the first conversation. The pages are static, they load fast, and hosting costs $0 a month.</p>
+    <Fragment slot="actions">
+      <a class="btn btn-primary" href="https://flourishfinancialgroup.org">Visit the site</a>
+      <a class="btn btn-secondary" href={ask}>Ask about a site</a>
+    </Fragment>
+  </Hero>
+
+  <section class="section product">
+    <div class="wrap">
+      <p><a href="https://flourishfinancialgroup.org"><img class="shot-wide" src="/software/flourish.jpg" alt="The Flourish Financial Group home page: a navy banner reading A plan you built, with someone in your corner, a photo of the counselor, and a button to book a free consult" width="1000" height="601" /></a></p>
+
+      <h2>She can change it without me</h2>
+      <p>The site lives in her own GitHub account, with a written guide. She updates the words herself and never waits on a developer for a paragraph, an hour, or a photo.</p>
+      <p>A visitor can read what she offers and book a free consult from the home page. That was the job: a clear front door, up in about a month, and cheap to keep.</p>
+      <p><a href="/software">Custom builds</a> covers a site like this, and software when the site is not enough.</p>
+
+      <p class="back"><a href="/products">All products</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .shot-wide { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); margin: 0 0 1.5rem; }
+  .back { margin-top: 2.5rem; }
+</style>

@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+---
+<Base title="Kingdom Guide" description="Kingdom Guide plans a Magic Kingdom day on your iPhone: the rides you want, in walking order, with posted waits and Disability Access Service return times." image="/software/kingdom-guide-plan.png">
+  <Hero variant="graph" seed={29} eyebrow="iPhone app" title="Kingdom Guide">
+    <p class="lede">Kingdom Guide plans a day at Magic Kingdom. It puts the rides a family picks in walking order and shows when they will reach each one, with the posted waits.</p>
+    <Fragment slot="actions">
+      <a class="btn btn-secondary" href="/kingdom-guide/support">Support</a>
+      <a class="btn btn-secondary" href="/kingdom-guide/privacy">Privacy</a>
+    </Fragment>
+  </Hero>
+
+  <section class="section product">
+    <div class="wrap">
+      <div class="product-shots">
+        <img class="shot" src="/software/kingdom-guide-plan.png" alt="Kingdom Guide's day plan on an iPhone: rides in walking order with arrival times and posted waits, starting with booking TRON as the first Disability Access Service return" width="460" height="1000" />
+        <img class="shot" src="/software/kingdom-guide-map.png" alt="Kingdom Guide's map: Next is Buzz Lightyear, a notice to book TRON next on the Disability Access Service, and a dashed route through numbered stops labeled with wait times" width="460" height="1000" />
+      </div>
+
+      <h2>A day you can walk</h2>
+      <p>Pick the rides. The app orders them by the walk between them and estimates when you will arrive, using the posted waits. The map draws that route, names the next stop, and can show your blue dot when you allow location.</p>
+
+      <h2>Disability Access Service, meals, and the lock screen</h2>
+      <p>For a family who uses the Disability Access Service, the app says which ride to book next. Enter the return time from the Disney app and the phone notifies you when it comes up. Meal reminders are optional: 45 minutes ahead for quick-service lunch and dinner, 15 minutes ahead for snacks and table service. On the trip day the lock screen shows the next stop, the posted wait, and the return you hold. It ends when the day is done.</p>
+
+      <h2>It keeps the plan when the signal drops</h2>
+      <p>The planner is built into the app. It keeps the last waits, hours, and trip changes it fetched, and changes you make offline go out when the signal returns. No account and no tracking. Location stays on the phone. The <a href="/kingdom-guide/privacy">privacy policy</a> lists what leaves it, and <a href="/kingdom-guide/support">support</a> answers the usual questions.</p>
+      <p>It began as a page for our own trip and is headed for the App Store.</p>
+      <p><small>Kingdom Guide is an unofficial planner. It is not affiliated with or endorsed by The Walt Disney Company.</small></p>
+
+      <p class="back"><a href="/products">All products</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .product-shots { display: flex; justify-content: center; gap: .75rem; margin: 0 0 1.5rem; }
+  .shot { display: block; flex: 1 1 0; min-width: 0; max-width: 220px; height: auto; border-radius: 22px; border: 1px solid var(--line); }
+  .back { margin-top: 2.5rem; }
+</style>

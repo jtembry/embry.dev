@@ -17,9 +17,9 @@ const tag = {
   assistants: ['/knowledge-assistants', 'AI system'],
 };
 ---
-<Base title="Products" description="What I have shipped: FieldADE, an iPhone app for the AI system on your Mac; HomeADE, the Mac app it talks to; and custom builds for clients, including LightScan, a floor-scanning app for a foundation repair company.">
+<Base title="Products" description="FieldADE, the iPhone app, and HomeADE, the Mac app, plus custom builds: LightScan, Flourish Financial Group, and Kingdom Guide. Each has its own page.">
   <Hero variant="graph" seed={5} eyebrow="Products" title="Proof, not promises.">
-    <p class="lede">First, the system I sell: FieldADE and HomeADE. Below it, custom builds I have shipped for clients and for my own family.</p>
+    <p class="lede">FieldADE and HomeADE, the tools I sell, then custom builds I have shipped for clients and for my own family. Each one has its own page.</p>
   </Hero>
 
   <section class="section band-parallax">
@@ -30,7 +30,7 @@ const tag = {
         <div class="card work-card" id="fieldade">
           <header class="brand-head bh-ade">
             <img class="app-icon" src="/brand/fieldade-icon.png" alt="" width="56" height="56" />
-            <div><h3 class="bh-name"><BlockText text="FieldADE" /></h3></div>
+            <div><h3 class="bh-name"><a href="/fieldade"><BlockText text="FieldADE" /></a></h3></div>
           </header>
           <div class="work-shots">
             <img class="work-shot look-pro-only" src="/work/fieldade.png" alt="FieldADE on an iPhone: a chat with Claude, with a card asking to allow or deny a file edit" width="460" height="1000" loading="lazy" />
@@ -38,25 +38,23 @@ const tag = {
             <img class="work-shot look-pro-only" src="/work/fieldade-list.png" alt="FieldADE's Sessions screen: how much of each assistant's limit is used, and the list of open chats" width="460" height="1000" loading="lazy" />
             <img class="work-shot look-dos-only" src="/work/fieldade-list-dos.png" alt="FieldADE's Sessions screen: how much of each assistant's limit is used, and the list of open chats, in the DOS look" width="460" height="1000" loading="lazy" />
           </div>
-          <p>An iPhone app that reaches the AI assistants on your Mac from anywhere, over an encrypted connection. They work beside your files, email, and notes, so every answer starts from your records.</p>
-          <p>The records stay on the Mac. Before an assistant edits a file or runs a command, the phone asks you to allow it. <a href="/map">See how it connects</a></p>
-          <p class="card-actions"><a class="store-badge" href="https://apps.apple.com/us/app/fieldade/id6828288883" rel="noopener"><img src="/brand/app-store-badge.svg" alt="Download on the App Store" width="132" height="44" /></a> <a class="btn" href="/fieldade/setup">Setup guide</a></p>
-          <p class="fine">Version {fieldade.version} &middot; iOS 17+ &middot; <a href="/fieldade/releases">Release notes</a></p>
+          <p>The iPhone app for the work on your Mac: what is due, your mail and texts, and a chat with the assistants beside your files. You allow a change before it happens.</p>
+          <p class="card-actions"><a class="store-badge" href="https://apps.apple.com/us/app/fieldade/id6828288883" rel="noopener"><img src="/brand/app-store-badge.svg" alt="Download on the App Store" width="132" height="44" /></a> <a class="btn" href="/fieldade">About FieldADE</a> <a class="btn" href="/fieldade/setup">Setup guide</a></p>
+          <p class="fine">Version {fieldade.version} &middot; iOS 17+ &middot; <a href="/fieldade#releases">Release notes</a></p>
           <p class="tags">{[tag.phone, tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="homeade">
           <header class="brand-head bh-ade">
             <img class="app-icon" src="/brand/homeade-icon.png" alt="" width="56" height="56" />
-            <div><h3 class="bh-name"><BlockText text="HomeADE" /></h3></div>
+            <div><h3 class="bh-name"><a href="/homeade"><BlockText text="HomeADE" /></a></h3></div>
           </header>
           <div class="work-shots work-shots-wide">
             <img class="work-shot-wide look-pro-only" src="/work/homebase.png" alt="HomeADE on a Mac: a sidebar of screens, and the Agents screen showing how much of each assistant's limit is used and a list of open chats" width="1200" height="814" loading="lazy" />
             <img class="work-shot-wide look-dos-only" src="/work/homebase-dos.png" alt="HomeADE on a Mac in the DOS look: a sidebar of screens, and the Agents screen showing how much of each assistant's limit is used and a list of open chats" width="1200" height="814" loading="lazy" />
           </div>
-          <p>The Mac app FieldADE talks to. It runs the assistants on your Mac, takes each message from your phone, and sends the answer back.</p>
-          <p>Its window has the same screens as the phone, so a chat started in the truck continues at the desk. It installs like any other app; the setup guide covers the one Terminal step.</p>
-          <p class="card-actions"><a class="btn btn-primary" href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download for Mac</a> <a class="btn" href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Download for Windows (beta)</a></p>
-          <p class="fine">Mac: version {latest.version} &middot; macOS 14+ &middot; <a href="/homeade/releases">Release notes</a><br />Windows: version 0.1.0 beta &middot; Windows 10+ &middot; <a href="/fieldade/setup#windows">unsigned</a></p>
+          <p>The Mac app that holds those files and runs the assistants. The window matches the phone, so a chat started away from the desk finishes at it.</p>
+          <p class="card-actions"><a class="btn btn-primary" href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download for Mac</a> <a class="btn" href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Download for Windows (beta)</a> <a class="btn" href="/homeade">About HomeADE</a> <a class="btn" href="/homeade/setup">Setup guide</a></p>
+          <p class="fine">Mac: version {latest.version} &middot; macOS 14+ &middot; <a href="/homeade#releases">Release notes</a><br />Windows: version 0.1.0 beta &middot; Windows 10+ &middot; <a href="/homeade/setup#windows">unsigned</a></p>
           <p class="tags">{[tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="lightscan">
@@ -69,13 +67,13 @@ const tag = {
               <path d="M12 23h20M12 33h32M22 14v28M32 24v18" stroke="#11151c" stroke-width="1" opacity=".55" />
               <path d="M6 28h44" stroke="#f3f1ec" stroke-width="1.5" stroke-dasharray="2 2" />
             </svg>
-            <div><h3 class="bh-name"><span class="ls-light">Light</span>Scan</h3></div>
+            <div><h3 class="bh-name"><a href="/lightscan"><span class="ls-light">Light</span>Scan</a></h3></div>
           </header>
           <div class="work-shots">
             <img class="work-shot" src="/software/lightscan.png" alt="LightScan on an iPhone: a scanned house drawn as a floor plan with wall lengths, and a heat map of high and low spots in the floor" width="460" height="1000" loading="lazy" />
           </div>
           <p>An iPhone app for a foundation repair company. The estimator walks the house, and the phone's laser scanner draws the floor plan and a heat map of where the floor sags.</p>
-          <p>The app turns the scan into a customer report and a model you can 3D print. The first version was on their phone a day after they described the problem.</p>
+          <p>The app turns the scan into a customer report and a model you can 3D print. The first version was on their phone a day after they described the problem. <a href="/lightscan">About LightScan</a></p>
           <p class="tags">{[tag.phone, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="flourish">
@@ -85,19 +83,19 @@ const tag = {
               <g stroke="#0a192f" stroke-width="3"><path d="M66 40 C 80 22, 100 18, 112 20 C 108 40, 92 56, 66 40 Z" /><path d="M64 70 C 44 60, 30 44, 28 30 C 46 32, 62 46, 64 70 Z" /><path d="M62 100 C 82 92, 100 96, 110 104 C 96 116, 76 116, 62 100 Z" /></g>
               <g stroke="#00a896" stroke-width="3"><path d="M60 135 C 40 128, 22 112, 18 96 C 38 98, 56 112, 60 135 Z" /><path d="M60 170 C 78 160, 98 162, 110 172 C 96 186, 76 186, 60 170 Z" /><path d="M60 200 C 42 196, 26 184, 22 170 C 40 170, 56 182, 60 200 Z" /></g>
             </svg>
-            <div><h3 class="bh-name"><a href="https://flourishfinancialgroup.org">Flourish Financial Group</a></h3></div>
+            <div><h3 class="bh-name"><a href="/flourish">Flourish Financial Group</a></h3></div>
           </header>
           <div class="work-shots work-shots-wide">
             <a href="https://flourishfinancialgroup.org"><img class="work-shot-wide" src="/software/flourish.jpg" alt="The Flourish Financial Group home page: a navy banner reading A plan you built, with someone in your corner, a photo of the counselor, and a button to book a free consult" width="1000" height="601" loading="lazy" /></a>
           </div>
           <p>A website for an accredited financial counselor, live about a month after the first conversation. It is static, loads fast, and costs $0 a month to host.</p>
-          <p>The site lives in her own GitHub account with a written guide, so she updates it herself and never waits on me.</p>
+          <p>The site lives in her own GitHub account with a written guide, so she updates it herself and never waits on me. <a href="/flourish">About this site</a></p>
           <p class="tags">{[tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="kingdom-guide">
           <header class="brand-head bh-kingdom">
             <img class="app-icon" src="/brand/kingdom-guide-icon.png" alt="" width="56" height="56" />
-            <div><h3 class="bh-name"><a href="/kingdom-guide/support">Kingdom Guide</a></h3></div>
+            <div><h3 class="bh-name"><a href="/kingdom-guide">Kingdom Guide</a></h3></div>
             <span class="kg-trail" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
           </header>
           <div class="work-shots">
@@ -105,7 +103,7 @@ const tag = {
             <img class="work-shot" src="/software/kingdom-guide-map.png" alt="Kingdom Guide's map: Next is Buzz Lightyear, a notice to book TRON next on the Disability Access Service, and a dashed route through numbered stops labeled with wait times" width="460" height="1000" loading="lazy" />
           </div>
           <p>An iPhone app that plans a day at Magic Kingdom. It puts the rides a family picks in walking order and shows when they will reach each one, with the posted waits.</p>
-          <p>For families who use the Disability Access Service, it says which ride to book next. It began as a page for our own trip and is headed for the App Store.</p>
+          <p>For families who use the Disability Access Service, it says which ride to book next. It began as a page for our own trip and is headed for the App Store. <a href="/kingdom-guide">About Kingdom Guide</a></p>
           <p class="tags">{[tag.phone, tag.software].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
       </div>
@@ -132,6 +130,7 @@ const tag = {
   .brand-head .app-icon { flex: none; width: 56px; height: 56px; border-radius: 13px; }
   .work-card .brand-head .bh-name { color: inherit; margin: 0; font-size: 1.35rem; line-height: 1.15; }
   .work-card .brand-head .bh-name a { color: inherit; text-decoration: none; }
+  .work-card .brand-head .bh-name a:hover { text-decoration: underline; }
 
   .bh-ade { background: #1c1f26; color: #f3f1ec; }
   .bh-ade .app-icon { box-shadow: 0 0 0 1px rgba(255,255,255,.12); }

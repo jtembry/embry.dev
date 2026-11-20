@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import ReleaseNotes from '../../components/ReleaseNotes.astro';
+import releases from '../../data/homeade-releases.json';
+const latest = releases[0];
+---
+<Base title="HomeADE" description="HomeADE is the Mac app that holds your notes, mail, texts, and calendar, and runs Claude, Codex, or Grok beside those files." image="/work/homebase.png">
+  <Hero variant="graph" seed={13} eyebrow="Mac app" title="HomeADE">
+    <p class="lede">HomeADE holds the work and runs the assistants. Notes, mail, texts, the calendar, and your projects sit in one window. Ask a question and Claude, Codex, or Grok answers from the folder you chose, on your own plan.</p>
+    <Fragment slot="actions">
+      <a class="btn btn-secondary" href="/homeade/setup">Setup guide</a>
+      <a class="btn btn-secondary" href="/fieldade">FieldADE, the iPhone app</a>
+    </Fragment>
+  </Hero>
+
+  <section class="section product">
+    <div class="wrap">
+      <div class="product-shots">
+        <img class="shot-wide look-pro-only" src="/work/homebase.png" alt="HomeADE on a Mac: a sidebar of screens, and the Agents screen showing how much of each assistant's limit is used and a list of open chats" width="1200" height="814" />
+        <img class="shot-wide look-dos-only" src="/work/homebase-dos.png" alt="HomeADE on a Mac in the DOS look: a sidebar of screens, and the Agents screen showing how much of each assistant's limit is used and a list of open chats" width="1200" height="814" />
+      </div>
+
+      <p class="card-actions"><a class="btn btn-primary" href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download for Mac</a> <a class="btn btn-secondary" href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Download for Windows (beta)</a></p>
+      <p class="fine">Mac: version {latest.version} &middot; macOS 14 or later &middot; <a href="/homeade/setup">Setup guide</a><br />Windows: version 0.1.0 beta &middot; Windows 10 or later &middot; <a href="/homeade/setup#windows">unsigned</a></p>
+
+      <h2>The desk and the phone show the same work</h2>
+      <p>The window has the same screens as <a href="/fieldade">FieldADE</a>: Today, Email, Texts, Calendar, your projects, and the assistants. Read the mail, see what is due, and answer from the desk. A chat you started on the iPhone is open here when you sit down. A follow-up scheduled inside a chat shows on Today and on the calendar after you close the chat.</p>
+
+      <h2>Assistants beside the files</h2>
+      <p>Claude Code, Codex, and Grok run on this Mac. You install each one and sign in yourself. HomeADE lists the ones it found, and the command for any that is missing. A question about a job can use the notes in the folder you picked. The reply appears as it is written. A file edit or a command still waits until you allow it.</p>
+      <p>Mail can carry the thread into a chat, so the assistant drafts from the whole conversation. Add to Calendar reads that thread and shows you the event before it writes anything.</p>
+
+      <h2>More than one computer</h2>
+      <p>Pair FieldADE and the phone reaches this Mac from anywhere: the truck, a job site, the kitchen. The traffic is encrypted with a key only the phone and the Mac hold. A second computer, such as a work laptop, joins the same way. Paste its pairing link, and HomeADE can use that machine's notes, mail, or texts.</p>
+      <p>The <a href="/fieldade/privacy">privacy policy</a> covers both apps. There is no account, and the chats stay on your devices.</p>
+
+      <h2>Install it and leave it running</h2>
+      <p>Download the disk image, drag HomeADE to Applications, and open it. Apple has signed and notarized the Mac app, so it opens without a warning. An antenna icon sits in the menu bar. Turn on Open at login and HomeADE is there each morning. You can work in the window all day with no iPhone. The <a href="/homeade/setup">setup guide</a> covers the install, Claude Code, and the one Terminal step.</p>
+      <p>The Windows beta runs the same screens in a window, with a tray icon. It is not code-signed yet, so Windows shows a warning, and it cannot pair a phone yet.</p>
+
+      <h2 id="releases">Release notes</h2>
+      <p>What changed in each version of the Mac app, newest first.</p>
+      <ReleaseNotes releases={releases} />
+
+      <p class="back"><a href="/products">All products</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .product h2 { scroll-margin-top: 6.5rem; }
+  .product-shots { margin: 0 0 1.5rem; }
+  .shot-wide { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
+  .card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: .5rem 0; }
+  .fine { font-size: .85rem; color: var(--muted); margin: 0 0 1rem; }
+  .back { margin-top: 2.5rem; }
+</style>

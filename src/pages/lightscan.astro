@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import site from '../data/site.json';
+const ask = `mailto:${site.email}?subject=${encodeURIComponent('A phone app for my crew')}`;
+---
+<Base title="LightScan" description="LightScan is an iPhone app for a foundation repair company. The estimator walks the house, and the phone's laser scanner draws the floor plan and a heat map of where the floor sags." image="/software/lightscan.png">
+  <Hero variant="graph" seed={17} eyebrow="Custom build · iPhone" title="LightScan">
+    <p class="lede">An iPhone app for a foundation repair company. The estimator walks the house, and the phone's laser scanner draws the floor plan and a heat map of where the floor sags.</p>
+    <a slot="actions" class="btn btn-secondary" href={ask}>Ask about a build like this</a>
+  </Hero>
+
+  <section class="section product">
+    <div class="wrap">
+      <div class="product-shots">
+        <img class="shot" src="/software/lightscan.png" alt="LightScan on an iPhone: a scanned house drawn as a floor plan with wall lengths, and a heat map of high and low spots in the floor" width="460" height="1000" />
+      </div>
+
+      <h2>The walk produces the paperwork</h2>
+      <p>The scanner draws the rooms and the wall lengths while the estimator is still in the house. A heat map marks the high and low spots in the floor. The same scan becomes a customer report and a model you can 3D print.</p>
+      <p>The first version was on their phone a day after they described the problem. LightScan is their app. It is not a public download.</p>
+      <p>I build this kind of tool around the way a crew already works: one job, one phone, the record written while the work happens. <a href="/software#phone-apps">Phone apps</a> and <a href="/software">custom builds</a> say how a project like that runs.</p>
+
+      <p class="back"><a href="/products">All products</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .product-shots { display: flex; justify-content: center; margin: 0 0 1.5rem; }
+  .shot { display: block; width: min(100%, 220px); height: auto; border-radius: 22px; border: 1px solid var(--line); }
+  .back { margin-top: 2.5rem; }
+</style>

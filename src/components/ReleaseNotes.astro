@@ -1,0 +1,21 @@
+---
+// Version history for a product page. Newest first, as stored in the JSON.
+const { releases } = Astro.props;
+const nice = (d) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+{releases.map((r) => (
+  <article class="release">
+    <h3>{r.version} <span class="dim">&middot; {nice(r.date)}</span></h3>
+    <p class="release-title">{r.title}</p>
+    <ul>{r.notes.map((n) => <li>{n}</li>)}</ul>
+  </article>
+))}
+
+<style>
+  .release { margin-top: 1.75rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+  .release h3 { margin: 0; font-size: 1.25rem; }
+  .release h3 .dim { font-weight: 400; color: var(--muted); }
+  .release-title { margin: .2rem 0 .5rem; color: var(--ink-2); }
+  .release ul { margin: 0; padding-left: 1.15rem; }
+  .release li { margin: .3rem 0; }
+</style>

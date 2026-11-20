@@ -2,66 +2,45 @@
 import Base from '../../layouts/Base.astro';
 import site from '../../data/site.json';
 ---
-<Base title="Set up FieldADE and HomeADE" description="How to install HomeADE on your Mac, pair FieldADE on your iPhone, and start your first chat.">
+<Base title="Set up FieldADE" description="How to install FieldADE on your iPhone, pair it with HomeADE, and start a chat. Includes phone-only setup with no Mac.">
   <section class="section" style="padding-top: calc(var(--header-h) + 2rem)">
     <div class="wrap guide">
-      <h1>Set up FieldADE and HomeADE</h1>
-      <p>FieldADE is the iPhone app. HomeADE is the Mac app it talks to. HomeADE runs the assistants on your Mac, next to your files and notes, and FieldADE reaches them from anywhere. Setup takes about 15 minutes.</p>
+      <h1>Set up FieldADE</h1>
+      <p>FieldADE is the iPhone app. It shows what is due, your mail and texts, and a chat with the assistants on your Mac. Pair it with <a href="/homeade">HomeADE</a>, which has to be running on that Mac. If HomeADE is not installed yet, <a href="/homeade/setup">set up the Mac first</a>. Pairing takes a few minutes once the Mac shows a code.</p>
+      <p><a href="/fieldade">About FieldADE</a></p>
 
       <h2>What you need</h2>
       <ul>
-        <li>A Mac with macOS 14 or later.</li>
         <li>An iPhone with iOS 17 or later.</li>
-        <li>A Claude plan or an Anthropic API key. HomeADE runs Claude Code, which you install and sign in to yourself.</li>
-        <li>A notes folder. An Obsidian vault works best, but any folder will do.</li>
+        <li>HomeADE on a Mac, with a pairing code on the screen. Or skip the Mac and <a href="#no-mac">use the phone on its own</a>.</li>
       </ul>
 
-      <h2 id="mac">1. Install HomeADE on your Mac</h2>
-      <ol>
-        <li><a href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download HomeADE</a>, open the file, and drag HomeADE to Applications.</li>
-        <li>Open HomeADE. An antenna icon appears in the menu bar. To start HomeADE each time you log in, click the icon and turn on <strong>Open at login</strong>.</li>
-      </ol>
-      <p class="fine">Or install with Homebrew:</p>
-      <div class="cmd"><pre><code id="brew-cmd">brew install --cask jtembry/homeade/homeade</code></pre><button type="button" class="copy-btn" data-copy="brew-cmd">Copy</button></div>
-
-      <h2 id="claude">2. Install Claude Code</h2>
-      <p>Chats from the phone run in Claude Code on your Mac, on your own Claude plan. The Today screen works without it.</p>
-      <ol>
-        <li>Open Terminal and paste:</li>
-      </ol>
-      <div class="cmd"><pre><code id="claude-cmd">curl -fsSL https://claude.ai/install.sh | bash</code></pre><button type="button" class="copy-btn" data-copy="claude-cmd">Copy</button></div>
-      <ol start="2">
-        <li>Type <code>claude</code> and press Return. Sign in when it asks, then close Terminal.</li>
-      </ol>
-
-      <h2 id="setup">3. Set up HomeADE</h2>
-      <ol>
-        <li>Click the antenna icon in the menu bar, then <strong>Set up this Mac…</strong></li>
-        <li>Under <strong>Your notes</strong>, click <strong>Choose the folder…</strong> and pick your vault. HomeADE makes Projects, Areas, and Inbox folders in it if they are missing.</li>
-        <li>Under <strong>Claude Code</strong>, check that it says <em>Found</em>. If it says <em>Not installed</em>, finish step 2 and click <strong>Check again</strong>.</li>
-        <li>Click <strong>Start</strong>. A window opens with a pairing code.</li>
-      </ol>
-
-      <h2 id="phone">4. Pair FieldADE on your iPhone</h2>
+      <h2 id="phone">1. Install FieldADE</h2>
       <ol>
         <li><a href="https://apps.apple.com/us/app/fieldade/id6828288883" rel="noopener">Install FieldADE from the App Store</a>.</li>
+        <li>Open FieldADE.</li>
+      </ol>
+
+      <h2 id="pair">2. Pair it with your Mac</h2>
+      <ol>
+        <li>On the Mac, HomeADE's window should show a pairing code. If it does not, click the antenna icon and choose <strong>Pair a phone…</strong>. The <a href="/homeade/setup">HomeADE setup</a> gets you to that window.</li>
         <li>In FieldADE, open <strong>Settings → Machines → Scan a pairing code</strong>.</li>
         <li>Point the camera at the code on your Mac.</li>
       </ol>
-      <p>The code holds your Mac's key, so do not share it or post a picture of it. To pair a phone later, click the antenna icon and choose <strong>Pair a phone…</strong>. If the phone cannot scan, click <strong>Copy the link instead</strong>, send the link to the phone, and tap it.</p>
+      <p>The code holds your Mac's key, so do not share it or post a picture of it. If the phone cannot scan, click <strong>Copy the link instead</strong> on the Mac, send the link to the phone, and tap it. The link asks before it applies.</p>
       <p>The phone reaches the Mac through relay.embry.dev, so it works away from home with nothing else to install. The traffic is encrypted with a key that only your phone and your Mac hold. See the <a href="/fieldade/privacy">privacy policy</a>.</p>
 
-      <h2 id="first-chat">5. Start a chat</h2>
+      <h2 id="first-chat">3. Start a chat</h2>
       <ol>
         <li>On the phone, tap <strong>+</strong> and pick a folder for the chat.</li>
         <li>Type a question about your notes and send it.</li>
       </ol>
-      <p>Before the assistant edits a file or runs a command, the phone asks you to allow or deny it.</p>
+      <p>Before the assistant edits a file or runs a command, the phone asks you to allow or deny it. The same chat is open in the HomeADE window when you sit down at the Mac.</p>
 
       <h2 id="more">Add more</h2>
       <ul>
         <li><strong>Calendars.</strong> On the phone, open <strong>Settings → Choose sources → Calendars</strong>. Sign in to Google, sign in to iCloud with an app-specific password, or allow access to the calendars on the phone.</li>
-        <li><strong>Codex or Grok.</strong> Install either command-line tool and sign in to it. HomeADE lists what it finds under <strong>Settings → Agents on this machine</strong>.</li>
+        <li><strong>Codex or Grok.</strong> Install the tool on the Mac and sign in. HomeADE lists it under <strong>Settings → Agents on this machine</strong>. <a href="/homeade/setup#more">HomeADE setup</a> has that step.</li>
         <li><strong>Share sheet.</strong> Share a photo, file, or link to FieldADE and it lands in your vault's Inbox. Items shared while the Mac is away wait on the phone.</li>
         <li><strong>Widget.</strong> On iOS 26 or later, add the FieldADE widget to the home screen.</li>
       </ul>
@@ -69,15 +48,14 @@ import site from '../../data/site.json';
       <h2 id="no-mac">Without a Mac</h2>
       <p>FieldADE can run on its own. Open <strong>Settings → Phone alone</strong>, turn on <strong>Phone only</strong>, pick a vault folder on the phone, and enter an Anthropic API key. Chats then run on the phone and bill that key. To look around first, tap <strong>Try the sample vault</strong> on the Today screen.</p>
 
-      <h2 id="windows">Windows (beta)</h2>
-      <p>The <a href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Windows beta</a> runs the same screens in a window and a tray icon. It is not yet code-signed, so Windows warns you: click <strong>More info</strong>, then <strong>Run anyway</strong>. Pick a vault under <strong>Settings → Vault → Change folder…</strong>, and install and sign in to Claude Code, Codex, or Grok yourself. The beta cannot pair a phone yet.</p>
+      <h2 id="windows">Windows</h2>
+      <p>The Windows build is HomeADE, and the beta cannot pair a phone yet. <a href="/homeade/setup#windows">Windows setup</a> covers the installer and the warning Windows shows.</p>
 
       <h2 id="trouble">If something goes wrong</h2>
       <ul>
-        <li><strong>The HomeADE window says it has no token.</strong> Setup is unfinished. Click the antenna icon, then <strong>Set up this Mac…</strong></li>
-        <li><strong>The phone says to set the Mac's address.</strong> The phone is not paired. Do step 4.</li>
+        <li><strong>The phone says to set the Mac's address.</strong> The phone is not paired. Do step 2.</li>
         <li><strong>The phone says "no end-to-end key."</strong> Make a new pairing code on the Mac and scan it again.</li>
-        <li><strong>Chats do not start.</strong> Check that Claude Code is installed and signed in, then click <strong>Restart HomeADE…</strong> in the menu.</li>
+        <li><strong>Chats do not start.</strong> On the Mac, check that Claude Code is installed and signed in, then click <strong>Restart HomeADE…</strong> in the menu. <a href="/homeade/setup#trouble">HomeADE troubleshooting</a> covers a window that says it has no token.</li>
       </ul>
       <p>Still stuck? Email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
     </div>
@@ -86,23 +64,7 @@ import site from '../../data/site.json';
 
 <style>
   .guide { max-width: 44rem; }
-  .guide h2 { margin-top: 2.25rem; }
+  .guide h2 { margin-top: 2.25rem; scroll-margin-top: 6.5rem; }
   .guide ol, .guide ul { padding-left: 1.2rem; }
   .guide li { margin: .35rem 0; }
-  .guide .fine { font-size: .85rem; color: var(--muted, inherit); margin: 0 0 .5rem; }
-  .cmd { display: flex; align-items: stretch; margin: .5rem 0 1rem; background: var(--band, #16181d); border-radius: 8px; overflow: hidden; }
-  .cmd pre { flex: 1; min-width: 0; margin: 0; padding: .7rem .9rem; color: #f3f1ec; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--mono); font-size: .8rem; line-height: 1.5; }
-  .copy-btn { flex: none; font-family: var(--mono); font-size: .75rem; padding: 0 .8rem; border: 0; border-left: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.08); color: #f3f1ec; cursor: pointer; }
-  .copy-btn:hover { background: rgba(255,255,255,.18); }
 </style>
-
-<script>
-  document.querySelectorAll('.copy-btn').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      const text = document.getElementById(btn.dataset.copy).textContent;
-      try { await navigator.clipboard.writeText(text); btn.textContent = 'Copied'; }
-      catch { btn.textContent = 'Press ⌘C'; getSelection().selectAllChildren(document.getElementById(btn.dataset.copy)); }
-      setTimeout(() => (btn.textContent = 'Copy'), 1500);
-    });
-  });
-</script>
