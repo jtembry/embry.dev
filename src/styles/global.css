@@ -108,7 +108,6 @@ nav.primary ul a[aria-current="page"] { background: rgba(52,199,89,.2); color: #
 .drawer-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
 .drawer-close { width: 2.6rem; height: 2.6rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.07); color: var(--white); font-size: 1.6rem; line-height: 1; cursor: pointer; }
 .drawer-close:hover { background: rgba(255,255,255,.14); }
-.drawer-label { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.45); margin: .9rem .5rem .3rem; }
 .drawer-list { list-style: none; margin: 0; padding: 0; }
 .drawer-list a { display: block; padding: .8rem .9rem; border-radius: 12px; color: rgba(255,255,255,.88); text-decoration: none; font-size: 1.15rem; font-weight: 500; border: 1px solid transparent; transition: background .18s, border-color .18s; }
 .drawer-list a:hover { background: rgba(255,255,255,.07); }
@@ -301,7 +300,7 @@ html[data-look="dos"] body::after { content: ""; position: fixed; inset: 0; z-in
 html[data-look="dos"] h1, html[data-look="dos"] h2, html[data-look="dos"] h3 { letter-spacing: 0; text-transform: uppercase; }
 html[data-look="dos"] .band-dark, html[data-look="dos"] footer.site { color: var(--ink-2); border-block: 1px solid var(--line); }
 html[data-look="dos"] .band-dark h1, html[data-look="dos"] .band-dark h2, html[data-look="dos"] .band-dark h3, html[data-look="dos"] .band-dark .stat, html[data-look="dos"] .band-dark .btn-secondary, html[data-look="dos"] .brand, html[data-look="dos"] .footer-brand, html[data-look="dos"] .drawer-close, html[data-look="dos"] .live-badge, html[data-look="dos"] .print-play, html[data-look="dos"] .contact-tile, html[data-look="dos"] .pick { color: var(--phosphor); }
-html[data-look="dos"] .band-dark .lede, html[data-look="dos"] .hero-tall .hero-text .lede, html[data-look="dos"] footer.site, html[data-look="dos"] footer.site .social a, html[data-look="dos"] .live-offline, html[data-look="dos"] .drawer-label, html[data-look="dos"] .drawer-foot, html[data-look="dos"] nav.primary ul a, html[data-look="dos"] .drawer-list a { color: var(--muted); }
+html[data-look="dos"] .band-dark .lede, html[data-look="dos"] .hero-tall .hero-text .lede, html[data-look="dos"] footer.site, html[data-look="dos"] footer.site .social a, html[data-look="dos"] .live-offline, html[data-look="dos"] .drawer-foot, html[data-look="dos"] nav.primary ul a, html[data-look="dos"] .drawer-list a { color: var(--muted); }
 html[data-look="dos"] .band-dark a, html[data-look="dos"] footer.site a, html[data-look="dos"] .live-offline a, html[data-look="dos"] .sysmap-open, html[data-look="dos"] .box span, html[data-look="dos"] .row-k { color: var(--phosphor); }
 html[data-look="dos"] .band-dark .btn-secondary { border-color: var(--phosphor); }
 html[data-look="dos"] .logo .logo-ink, html[data-look="dos"] .brand .logo .logo-ink, html[data-look="dos"] .band-dark .logo .logo-ink, html[data-look="dos"] footer.site .logo .logo-ink,

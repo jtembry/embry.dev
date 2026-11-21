@@ -5,15 +5,12 @@ import Logo from '../components/Logo.astro';
 import SocialIcons from '../components/SocialIcons.astro';
 const { title, description, image } = Astro.props; // image: link-preview photo, a path under public/
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
-const services = [
+const nav = [
   ['/knowledge-assistants', 'AI systems'],
   ['/software', 'Custom builds'],
-];
-const more = [
   ['/products', 'Products'],
   ['/about', 'About'],
 ];
-const nav = [...services, ...more];
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inquiry')}`;
 ---
 <html lang="en">
@@ -58,10 +55,7 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         <a class="brand" href="/"><Logo size={24} /><span class="brand-text">embry<span class="dot">.dev</span></span></a>
         <button class="drawer-close" type="button" aria-label="Close menu">×</button>
       </div>
-      <p class="drawer-label" style="--i:0">What I build</p>
-      <ul class="drawer-list">{services.map(([href, label], i) => <li style={`--i:${i + 1}`}><a href={href} aria-current={path === href || path.startsWith(href + '/') ? 'page' : undefined}>{label}</a></li>)}</ul>
-      <p class="drawer-label" style="--i:5">More</p>
-      <ul class="drawer-list">{more.map(([href, label], i) => <li style={`--i:${i + 6}`}><a href={href} aria-current={path === href || path.startsWith(href + '/') ? 'page' : undefined}>{label}</a></li>)}</ul>
+      <ul class="drawer-list">{nav.map(([href, label], i) => <li style={`--i:${i + 1}`}><a href={href} aria-current={path === href || path.startsWith(href + '/') ? 'page' : undefined}>{label}</a></li>)}</ul>
       <div class="drawer-look" style="--i:9"><button class="look-toggle" type="button" role="switch" aria-checked="false" aria-label="Green screen look" title="Green screen look"><span class="look-knob" aria-hidden="true"></span></button></div>
       <a class="btn btn-primary drawer-cta" href={mailto} style="--i:10">Email me</a>
       <p class="drawer-foot" style="--i:11">{site.legalName} · {site.location}</p>
