@@ -355,3 +355,14 @@ html[data-look="dos"] .look-pro-only { display: none !important; }
 html[data-look="dos"] .look-dos-only { display: block !important; }
 html[data-look="dos"] .look-toggle { border-radius: 999px !important; text-shadow: none; }
 html[data-look="dos"] .look-knob { border-radius: 50% !important; }
+
+/* Screenshot zoom: a click grows the picture from where it sits to fill the window (Base.astro). */
+img.shot, img.shot-wide, img.work-shot, img.work-shot-wide { cursor: zoom-in; }
+a img.shot, a img.shot-wide, a img.work-shot, a img.work-shot-wide { cursor: pointer; }
+.zoom-stage { position: fixed; inset: 0; z-index: 90; background: rgba(10, 12, 16, 0); cursor: zoom-out; }
+.motion .zoom-stage { transition: background .35s ease; }
+.zoom-stage.in { background: rgba(10, 12, 16, .88); }
+.zoom-img { position: fixed; margin: 0; max-width: none; object-fit: contain; border-radius: inherit; box-shadow: 0 24px 80px rgba(0,0,0,.45); will-change: top, left, width, height; }
+.motion .zoom-img { transition: top .35s cubic-bezier(.2,.8,.2,1), left .35s cubic-bezier(.2,.8,.2,1), width .35s cubic-bezier(.2,.8,.2,1), height .35s cubic-bezier(.2,.8,.2,1), border-radius .35s ease; }
+.zoom-src { visibility: hidden; }
+html[data-look="dos"] .zoom-stage.in { background: rgba(0, 0, 0, .92); }

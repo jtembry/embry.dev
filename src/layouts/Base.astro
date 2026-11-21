@@ -452,9 +452,71 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Project inqui
         });
       }
 
+      // Screenshot zoom (2026-11-21, JT: "the screenshots should expand when clicked, with a growing
+      // effect"). A click on a product shot grows a copy from the picture's own place to fill the
+      // window; a click, Esc, or a scroll shrinks it back. Shots inside a link keep their link.
+      const motion = root.classList.contains('motion');
+      const ZOOMABLE = 'img.shot, img.shot-wide, img.work-shot, img.work-shot-wide';
+      let zoomOpen = false;
+      const fitRect = (w, h) => {
+        const pad = Math.min(24, window.innerWidth * 0.04);
+        const maxW = window.innerWidth - pad * 2, maxH = window.innerHeight - pad * 2;
+        const k = Math.min(maxW / w, maxH / h);
+        const W = w * k, H = h * k;
+        return { left: (window.innerWidth - W) / 2, top: (window.innerHeight - H) / 2, width: W, height: H };
+      };
+      const place = (el, r) => { el.style.left = `${r.left}px`; el.style.top = `${r.top}px`; el.style.width = `${r.width}px`; el.style.height = `${r.height}px`; };
+      const openZoom = (img) => {
+        if (zoomOpen) return;
+        zoomOpen = true;
+        const r = img.getBoundingClientRect();
+        const stage = document.createElement('div');
+        stage.className = 'zoom-stage';
+        const big = document.createElement('img');
+        big.className = 'zoom-img';
+        big.src = img.currentSrc || img.src;
+        big.alt = img.alt;
+        big.style.borderRadius = getComputedStyle(img).borderRadius;
+        place(big, r);
+        stage.append(big);
+        document.body.append(stage);
+        img.classList.add('zoom-src');
+        const natural = { w: img.naturalWidth || r.width, h: img.naturalHeight || r.height };
+        // Two frames: one to paint the start rect, one to begin the transition from it.
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          stage.classList.add('in');
+          place(big, fitRect(natural.w, natural.h));
+          big.style.borderRadius = '12px';
+        }));
+        const close = () => {
+          if (!zoomOpen) return;
+          const back = img.getBoundingClientRect();
+          stage.classList.remove('in');
+          place(big, back);
+          big.style.borderRadius = getComputedStyle(img).borderRadius;
+          const done = () => { stage.remove(); img.classList.remove('zoom-src'); zoomOpen = false; };
+          if (motion) big.addEventListener('transitionend', done, { once: true }), setTimeout(done, 450);
+          else done();
+          window.removeEventListener('scroll', close);
+          window.removeEventListener('resize', onResize);
+          document.removeEventListener('keydown', onKey);
+        };
+        const onKey = (e) => { if (e.key === 'Escape') close(); };
+        const onResize = () => place(big, fitRect(natural.w, natural.h));
+        stage.addEventListener('click', close);
+        document.addEventListener('keydown', onKey);
+        window.addEventListener('scroll', close, { passive: true });
+        window.addEventListener('resize', onResize);
+      };
+      document.addEventListener('click', (e) => {
+        const img = e.target instanceof Element ? e.target.closest(ZOOMABLE) : null;
+        if (!img || img.closest('a')) return;
+        e.preventDefault();
+        openZoom(img);
+      });
+
       // Parallax: only the hero's system map moves, on an eased scroll value,
       // relative to its section's center. Text and page bands stay put.
-      const motion = root.classList.contains('motion');
       const layers = Array.from(document.querySelectorAll('[data-parallax]'));
       if (motion && layers.length) {
         let target = window.scrollY, current = target, raf = 0;
