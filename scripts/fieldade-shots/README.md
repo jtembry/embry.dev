@@ -132,6 +132,8 @@ done
 
 ## System map shots (2026-11-17)
 
+Retake these after every FieldADE release with UI changes or a changed flow (JT, 2026-11-20). Shoot them in dark appearance, like the `/work` shots, and bump the `?v=` date on the `<img>` tags in `src/pages/map/index.astro` so phones drop the cached copies.
+
 - Extra hook in the copy's `MissionControlView.swift` `.onAppear`: `-demoTriage <n>` waits 4 s, then sets `billed` to the triage chip of email row n, which opens the plan confirm. `-demoSection` moved into the same `.onAppear` (it now also calls `openQuickNote(); checkConnectors()`).
 - `make-mission.py` email rows carry `plan`; the Dana plan's due date must equal the first Due item's date, or the triage and Today shots disagree.
 - Shots: `-demoSection email`, `-demoSection email -demoTriage 0`, `-demoSection today`; copy with `sips -z 1000 460` to `public/map/<name>[-dos].png`.
