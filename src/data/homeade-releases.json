@@ -1,5 +1,20 @@
 [
   {
+    "version": "0.5.0",
+    "date": "2026-11-21",
+    "title": "Dictation, tickets, and Messages",
+    "notes": [
+      "On Apple silicon, a microphone button in the chat box types what you say. The first time, HomeADE downloads a speech model onto this Mac. Nothing is sent until you send it. The shortcut is ⌘⇧D. If the Mac is blocking the microphone, the message has a button that opens Microphone settings.",
+      "Ingest lists loose files. On Apple silicon, a recording can be transcribed on this Mac, then filed.",
+      "Tickets lists a connected queue. Filter by project, sprint, fix version and status. Connect Jira from the Tickets screen when none is set up.",
+      "The up and down arrows recall what you sent. Esc stops a reply and puts your message back in the box.",
+      "New chats start in Auto. A switch in Settings makes them ask first again.",
+      "The sidebar shows this copy's version.",
+      "Texts is now Messages. Open on a text opens it in the Messages app.",
+      "The old Classic Window is gone. Reload a blank window with ⌘R."
+    ]
+  },
+  {
     "version": "0.4.0",
     "date": "2026-11-17",
     "title": "A new window, Codex, and pairing that works on a new Mac",
