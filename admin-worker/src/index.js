@@ -4,7 +4,9 @@
 // GET /prints      print stats from the brainpi database       prints.js
 // GET /downloads   Home Base downloads (D1, downloads-worker)
 // GET /api/stats   download numbers as JSON
-// GET /map/        the private LikeC4 system map (static files from map-dist/, built by build-map.sh)
+// GET /map/        the private LikeC4 system map (static files from map-dist/map, built by build-assets.sh)
+// GET /wiki/       the private engineering wiki (static files from map-dist/wiki, built from ~/Projects/embry-wiki-internal
+//                  by build-assets.sh; 2026-11-21, JT: "build the private site, make it accessible from the admin site")
 import { verifyAccess } from "./access.js";
 import { esc, num, cards, table, bars, lastDays, shell } from "./layout.js";
 import { traffic, trafficPage } from "./traffic.js";
@@ -44,6 +46,7 @@ async function overviewPage(env) {
     [v(p, (x) => num(x.totals.finished)), "Prints finished", "/prints"],
     [v(d, (x) => num(x.total)), "Home Base downloads", "/downloads"],
     ["Map", "Private system map", "/map/"],
+    ["Wiki", "Private engineering wiki", "/wiki/"],
   ])}
 <p class="note">A dash means that source did not answer. Open the card for details.</p>`;
 }
@@ -56,8 +59,10 @@ export default {
     if (!auth.ok) return new Response(auth.why, { status: auth.status, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } });
     const url = new URL(request.url);
     const hdr = { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "no-referrer" };
-    if (url.pathname === "/map") return Response.redirect(`${url.origin}/map/`, 302);
-    if (url.pathname.startsWith("/map/")) {
+    // Static sites under the Access check: the system map and the engineering wiki (run_worker_first, so no file is served
+    // without a login). A bare /map or /wiki gets its slash so relative links inside resolve.
+    if (url.pathname === "/map" || url.pathname === "/wiki") return Response.redirect(`${url.origin}${url.pathname}/`, 302);
+    if (url.pathname.startsWith("/map/") || url.pathname.startsWith("/wiki/")) {
       const res = await env.ASSETS.fetch(request);
       const out = new Response(res.body, res);
       for (const [k, v] of Object.entries(hdr)) out.headers.set(k, v);

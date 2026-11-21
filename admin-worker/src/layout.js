@@ -3,7 +3,7 @@ export const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&a
 export const money = (cents) => `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 export const num = (n) => Number(n || 0).toLocaleString("en-US");
 
-const NAV = [["/", "Overview"], ["/traffic", "Traffic"], ["/prints", "Prints"], ["/downloads", "Downloads"], ["/map/", "System map"]];
+const NAV = [["/", "Overview"], ["/traffic", "Traffic"], ["/prints", "Prints"], ["/downloads", "Downloads"], ["/map/", "System map"], ["/wiki/", "Wiki"]];
 
 export const cards = (list) => `<div class="cards">${list.map(([v, label, href]) => (href ? `<a class="card" href="${href}"><b>${v}</b><span>${esc(label)}</span></a>` : `<div class="card"><b>${v}</b><span>${esc(label)}</span></div>`)).join("")}</div>`;
 
