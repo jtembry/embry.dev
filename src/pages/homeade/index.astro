@@ -8,7 +8,10 @@ const latest = releases[0];
 <Base title="HomeADE" description="HomeADE is the desk on your computer where your agents work. It files what comes in as plain notes, and every later chat reads those notes, so nothing is explained twice." image="/work/homebase.png">
   <Hero variant="graph" seed={13} eyebrow="Agentic development environment" title="HomeADE">
     <p class="lede">HomeADE is the desk on your computer where your agents work. Claude, Codex, and Grok still do the writing, the same tools you would open in a terminal. HomeADE files what comes in as plain notes, and every later chat reads those notes. It also lists every chat, skill, and model on the machine. It runs on its own.</p>
-    <a slot="actions" class="btn btn-secondary" href="/homeade/setup">Setup guide</a>
+    <Fragment slot="actions">
+      <a class="btn btn-secondary" href="/homeade/setup">Setup guide</a>
+      <a class="btn btn-secondary" href="https://jtembry.github.io/embry-wiki/homeade/">Wiki</a>
+    </Fragment>
   </Hero>
 
   <section class="section product">
