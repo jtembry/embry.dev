@@ -6,7 +6,7 @@ import site from '../../data/site.json';
   <section class="section" style="padding-top: calc(var(--header-h) + 2rem)">
     <div class="wrap guide">
       <h1>Set up FieldADE</h1>
-      <p>FieldADE is the iPhone app. It shows what is due, your mail and texts, and a chat with the assistants on your Mac. Pair it with <a href="/homeade">HomeADE</a>, which has to be running on that Mac. If HomeADE is not installed yet, <a href="/homeade/setup">set up the Mac first</a>. Pairing takes a few minutes once the Mac shows a code.</p>
+      <p>FieldADE is the iPhone app. It shows what is due, your mail, and a chat with the assistants on your Mac. Pair it with <a href="/homeade">HomeADE</a>, which has to be running on that Mac. If HomeADE is not installed yet, <a href="/homeade/setup">set up the Mac first</a>. Pairing takes a few minutes once the Mac shows a code.</p>
       <p><a href="/fieldade">About FieldADE</a></p>
 
       <h2>What you need</h2>
@@ -21,16 +21,35 @@ import site from '../../data/site.json';
         <li>Open FieldADE.</li>
       </ol>
 
-      <h2 id="pair">2. Pair it with your Mac</h2>
+      <p>A new user sees a <strong>Get started</strong> card on the Today screen. It has four rows: <strong>Machine</strong>, <strong>Vault</strong>, <strong>Agents</strong>, and <strong>Connectors</strong>. Each row has one button that opens the screen for that job. The card counts your progress, for example "1 of 4," until all four are done or you tap <strong>Hide</strong>. <strong>Settings → Get started</strong> brings it back.</p>
+
+      <h2 id="pair">2. Machine</h2>
+      <p>The machine is the computer that runs HomeADE. Pair the phone with it, or <a href="#no-mac">use the phone alone</a>.</p>
       <ol>
         <li>On the Mac, HomeADE's window should show a pairing code. If it does not, click the antenna icon and choose <strong>Pair a phone…</strong>. The <a href="/homeade/setup">HomeADE setup</a> gets you to that window.</li>
-        <li>In FieldADE, open <strong>Settings → Machines → Scan a pairing code</strong>.</li>
+        <li>In FieldADE, open <strong>Settings → Machines</strong> and tap <strong>Scan a pairing code</strong>.</li>
         <li>Point the camera at the code on your Mac.</li>
       </ol>
-      <p>The code holds your Mac's key, so do not share it or post a picture of it. If the phone cannot scan, click <strong>Copy the link instead</strong> on the Mac, send the link to the phone, and tap it. The link asks before it applies.</p>
+      <p>The code holds your Mac's key, so do not share it or post a picture of it. If the phone cannot scan, click <strong>Copy the link instead</strong> on the Mac, send the link to the phone, and tap <strong>Paste a pairing link</strong>. You can also enter the Mac's address by hand. The link asks before it applies.</p>
       <p>The phone reaches the Mac through relay.embry.dev, so it works away from home with nothing else to install. The traffic is encrypted with a key that only your phone and your Mac hold. See the <a href="/fieldade/privacy">privacy policy</a>.</p>
 
-      <h2 id="first-chat">3. Start a chat</h2>
+      <h2 id="vault">3. Vault</h2>
+      <p>A vault is a folder of notes. If you have none, tap <strong>Create a vault</strong>, or open <strong>Settings → Choose sources → Vault</strong>, pick your Mac, and tap <strong>Create a vault on &lt;machine&gt;…</strong> (your Mac's name shows there). The app asks where to put it, then asks for a name. The default is "My Vault."</p>
+      <p>The app fills the vault with 0 Ingest, 1 Projects, 2 Areas, 3 Resources, 4 Archive, 5 Zettelkasten, Journal, Outbox, System, and Templates. It adds a Welcome note, a "Getting started" project with three to-dos, and a "Home" area. The vault is plain Markdown, so Obsidian is not needed. To use an existing folder, tap <strong>Choose a folder</strong>.</p>
+
+      <h2 id="agents">4. Agents</h2>
+      <p>Chats run in the official Claude Code, Codex, or Grok tool on your Mac. The app never holds their logins. Open <strong>Settings → Machines</strong>, pick your Mac, and tap <strong>Agents on &lt;machine&gt;</strong>. Each tool shows as installed or not, and signed in or not. Sign in to at least one.</p>
+      <ol>
+        <li>Tap <strong>Install</strong> for a missing tool. Install needs Node.js. On a Mac, install Node from nodejs.org or with Homebrew, then tap <strong>Check again</strong>.</li>
+        <li>Tap <strong>Sign in</strong>. A terminal opens that is already running that tool's own login. Finish the login there.</li>
+        <li>Tap <strong>Check again</strong>.</li>
+      </ol>
+
+      <h2 id="connectors">5. Connectors</h2>
+      <p>Connectors are optional. Tap <strong>Skip for now</strong> to leave them for later. To add one, open <strong>Settings → Choose sources → Connectors</strong>. Rows for Mail, Calendars, and Tickets show a state and, when something fails, a one-line fix. Tap <strong>+ Add</strong> to choose Gmail, Cloudflare, Google Calendar, or iCloud, or Jira, Yahoo, Fastmail, AOL, any other IMAP mail, and more.</p>
+      <p>Mail uses an app password. For Gmail, make one at myaccount.google.com/apppasswords. For iCloud, go to account.apple.com, then <strong>Sign-In and Security → App-Specific Passwords</strong>. For calendars, sign in to Google or iCloud on the phone, or allow access to the calendars on the phone.</p>
+
+      <h2 id="first-chat">6. Start a chat</h2>
       <ol>
         <li>On the phone, tap <strong>+</strong> and pick a folder for the chat.</li>
         <li>Type a question about your notes and send it.</li>
@@ -39,14 +58,12 @@ import site from '../../data/site.json';
 
       <h2 id="more">Add more</h2>
       <ul>
-        <li><strong>Calendars.</strong> On the phone, open <strong>Settings → Choose sources → Calendars</strong>. Sign in to Google, sign in to iCloud with an app-specific password, or allow access to the calendars on the phone.</li>
-        <li><strong>Codex or Grok.</strong> Install the tool on the Mac and sign in. HomeADE lists it under <strong>Settings → Agents on this machine</strong>. <a href="/homeade/setup#more">HomeADE setup</a> has that step.</li>
         <li><strong>Share sheet.</strong> Share a photo, file, or link to FieldADE and it lands in your vault's Inbox. Items shared while the Mac is away wait on the phone.</li>
         <li><strong>Widget.</strong> On iOS 26 or later, add the FieldADE widget to the home screen.</li>
       </ul>
 
       <h2 id="no-mac">Without a Mac</h2>
-      <p>FieldADE can run on its own. Open <strong>Settings → Phone alone</strong>, turn on <strong>Phone only</strong>, pick a vault folder on the phone, and enter an Anthropic API key. Chats then run on the phone and bill that key. To look around first, tap <strong>Try the sample vault</strong> on the Today screen.</p>
+      <p>FieldADE can run on its own. In the Machine row, tap <strong>Use the phone alone</strong>. For a vault, tap <strong>Create my phone vault</strong>, and enter an Anthropic API key. Chats then run on the phone and bill that key. To look around first, tap <strong>Try the sample vault</strong> on the Today screen.</p>
 
       <h2 id="windows">Windows</h2>
       <p>The Windows build is HomeADE, and the beta cannot pair a phone yet. <a href="/homeade/setup#windows">Windows setup</a> covers the installer and the warning Windows shows.</p>
@@ -55,7 +72,9 @@ import site from '../../data/site.json';
       <ul>
         <li><strong>The phone says to set the Mac's address.</strong> The phone is not paired. Do step 2.</li>
         <li><strong>The phone says "no end-to-end key."</strong> Make a new pairing code on the Mac and scan it again.</li>
-        <li><strong>Chats do not start.</strong> On the Mac, check that Claude Code is installed and signed in, then click <strong>Restart HomeADE…</strong> in the menu. <a href="/homeade/setup#trouble">HomeADE troubleshooting</a> covers a window that says it has no token.</li>
+        <li><strong>An agent says it is not signed in.</strong> Open <strong>Settings → Machines</strong>, pick your Mac, and tap <strong>Agents on &lt;machine&gt;</strong>. Tap <strong>Sign in</strong>, finish the login in the terminal, then tap <strong>Check again</strong>.</li>
+        <li><strong>You have no vault yet.</strong> Tap <strong>Create a vault</strong> on the Get started card.</li>
+        <li><strong>Chats do not start.</strong> Check that one agent is signed in. Then, on the Mac, click <strong>Restart HomeADE…</strong> in the menu. <a href="/homeade/setup#trouble">HomeADE troubleshooting</a> covers a window that says it has no token.</li>
       </ul>
       <p>Still stuck? Email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
     </div>
