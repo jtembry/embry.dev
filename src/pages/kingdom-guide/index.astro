@@ -18,6 +18,8 @@ import Hero from '../../components/Hero.astro';
         <img class="shot" src="/software/kingdom-guide-map.png" alt="Kingdom Guide's map: Next is Buzz Lightyear, a notice to book TRON next on the Disability Access Service, and a dashed route through numbered stops labeled with wait times" width="460" height="1000" />
       </div>
 
+      <p class="card-actions"><a class="store-badge" href="https://apps.apple.com/us/app/kingdom-guide-park-planner/id6825921966" rel="noopener"><img src="/brand/app-store-badge.svg" alt="Download on the App Store" width="132" height="44" /></a></p>
+
       <h2>A day you can walk</h2>
       <p>Pick the rides. The app orders them by the walk between them and estimates when you will arrive, using the posted waits. The map draws that route, names the next stop, and can show your blue dot when you allow location.</p>
 
@@ -26,7 +28,7 @@ import Hero from '../../components/Hero.astro';
 
       <h2>It keeps the plan when the signal drops</h2>
       <p>The planner is built into the app. It keeps the last waits, hours, and trip changes it fetched, and changes you make offline go out when the signal returns. No account and no tracking. Location stays on the phone. The <a href="/kingdom-guide/privacy">privacy policy</a> lists what leaves it, and <a href="/kingdom-guide/support">support</a> answers the usual questions.</p>
-      <p>It began as a page for our own trip and is headed for the App Store.</p>
+      <p>It began as a page for our own trip.</p>
       <p><small>Kingdom Guide is an unofficial planner. It is not affiliated with or endorsed by The Walt Disney Company.</small></p>
 
       <p class="back"><a href="/products">All products</a></p>
@@ -37,5 +39,8 @@ import Hero from '../../components/Hero.astro';
 <style>
   .product-shots { display: flex; justify-content: center; gap: .75rem; margin: 0 0 1.5rem; }
   .shot { display: block; flex: 1 1 0; min-width: 0; max-width: 220px; height: auto; border-radius: 22px; border: 1px solid var(--line); }
+  .card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: .5rem 0; }
+  .store-badge { display: inline-flex; line-height: 0; }
+  .store-badge img { height: 44px; width: auto; }
   .back { margin-top: 2.5rem; }
 </style>
