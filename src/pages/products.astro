@@ -5,6 +5,7 @@ import BlockText from '../components/BlockText.astro';
 import { dots } from '../lib/patterns.js';
 import homeadeReleases from '../data/homeade-releases.json';
 import fieldadeReleases from '../data/fieldade-releases.json';
+import site from '../data/site.json';
 const latest = homeadeReleases[0];
 const fieldade = fieldadeReleases[0];
 const cardsBg = dots();
@@ -55,7 +56,7 @@ const tag = {
           </div>
           <p>The desk on your computer where the notes live. Ingest takes what comes in, proposes where it belongs, and files it as a plain Markdown note in a folder you own. You confirm each one, so nothing is filed unseen.</p>
           <p>Those notes are the agent's memory, a second brain it reads before it answers. Each note you file is context for every later chat on that project, so the agent asks less and does more as the folder grows. Skills, rules, and models sit in one list where you and the agent can find them. FieldADE is optional.</p>
-          <p class="card-actions"><a class="btn btn-primary" href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download for Mac</a> <a class="btn" href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Download for Windows (beta)</a> <a class="btn" href="/homeade">About HomeADE</a> <a class="btn" href="/homeade/setup">Setup guide</a></p>
+          <p class="card-actions"><a class="btn btn-primary" href={`mailto:${site.email}?subject=HomeADE%20download`}>Ask for a download</a> <a class="btn" href="/homeade">About HomeADE</a> <a class="btn" href="/homeade/setup">Setup guide</a></p>
           <p class="fine">Mac: version {latest.version} &middot; macOS 14+ &middot; <a href="/homeade#releases">Release notes</a><br />Windows: version 0.1.0 beta &middot; Windows 10+ &middot; <a href="/homeade/setup#windows">unsigned</a></p>
           <p class="tags">{[tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>

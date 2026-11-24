@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
 import ReleaseNotes from '../../components/ReleaseNotes.astro';
 import releases from '../../data/homeade-releases.json';
+import site from '../../data/site.json';
 const latest = releases[0];
 ---
 <Base title="HomeADE" description="HomeADE is the desk on your computer where your agents work. It files what comes in as plain notes, and every later chat reads those notes, so nothing is explained twice." image="/work/homebase.png">
@@ -21,7 +22,7 @@ const latest = releases[0];
         <img class="shot-wide look-dos-only" src="/work/homebase-dos.png?v=20261120" alt="HomeADE on the desktop in the DOS look: a sidebar of screens with each assistant's limit, the list of open chats, and a Claude chat with a card asking to allow or deny a file edit" width="1200" height="814" />
       </div>
 
-      <p class="card-actions"><a class="btn btn-primary" href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download for Mac</a> <a class="btn btn-secondary" href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Download for Windows (beta)</a></p>
+      <p class="card-actions"><a class="btn btn-primary" href={`mailto:${site.email}?subject=HomeADE%20download`}>Ask for a download</a></p>
       <p class="fine">Mac: version {latest.version} &middot; macOS 14 or later &middot; <a href="/homeade/setup">Setup guide</a><br />Windows: version 0.1.0 beta &middot; Windows 10 or later &middot; <a href="/homeade/setup#windows">unsigned</a></p>
 
       <h2>How it works</h2>
@@ -46,7 +47,7 @@ const latest = releases[0];
       <p>There is no HomeADE account. Notes stay in the folder you chose. Chats are stored on this machine. You choose the folder a chat works in. The note reader will not open a note marked private. A prompt goes to Claude, Codex, or Grok only when you run that chat, under the login you set up. You allow a file edit or a command before it runs. API keys stay in the machine's secret store. The <a href="/fieldade/privacy">privacy policy</a> says what leaves the machine.</p>
 
       <h2>Install it and leave it running</h2>
-      <p>Download the disk image, drag HomeADE to Applications, and open it. Apple has signed and notarized the Mac download, so it opens without a warning. An antenna icon sits in the menu bar. Turn on Open at login and it is there each morning. The <a href="/homeade/setup">setup guide</a> covers the install, Claude Code, and the one Terminal step. Nothing else has to be installed.</p>
+      <p>Downloads are by request for now. Open the disk image, drag HomeADE to Applications, and open it. Apple has signed and notarized the Mac download, so it opens without a warning. An antenna icon sits in the menu bar. Turn on Open at login and it is there each morning. The <a href="/homeade/setup">setup guide</a> covers the install, Claude Code, and the one Terminal step. Nothing else has to be installed.</p>
       <p>The Windows beta runs the same screens in a window, with a tray icon. It is not code-signed yet, so Windows shows a warning.</p>
       <p>FieldADE is an optional iPhone app. HomeADE does not require it.</p>
 

@@ -2,7 +2,8 @@
 // GET /            overview: one headline number per section
 // GET /traffic     site visits (Cloudflare Web Analytics)      traffic.js
 // GET /prints      print stats from the brainpi database       prints.js
-// GET /downloads   Home Base downloads (D1, downloads-worker)
+// GET /downloads   HomeADE installer links + download counts (D1, downloads-worker). The public site has no download
+//                  links since 2026-11-24 (JT: "turn off the public facing download links ... but allow it in admin").
 // GET /api/stats   download numbers as JSON
 // GET /map/        the private LikeC4 system map (static files from map-dist/map, built by build-assets.sh)
 // GET /wiki/       the private engineering wiki (static files from map-dist/wiki, built from ~/Projects/embry-wiki-internal
@@ -29,7 +30,10 @@ async function downloads(env) {
 async function downloadsPage(env) {
   const d = await downloads(env);
   const rows = (list, key) => table(list.map((r) => [esc(r[key]), num(r.n)]), null, [1]);
-  return `${cards([[num(d.total), "All time"], [num(d.last7), "Last 7 days"], [num(d.last30), "Last 30 days"]])}
+  return `<h2>Installers</h2>
+<p><a href="https://downloads.embry.dev/HomeADE-latest.dmg">HomeADE for Mac (.dmg)</a> &middot; <a href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe">HomeADE for Windows beta (.exe)</a></p>
+<p class="note">The public site no longer links these. The files still download from downloads.embry.dev for anyone with the link, Homebrew, and app updates.</p>
+${cards([[num(d.total), "All time"], [num(d.last7), "Last 7 days"], [num(d.last30), "Last 30 days"]])}
 <h2>Per day, last 30 days</h2>${bars(d.days)}
 <h2>Where from</h2>${rows(d.bySource, "source")}
 <h2>Which file</h2>${rows(d.byFile, "file")}

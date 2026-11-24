@@ -18,11 +18,9 @@ import site from '../../data/site.json';
 
       <h2 id="mac">1. Install HomeADE on your Mac</h2>
       <ol>
-        <li><a href="https://downloads.embry.dev/HomeADE-latest.dmg" download>Download HomeADE</a>, open the file, and drag HomeADE to Applications.</li>
+        <li>Downloads are by request for now. Email <a href={`mailto:${site.email}?subject=HomeADE%20download`}>{site.email}</a> for the link, open the file, and drag HomeADE to Applications.</li>
         <li>Open HomeADE. Apple has signed and notarized it, so the Mac opens it without a warning. An antenna icon appears in the menu bar. To start HomeADE each time you log in, click the icon and turn on <strong>Open at login</strong>.</li>
       </ol>
-      <p class="fine">Or install with Homebrew:</p>
-      <div class="cmd"><pre><code id="brew-cmd">brew install --cask jtembry/homeade/homeade</code></pre><button type="button" class="copy-btn" data-copy="brew-cmd">Copy</button></div>
 
       <h2 id="claude">2. Install Claude Code</h2>
       <p>Chats run in Claude Code on your Mac, on your own Claude plan. Today, mail, and the calendar work before this step. The assistants do not.</p>
@@ -46,7 +44,7 @@ import site from '../../data/site.json';
       <p>Install either command-line tool and sign in to it. HomeADE lists what it finds under <strong>Settings → Agents on this machine</strong>, with the command for any that is missing.</p>
 
       <h2 id="windows">Windows (beta)</h2>
-      <p>The <a href="https://downloads.embry.dev/HomeADE-latest-windows-x64-setup.exe" download>Windows beta</a> runs the same screens in a window and a tray icon. It is not yet code-signed, so Windows warns you: click <strong>More info</strong>, then <strong>Run anyway</strong>. Pick a vault under <strong>Settings → Vault → Change folder…</strong>, and install and sign in to Claude Code, Codex, or Grok yourself.</p>
+      <p>The Windows beta, also by request, runs the same screens in a window and a tray icon. It is not yet code-signed, so Windows warns you: click <strong>More info</strong>, then <strong>Run anyway</strong>. Pick a vault under <strong>Settings → Vault → Change folder…</strong>, and install and sign in to Claude Code, Codex, or Grok yourself.</p>
 
       <h2 id="trouble">If something goes wrong</h2>
       <ul>
