@@ -4,7 +4,6 @@ import Hero from '../components/Hero.astro';
 import BlockText from '../components/BlockText.astro';
 import { dots } from '../lib/patterns.js';
 import homeadeReleases from '../data/homeade-releases.json';
-import windows from '../data/homeade-windows.json';
 import fieldadeReleases from '../data/fieldade-releases.json';
 import site from '../data/site.json';
 const latest = homeadeReleases[0];
@@ -58,7 +57,7 @@ const tag = {
           <p>The desk on your computer where the notes live. Ingest takes what comes in, proposes where it belongs, and files it as a plain Markdown note in a folder you own. You confirm each one, so nothing is filed unseen.</p>
           <p>Those notes are the agent's memory, a second brain it reads before it answers. Each note you file is context for every later chat on that project, so the agent asks less and does more as the folder grows. Skills, rules, and models sit in one list where you and the agent can find them. FieldADE is optional.</p>
           <p class="card-actions"><a class="btn btn-primary" href={`mailto:${site.email}?subject=HomeADE%20download`}>Ask for a download</a> <a class="btn" href="/homeade">About HomeADE</a> <a class="btn" href="/homeade/setup">Setup guide</a></p>
-          <p class="fine">Mac: version {latest.version} &middot; macOS 14+ &middot; <a href="/homeade#releases">Release notes</a><br />Windows: version {windows.version} beta &middot; Windows 10+ &middot; <a href="/homeade/setup#windows">unsigned</a></p>
+          <p class="fine">Version {latest.version} for Mac (macOS 14+) and Windows (Windows 10+, beta, <a href="/homeade/setup#windows">unsigned</a>) &middot; <a href="/homeade#releases">Release notes</a></p>
           <p class="tags">{[tag.software, tag.assistants].map(([href, label]) => <a class="tag" href={href}>{label}</a>)}</p>
         </div>
         <div class="card work-card" id="lightscan">

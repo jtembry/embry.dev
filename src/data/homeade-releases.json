@@ -1,5 +1,25 @@
 [
   {
+    "version": "0.5.1",
+    "date": "2026-11-28",
+    "title": "One version for Mac and Windows, Gemini, and agents",
+    "notes": [
+      "HomeADE for Mac and HomeADE for Windows now share one version number.",
+      "Gemini joins Claude, Codex and Grok as a chat you can start.",
+      "A chat can no longer be switched to an assistant that is not installed on that computer. Before, the chat stopped answering and could not be switched back.",
+      "Agents: save an agent for a kind of task and run a chat as it. Each agent runs on its own model.",
+      "Setup is now Harness. It holds Agents; one Connectors screen for mail, calendars, tickets and Messages, each with a health dot and a fix line; a Get started checklist; the assistants on this computer, with install and sign-in; and New vault.",
+      "Gmail signs in with Google instead of an app password.",
+      "Models lists every model on this computer, how much of each limit is left, and how they compare.",
+      "Auto-speak reads a short summary of each reply aloud. Settings picks the microphone, the speaker and the voice.",
+      "Outbox holds drafts you copy and send yourself.",
+      "Chat cards show how full the context is and the state of the chat's repo. A chat can be pinned while you look at other screens.",
+      "Calendars can be hidden one at a time.",
+      "HomeADE reopens where you left it, with Back on every screen.",
+      "On Windows, the window fits a laptop screen at 150 % scaling."
+    ]
+  },
+  {
     "version": "0.5.0",
     "date": "2026-11-21",
     "title": "Dictation, tickets, and Messages",

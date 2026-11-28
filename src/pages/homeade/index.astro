@@ -3,7 +3,6 @@ import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
 import ReleaseNotes from '../../components/ReleaseNotes.astro';
 import releases from '../../data/homeade-releases.json';
-import windows from '../../data/homeade-windows.json';
 import site from '../../data/site.json';
 const latest = releases[0];
 ---
@@ -24,7 +23,7 @@ const latest = releases[0];
       </div>
 
       <p class="card-actions"><a class="btn btn-primary" href={`mailto:${site.email}?subject=HomeADE%20download`}>Ask for a download</a></p>
-      <p class="fine">Mac: version {latest.version} &middot; macOS 14 or later &middot; <a href="/homeade/setup">Setup guide</a><br />Windows: version {windows.version} beta &middot; Windows 10 or later &middot; <a href="/homeade/setup#windows">unsigned</a></p>
+      <p class="fine">Version {latest.version} for Mac (macOS 14 or later) and Windows (Windows 10 or later, beta, <a href="/homeade/setup#windows">unsigned</a>) &middot; <a href="/homeade/setup">Setup guide</a></p>
 
       <h2>How it works</h2>
       <p>Something comes in: a mail, a scan, a note you paste, a loose file. HomeADE proposes where it belongs. You confirm. It becomes a plain note under a project or an area. The next chat on that project reads the note before it answers. That is the whole loop. The rest of this page is detail.</p>
