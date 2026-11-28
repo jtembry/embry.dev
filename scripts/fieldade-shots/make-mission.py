@@ -20,7 +20,7 @@ def chips(kind, key):
     return [{"label": l, "script": sc, "text": key, "billed": l in ("triage", "respond with AI")} for l, sc in s.items()]
 
 
-def plan(title, what, kind, home, folder="1 Projects"):
+def plan(title, what, kind, home, folder="Projects"):
     return {"title": title, "what": what, "kind": kind, "home": home,
             "homePath": f"{folder}/{home}/{home}.md" if home else ""}
 
@@ -62,31 +62,31 @@ mission = {
     "today": {
         "calendar": today_events,
         "due": [
-            {**todo("1 Projects/Henderson Kitchen/Henderson Kitchen.md", 31,
+            {**todo("Projects/Henderson Kitchen/Henderson Kitchen.md", 31,
                     f"Send Dana a start date 📅 {D()}"),
              "text": "Send Dana a start date", "due": D(),
              "file": "Henderson Kitchen", "overdue": False},
-            {**todo("1 Projects/Parker Bathroom/Parker Bathroom.md", 22, f"Price two tile options 📅 {D(1)}"),
+            {**todo("Projects/Parker Bathroom/Parker Bathroom.md", 22, f"Price two tile options 📅 {D(1)}"),
              "text": "Price two tile options", "due": D(1), "file": "Parker Bathroom", "overdue": False},
-            {**todo("2 Areas/Truck/Truck.md", 19, f"Renew the truck registration 📅 {D(3)}"),
+            {**todo("Areas/Truck/Truck.md", 19, f"Renew the truck registration 📅 {D(3)}"),
              "text": "Renew the truck registration", "due": D(3), "file": "Truck", "overdue": False},
         ],
         "ingest": {"total": 2, "rows": [
-            {"name": f"Text from Dana {D()} 0812", "path": f"0 Ingest/Text from Dana {D()} 0812.md",
+            {"name": f"Text from Dana {D()} 0812", "path": f"Ingest/Text from Dana {D()} 0812.md",
              "kind": "text", "age": "2h", "at": now_ms - 2 * 3600e3,
              "gist": "Can we move the cabinet delivery to Friday?"},
-            {"name": f"Receipt — lumber yard {D(-1)}", "path": f"0 Ingest/Receipt — lumber yard {D(-1)}.md",
+            {"name": f"Receipt — lumber yard {D(-1)}", "path": f"Ingest/Receipt — lumber yard {D(-1)}.md",
              "kind": "scan", "age": "1d", "at": now_ms - 26 * 3600e3,
              "gist": "Scanned from the truck. $412.60, framing lumber and screws."},
         ]},
         "next": [
-            {"name": "Henderson Kitchen", "path": "1 Projects/Henderson Kitchen/Henderson Kitchen.md", "discreet": False,
-             "todo": todo("1 Projects/Henderson Kitchen/Henderson Kitchen.md", 24,
+            {"name": "Henderson Kitchen", "path": "Projects/Henderson Kitchen/Henderson Kitchen.md", "discreet": False,
+             "todo": todo("Projects/Henderson Kitchen/Henderson Kitchen.md", 24,
                           "Confirm the countertop template date with the fabricator")},
-            {"name": "Parker Bathroom", "path": "1 Projects/Parker Bathroom/Parker Bathroom.md", "discreet": False,
-             "todo": todo("1 Projects/Parker Bathroom/Parker Bathroom.md", 20, "Measure and photograph the room")},
-            {"name": "Truck", "path": "2 Areas/Truck/Truck.md", "discreet": False,
-             "todo": todo("2 Areas/Truck/Truck.md", 18, "Book the 60,000-mile service")},
+            {"name": "Parker Bathroom", "path": "Projects/Parker Bathroom/Parker Bathroom.md", "discreet": False,
+             "todo": todo("Projects/Parker Bathroom/Parker Bathroom.md", 20, "Measure and photograph the room")},
+            {"name": "Truck", "path": "Areas/Truck/Truck.md", "discreet": False,
+             "todo": todo("Areas/Truck/Truck.md", 18, "Book the 60,000-mile service")},
         ],
     },
     "email": [
@@ -114,18 +114,18 @@ mission = {
     },
     "projects": {
         "cards": [
-            card("Henderson Kitchen", "1 Projects", "Demo done; cabinets land Friday", "Confirm the countertop template date", D(),
+            card("Henderson Kitchen", "Projects", "Demo done; cabinets land Friday", "Confirm the countertop template date", D(),
                  ["Confirm the countertop template date with the fabricator", "Order the under-cabinet lights"]),
-            card("Parker Bathroom", "1 Projects", "Estimate scheduled for Monday", "Measure and photograph the room", D(-2),
+            card("Parker Bathroom", "Projects", "Estimate scheduled for Monday", "Measure and photograph the room", D(-2),
                  ["Measure and photograph the room", "Price two tile options"]),
         ],
         "done": [{"done": D(-1), "file": "Henderson Kitchen", "text": "Pull the electrical permit"}],
     },
     "areas": {
         "cards": [
-            card("Truck", "2 Areas", "Running fine; service due", "Book the 60,000-mile service", D(-3),
+            card("Truck", "Areas", "Running fine; service due", "Book the 60,000-mile service", D(-3),
                  ["Book the 60,000-mile service"]),
-            card("Tools", "2 Areas", "Inventory current as of October", "Replace the worn miter blade", D(-6),
+            card("Tools", "Areas", "Inventory current as of October", "Replace the worn miter blade", D(-6),
                  ["Replace the worn miter blade"]),
         ],
         "done": [],
